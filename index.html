@@ -340,6 +340,29 @@ h2:after{margin-top:6px}
 .habits{background:none!important;border:0!important;padding:0!important}
 #calBtn .btn{margin-top:var(--s2)}
 .foot{border-top:1px solid #222;padding-top:var(--s4)}
+
+/* ===== v2: overige tabbladen + logger ===== */
+.hero{background:none!important;border:0!important;border-bottom:1px solid #222!important;border-radius:0!important;padding:8px 0 16px!important;margin-top:0!important;overflow:visible!important}
+.hero:before{right:-4px!important;top:-8px!important;width:110px!important;height:170px!important;opacity:.16!important}
+.hero h1{font-size:1.8rem;margin:8px 0 6px;max-width:72%;line-height:1.1}
+.hero p{font-size:.88rem;max-width:80%}
+.hero .kicker{font-size:.72rem;letter-spacing:.2em}
+#fsel{margin-top:12px}
+/* logger: sets centraal, uitzonderingen onderaan */
+.lx{display:flex;flex-direction:column;padding:16px!important}
+.lx>*{order:5}
+.lx>.lx-h{order:0}.lx>.altbox{order:1}.lx>.target{order:2}.lx>.prev{order:3}.lx>.sugg{order:4}
+.lx>.setrow{order:5}.lx>.restbtn{order:6}.lx>.supernote{order:7;margin-top:10px}
+.lx>.eqd{order:8;margin-top:10px!important}.lx>.setting{order:9}.lx>.exopts{order:10}.lx>.painnote{order:11}.lx>.painhelp{order:12;margin-top:4px}
+.exopts{margin-top:12px!important;padding-top:10px;border-top:1px dashed #2a2a2a}
+.exopts button{background:none!important;border:0!important;color:var(--muted)!important;font-weight:600!important;min-height:44px;font-size:.8rem!important}
+.exopts button.on{color:var(--ink)!important;text-decoration:underline}
+.exopts button.warn{color:#e09a9a!important}
+.lx-h .vid{padding:6px 10px;font-size:.72rem}
+.restbtn{margin-top:12px!important;border-radius:8px!important}
+.target{margin:10px 0 4px!important}
+#mBody>.tip{font-size:.82rem;padding:8px 10px}
+.m-head b{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem!important;font-weight:600}
 </style>
 </head>
 <body>
@@ -1017,11 +1040,11 @@ function openLogger(w, di){
     return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
       <div class="exopts"><button data-opt="alt" data-k="${k}" class="${fl.alt?'on':''}">🔁 Bezet</button><button data-opt="skip" data-k="${k}" class="${fl.skip?'on':''}">⏭ Overslaan</button><button data-opt="pain" data-k="${k}" class="${fl.pain?'on warn':''}">⚠️ Niet goed</button></div>
       ${fl.alt&&ALT[k]?`<div class="altbox">🔁 Doe in plaats hiervan: <b>${ALT[k]}</b>. Log het gewoon hieronder; het telt niet mee voor je records.</div>`:""}
-      ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted" style="margin-top:4px">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
+      ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted painhelp">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
       <div class="target"><span>${ic("target")} ${t.sets} × ${t.reps}</span><span>${ic("clock")} rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
       ${EQ[k]?`<details class="eqd"><summary>🔧 Welk apparaat / hoe instellen?</summary><div class="small" style="padding:6px 2px">${EQ[k]}</div></details>`:""}
       <div class="prev">${prevTxt}</div>${sugg?`<div class="sugg">${sugg}</div>`:""}${rows}
-      ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
+      ${SUPER[k]?`<div class="small muted supernote">🔁 ${SUPER[k]}</div>`:""}
       <input type="text" class="setting" data-set="${k}" placeholder="Instelling onthouden (bv. stoel 4, rugleuning 2)" value="${esc((S.mset||{})[k]||'')}" style="margin-top:10px;font-size:.85rem">
       <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}">⏱ Start rust (${fmtSec(t.rest)})</button></div>`;
   }).join("") + `<div class="card small" style="margin-top:6px"><b>🧊 Cooling-down · ${d.session==="C"?"3":"5"} min</b><ol style="margin:6px 0 4px;padding-left:18px">${(d.session==="C"?WUCD.pilates.cd:WUCD.kracht.cd).map(x=>`<li>${x}</li>`).join("")}</ol>Daarna: eten binnen een uur 🍽️</div><div class="card"><b>Hoe zwaar was deze training?</b><div class="dots" id="srpe" style="max-width:none!important;justify-content:flex-start;margin-top:8px"></div><div class="small muted" style="margin-top:6px">1 = heel licht · 10 = alles gegeven</div></div><button class="btn go" id="mDone">Training klaar ✓</button>`;
