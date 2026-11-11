@@ -293,6 +293,53 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 @keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
 .starhit{position:absolute;right:4px;top:2px;width:120px;height:170px;background:transparent;border:0;z-index:3;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
+
+/* ===== Ontwerpsysteem v2 ===== */
+:root{--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:36px;--r1:4px;--r2:8px;--fs-xs:.72rem;--fs-s:.88rem;--fs-m:1rem;--fs-l:1.4rem;--fs-xl:2.1rem;--muted:#b3ada4}
+body{font-size:16px;line-height:1.55}
+h2{margin:var(--s6) 0 var(--s3)!important;font-size:var(--fs-l)!important}
+h2:after{margin-top:6px}
+.card,.day,details,.rec,.habits,.lx,.phase{border-radius:var(--r2)!important}
+.small{font-size:var(--fs-s)}
+/* header */
+.whead{position:relative;padding:var(--s2) 0 var(--s4);border-bottom:1px solid #222;overflow:visible}
+.whead:before{content:"";position:absolute;right:-4px;top:-8px;width:110px;height:180px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200' fill='none' stroke='%23ece8e1' stroke-width='1' stroke-linecap='round'><path d='M60 14V186'/><path d='M60 2l3 7-3 6-3-6z M60 198l3-7-3-6-3 6z' fill='%23ece8e1'/><path d='M28 70H92'/><path d='M24 70l4-2 0 4z M96 70l-4-2 0 4z' fill='%23ece8e1'/><circle cx='60' cy='70' r='7'/><circle cx='60' cy='70' r='2' fill='%23ece8e1'/><path d='M60 38c10 3 16 11 10 20-2-4-6-6-10-4M60 38c-10 3-16 11-10 20 2-4 6-6 10-4'/><path d='M60 108c13 2 19 13 11 24M60 108c-13 2-19 13-11 24'/><path d='M71 132l2 8M49 132l-2 8'/><path d='M8 26Q34 82 60 70M112 26Q86 82 60 70' stroke-dasharray='0.5 5' stroke-width='1.6'/><path d='M60 150c6 4 6 10 0 14-6-4-6-10 0-14z'/></svg>") no-repeat center/contain;opacity:.18;pointer-events:none}
+.whead .kicker{font-size:var(--fs-xs);letter-spacing:.2em;color:var(--muted);max-width:75%}
+.whead-row{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s2)}
+.whead h1{font-size:var(--fs-xl);margin:0;flex:1;line-height:1.05}
+.whead-prog{display:flex;align-items:center;gap:6px;font-size:var(--fs-s);color:var(--muted);margin-right:84px}
+.whead-prog .ring{width:34px;height:34px}.whead-prog b{color:var(--ink)}
+.whead .intro{margin:var(--s2) 0 0;color:#d8d2c8;font-size:var(--fs-s);max-width:80%}
+.whead-meta{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);font-size:var(--fs-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.whead .sig{display:none}
+.whead .starhit{right:-4px;top:-8px;width:110px;height:150px}
+/* dagbericht lichter */
+.daily{background:none!important;border:0!important;border-left:1px solid #3a3733!important;border-radius:0!important;padding:2px 0 2px var(--s4)!important;margin:var(--s4) 0 0!important}
+.daily:after{display:none}
+.daily-t{font-size:1.35rem!important;margin:4px 0 2px!important}
+.daily-f{text-align:left!important}
+/* rozenkrans compact */
+.rosary{margin:var(--s4) 0 0!important}
+.ros-cap{font-size:var(--fs-xs)}
+/* vandaag */
+#todayDay .day{border-color:#3a3733;box-shadow:0 0 0 1px #3a3733 inset}
+.todayfeel{margin:0 0 var(--s4);padding:0}
+.tf-label{font-size:var(--fs-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--s2)}
+.todayfeel .feel{margin-top:0}
+.todayfeel .feel button{padding:8px 4px;font-size:.78rem}
+.todayfeel .feel button span .ic{width:20px;height:20px;margin:0 auto 2px}
+.tf-oura{display:flex;gap:10px;align-items:center;margin-top:var(--s2)}
+/* minder kaders */
+.focusline{display:flex;gap:var(--s3);align-items:baseline;margin:0 0 var(--s4);font-size:var(--fs-s);color:#d8d2c8}
+.focusline span:first-child{font-size:var(--fs-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);flex:none}
+.when{background:none!important;border:0!important;border-top:1px dashed #2e2e2e!important;border-radius:0!important;padding:var(--s3) 40px 0 0!important;margin-top:var(--s4)!important;font-size:var(--fs-s)!important;color:var(--muted)!important}
+.day{border-color:#262626}
+.day-head{padding:var(--s3) var(--s3)}
+.badge{width:42px;height:42px}
+.day-name{font-size:1rem}
+.habits{background:none!important;border:0!important;padding:0!important}
+#calBtn .btn{margin-top:var(--s2)}
+.foot{border-top:1px solid #222;padding-top:var(--s4)}
 </style>
 </head>
 <body>
@@ -300,34 +347,36 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 
 <!-- ================= WEEK ================= -->
 <section class="tab on" id="tab-week">
-  <div class="hero" style="--glow:#e6e0d644">
+  <header class="whead">
     <div class="kicker" id="kicker"></div>
-    <h1 id="wtitle"></h1>
-    <p id="intro"></p>
+    <div class="whead-row">
+      <h1 id="wtitle"></h1>
+      <div class="whead-prog"><svg class="ring" viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="26"/><circle class="fg" id="ringfg" cx="32" cy="32" r="26" transform="rotate(-90 32 32)"/></svg><span><b id="progN">0</b>/<span id="progT">0</span></span></div>
+    </div>
+    <p id="intro" class="intro"></p>
+    <div class="whead-meta"><span id="progMsg"></span><span id="countdown"></span></div>
     <div class="sig" id="sig">Eva</div>
     <button class="starhit" id="starHit" aria-label="Ster"></button>
-    <div class="prog">
-      <svg class="ring" viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="26"/><circle class="fg" id="ringfg" cx="32" cy="32" r="26" transform="rotate(-90 32 32)"/></svg>
-      <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
-    </div>
-  </div>
+  </header>
   <div class="daily" id="daily"></div>
   <div class="rosary" id="rosary"></div>
   <div id="fuelBox"></div>
   <div class="when" data-when="w1"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
 
-  <div class="card" id="todayCard">
-    <b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg> Hoe voel je je vandaag?</b>
+  <h2>Vandaag</h2>
+  <div class="todayfeel" id="todayCard">
+    <div class="tf-label">Hoe voel je je?</div>
     <div class="feel" id="feel"></div>
-    <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
+    <div class="tf-oura"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
     <div id="lightBox"></div>
     <div id="nudge"></div>
   </div>
+  <div id="todayDay"></div>
 
   <div id="weekLocked"></div>
   <div id="weekOpen">
-  <div class="focus"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg> Focus deze week</b><span id="focus"></span></div>
-  <h2>Jouw dagen</h2>
+  <h2>Deze week</h2>
+  <p class="focusline"><span>Focus</span><span id="focus"></span></p>
   <div id="days"></div>
   <div id="calBtn"></div>
   <h2>Elke dag</h2>
@@ -804,10 +853,10 @@ function renderWeek(){
   $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmt(dates[0]) + " – " + fmt(dates[dates.length-1]);
   $("wtitle").textContent = locked ? "Week "+W+" " : wk.title; $("intro").textContent = locked ? "Deze week maken we samen, na je check-in." : wk.intro; $("focus").textContent = wk.focus;
   renderRosary();
-  $("weekOpen").style.display = locked ? "none" : ""; document.querySelector(".prog").style.display = locked ? "none" : "";
+  $("weekOpen").style.display = locked ? "none" : ""; document.querySelector(".whead-prog").style.display = locked ? "none" : "";
   $("weekLocked").innerHTML = locked ? lockedHtml(W, "Je week") : (isConcept(W) ? `<div class="concept">${ic("lock")} <b>Conceptweek.</b> Deze week is nog niet samen afgestemd. Volg dit concept op gevoel en pas aan wat niet past. De check-in van zondag geldt nog steeds.</div>` : "");
   if (locked) return;
-  const el = $("days"); el.innerHTML = "";
+  const el = $("days"); el.innerHTML = ""; $("todayDay").innerHTML = "";
   wk.days.forEach((d,i)=>{
     const dt = dates[i], key = iso(dt), isToday = key===TODAY;
     if (d.opts.done && S.days[key]===undefined) S.days[key]=true;
@@ -840,9 +889,10 @@ function renderWeek(){
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, d.name+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
-    el.appendChild(div); paint();
+    (isToday ? $("todayDay") : el).appendChild(div); paint();
   });
   $("calBtn").innerHTML = ICSWEEKS.includes(W) ? `<a class="btn ghost" href="week-${W}.ics" style="text-decoration:none;color:var(--ink)">📅 Zet deze week in mijn agenda</a><p class="small muted" style="text-align:center;margin-top:6px">Met tijden en een seintje 30 min vooraf. Verschuif ze gerust in je agenda.</p>` : "";
+  if (!$("todayDay").children.length) $("todayDay").innerHTML = `<p class="small muted" style="margin:0 0 4px">${W===curWeek()?"Vandaag staat er niets gepland. Wandelen en je stappen halen is genoeg 🌙":"Je bekijkt week "+W+". Tik op de kraal met • voor deze week."}</p>`;
   // habits
   const h = $("habits"); h.innerHTML = "";
   const letters = dates.map(d=>DAG[d.getDay()]);
@@ -882,7 +932,8 @@ function weekDone(w){
   const wk = WEEKS[w], ds = dayDates(w), idx = wk.days.map((d,i)=>i).filter(i=>wk.days[i].type!=="rust");
   if (!idx.length) return false; return idx.filter(i=>S.days[iso(ds[i])]).length / idx.length >= .75;
 }
-function renderRosary(){
+function renderCountdown(){ const d=Math.ceil((new Date(2027,0,17)-new Date().setHours(0,0,0,0))/DAYMS); $("countdown").textContent = d>0 ? "🏁 nog "+d+" dagen tot je 10 km" : (d===0 ? "🏁 vandaag: de 10 km!" : "🏅 10 km gelopen"); }
+function renderRosary(){ renderCountdown();
   const now = curWeek(), N = WEEKS.length, W0 = 14, W1 = 326;
   const pos = i => { const t = i/(N-1); return [W0 + t*(W1-W0), 26 + 44*Math.sin(Math.PI*t)]; };
   let chain = "", beads = "";
@@ -896,7 +947,7 @@ function renderRosary(){
   const [ex,ey]=pos(N-1);
   const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
   const doneN = WEEKS.map((_,i)=>weekDone(i)).filter(Boolean).length;
-  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div><div class="count">${(()=>{ const d=Math.ceil((new Date(2027,0,17)-new Date().setHours(0,0,0,0))/DAYMS); return d>0?"🏁 Nog "+d+" dagen tot je 10 km":(d===0?"🏁 Vandaag: de 10 km! Geniet ervan":"🏅 10 km gelopen"); })()}</div>`;
+  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
   $("rosary").querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
 }
 function updateProg(){
