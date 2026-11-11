@@ -325,6 +325,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   </div>
   <div class="when" data-when="w2"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
   <h2>Records</h2>
+  <div class="small muted" id="shareLine"></div>
   <p class="small muted">Wat jouw lichaam kan. Per oefening je beste set.</p>
   <div id="records"></div>
   <h2>Mijn logboek</h2>
@@ -435,6 +436,11 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <li><b>Log je sets en ga steeds iets zwaarder.</b></li>
     <li><b>2 minuten enkelwerk</b> bij elke training.</li>
     <li><b>Plan met anderen</b> en check elke zondag in.</li></ol></div>
+  <h2>Delen & back-up</h2>
+  <div class="card small" id="shareCard"></div>
+  <details><summary><span class="s-main">Gegevens herstellen<span class="s-sub">Nieuwe telefoon of alles kwijt?</span></span></summary><div class="dbody small">
+    <p>Vraag Yorick om de back-upcode uit zijn sheet (tabblad Backup, kolom C). Plak hem hieronder.</p>
+    <textarea id="restoreTa" placeholder="Plak hier de back-upcode"></textarea><button class="btn ghost" id="restoreBtn">Herstel mijn gegevens</button></div></details>
   <h2>Uitleg</h2>
   <div class="card small">Hoe werkt de app ook alweer? <button class="linkbtn" id="tourAgain">Bekijk de rondleiding opnieuw</button></div>
   <div class="card small">⏰ <b>Herinneringen</b>: elke ochtend 07:30, avond 20:30 en zondag 19:00 een seintje in je agenda. Zelf aan te passen of te verwijderen.<a class="btn ghost" href="herinneringen.ics" style="text-decoration:none;color:var(--ink)">📅 Zet in mijn agenda</a></div>
@@ -676,6 +682,8 @@ const WEEKS = [
 const PUBLISHED = 0;
 /* Na zondag 00:00 zonder update opent de conceptweek vanzelf. Persoonlijke zin per week: MSG[w]. */
 const MSG = {};
+/* Google Sheet van Yorick: url invullen na implementeren van het Apps Script. Leeg = delen staat uit. */
+const SHEET = { url: "", key: "eva-TnQ5zOOr_RT47gtL" };
 const ICSWEEKS = [0]; /* weken waarvoor week-N.ics online staat */
 function isLocked(w){ return w > PUBLISHED && Date.now() < weekStart(w).getTime(); }
 function isConcept(w){ return w > PUBLISHED && !isLocked(w); }
@@ -689,6 +697,25 @@ let S = {};
 try { S = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ S = {}; }
 S.days = S.days || {}; S.habits = S.habits || {}; S.daily = S.daily || {}; S.logs = S.logs || {}; S.rate = S.rate || {}; S.ci = S.ci || {}; S.food = S.food || {};
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function shareOn(){ return !!SHEET.url && S.share !== false; }
+function enqueue(tab, id, values){ if(!shareOn()) return; S.outbox = (S.outbox||[]).filter(r=>!(r.tab===tab && r.id===id)); S.outbox.push({tab,id,values}); save(); clearTimeout(enqueue._t); enqueue._t=setTimeout(flush,1500); }
+let flushing=false;
+function flush(){
+  if (!shareOn() || flushing || !(S.outbox||[]).length) return; if (navigator.onLine===false) return;
+  flushing=true; const batch=S.outbox.slice(0,40);
+  fetch(SHEET.url,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:SHEET.key,rows:batch})})
+    .then(()=>{ S.outbox=S.outbox.filter(r=>!batch.includes(r)); S.lastSync=Date.now(); save(); flushing=false; if(S.outbox.length) setTimeout(flush,500); renderShare(); })
+    .catch(()=>{ flushing=false; });
+}
+function syncSession(key){
+  const wk = WEEKS.findIndex((w,i)=>dayDates(i).some(d=>iso(d)===key)), fl=(S.flags||{})[key]||{};
+  Object.keys(S.logs).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.key===key).forEach(e=>{ e.sets.forEach((st,i)=>{ if(!st||!(st.r||st.kg)) return; const f=fl[k]||{};
+    enqueue("Sets", key+"|"+k+"|"+(i+1), [e.date, wk, k, EX[k].n, i+1, st.kg||"", st.r||"", f.alt?"ja":"", f.pain?"ja":"", f.note||""]); }); }); });
+  Object.keys(fl).forEach(k=>{ const f=fl[k]; if(f.skip) enqueue("Sets", key+"|"+k+"|skip", [key, wk, k, EX[k].n, "-", "", "", "", f.pain?"ja":"", "overgeslagen"+(f.note?" · "+f.note:"")]); });
+}
+function syncDay(key, name, w){ enqueue("Trainingen", key, [key, w, name, S.days[key]?"ja":"nee", (S.srpe||{})[key]||""]); }
+function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}})]), 8000); }
+window.addEventListener("online", ()=>flush());
 const $ = id => document.getElementById(id);
 const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
 function celebrate(word){ const c=$("cele"); $("celeWord").textContent=word||CW[Math.floor(Math.random()*CW.length)]; c.classList.remove("on"); void c.offsetWidth; c.classList.add("on"); try{navigator.vibrate&&navigator.vibrate(30);}catch(e){} clearTimeout(celebrate._t); celebrate._t=setTimeout(()=>c.classList.remove("on"),1700); }
@@ -748,9 +775,9 @@ function renderWeek(){
     div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(d.type!=="rust" && key===TODAY) startFuel(); } });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
-    div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
+    div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
   });
@@ -884,7 +911,7 @@ function openLogger(w, di){
       ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
       <input type="text" class="setting" data-set="${k}" placeholder="Instelling onthouden (bv. stoel 4, rugleuning 2)" value="${esc((S.mset||{})[k]||'')}" style="margin-top:10px;font-size:.85rem">
       <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}">⏱ Start rust (${fmtSec(t.rest)})</button></div>`;
-  }).join("") + `<div class="card small" style="margin-top:6px"><b>🧘 Afsluiten (5 min)</b><br>Uitlopen of fietsen 2–3 min, dan heupen en hamstrings rekken (lage lunge en halve spagaat, 30 sec per kant). Daarna: eten binnen een uur.</div><button class="btn go" id="mDone">Training klaar ✓</button>`;
+  }).join("") + `<div class="card small" style="margin-top:6px"><b>🧘 Afsluiten (5 min)</b><br>Uitlopen of fietsen 2–3 min, dan heupen en hamstrings rekken (lage lunge en halve spagaat, 30 sec per kant). Daarna: eten binnen een uur.</div><div class="card"><b>Hoe zwaar was deze training?</b><div class="dots" id="srpe" style="max-width:none!important;justify-content:flex-start;margin-top:8px"></div><div class="small muted" style="margin-top:6px">1 = heel licht · 10 = alles gegeven</div></div><button class="btn go" id="mDone">Training klaar ✓</button>`;
   $("mBody").querySelectorAll("input").forEach(inp=>inp.addEventListener("input",()=>setVal(inp.dataset.k,+inp.dataset.s,inp.dataset.f,inp.value)));
   $("mBody").querySelectorAll(".sok").forEach(b=>b.addEventListener("click",()=>{
     const on = !b.classList.contains("on"); b.classList.toggle("on",on); setVal(b.dataset.k,+b.dataset.s,"ok",on);
@@ -897,9 +924,9 @@ function openLogger(w, di){
     if (on && rIn && !rIn.value && rIn.placeholder){ rIn.value = rIn.placeholder; setVal(b.dataset.k,+b.dataset.s,"r",rIn.value); }
     if (on){
       const k=b.dataset.k, x=EX[k], prev=bestOf(k, LOGCTX.key), e=(S.logs[k]||[]).find(z=>z.key===LOGCTX.key), st=e&&e.sets[+b.dataset.s];
-      startTimer(x.r, x.n);
+      startTimer(x.r, x.n); syncSession(LOGCTX.key);
       const isAlt=(((S.flags||{})[LOGCTX.key]||{})[k]||{}).alt;
-      if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); celebrate("Nieuw record"); }
+      if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); enqueue("Records", k, [x.n, x.nokg? st.r : st.kg+" kg × "+st.r, e.date]); celebrate("Nieuw record"); }
     }
   }));
   const WU = ["5 min roeien, fietsen of crosstrainer","Op 1 been staan, 2 × 30 sec per been","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Opwarmsets: 10× heel licht, 5× op ±70%"];
@@ -914,7 +941,10 @@ function openLogger(w, di){
   $("mBody").querySelectorAll(".painnote").forEach(inp=>inp.addEventListener("input",()=>{ S.flags[LOGCTX.key][inp.dataset.k].note=inp.value; save(); }));
   $("mBody").querySelectorAll(".setting").forEach(inp=>inp.addEventListener("input",()=>{ S.mset=S.mset||{}; S.mset[inp.dataset.set]=inp.value; save(); }));
   $("mBody").querySelectorAll(".restbtn").forEach(b=>b.addEventListener("click",()=>startTimer(+b.dataset.rest,b.dataset.name)));
-  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); startFuel(); show("week"); });
+  S.srpe=S.srpe||{};
+  const paintR=()=>{ $("srpe").innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot${S.srpe[key]===n?' on':''}" data-n="${n}">${n}</div>`).join(""); $("srpe").querySelectorAll(".dot").forEach(o=>o.addEventListener("click",()=>{ S.srpe[key]=+o.dataset.n; save(); paintR(); })); };
+  paintR();
+  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); syncSession(key); syncDay(key, d.name, w); syncBackup(); closeLogger(); celebrate(); startFuel(); show("week"); });
   $("modal").classList.add("on"); document.body.style.overflow="hidden"; $("modal").scrollTop=0;
 }
 function setVal(k,s,f,v){
@@ -955,7 +985,7 @@ function renderRecords(){
   $("records").innerHTML = `<div class="prw">${keys.map(k=>{ const x=EX[k], b=bestOf(k), isNew = S.newpr && S.newpr[k]===b.key;
     return `<div class="pr${isNew?' new':''}">${ic(isNew?'star':'medal')}<div class="n">${x.n}</div><div class="v">${x.nokg? b.r+(String(x.f[0]).includes('sec')?' sec':'×') : b.kg+' kg × '+b.r}</div><div class="d">${b.date}${isNew?' · nieuw record':''}</div></div>`; }).join("")}</div>`;
 }
-function renderLogbook(){ renderRecords();
+function renderLogbook(){ renderRecords(); if($("shareLine")) $("shareLine").textContent = shareOn() ? "↗ Gedeeld met Yorick" : "";
   const keys = Object.keys(EX).filter(k=>(S.logs[k]||[]).some(e=>e.sets.some(s=>s&&s.r)));
   if (!keys.length){ $("logbook").innerHTML = `<p class="small muted">Nog leeg. Start een training via de tab Week (knop "Start & log training"). Hier zie je daarna per oefening hoe je sterker wordt.</p>`; return; }
   $("logbook").innerHTML = keys.map(k=>{
@@ -1118,6 +1148,13 @@ function openTour(){ TI=0; renderTour(); $("tour").classList.add("on"); }
 function closeTour(){ S.onboarded=true; save(); $("tour").classList.remove("on"); maybeOpening(); }
 $("tourNext").addEventListener("click",()=>{ if(TI<TOUR.length-1){ TI++; renderTour(); } else closeTour(); });
 $("tourSkip").addEventListener("click",closeTour);
+function renderShare(){
+  const c=$("shareCard"); if(!c) return;
+  if (!SHEET.url){ c.innerHTML = "Je gegevens staan op deze telefoon. Stuur elke zondag je week naar Yorick als back-up."; return; }
+  const on = shareOn(), n=(S.outbox||[]).length;
+  c.innerHTML = `<div style="display:flex;align-items:center;gap:12px"><div style="flex:1"><b>Training delen met Yorick</b><div class="muted">${on? "Aan. Je trainingen, sets en loopjes gaan naar Yorick en dienen meteen als back-up. Eten, gevoel en je check-in blijven hier." : "Uit. Alles blijft alleen op deze telefoon."}</div>${on?`<div class="muted" style="margin-top:4px">${n? n+" nog te versturen (gaat vanzelf zodra je internet hebt)" : (S.lastSync? "Laatst verstuurd: "+new Date(S.lastSync).toLocaleString("nl-NL",{weekday:"short",hour:"2-digit",minute:"2-digit"}) : "")}</div>`:""}</div><button class="btn ${on?'go':'ghost'}" id="shareTg" style="width:auto;margin:0;padding:10px 14px">${on?"Aan":"Uit"}</button></div>`;
+  $("shareTg").onclick=()=>{ S.share = !shareOn(); save(); renderShare(); if(S.share){ syncBackup(); flush(); } };
+}
 function maybeOpening(){
   if (!S.onboarded) return;
   const w = curWeek(); S.opened = S.opened || {};
@@ -1135,7 +1172,9 @@ document.querySelectorAll(".when").forEach(w=>{ if (S.whenHide[w.dataset.when] |
   w.querySelector(".whenx").addEventListener("click",()=>{ S.whenHide[w.dataset.when]=true; save(); w.style.display="none"; }); });
 renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
 if (!S.onboarded) openTour();
-$("tourAgain").addEventListener("click", openTour); renderFood(); renderAllRecipes();
+$("tourAgain").addEventListener("click", openTour);
+renderShare(); flush();
+$("restoreBtn").addEventListener("click",()=>{ try{ const d=JSON.parse($("restoreTa").value.trim()); ["days","logs","runs","flags","mset","newpr","srpe"].forEach(k=>{ if(d[k]) S[k]=Object.assign(S[k]||{}, d[k]); }); save(); renderWeek(); renderLogbook(); toast("Hersteld! Je gegevens zijn terug ✨"); $("restoreTa").value=""; }catch(e){ toast("Die code klopt niet. Kopieer de hele cel uit de sheet."); } }); renderFood(); renderAllRecipes();
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
