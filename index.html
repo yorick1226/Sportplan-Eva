@@ -269,6 +269,12 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .tour-skip{flex:1;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:14px;font:inherit;font-weight:600;cursor:pointer}
 .tour-next{flex:2;background:var(--ink);color:#000;border:0;border-radius:4px;padding:14px;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;cursor:pointer}
 .linkbtn{background:none;border:0;color:var(--ink);text-decoration:underline;font:inherit;font-size:.86rem;cursor:pointer}
+.daily{margin:14px 0 2px;padding:16px 18px 14px;border:1px solid #2e2e2e;border-radius:6px;background:linear-gradient(135deg,#17120f,#101010);position:relative;overflow:hidden;animation:dailyIn .9s ease both}
+.daily:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#f2c6c033 0%,transparent 70%)}
+.daily-k{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.daily-t{font-family:'Pinyon Script',cursive;font-size:1.65rem;line-height:1.35;margin:6px 0 4px;color:#f6efe8}
+.daily-f{font-size:.78rem;color:var(--muted);text-align:right;letter-spacing:.08em}
+@keyframes dailyIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
@@ -287,6 +293,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
     </div>
   </div>
+  <div class="daily" id="daily"></div>
   <div class="rosary" id="rosary"></div>
   <div id="fuelBox"></div>
   <div class="when" data-when="w1"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
@@ -1164,13 +1171,18 @@ function maybeOpening(){
   $("opening").classList.add("on");
   $("opB").onclick = ()=>{ S.opened[w]=true; save(); $("opening").classList.remove("on"); };
 }
+const DAILY = ["Goedemorgen monkey. Ik ben zo trots op hoe je hieraan begonnen bent.", "Kleine stappen, elke dag. Zo word je sterk.", "Je hoeft vandaag niet perfect te zijn. Je hoeft er alleen te zijn.", "Ik vind het zo knap hoe je dit allemaal doet. Echt.", "Sterk zijn is geen gevoel dat je hebt, het is iets wat je doet. En jij doet het.", "Monkey, vergeet niet te ontbijten. Je spieren rekenen op je 🍌", "Elke set die je doet, is een cadeautje aan jezelf van later.", "Ik hou van je. Ook op dagen dat het niet lukt.", "Rust is ook training. Gun het jezelf.", "Jij laat elke week zien dat je doorzet. Daar word ik blij van.", "Vandaag een goede dag? Dan maak je hem nog beter. Een zware dag? Dan ben je extra stoer.", "Je bent sterker dan je denkt, monkey.", "Niemand begint als expert. Jij bent gewoon aan het worden wie je wil zijn.", "Trots op je. Gewoon omdat je jij bent.", "Eet goed, slaap goed, en de rest komt vanzelf.", "Je hoeft niet te winnen van anderen. Alleen van jezelf van gisteren.", "Ik ben er altijd, ook voor de saaie trainingen 🐒", "Jouw benen hebben je al zoveel kilometers gedragen. Wees lief voor ze.", "Doorzetten is ook gewoon morgen weer beginnen.", "Hoe voel je je vandaag? Luister naar je lijf, dat weet het beste.", "Je bent mijn favoriete sportmaatje, monkey.", "Geen motivatie vandaag? Discipline is gewoon motivatie die even op zichzelf past.", "Wat je vandaag doet, is morgen makkelijker.", "Ik zie hoeveel moeite je doet. Dat telt meer dan elk getal.", "Sterk, lief en een tikje koppig. Precies goed.", "Goed bezig, monkey. Echt.", "Je eerste set is altijd de zwaarste. Daarna ben je al bezig.", "Vergeet niet: plezier hebben hoort er ook bij.", "Ik ben trots op je, en dat zeg ik niet vaak genoeg.", "Vandaag is een mooie dag om iets te doen waar je morgen blij van wordt.", "Water mee, snack mee, monkey mee 🐒", "Je wordt niet sterker op de dagen dat het makkelijk is. Maar wel op de dagen dat je toch gaat.", "Hoe het ook gaat vandaag: ik ben blij met je.", "Elke kraal aan je ketting heb jij verdiend.", "Zachter voor jezelf zijn is ook sterk.", "Jij + een plan = niet te stoppen.", "Even ademhalen. Je doet het goed.", "Monkey, jij gaat die 10 km straks gewoon lachend lopen.", "Kracht zit niet alleen in je spieren, ook in hoe je doorgaat.", "Ik denk aan je vandaag. Succes, lief."];
+/* Eigen zinnen van Yorick per datum gaan voor: */
+const DAILY_OVERRIDE = {};
+function dailyLine(){ if (DAILY_OVERRIDE[TODAY]) return DAILY_OVERRIDE[TODAY]; const n = Math.floor(new Date().setHours(0,0,0,0)/DAYMS); return DAILY[((n*7)%DAILY.length+DAILY.length)%DAILY.length]; }
+function renderDaily(){ const h=new Date().getHours(); const g = h<12?"Goedemorgen":(h<18?"Hoi":"Goedenavond"); $("daily").innerHTML = `<div class="daily-k">${g} Eva</div><div class="daily-t">${dailyLine()}</div><div class="daily-f">— Yorick 🤍</div>`; }
 const PRAISE = ["Je benen hebben je deze week kilometers ver gedragen.","Elke set maakt je sterker, ook de zware.","Consistent zijn is jouw superkracht.","Jij komt opdagen. Dat is het hele geheim.","Sterk is een gevoel, en jij hebt het.","Rust nemen is ook trainen. Goed bezig."];
 $("sig").style.pointerEvents="auto"; $("sig").style.cursor="pointer";
 $("sig").addEventListener("click",()=>toast("✨ "+PRAISE[Math.floor(Math.random()*PRAISE.length)]));
 S.first = S.first || Date.now(); S.whenHide = S.whenHide || {};
 document.querySelectorAll(".when").forEach(w=>{ if (S.whenHide[w.dataset.when] || Date.now()-S.first > 7*DAYMS) w.style.display="none";
   w.querySelector(".whenx").addEventListener("click",()=>{ S.whenHide[w.dataset.when]=true; save(); w.style.display="none"; }); });
-renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
+renderDaily(); renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
 if (!S.onboarded) openTour();
 $("tourAgain").addEventListener("click", openTour);
 renderShare(); flush();
