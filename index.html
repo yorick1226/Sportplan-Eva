@@ -683,7 +683,7 @@ const PUBLISHED = 0;
 /* Na zondag 00:00 zonder update opent de conceptweek vanzelf. Persoonlijke zin per week: MSG[w]. */
 const MSG = {};
 /* Google Sheet van Yorick: url invullen na implementeren van het Apps Script. Leeg = delen staat uit. */
-const SHEET = { url: "", key: "eva-TnQ5zOOr_RT47gtL" };
+const SHEET = { url: "https://script.google.com/macros/s/AKfycbzIve18ROmuDNLS6wPdrgnvvVeUuCUuZo9vIJC9z7Rx0tDJv9fjXNS4yvRzvFhwYp3u/exec", key: "eva-TnQ5zOOr_RT47gtL" };
 const ICSWEEKS = [0]; /* weken waarvoor week-N.ics online staat */
 function isLocked(w){ return w > PUBLISHED && Date.now() < weekStart(w).getTime(); }
 function isConcept(w){ return w > PUBLISHED && !isLocked(w); }
