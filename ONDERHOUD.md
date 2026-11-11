@@ -13,6 +13,7 @@ Eva's gegevens (vinkjes, logs, records, check-in, beoordelingen) staan in `local
 - Nieuwe velden toevoegen, met een standaardwaarde als ze ontbreken.
 - Nieuwe week vrijgeven: `PUBLISHED` ophogen, `WEEKS[n]` invullen, persoonlijke zin in `MSG[n]`.
 - Bij een nieuwe versie het cachenummer in `sw.js` ophogen.
+- Agenda per week: tijden in `opts.time` (bv. "07:30") op basis van de beschikbaarheid uit de check-in, dan `node tools/make_week_ics.js N` en N toevoegen aan `ICSWEEKS`.
 
 ## Controle voor elke push
 1. Laad de nieuwe versie met een opgeslagen staat van de vorige versie en controleer dat vinkjes, logboek, records en check-in-antwoorden nog zichtbaar zijn.

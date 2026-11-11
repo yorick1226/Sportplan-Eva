@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Eva Sportplan//NL
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Amsterdam
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:w0-20261112T000000-1@sportplan-eva
+DTSTAMP:20261111T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261112T090000
+DTEND;TZID=Europe/Amsterdam:20261112T100000
+SUMMARY:🏋️ Kennismaking sportschool
+DESCRIPTION:InBody + machines leren, alles licht\n\nEerst de InBody-startmeting: niet net gegeten\, eerst naar de wc. Kijk vooral naar je spiermassa.\n\nKennismaking:\n• A1 Goblet squat\n• A2 Roemeense deadlift\n• A3 Split squat\n• A4 Chest press\n• A5 Lat pulldown\n• B1 Hip thrust (machine)\n• B2 Leg press\n• B3 Cable row\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Kennismaking sportschool. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w0-20261113T000000-2@sportplan-eva
+DTSTAMP:20261111T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261113T071500
+DTEND;TZID=Europe/Amsterdam:20261113T080000
+SUMMARY:👟 Hardlopen + tennis
+DESCRIPTION:07:15 · 5 km rustig met Yorick & Noa · later tennis \n\n07:15 lopen: eet eerst iets kleins\, zoals een banaan of een glas chocomelk. Loop rustig: je kunt hele zinnen praten. Kies vlakke ondergrond.\\nNa het lopen: binnen een uur ontbijten met eiwit erbij\, zoals skyr met granola of eieren met brood.\\nTennis: eerst 5 min enkel-warming-up. Je benen zijn al moe van het lopen en de sportschool\, en vermoeidheid maakt je enkel wiebeliger. Wiebelt of zeurt hij? Stop dan\, of speel rustig door zonder sprintjes en wendingen \n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Hardlopen + tennis. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w0-20261114T000000-3@sportplan-eva
+DTSTAMP:20261111T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261114T100000
+DTEND;TZID=Europe/Amsterdam:20261114T110000
+SUMMARY:🧘 Pilates + startmeting
+DESCRIPTION:45 min + 15 min meten\n\nStartmeting: max. push-ups\, plank en zijplank\, spagaat in cm\, enkeltest.\n\nPilates C:\n• C1 The Hundred\n• C2 Single-leg stretch\n• C3 Push-up-progressie\n• C4 Clamshell + beenlift\n• C5 Glute bridge op 1 been\n• C6 Swimming\n• C7 Band pull-apart\n• C8 Bird dog\n• C9 Roll-up\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Pilates + startmeting. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

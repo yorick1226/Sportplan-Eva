@@ -304,6 +304,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   <div class="focus"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg> Focus deze week</b><span id="focus"></span></div>
   <h2>Jouw dagen</h2>
   <div id="days"></div>
+  <div id="calBtn"></div>
   <h2>Elke dag</h2>
   <div class="habits" id="habits"></div>
   <h2>Check-in zondag</h2>
@@ -675,6 +676,7 @@ const WEEKS = [
 const PUBLISHED = 0;
 /* Na zondag 00:00 zonder update opent de conceptweek vanzelf. Persoonlijke zin per week: MSG[w]. */
 const MSG = {};
+const ICSWEEKS = [0]; /* weken waarvoor week-N.ics online staat */
 function isLocked(w){ return w > PUBLISHED && Date.now() < weekStart(w).getTime(); }
 function isConcept(w){ return w > PUBLISHED && !isLocked(w); }
 const ANCH = {4:" InBody + meting (do 10 dec)",6:" Kerst",7:" Oud & nieuw",8:" InBody + meting (do 7 jan)",9:" 10 km (zo 17 jan)",12:" InBody + eindmeting (do 4 feb)"};
@@ -752,6 +754,7 @@ function renderWeek(){
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
   });
+  $("calBtn").innerHTML = ICSWEEKS.includes(W) ? `<a class="btn ghost" href="week-${W}.ics" style="text-decoration:none;color:var(--ink)">📅 Zet deze week in mijn agenda</a><p class="small muted" style="text-align:center;margin-top:6px">Met tijden en een seintje 30 min vooraf. Verschuif ze gerust in je agenda.</p>` : "";
   // habits
   const h = $("habits"); h.innerHTML = "";
   const letters = dates.map(d=>DAG[d.getDay()]);
