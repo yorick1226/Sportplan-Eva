@@ -8,7 +8,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Sportplan">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23000'/%3E%3Ctext x='90' y='118' font-size='96' text-anchor='middle'%3E%F0%9F%92%AA%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
 <title>Eva's sportplan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Pinyon+Script&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -200,6 +202,34 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .celebrate.on .word{animation:rise .6s .55s ease forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes rise{to{opacity:1;transform:none}}
+
+.ic{width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.badge{background:#0d0d0d;border:1px solid #2e2e2e;color:var(--ink)}.badge .ic{width:24px;height:24px}
+.tb span .ic{width:22px;height:22px}.tb span{filter:none;opacity:.55}.tb.on span{opacity:1}
+.feel button span .ic,.rate button span .ic{width:24px;height:24px;margin:2px auto 4px;display:block}
+.habit .ico .ic{width:22px;height:22px}
+.rosary{margin:14px 0 4px}.rosary svg{width:100%;height:auto;display:block}
+.rosary .bead{cursor:pointer}
+.rosary .cur{animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{50%{opacity:.35}}
+.ros-cap{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.prw{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pr{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:6px;padding:10px 12px;position:relative;overflow:hidden}
+.pr .n{font-size:.74rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.pr .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.55rem;font-weight:600;line-height:1.15;margin-top:2px}
+.pr .d{font-size:.72rem;color:var(--muted)}
+.pr.new{border-color:var(--ink)}
+.pr .ic{position:absolute;right:8px;top:8px;width:14px;height:14px;opacity:.5}
+.concept{background:#0d0d0d;border:1px dashed #4a4640;border-radius:6px;padding:12px 14px;font-size:.88rem;margin-top:12px}
+.opening{position:fixed;inset:0;z-index:95;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+.opening.on{display:flex}
+.opening svg path,.opening svg circle{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.2s ease forwards}
+.opening .k{letter-spacing:.3em;text-transform:uppercase;font-size:.72rem;color:var(--muted);margin-top:18px;opacity:0;animation:rise .8s 1s forwards}
+.opening h1{font-size:2.3rem;margin:8px 0;opacity:0;animation:rise .8s 1.2s forwards}
+.opening .msg{font-family:'Pinyon Script',cursive;font-size:1.9rem;line-height:1.3;max-width:320px;opacity:0;animation:rise .8s 1.6s forwards}
+.opening .from{font-size:.78rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;opacity:0;animation:rise .8s 1.9s forwards}
+.opening button{margin-top:28px;background:var(--ink);color:#000;border:0;border-radius:4px;padding:13px 28px;font:inherit;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;opacity:0;animation:rise .8s 2.2s forwards;cursor:pointer}
+.bars div{background:transparent!important;border:1px solid #ece8e1;border-bottom:0;border-radius:2px 2px 0 0}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
@@ -218,11 +248,11 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
     </div>
   </div>
-  <div class="wsel" id="wsel"></div>
-  <div class="when">📌 <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
+  <div class="rosary" id="rosary"></div>
+  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
 
   <div class="card" id="todayCard">
-    <b>☀️ Hoe voel je je vandaag?</b>
+    <b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg> Hoe voel je je vandaag?</b>
     <div class="feel" id="feel"></div>
     <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
     <div id="lightBox"></div>
@@ -230,14 +260,14 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 
   <div id="weekLocked"></div>
   <div id="weekOpen">
-  <div class="focus"><b>🎯 Focus deze week</b><span id="focus"></span></div>
-  <h2>📅 Jouw dagen</h2>
+  <div class="focus"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg> Focus deze week</b><span id="focus"></span></div>
+  <h2>Jouw dagen</h2>
   <div id="days"></div>
-  <h2>✅ Elke dag</h2>
+  <h2>Elke dag</h2>
   <div class="habits" id="habits"></div>
-  <h2>💬 Check-in zondag</h2>
+  <h2>Check-in zondag</h2>
   <div class="card"><div class="small muted">Op basis hiervan maken we samen je volgende week: hoe vaak, welke dagen en hoe zwaar.</div><div id="core"></div><div id="checkin"></div>
-    <button class="btn go" id="share">📤 Stuur mijn week naar Yorick</button>
+    <button class="btn go" id="share"> Stuur mijn week naar Yorick</button>
     <div class="small muted" style="margin-top:6px;text-align:center">Kopieert je trainingen, logboek, eetfeedback en antwoorden. Plak het daarna in WhatsApp.</div>
   </div>
   <div class="foot">Alles wordt bewaard op dit apparaat. Stuur je week elke zondag naar Yorick als back-up.<br><button class="reset" id="reset">Vinkjes van deze week wissen</button></div>
@@ -248,23 +278,26 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 <section class="tab" id="tab-training">
   <div class="hero" style="--glow:#ece8e155">
     <div class="kicker">Trainingsschema · 12 weken</div>
-    <h1>Sterker in 3 fases 💪</h1>
+    <h1>Sterker in 3 fases </h1>
     <p>16 nov 2026 – 7 feb 2027. Elke zondag stemmen we de week af, dus alles mag schuiven.</p>
   </div>
-  <div class="when">📌 <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
-  <h2>📒 Mijn logboek</h2>
+  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
+  <h2>Records</h2>
+  <p class="small muted">Wat jouw lichaam kan. Per oefening je beste set.</p>
+  <div id="records"></div>
+  <h2>Mijn logboek</h2>
   <div class="card" id="logbook"></div>
 
-  <h2>🗓️ Je standaardweek</h2>
+  <h2>Je standaardweek</h2>
   <div class="card">
     <div class="strip" id="strip"></div>
     <p class="small muted" style="margin-top:10px">Wo- en zo-avond: mobiliteit op de mat (20–25 min, optioneel). Elke dag 10.000+ stappen.</p>
     <div class="tip"><b>Drukke week?</b> Schrap in deze volgorde: avondsessies, de zondagloop, pilates. <b>Kracht A en B blijven staan.</b></div>
   </div>
-  <h2>🧭 De 12 weken</h2>
+  <h2>De 12 weken</h2>
   <p class="small muted">Dit is de richting. Elke week stellen we zondag samen vast op basis van je check-in: tandje erbij, zo laten of tandje terug.</p>
   <div id="phases"></div>
-  <h2>🔥 Warming-up</h2>
+  <h2>Warming-up</h2>
   <div class="card small">
     <ol>
       <li><b>5 min</b> roeien, fietsen of crosstrainer</li>
@@ -275,13 +308,13 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <li><b>Opwarmsets:</b> 10× heel licht, 5× op ± 70%</li>
     </ol>
   </div>
-  <h2>🏋️ Training A · benen/billen + duwen</h2>
+  <h2>Training A · benen/billen + duwen</h2>
   <div class="card" id="exA"></div>
-  <h2>🍑 Training B · billen/hamstrings + trekken</h2>
+  <h2>Training B · billen/hamstrings + trekken</h2>
   <div class="card" id="exB"></div>
-  <h2>🧘 Training C · pilates/core</h2>
+  <h2>Training C · pilates/core</h2>
   <div class="card"><p class="small">Studio of thuis. Rust 20–30 sec, bij C3 60 sec. Bij een studioles doe je alleen C3 en C5 erachteraan.</p><div id="exC"></div></div>
-  <h2>📈 Zo word je sterker</h2>
+  <h2>Zo word je sterker</h2>
   <div class="card">
     <table><tr><th>RPE</th><th>Nog over</th><th>Gevoel</th></tr>
       <tr><td>6</td><td>4+</td><td>Nog makkelijk</td></tr><tr><td>7</td><td>3</td><td>Zwaar, techniek perfect</td></tr>
@@ -289,15 +322,15 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <div id="stairs"></div>
     <p class="small"><b>Dubbele progressie:</b> haal je in alle sets het bovenste aantal met nog 2 over? Dan de volgende keer de kleinste stap zwaarder (+1–2 kg of 1 plaatje) en weer onderaan beginnen. Het logboek geeft dit vanzelf aan.</p>
   </div>
-  <h2>👟 Hardlopen & enkel</h2>
+  <h2>Hardlopen & enkel</h2>
   <div class="card">
     <table><tr><th>Type</th><th>Hoe</th></tr>
       <tr><td>Rustig</td><td>Hele zinnen kunnen praten</td></tr><tr><td>Interval 1 (wk 3)</td><td>6 × 1 min stevig / 2 min wandelen</td></tr>
       <tr><td>Interval 2 (wk 6)</td><td>5 × 2 min stevig / 2 min rustig</td></tr><tr><td>Interval 3 (wk 11)</td><td>4 × 3 min stevig / 2 min rustig</td></tr>
-      <tr><td>Lang (wk 8)</td><td>8–10 km rustig</td></tr><tr><td>10 km 🏁</td><td>17 jan · eerste helft rustiger</td></tr></table>
-    <div class="tip">🦶 Vlakke ondergrond tot je de <b>enkeltest</b> haalt: 30 sec op je rechterbeen met je ogen dicht, en ongeveer even vaak kuitheffen op 1 been rechts als links (20+). Lukt het in week 8 nog niet? Ga naar een fysiotherapeut.</div>
+      <tr><td>Lang (wk 8)</td><td>8–10 km rustig</td></tr><tr><td>10 km </td><td>17 jan · eerste helft rustiger</td></tr></table>
+    <div class="tip"> Vlakke ondergrond tot je de <b>enkeltest</b> haalt: 30 sec op je rechterbeen met je ogen dicht, en ongeveer even vaak kuitheffen op 1 been rechts als links (20+). Lukt het in week 8 nog niet? Ga naar een fysiotherapeut.</div>
   </div>
-  <h2>🤸 Mobiliteit & spagaat</h2>
+  <h2>Mobiliteit & spagaat</h2>
   <details><summary><span class="s-main">Rekroutine · 10 min<span class="s-sub">Dinsdag en vrijdag</span></span></summary><div class="dbody small"><p>Lage lunge 2 × 30 sec · halve spagaat 2 × 30 sec · duif 45 sec · brede zit voorover 2 × 30 sec · kuitstretch 30 sec (per kant)</p></div></details>
   <details><summary><span class="s-main">Mobiliteit M · 20–25 min<span class="s-sub">Wo- en zo-avond</span></span></summary><div class="dbody small">
     <p><b>Losmaken:</b> cat-cow, bovenrug draaien, heupcirkels.</p><p><b>Actief:</b> 90/90-heupen, world's greatest stretch, diepe squat aan een deurpost.</p>
@@ -312,13 +345,13 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 <section class="tab" id="tab-gids">
   <div class="hero" style="--glow:#c4bdb355">
     <div class="kicker">Gids</div>
-    <h1>Zo werkt je programma 🧭</h1>
+    <h1>Zo werkt je programma </h1>
     <p>Sterker, strakker en leniger in 12 weken, met een plan dat in je week past.</p>
   </div>
-  <div class="when">📌 <b>Wanneer kijk je hier?</b> Eén keer rustig doorlezen in week 0. Daarna alleen terugkijken als je iets wilt weten (meten, InBody, rust, cyclus).</div>
-  <h2>🗺️ Jouw avontuur</h2>
+  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Eén keer rustig doorlezen in week 0. Daarna alleen terugkijken als je iets wilt weten (meten, InBody, rust, cyclus).</div>
+  <h2>Jouw avontuur</h2>
   <div class="card"><div class="tl" id="tl"></div></div>
-  <h2>✨ Wat 'toned' echt is</h2>
+  <h2>Wat 'toned' echt is</h2>
   <div class="card">
     <p>'Toned' is <b>spier die vorm geeft</b>, plus een goede houding. Dik worden betekent meer vet. Dit programma bouwt spier, geen vet.</p>
     <div id="fatmuscle"></div>
@@ -328,39 +361,39 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <li><b>'Skinny fat' en 'toned' kunnen hetzelfde wegen.</b> Het verschil is de spier eronder.</li>
       <li><b>Extreem gespierd word je niet per ongeluk.</b></li>
     </ul>
-    <div class="tip"><b>Slank met zichtbare spieren bereik je met méér eten, niet minder.</b> Eet je minder, dan breekt je lichaam eerst spier af. Vergelijk jezelf met je eigen foto van week 1, niet met modellenfoto's.</div>
+    <div class="tip"><b>Slank met zichtbare spieren bereik je met méér eten, niet minder.</b> Eet je minder, dan breekt je lichaam eerst spier af. Vergelijk jezelf met wat jij in week 1 kon, niet met modellenfoto's.</div>
   </div>
-  <h2>📊 Wat je kunt verwachten</h2>
+  <h2>Wat je kunt verwachten</h2>
   <div class="card">
     <div class="phase" style="border-left-color:var(--loop)"><b>Na 4 weken</b><span class="small">Techniek zit erin, gewichten gaan omhoog, meer energie.</span></div>
     <div class="phase" style="border-left-color:var(--pilates)"><b>Na 8 weken</b><span class="small">Duidelijk sterker, kleding zit anders, misschien je eerste push-up.</span></div>
     <div class="phase" style="border-left-color:var(--kracht)"><b>Na 12 weken</b><span class="small">Sterker en strakker, betere houding. Een grote zichtbare verandering kost meestal 6–12 maanden: dit is het begin.</span></div>
   </div>
-  <h2>😴 Herstel, slaap & Oura</h2>
+  <h2>Herstel, slaap & Oura</h2>
   <div class="card small">
     <p>Spieren groeien tussen de trainingen in. 7–8 uur slaap, rustdagen echt rustig, matcha liefst vóór 14:00.</p>
     <p><b>Oura als stoplicht:</b> vul op trainingsdagen je gevoel in, en je readiness als je wilt. De app geeft groen, oranje of rood. <b>Je gevoel weegt het zwaarst.</b> De score is een hulpje, geen oordeel. De grenzen (75 en 60) zijn mijn vuistregels, geen officiële Oura-normen.</p>
     <div class="warn"><b>Blijft je menstruatie weg of wordt ze onregelmatig</b> terwijl je veel sport? Ga naar de huisarts. Dat kan betekenen dat je lichaam te weinig energie krijgt.</div>
     <p><b>Kramp?</b> 1 set minder, of ruil voor pilates of mobiliteit.</p>
   </div>
-  <h2>📏 Voortgang meten</h2>
+  <h2>Voortgang meten</h2>
   <div class="card small">
-    <p>In week 0, 4, 8 en 12 meet je wat je <b>kunt</b>: kracht (logboek), push-ups, plank, spagaat in cm + foto, enkeltest, looptempo.</p>
-    <h3>📊 InBody bij Trainmore</h3>
+    <p>In week 0, 4, 8 en 12 meet je wat je <b>kunt</b>: kracht (logboek), push-ups, plank, spagaat in cm, enkeltest, looptempo.</p>
+    <h3> InBody bij Trainmore</h3>
     <p>12 nov · 10 dec · 7 jan · 4 feb. Vóór de training, niet net gegeten, eerst naar de wc. <b>Je hoofdgetal is spiermassa.</b> Kijk naar de trend. Wil je je gewicht liever niet zien? Laat dan alleen je spiermassa noemen.</p>
   </div>
-  <h2>🎁 Beloningen</h2>
+  <h2>Beloningen</h2>
   <div class="card"><table><tr><th>Mijlpaal</th><th>Beloning</th></tr>
     <tr><td>Week 4</td><td>Nieuwe sportlegging of yogamat</td></tr><tr><td>1e push-up</td><td>Reformerles</td></tr>
     <tr><td>10 km</td><td>Brunch met Noa en Yorick</td></tr><tr><td>Week 12</td><td>Sportdag of nieuwe loopschoenen</td></tr></table></div>
-  <h2>⭐ De 5 belangrijkste adviezen</h2>
+  <h2>De 5 belangrijkste adviezen</h2>
   <div class="card"><ol>
     <li><b>Na elke training binnen een uur eten</b>, en geen maaltijden overslaan.</li>
     <li><b>A en B elke week</b>, wat er ook gebeurt.</li>
     <li><b>Log je sets en ga steeds iets zwaarder.</b></li>
     <li><b>2 minuten enkelwerk</b> bij elke training.</li>
     <li><b>Plan met anderen</b> en check elke zondag in.</li></ol></div>
-  <h2>📚 Bronnen</h2>
+  <h2>Bronnen</h2>
   <div class="card small"><ul>
     <li><a href="https://webshop.voedingscentrum.nl/wp-content/uploads/2018/09/Vitamine-D_2026.pdf">Voedingscentrum – Vitamine D (2026)</a></li>
     <li><a href="https://www.consumentenbond.nl/zorgverzekering/vergoedingen/dieetadvisering">Consumentenbond – Dieetadvisering</a></li>
@@ -375,38 +408,38 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <h1 id="ftitle"></h1>
     <p id="fsub"></p>
   </div>
-  <div class="when">📌 <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
+  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
   <div class="wsel" id="fsel"></div>
   <div id="foodLocked"></div>
   <div id="foodOpen">
-  <h2>🎓 Les van de week</h2>
+  <h2>Les van de week</h2>
   <div class="lesson" id="lesson"></div>
-  <h2>👩‍🍳 Recepten van de week</h2>
+  <h2>Recepten van de week</h2>
   <p class="small muted">Probeer ze en laat weten wat je ervan vond. Je oordeel bepaalt mee wat je volgende week krijgt.</p>
   <div id="weekRecipes"></div>
-  <h2>🧪 Proefopdracht</h2>
+  <h2>Proefopdracht</h2>
   <div class="card" id="tryCard"></div>
-  <h2>💭 Even voelen</h2>
+  <h2>Even voelen</h2>
   <div class="card" id="reflect"></div>
   </div>
-  <h2>⭐ Jouw favorieten</h2>
+  <h2>Jouw favorieten</h2>
   <div class="card" id="favs"></div>
 
-  <h2>🍽️ Het trainingsbord</h2>
+  <h2>Het trainingsbord</h2>
   <div class="card"><div id="plate"></div>
     <table><tr><th>Bouwsteen</th><th>Hoeveel</th></tr>
-      <tr><td>🥩 Eiwit</td><td>1–2 handpalmen</td></tr><tr><td>🍞 Koolhydraten</td><td>1–2 vuisten</td></tr>
-      <tr><td>🥦 Groente/fruit</td><td>1–2 vuisten</td></tr><tr><td>🥑 Vet</td><td>1 duim</td></tr></table>
+      <tr><td> Eiwit</td><td>1–2 handpalmen</td></tr><tr><td> Koolhydraten</td><td>1–2 vuisten</td></tr>
+      <tr><td> Groente/fruit</td><td>1–2 vuisten</td></tr><tr><td> Vet</td><td>1 duim</td></tr></table>
     <p class="small">Richting: 110–140 g eiwit per dag. Met eiwit bij elk eetmoment zit je daar vanzelf. <b>Walnoot:</b> check het etiket bij granola, muesli, notenmix en pesto.</p></div>
-  <h2>⏰ Rond het trainen</h2>
+  <h2>Rond het trainen</h2>
   <div class="card small"><table><tr><th>Wanneer</th><th>Wat</th></tr>
     <tr><td>2–3 uur voor</td><td>Normaal ontbijt</td></tr><tr><td>30–60 min voor</td><td>Banaan, krentenbol, rijstwafels met pindakaas</td></tr>
     <tr><td>Direct uit bed</td><td>Chocomelk of een banaan</td></tr><tr><td>≤ 1 uur erna</td><td>Skyr met granola, eieren met brood</td></tr></table></div>
-  <h2>🥚 Eiwit in je favorieten</h2>
+  <h2>Eiwit in je favorieten</h2>
   <div class="card" id="protein"></div>
-  <h2>📖 Alle recepten</h2>
+  <h2>Alle recepten</h2>
   <div id="allRecipes"></div>
-  <h2>🛒 Boodschappen & supplementen</h2>
+  <h2>Boodschappen & supplementen</h2>
   <details><summary><span class="s-main">Vaste basislijst</span></summary><div class="dbody small">
     <p><b>Zuivel & eieren:</b> skyr, kwark, hüttenkäse, melk, chocomelk, kaas, feta, eieren</p><p><b>Eiwit:</b> kipfilet, mager gehakt, zalm, garnalen, tonijn, tofu</p>
     <p><b>Peulvruchten:</b> kikkererwten, linzen, kidneybonen, hummus</p><p><b>Granen:</b> havermout, granola zonder walnoot, brood, wraps, rijst, pasta, noedels, couscous</p>
@@ -425,6 +458,8 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="opening" id="opening"><svg width="120" height="150" viewBox="0 0 120 150" fill="none" stroke="#ece8e1" stroke-width="1.1" stroke-linecap="round"><path d="M60 4V146M60 1l3 6-3 5-3-5zM30 48H90M60 30c10 3 15 10 9 18M60 30c-10 3-15 10-9 18M60 88c12 2 17 12 10 22M60 88c-12 2-17 12-10 22"/><circle cx="60" cy="48" r="7"/><path d="M8 18Q34 60 60 48M112 18Q86 60 60 48" stroke-dasharray="1 5"/></svg>
+<div class="k" id="opK"></div><h1 id="opT"></h1><div class="msg" id="opM"></div><div class="from">Yorick</div><button id="opB">Open je week</button></div>
 <div class="celebrate" id="cele"><svg width="170" height="170" viewBox="0 0 170 170" fill="none" stroke="#ece8e1" stroke-width="1.2" stroke-linecap="round">
 <path style="--l:700" d="M85 6L94 76 164 85 94 94 85 164 76 94 6 85 76 76Z"/>
 <circle style="--l:120" cx="85" cy="85" r="18"/>
@@ -433,13 +468,15 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 </svg><div class="word" id="celeWord">Gedaan</div></div>
 
 <nav class="tabbar"><div class="tabbar-in">
-  <button class="tb on" data-t="week"><span>📅</span>Week</button>
-  <button class="tb" data-t="training"><span>🏋️</span>Training</button>
-  <button class="tb" data-t="eten"><span>🥗</span>Eten</button>
-  <button class="tb" data-t="gids"><span>🧭</span>Gids</button>
+  <button class="tb on" data-t="week"><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 10h16M8 3v4M16 3v4"/></svg></span>Week</button>
+  <button class="tb" data-t="training"><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10"/></svg></span>Training</button>
+  <button class="tb" data-t="eten"><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/></svg></span>Eten</button>
+  <button class="tb" data-t="gids"><span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z"/></svg></span>Gids</button>
 </div></nav>
 
 <script>
+const ICONS = {"kracht": "<path d=\"M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10\"/>", "loop": "<path d=\"M3 17c5 0 9-2 11-6s4-6 7-6c-1 5-3 9-7 11s-7 2-11 1z\"/><path d=\"M8 15.5l3-3M12 14l3-4M15.5 11.5l2.5-4\"/>", "pilates": "<circle cx=\"12\" cy=\"5.5\" r=\"2\"/><path d=\"M4 20c2-5 4.5-7 8-7s6 2 8 7M7.5 12.5l4.5-2 4.5 2\"/>", "rust": "<path d=\"M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z\"/>", "tennis": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M5.5 7.5c3.5 2 3.5 7 0 9M18.5 7.5c-3.5 2-3.5 7 0 9\"/>", "meet": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"8\" rx=\"1\"/><path d=\"M7 8v3M11 8v4M15 8v3M19 8v4\"/>", "interval": "<path d=\"M13 3L6 13h5l-1 8 7-10h-5z\"/>", "star": "<path d=\"M12 2l1.6 8.4L22 12l-8.4 1.6L12 22l-1.6-8.4L2 12l8.4-1.6z\"/>", "medal": "<circle cx=\"12\" cy=\"15\" r=\"5\"/><path d=\"M9 3l3 7 3-7\"/><path d=\"M12 13l.8 1.6 1.7.2-1.2 1.2.3 1.7-1.6-.8-1.6.8.3-1.7-1.2-1.2 1.7-.2z\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"1\"/><path d=\"M4 10h16M8 3v4M16 3v4\"/>", "plate": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"4.5\"/>", "compass": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z\"/>", "steps": "<path d=\"M8 3.5c1.8 0 2.8 2 2.8 4.8S9.8 13 8 13 5.2 11 5.2 8.3 6.2 3.5 8 3.5zM16 9.5c1.8 0 2.8 2 2.8 4.8S17.8 19 16 19s-2.8-2-2.8-4.7 1-4.8 2.8-4.8z\"/>", "egg": "<path d=\"M12 3c3.5 0 6 6 6 10a6 6 0 0 1-12 0c0-4 2.5-10 6-10z\"/>", "drop": "<path d=\"M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z\"/>", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"12\" cy=\"12\" r=\".8\"/>", "pin": "<path d=\"M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2\"/>", "flame": "<path d=\"M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 2 3 1-2 1-5 1-7z\"/>", "dash": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8.5 12h7\"/>", "heart": "<path d=\"M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z\"/>", "x": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.5 9.5l5 5M14.5 9.5l-5 5\"/>", "down": "<path d=\"M12 5v14M6.5 13.5L12 19l5.5-5.5\"/>", "equal": "<path d=\"M6 10h12M6 14h12\"/>", "up": "<path d=\"M12 19V5M6.5 10.5L12 5l5.5 5.5\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 8v4l3 2\"/>", "lock": "<rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"1\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/>", "cross": "<path d=\"M12 3v18M7 8h10\"/><path d=\"M12 1.5l1 1.5-1 1.5-1-1.5z\"/>", "book": "<path d=\"M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "leaf": "<path d=\"M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8\"/>"};
+function ic(n){ return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.star}</svg>`; }
 /* ======================= OEFENINGEN ======================= */
 const EX = {
   A1:{n:"Goblet squat",t:"kracht",m:"Bovenbenen, billen, core",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"squat",u:"Halter verticaal tegen je borst. Zak tussen je knieën door, zo diep als het lukt met een rechte rug. Duw omhoog via je hele voet.",e:"Hielen los, knieën naar binnen, ronde rug.",mk:"Box squat tot een bank.",md:"3 tellen zakken + pauze.",v:"https://fitbod.me/exercises/dumbbell-goblet-squat"},
@@ -471,31 +508,31 @@ const SESSNAME = { A:"Kracht A", B:"Kracht B", C:"Pilates C", K:"Kennismaking" }
 
 /* ======================= RECEPTEN ======================= */
 const R = {
- smoothie:["Power-smoothie 🥤","3 min","± 35 g","200 g skyr, 1 banaan, 30 g havermout, 1 el pindakaas, 200 ml melk, eventueel cacao en ijs","Alles in de blender. Ideaal bij weinig honger."],
- shakshuka:["Shakshuka met feta 🍳","20 min","± 30 g","3 eieren, blik tomaten, paprika, ½ ui, komijn, paprikapoeder, 30 g feta, brood","Ui en paprika bakken, tomaat erbij, 5 min pruttelen. Kuiltjes, eieren erin, deksel erop. Feta erover."],
- oats:["Overnight oats, 3 varianten 🥣","5 min","± 30 g","60 g havermout, 200 ml melk, 1 schep eiwitpoeder of 100 g skyr. Variant: appel-kaneel, choco-banaan of rood fruit-kokos","'s Avonds mengen in een bakje, 's ochtends pakken en gaan."],
- pancakes:["Eiwitpannenkoekjes 🥞","15 min","± 27 g","2 eieren, 1 rijpe banaan, 40 g havermout, 100 g kwark, kaneel","Mixen en kleine pannenkoekjes bakken. Met bessen en honing."],
- teriyaki:["Zalm-teriyaki 🍣","25 min","± 36 g","125 g zalm, 100 g edamame, 75 g rijst, broccoli, 2 el teriyaki, sesam","Zalm 12 min in de oven met saus. Rijst en groente koken."],
- zoeteaardappel:["Zoete-aardappel-kipschotel 🍠","35 min","± 38 g","1 zoete aardappel, 150 g kipfilet, paprika, rode ui, 1 el olijfolie, paprikapoeder, 2 el Griekse yoghurt","Alles in blokjes op een bakplaat, 25–30 min op 200 °C. Met een klodder yoghurt."],
- avotoast:["Avocado-ei-toast met zaden 🥑","10 min","± 22 g","2 sneetjes zuurdesem, ½ avocado, 2 eieren, pompoen- en sesamzaad, chilivlokken","Toast, avocado erop, gebakken ei erop, zaden erover."],
- pesto:["Romige pestopasta met kip 🍝","20 min","± 50 g","85 g pasta, 125 g kip, 100 g hüttenkäse, 1 el pesto (zonder walnoot!), cherrytomaatjes, spinazie","Hüttenkäse met pesto glad mixen als saus. Kip bakken, alles door elkaar."],
- regenboog:["Regenboog-bowl 🌈","15 min","± 25 g","Couscous of quinoa, kikkererwten, rode kool of biet, wortel, mais, komkommer, edamame, hummus","Alles in vakjes in een kom. Hoe meer kleuren, hoe beter."],
- linzensoep:["Linzen-groentesoep 🍲","30 min","± 22 g","75 g rode linzen, wortel, ui, bleekselderij, blik tomaten, bouillon, spinazie + brood met kaas","Groente fruiten, linzen en tomaat erbij, 20 min laten koken. Maak een grote pan."],
- kwarkcake:["Cheesecake-kwarkbakje 🍰","3 min","± 22 g","250 g magere kwark, honing, vanille, 1 speculaas, bessen","Roeren, kruimels en bessen erop."],
- bliss:["Eiwit-bliss-balls 🍫","15 min","± 5 g per stuk","100 g dadels, 60 g havermout, 2 el pindakaas, 1 schep eiwitpoeder, cacao (geen walnoot!)","Alles in de blender, balletjes rollen, koelkast in. Snack voor in je tas."],
- wentel:["Kerst-wentelteefjes met kwark 🎄","15 min","± 28 g","2 sneetjes brioche of volkoren, 2 eieren, scheutje melk, kaneel, kwark, frambozen, honing","Brood door ei en melk, goudbruin bakken. Kwark en fruit erop."],
- portobello:["Gevulde portobello 🍄","25 min","± 24 g","2 grote portobello's, 125 g mager gehakt of linzen, feta, spinazie, knoflook, + krieltjes","Vulling bakken, in de champignons, 15 min in de oven."],
- matcha:["Matcha-banaan-smoothie 🍵","3 min","± 26 g","1 tl matcha, 1 banaan, 150 g skyr, 150 ml melk, ijs (vóór 14:00 vanwege cafeïne)","Blender, klaar. Een ontbijt én je matcha in één."],
- kippensoep:["Kippensoep met noedels 🍜","30 min","± 32 g","150 g kipfilet, noedels, wortel, prei, gember, bouillon, lente-ui","Kip in bouillon garen, groente en noedels erbij."],
- chilisin:["Spinazie-linzencurry 🌶️","30 min","± 24 g","75 g linzen, kikkererwten, spinazie, paprika, ui, kerrie, tomaat, rijst + citroen erover","Kruiden en ui bakken, rest erbij, 20 min pruttelen. Citroen = vitamine C voor je ijzer!"],
- steakbowl:["Biefstuk-rijstbowl 🥩","20 min","± 40 g","125 g biefstuk, rijst, paprika, broccoli, sojasaus, sesam","Biefstuk kort bakken en in reepjes. Rood vlees = goed opneembaar ijzer."],
- tonijnpasta:["Pasta tomaat-tonijn 🍝","15 min","± 38 g","100 g pasta, blik tonijn, passata, knoflook, kappertjes, basilicum","Saus 5 min laten pruttelen, door de pasta. Perfect voor de avond vóór de 10 km."],
- raceontbijt:["Race-ontbijt 🏁","5 min","± 15 g","60 g havermout, melk, banaan, 1 el honing, snufje zout","2–3 uur vóór de start. Test hem op een gewone loopdag!"],
- avondkwark:["Avond-kwarkbowl 🌙","3 min","± 25 g","250 g kwark, kiwi, 1 tl pindakaas, pompoenpitten","1 uur voor het slapen. Eiwit voor je herstel 's nachts."],
- ovenschotel:["Kip-groente-ovenschotel 🥘","40 min","± 40 g","150 g kip, broccoli, courgette, krieltjes, 30 g geraspte kaas, kruiden","Alles in een ovenschaal, kaas erover, 30 min op 200 °C."],
- pizza:["Zelfgemaakte pizza met kip 🍕","25 min","± 38 g","Wrap of pizzabodem, passata, mozzarella light, kip, rode ui, rucola","Beleggen, 10–12 min in de oven, rucola erop."],
- poke:["Pokebowl 🐟","15 min","± 32 g","Sushirijst, zalm of tonijn, edamame, avocado, komkommer, wortel, sojasaus, sesam","Alles in een kom. Net zo lekker als afhalen."],
- eigen:["Jouw eigen trainingsbord ✍️","—","jij kiest","Kies 1 eiwit, 1 koolhydraat, 2 groenten en 1 vet uit je favorieten","Geef het een naam en laat het Yorick proeven 😄"]
+ smoothie:["Power-smoothie ","3 min","± 35 g","200 g skyr, 1 banaan, 30 g havermout, 1 el pindakaas, 200 ml melk, eventueel cacao en ijs","Alles in de blender. Ideaal bij weinig honger."],
+ shakshuka:["Shakshuka met feta ","20 min","± 30 g","3 eieren, blik tomaten, paprika, ½ ui, komijn, paprikapoeder, 30 g feta, brood","Ui en paprika bakken, tomaat erbij, 5 min pruttelen. Kuiltjes, eieren erin, deksel erop. Feta erover."],
+ oats:["Overnight oats, 3 varianten ","5 min","± 30 g","60 g havermout, 200 ml melk, 1 schep eiwitpoeder of 100 g skyr. Variant: appel-kaneel, choco-banaan of rood fruit-kokos","'s Avonds mengen in een bakje, 's ochtends pakken en gaan."],
+ pancakes:["Eiwitpannenkoekjes ","15 min","± 27 g","2 eieren, 1 rijpe banaan, 40 g havermout, 100 g kwark, kaneel","Mixen en kleine pannenkoekjes bakken. Met bessen en honing."],
+ teriyaki:["Zalm-teriyaki ","25 min","± 36 g","125 g zalm, 100 g edamame, 75 g rijst, broccoli, 2 el teriyaki, sesam","Zalm 12 min in de oven met saus. Rijst en groente koken."],
+ zoeteaardappel:["Zoete-aardappel-kipschotel ","35 min","± 38 g","1 zoete aardappel, 150 g kipfilet, paprika, rode ui, 1 el olijfolie, paprikapoeder, 2 el Griekse yoghurt","Alles in blokjes op een bakplaat, 25–30 min op 200 °C. Met een klodder yoghurt."],
+ avotoast:["Avocado-ei-toast met zaden ","10 min","± 22 g","2 sneetjes zuurdesem, ½ avocado, 2 eieren, pompoen- en sesamzaad, chilivlokken","Toast, avocado erop, gebakken ei erop, zaden erover."],
+ pesto:["Romige pestopasta met kip ","20 min","± 50 g","85 g pasta, 125 g kip, 100 g hüttenkäse, 1 el pesto (zonder walnoot!), cherrytomaatjes, spinazie","Hüttenkäse met pesto glad mixen als saus. Kip bakken, alles door elkaar."],
+ regenboog:["Regenboog-bowl ","15 min","± 25 g","Couscous of quinoa, kikkererwten, rode kool of biet, wortel, mais, komkommer, edamame, hummus","Alles in vakjes in een kom. Hoe meer kleuren, hoe beter."],
+ linzensoep:["Linzen-groentesoep ","30 min","± 22 g","75 g rode linzen, wortel, ui, bleekselderij, blik tomaten, bouillon, spinazie + brood met kaas","Groente fruiten, linzen en tomaat erbij, 20 min laten koken. Maak een grote pan."],
+ kwarkcake:["Cheesecake-kwarkbakje ","3 min","± 22 g","250 g magere kwark, honing, vanille, 1 speculaas, bessen","Roeren, kruimels en bessen erop."],
+ bliss:["Eiwit-bliss-balls ","15 min","± 5 g per stuk","100 g dadels, 60 g havermout, 2 el pindakaas, 1 schep eiwitpoeder, cacao (geen walnoot!)","Alles in de blender, balletjes rollen, koelkast in. Snack voor in je tas."],
+ wentel:["Kerst-wentelteefjes met kwark ","15 min","± 28 g","2 sneetjes brioche of volkoren, 2 eieren, scheutje melk, kaneel, kwark, frambozen, honing","Brood door ei en melk, goudbruin bakken. Kwark en fruit erop."],
+ portobello:["Gevulde portobello ","25 min","± 24 g","2 grote portobello's, 125 g mager gehakt of linzen, feta, spinazie, knoflook, + krieltjes","Vulling bakken, in de champignons, 15 min in de oven."],
+ matcha:["Matcha-banaan-smoothie ","3 min","± 26 g","1 tl matcha, 1 banaan, 150 g skyr, 150 ml melk, ijs (vóór 14:00 vanwege cafeïne)","Blender, klaar. Een ontbijt én je matcha in één."],
+ kippensoep:["Kippensoep met noedels ","30 min","± 32 g","150 g kipfilet, noedels, wortel, prei, gember, bouillon, lente-ui","Kip in bouillon garen, groente en noedels erbij."],
+ chilisin:["Spinazie-linzencurry ","30 min","± 24 g","75 g linzen, kikkererwten, spinazie, paprika, ui, kerrie, tomaat, rijst + citroen erover","Kruiden en ui bakken, rest erbij, 20 min pruttelen. Citroen = vitamine C voor je ijzer!"],
+ steakbowl:["Biefstuk-rijstbowl ","20 min","± 40 g","125 g biefstuk, rijst, paprika, broccoli, sojasaus, sesam","Biefstuk kort bakken en in reepjes. Rood vlees = goed opneembaar ijzer."],
+ tonijnpasta:["Pasta tomaat-tonijn ","15 min","± 38 g","100 g pasta, blik tonijn, passata, knoflook, kappertjes, basilicum","Saus 5 min laten pruttelen, door de pasta. Perfect voor de avond vóór de 10 km."],
+ raceontbijt:["Race-ontbijt ","5 min","± 15 g","60 g havermout, melk, banaan, 1 el honing, snufje zout","2–3 uur vóór de start. Test hem op een gewone loopdag!"],
+ avondkwark:["Avond-kwarkbowl ","3 min","± 25 g","250 g kwark, kiwi, 1 tl pindakaas, pompoenpitten","1 uur voor het slapen. Eiwit voor je herstel 's nachts."],
+ ovenschotel:["Kip-groente-ovenschotel ","40 min","± 40 g","150 g kip, broccoli, courgette, krieltjes, 30 g geraspte kaas, kruiden","Alles in een ovenschaal, kaas erover, 30 min op 200 °C."],
+ pizza:["Zelfgemaakte pizza met kip ","25 min","± 38 g","Wrap of pizzabodem, passata, mozzarella light, kip, rode ui, rucola","Beleggen, 10–12 min in de oven, rucola erop."],
+ poke:["Pokebowl ","15 min","± 32 g","Sushirijst, zalm of tonijn, edamame, avocado, komkommer, wortel, sojasaus, sesam","Alles in een kom. Net zo lekker als afhalen."],
+ eigen:["Jouw eigen trainingsbord ","—","jij kiest","Kies 1 eiwit, 1 koolhydraat, 2 groenten en 1 vet uit je favorieten","Geef het een naam en laat het Yorick proeven "]
 };
 
 /* ======================= WEEKS ======================= */
@@ -509,75 +546,79 @@ function curWeek(){ const t = new Date(); t.setHours(0,0,0,0); if (t < START) re
 
 // day helper: [naam, sub, type, icon, session?, opts?]
 const D = (n,s,t,i,se,o)=>({name:n,sub:s,type:t,icon:i,session:se||null,opts:o||{}});
-const RUST = D("Rust","Rekroutine 10 min","rust","🌙");
+const RUST = D("Rust","Rekroutine 10 min","rust","");
 const PH = w => w<=4 ? 0 : (w<=8 ? 1 : 2);
 
 const WEEKS = [
  { // 0
-  kicker:"Week 0 · proefweek", title:"Eva's week 🚀", intro:"Kennismaken, plezier maken en je startpunt vastleggen. Alles licht!",
+  kicker:"Week 0 · proefweek", title:"Eva's week ", intro:"Kennismaken, plezier maken en je startpunt vastleggen. Alles licht!",
   focus:"Leer de sportschool kennen en eet na elke training binnen een uur. Meer hoeft er deze week niet.",
   startOffset:2, days:[
-    D("Hardlopen 5 km","Al gedaan! 🎉","loop","👟",null,{done:true,note:"Vanavond eventueel 10 min rekken."}),
-    D("Kennismaking sportschool","InBody + machines leren, alles licht","kracht","🏋️","K",{sets:2,reps:"10 · licht",note:"📊 Eerst de InBody-startmeting: niet net gegeten, eerst naar de wc. Kijk vooral naar je spiermassa."}),
-    D("Hardlopen + tennis","07:15 · 5 km rustig met Yorick & Noa · later tennis 🎾","loop","👟",null,{note:"<b>07:15 lopen:</b> eet eerst iets kleins, zoals een banaan of een glas chocomelk. Loop rustig: je kunt hele zinnen praten. Kies vlakke ondergrond.<br><b>Na het lopen:</b> binnen een uur ontbijten met eiwit erbij, zoals skyr met granola of eieren met brood.<br><b>Tennis:</b> eerst 5 min enkel-warming-up. Je benen zijn al moe van het lopen en de sportschool, en vermoeidheid maakt je enkel wiebeliger. Wiebelt of zeurt hij? Stop dan, of speel rustig door zonder sprintjes en wendingen 😉"}),
-    D("Pilates + startmeting","45 min + 15 min meten","pilates","🧘","C",{note:"📏 Startmeting: max. push-ups, plank en zijplank, spagaat in cm + foto, enkeltest."}),
-    D("Rust + check-in","Wandelen + avond mobiliteit","rust","🌙",null,{note:"💬 Check-in met Yorick vanavond."})],
+    D("Hardlopen 5 km","Al gedaan! ","loop","loop",null,{done:true,note:"Vanavond eventueel 10 min rekken."}),
+    D("Kennismaking sportschool","InBody + machines leren, alles licht","kracht","kracht","K",{sets:2,reps:"10 · licht",note:"Eerst de InBody-startmeting: niet net gegeten, eerst naar de wc. Kijk vooral naar je spiermassa."}),
+    D("Hardlopen + tennis","07:15 · 5 km rustig met Yorick & Noa · later tennis ","loop","loop",null,{note:"<b>07:15 lopen:</b> eet eerst iets kleins, zoals een banaan of een glas chocomelk. Loop rustig: je kunt hele zinnen praten. Kies vlakke ondergrond.<br><b>Na het lopen:</b> binnen een uur ontbijten met eiwit erbij, zoals skyr met granola of eieren met brood.<br><b>Tennis:</b> eerst 5 min enkel-warming-up. Je benen zijn al moe van het lopen en de sportschool, en vermoeidheid maakt je enkel wiebeliger. Wiebelt of zeurt hij? Stop dan, of speel rustig door zonder sprintjes en wendingen "}),
+    D("Pilates + startmeting","45 min + 15 min meten","pilates","pilates","C",{note:"Startmeting: max. push-ups, plank en zijplank, spagaat in cm, enkeltest."}),
+    D("Rust + check-in","Wandelen + avond mobiliteit","rust","rust",null,{note:"Check-in met Yorick vanavond."})],
   checkin:["Hoe voelde de eerste week? (1–10)","Welke oefening vond je leuk, en welke lastig?","Hoe voelde je enkel bij het tennis?","Hoe vaak lukte eten binnen een uur na het sporten?","Wil je volgende week samen met Yorick of Noa trainen of lopen?"],
-  food:{t:"Eiwit: je bouwstenen",e:"🥚",lesson:["Eiwit is het bouwmateriaal voor je spieren. Na het trainen gebruikt je lichaam het om sterker terug te komen.","Je hoeft het niet te tellen: een handpalm bij elk eetmoment is genoeg.","Wist je dat een bakje skyr ongeveer evenveel eiwit heeft als 4 eieren?"],rec:["smoothie","shakshuka"],try:"Probeer deze week skyr of kwark als tussendoortje, minstens 3 keer.",reflect:"Wanneer had je deze week de meeste energie? Wat had je toen gegeten?"}},
- { kicker:"Week 1 · fase 1", title:"Week 1: de basis 🧱", intro:"4 trainingen, alles licht. Je zoekt je startgewichten.", focus:"Schrijf bij elke oefening je gewicht op in het logboek. Dat is je startpunt.",
-  days:[D("Kracht A","Startgewichten zoeken · samen met Yorick","kracht","🏋️","A"),RUST,D("Hardlopen","20–25 min heel rustig","loop","👟"),D("Kracht B","Startgewichten zoeken","kracht","🏋️","B"),RUST,D("Pilates C","Fase 1","pilates","🧘","C"),D("Rust / wandelen","Check-in","rust","🌙")],
+  food:{t:"Eiwit: je bouwstenen",e:"",lesson:["Eiwit is het bouwmateriaal voor je spieren. Na het trainen gebruikt je lichaam het om sterker terug te komen.","Je hoeft het niet te tellen: een handpalm bij elk eetmoment is genoeg.","Wist je dat een bakje skyr ongeveer evenveel eiwit heeft als 4 eieren?"],rec:["smoothie","shakshuka"],try:"Probeer deze week skyr of kwark als tussendoortje, minstens 3 keer.",reflect:"Wanneer had je deze week de meeste energie? Wat had je toen gegeten?"}},
+ { kicker:"Week 1 · fase 1", title:"Week 1: de basis ", intro:"4 trainingen, alles licht. Je zoekt je startgewichten.", focus:"Schrijf bij elke oefening je gewicht op in het logboek. Dat is je startpunt.",
+  days:[D("Kracht A","Startgewichten zoeken · samen met Yorick","kracht","kracht","A"),RUST,D("Hardlopen","20–25 min heel rustig","loop","loop"),D("Kracht B","Startgewichten zoeken","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Rust / wandelen","Check-in","rust","rust")],
   checkin:["Hoe ging het startgewicht zoeken? Welke oefening voelde onwennig?","Spierpijn: waar en hoe erg (1–10)?","Overnight oats: gelukt, en lekker?","Hoeveel trainingen zijn gelukt, en wat hielp?","Wil je zondag lopen, en met wie?"],
-  food:{t:"Ontbijt na het trainen",e:"🌅",lesson:["Na een training staat je lichaam open voor eten: het wil herstellen.","Echt haasten hoeft niet, maar voor jou is 'binnen een uur' een handige vaste regel.","Een goed ontbijt na de training = eiwit + koolhydraten. Denk aan skyr met granola, of eieren met brood."],rec:["oats","pancakes"],try:"Zet deze week 2× overnight oats klaar voor een trainingsochtend.",reflect:"Hoe voelde je ochtend als je wél ontbeten had na de training?"}},
- { kicker:"Week 2 · fase 1", title:"Week 2: iets meer 📈", intro:"Probeer bij elke oefening 1 herhaling meer of een kleine stap zwaarder.", focus:"Kijk in de logger naar 'vorige keer' en doe er net iets bij.",
-  days:[D("Kracht A","+1 herhaling of kleine stap","kracht","🏋️","A"),RUST,D("Hardlopen","25 min + avond mobiliteit","loop","👟"),D("Kracht B","+1 herhaling of kleine stap","kracht","🏋️","B"),RUST,D("Pilates C","Fase 1","pilates","🧘","C"),D("Hardlopen (optioneel)","20–25 min rustig + check-in","loop","👟")],
+  food:{t:"Ontbijt na het trainen",e:"",lesson:["Na een training staat je lichaam open voor eten: het wil herstellen.","Echt haasten hoeft niet, maar voor jou is 'binnen een uur' een handige vaste regel.","Een goed ontbijt na de training = eiwit + koolhydraten. Denk aan skyr met granola, of eieren met brood."],rec:["oats","pancakes"],try:"Zet deze week 2× overnight oats klaar voor een trainingsochtend.",reflect:"Hoe voelde je ochtend als je wél ontbeten had na de training?"}},
+ { kicker:"Week 2 · fase 1", title:"Week 2: iets meer ", intro:"Probeer bij elke oefening 1 herhaling meer of een kleine stap zwaarder.", focus:"Kijk in de logger naar 'vorige keer' en doe er net iets bij.",
+  days:[D("Kracht A","+1 herhaling of kleine stap","kracht","kracht","A"),RUST,D("Hardlopen","25 min + avond mobiliteit","loop","loop"),D("Kracht B","+1 herhaling of kleine stap","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Hardlopen (optioneel)","20–25 min rustig + check-in","loop","loop")],
   checkin:["Lukte het om 1 herhaling meer of iets zwaarder te doen?","Hoe was de eerste mobiliteitssessie op de mat?","Wat merkte je van koolhydraten vóór je loop?","Hoe voelt je enkel bij de balansoefening?","Week 3 wordt 3 sets en een interval op zondag. Zin in?"],
-  food:{t:"Koolhydraten = brandstof",e:"🍞",lesson:["Koolhydraten zijn de favoriete brandstof van je spieren en je hersenen.","Je spieren slaan ze op met water erbij. Daardoor ben je soms iets zwaarder: dat is brandstof, geen vet.","Te weinig koolhydraten = zware benen en minder kracht."],rec:["teriyaki","zoeteaardappel"],try:"Eet 1–2 uur vóór je loop iets met koolhydraten en let op hoe je benen voelen.",reflect:"Welke gedachte heb je over koolhydraten, en klopt die eigenlijk?"}},
- { kicker:"Week 3 · fase 1", title:"Week 3: 3 sets 🔥", intro:"Nu 3 sets per oefening en je eerste interval op zondag.", focus:"Rust echt tussen de sets: de timer helpt je.",
-  days:[D("Kracht A","3 sets, RPE 7","kracht","🏋️","A"),RUST,D("Hardlopen","30 min + avond mobiliteit","loop","👟"),D("Kracht B","3 sets, RPE 7","kracht","🏋️","B"),RUST,D("Pilates C","Fase 1","pilates","🧘","C"),D("Interval 1","6 × 1 min stevig / 2 min wandelen","loop","⚡",null,{note:"10 min inlopen, 5 min uitlopen. Alleen op vlakke ondergrond."})],
+  food:{t:"Koolhydraten = brandstof",e:"",lesson:["Koolhydraten zijn de favoriete brandstof van je spieren en je hersenen.","Je spieren slaan ze op met water erbij. Daardoor ben je soms iets zwaarder: dat is brandstof, geen vet.","Te weinig koolhydraten = zware benen en minder kracht."],rec:["teriyaki","zoeteaardappel"],try:"Eet 1–2 uur vóór je loop iets met koolhydraten en let op hoe je benen voelen.",reflect:"Welke gedachte heb je over koolhydraten, en klopt die eigenlijk?"}},
+ { kicker:"Week 3 · fase 1", title:"Week 3: 3 sets ", intro:"Nu 3 sets per oefening en je eerste interval op zondag.", focus:"Rust echt tussen de sets: de timer helpt je.",
+  days:[D("Kracht A","3 sets, RPE 7","kracht","kracht","A"),RUST,D("Hardlopen","30 min + avond mobiliteit","loop","loop"),D("Kracht B","3 sets, RPE 7","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Interval 1","6 × 1 min stevig / 2 min wandelen","loop","interval",null,{note:"10 min inlopen, 5 min uitlopen. Alleen op vlakke ondergrond."})],
   checkin:["Hoe voelde het interval: te zwaar, goed of te makkelijk?","Haal je bij sommige oefeningen al 12 herhalingen?","Welke vetten heb je toegevoegd, en wat vond je lekker?","Hoe was je energie overdag (1–10)?","Week 4 is meetweek. Kun je do 10 dec naar de InBody?"],
-  food:{t:"Gezonde vetten",e:"🥑",lesson:["Vetten helpen je hormonen en de opname van vitamines A, D, E en K.","Vet is energierijk: handig als je weinig honger hebt. Een kleine portie geeft veel energie.","Goede bronnen: olijfolie, avocado, zaden, noten (behalve walnoot), vette vis."],rec:["avotoast","pesto"],try:"Strooi deze week een handje zaden of noten over je lunch of yoghurt.",reflect:"Merk je verschil in hoe lang je verzadigd blijft met een beetje extra vet?"}},
- { kicker:"Week 4 · meetweek", title:"Week 4: meten 📏", intro:"Fase 1 afronden, InBody en metingen. Kijk hoe ver je al bent!", focus:"Vergelijk je metingen met week 0. Elke stap vooruit telt.",
-  days:[D("Kracht A","3 × 10–12, overal 12? Zwaarder","kracht","🏋️","A"),RUST,D("Hardlopen","30–35 min + mobiliteit","loop","👟"),D("Kracht B","+ InBody (do 10 dec)","kracht","🏋️","B",{note:"📊 InBody vóór de training, zelfde omstandigheden als in week 0."}),D("Rust + meting","Push-ups, plank, spagaat, enkeltest","rust","📏"),D("Pilates C","Fase 1","pilates","🧘","C"),D("Hardlopen","40 min · evaluatie fase 1","loop","👟")],
-  checkin:["Vergelijk je metingen met week 0: wat is beter geworden?","Hoe gaat de enkeltest?","Welke kleur groente was nieuw voor je?","Wat wil je in fase 2 anders doen?","Beloning: welke sportlegging wordt het? 😄"],
-  food:{t:"Vezels & kleur op je bord",e:"🌈",lesson:["Vezels houden je darmen gezond en je energie stabiel.","Elke kleur groente of fruit geeft andere vitamines. 'Eet de regenboog' is dus echt een ding.","Diepvriesgroente is net zo voedzaam als vers, en sneller."],rec:["regenboog","linzensoep"],try:"Eet deze week 5 verschillende kleuren groente of fruit.",reflect:"Hoe voelde je buik en je energie met meer groente erbij?"}},
- { kicker:"Week 5 · fase 2", title:"Week 5: zwaarder 💪", intro:"Fase 2: 3 × 8–12 en zwaardere gewichten.", focus:"Durf de stap zwaarder als het logboek het aangeeft.",
-  days:[D("Kracht A","3 × 8–12, RPE 7–8 · kuitheffen op 1 been","kracht","🏋️","A"),RUST,D("Hardlopen","35 min + mobiliteit (actief rekken)","loop","👟"),D("Kracht B","3 × 8–12","kracht","🏋️","B"),RUST,D("Pilates C","Fase 2","pilates","🧘","C"),D("Hardlopen","45 min · plan rond Kerst","loop","👟")],
+  food:{t:"Gezonde vetten",e:"",lesson:["Vetten helpen je hormonen en de opname van vitamines A, D, E en K.","Vet is energierijk: handig als je weinig honger hebt. Een kleine portie geeft veel energie.","Goede bronnen: olijfolie, avocado, zaden, noten (behalve walnoot), vette vis."],rec:["avotoast","pesto"],try:"Strooi deze week een handje zaden of noten over je lunch of yoghurt.",reflect:"Merk je verschil in hoe lang je verzadigd blijft met een beetje extra vet?"}},
+ { kicker:"Week 4 · meetweek", title:"Week 4: meten ", intro:"Fase 1 afronden, InBody en metingen. Kijk hoe ver je al bent!", focus:"Vergelijk je metingen met week 0. Elke stap vooruit telt.",
+  days:[D("Kracht A","3 × 10–12, overal 12? Zwaarder","kracht","kracht","A"),RUST,D("Hardlopen","30–35 min + mobiliteit","loop","loop"),D("Kracht B","+ InBody (do 10 dec)","kracht","kracht","B",{note:"InBody vóór de training, zelfde omstandigheden als in week 0."}),D("Rust + meting","Push-ups, plank, spagaat, enkeltest","rust","meet"),D("Pilates C","Fase 1","pilates","pilates","C"),D("Hardlopen","40 min · evaluatie fase 1","loop","loop")],
+  checkin:["Vergelijk je metingen met week 0: wat is beter geworden?","Hoe gaat de enkeltest?","Welke kleur groente was nieuw voor je?","Wat wil je in fase 2 anders doen?","Beloning: welke sportlegging wordt het? "],
+  food:{t:"Vezels & kleur op je bord",e:"",lesson:["Vezels houden je darmen gezond en je energie stabiel.","Elke kleur groente of fruit geeft andere vitamines. 'Eet de regenboog' is dus echt een ding.","Diepvriesgroente is net zo voedzaam als vers, en sneller."],rec:["regenboog","linzensoep"],try:"Eet deze week 5 verschillende kleuren groente of fruit.",reflect:"Hoe voelde je buik en je energie met meer groente erbij?"}},
+ { kicker:"Week 5 · fase 2", title:"Week 5: zwaarder ", intro:"Fase 2: 3 × 8–12 en zwaardere gewichten.", focus:"Durf de stap zwaarder als het logboek het aangeeft.",
+  days:[D("Kracht A","3 × 8–12, RPE 7–8 · kuitheffen op 1 been","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit (actief rekken)","loop","loop"),D("Kracht B","3 × 8–12","kracht","kracht","B"),RUST,D("Pilates C","Fase 2","pilates","pilates","C"),D("Hardlopen","45 min · plan rond Kerst","loop","loop")],
   checkin:["Hoe voelde het zwaardere werk (3 × 8–12)?","Kuitheffen op 1 been: hoe ging dat?","Welke snack werkte het best in je tas?","Kerstweek: wanneer kun je trainen?","Merk je verschil bij de spagaat door actief rekken?"],
-  food:{t:"Slimme snacks",e:"🎒",lesson:["Een snack is een mini-maaltijd: liefst eiwit + iets energierijks.","Een snack in je tas voorkomt dat je een maaltijd overslaat als het druk is.","Eiwitrepen verschillen enorm: kijk naar eiwit en of je hem lekker vindt."],rec:["kwarkcake","bliss"],try:"Maak een snackvoorraad: 3 dingen die altijd in je tas zitten.",reflect:"Op welk moment van de dag krijg je de meeste trek, en wat helpt dan?"}},
- { kicker:"Week 6 · Kerst", title:"Week 6: Kerst 🎄", intro:"Training B schuift naar woensdag. Geniet van de feestdagen!", focus:"Train wat lukt, en geniet zonder schuldgevoel.",
-  days:[D("Kracht A","3 × 8–12, RPE 8","kracht","🏋️","A"),RUST,D("Kracht B (vervroegd)","3 × 8–12","kracht","🏋️","B"),D("Hardlopen","35 min of kerstloopje","loop","👟"),D("Kerst 🎄","Genieten","rust","🎁"),D("Rust of Pilates C","Als je zin hebt","pilates","🧘","C"),D("Interval 2","5 × 2 min stevig / 2 min rustig","loop","⚡")],
+  food:{t:"Slimme snacks",e:"",lesson:["Een snack is een mini-maaltijd: liefst eiwit + iets energierijks.","Een snack in je tas voorkomt dat je een maaltijd overslaat als het druk is.","Eiwitrepen verschillen enorm: kijk naar eiwit en of je hem lekker vindt."],rec:["kwarkcake","bliss"],try:"Maak een snackvoorraad: 3 dingen die altijd in je tas zitten.",reflect:"Op welk moment van de dag krijg je de meeste trek, en wat helpt dan?"}},
+ { kicker:"Week 6 · Kerst", title:"Week 6: Kerst ", intro:"Training B schuift naar woensdag. Geniet van de feestdagen!", focus:"Train wat lukt, en geniet zonder schuldgevoel.",
+  days:[D("Kracht A","3 × 8–12, RPE 8","kracht","kracht","A"),RUST,D("Kracht B (vervroegd)","3 × 8–12","kracht","kracht","B"),D("Hardlopen","35 min of kerstloopje","loop","loop"),D("Kerst ","Genieten","rust","star"),D("Rust of Pilates C","Als je zin hebt","pilates","pilates","C"),D("Interval 2","5 × 2 min stevig / 2 min rustig","loop","interval")],
   checkin:["Hoe ging trainen rond Kerst?","Hoe voelde je je bij de kerstmaaltijden: ontspannen of gespannen?","Interval 2: hoe ging het?","Week 7 is licht en rond oud en nieuw: wanneer wil je trainen?","Wat gun je jezelf deze week?"],
-  food:{t:"Genieten zonder stress",e:"🍽️",lesson:["Eén feestmaaltijd verandert niets aan je resultaat. Wat telt is wat je meestal doet.","Compenseer niet door maaltijden over te slaan. Eet gewoon je vaste momenten, ook rond de feestdagen.","Genieten hoort bij een gezonde relatie met eten."],rec:["wentel","portobello"],try:"Kies één kerstgerecht en geniet er bewust van: proef, ruik, neem je tijd.",reflect:"Wat helpt jou om rond de feestdagen ontspannen met eten om te gaan?"}},
- { kicker:"Week 7 · lichte week", title:"Week 7: herladen 🔋", intro:"Lichtere week: 2 sets, zelfde gewicht. Ook rust maakt je sterker.", focus:"Licht trainen is geen luiheid: je lichaam bouwt nu op.",
-  days:[D("Kracht A","2 sets, zelfde gewicht, RPE 6","kracht","🏋️","A",{sets:2}),RUST,D("Hardlopen","30 min + mobiliteit","loop","👟"),D("Kracht B of vrij","2 sets, RPE 6","kracht","🏋️","B",{sets:2}),D("Nieuwjaar 🎆","Wandelen","rust","🎆"),D("Pilates C","Rustig","pilates","🧘","C"),D("Hardlopen","45–50 min op gevoel","loop","👟")],
+  food:{t:"Genieten zonder stress",e:"",lesson:["Eén feestmaaltijd verandert niets aan je resultaat. Wat telt is wat je meestal doet.","Compenseer niet door maaltijden over te slaan. Eet gewoon je vaste momenten, ook rond de feestdagen.","Genieten hoort bij een gezonde relatie met eten."],rec:["wentel","portobello"],try:"Kies één kerstgerecht en geniet er bewust van: proef, ruik, neem je tijd.",reflect:"Wat helpt jou om rond de feestdagen ontspannen met eten om te gaan?"}},
+ { kicker:"Week 7 · lichte week", title:"Week 7: herladen ", intro:"Lichtere week: 2 sets, zelfde gewicht. Ook rust maakt je sterker.", focus:"Licht trainen is geen luiheid: je lichaam bouwt nu op.",
+  days:[D("Kracht A","2 sets, zelfde gewicht, RPE 6","kracht","kracht","A",{sets:2}),RUST,D("Hardlopen","30 min + mobiliteit","loop","loop"),D("Kracht B of vrij","2 sets, RPE 6","kracht","kracht","B",{sets:2}),D("Nieuwjaar ","Wandelen","rust","star"),D("Pilates C","Rustig","pilates","pilates","C"),D("Hardlopen","45–50 min op gevoel","loop","loop")],
   checkin:["Heb je de rust van een lichtere week gevoeld?","Hoeveel water dronk je gemiddeld?","Hoe ging opstarten na de feestdagen?","Week 8: InBody (do 7 jan) en een lange loop. Met wie loop je?","Wat is je doel voor januari?"],
-  food:{t:"Drinken & hydratatie",e:"💧",lesson:["Al een klein beetje vochttekort kan je kracht en concentratie verminderen.","Lichtgele plas = goed. Donkergeel = drinken!","Matcha en koffie tellen mee, maar door de cafeïne liefst vóór 14:00 voor een goede slaap."],rec:["matcha","kippensoep"],try:"Neem elke dag een fles water mee en kijk hoe vaak je hem leeg krijgt.",reflect:"Merk je verschil in energie op dagen dat je meer drinkt?"}},
- { kicker:"Week 8 · meetweek", title:"Week 8: lange loop 🛣️", intro:"InBody, metingen en een lange loop als repetitie voor de 10 km.", focus:"Vergelijk met week 4 en zie hoe je groeit.",
-  days:[D("Kracht A","3 × 8–12, RPE 8","kracht","🏋️","A"),RUST,D("Hardlopen","30 min + 4 versnellingen","loop","👟"),D("Kracht B","+ InBody (do 7 jan)","kracht","🏋️","B"),D("Rust + meting","Push-ups, plank, spagaat, enkel","rust","📏"),D("Pilates C","Fase 2","pilates","🧘","C"),D("Lange loop","8–10 km rustig","loop","🛣️")],
+  food:{t:"Drinken & hydratatie",e:"",lesson:["Al een klein beetje vochttekort kan je kracht en concentratie verminderen.","Lichtgele plas = goed. Donkergeel = drinken!","Matcha en koffie tellen mee, maar door de cafeïne liefst vóór 14:00 voor een goede slaap."],rec:["matcha","kippensoep"],try:"Neem elke dag een fles water mee en kijk hoe vaak je hem leeg krijgt.",reflect:"Merk je verschil in energie op dagen dat je meer drinkt?"}},
+ { kicker:"Week 8 · meetweek", title:"Week 8: lange loop ", intro:"InBody, metingen en een lange loop als repetitie voor de 10 km.", focus:"Vergelijk met week 4 en zie hoe je groeit.",
+  days:[D("Kracht A","3 × 8–12, RPE 8","kracht","kracht","A"),RUST,D("Hardlopen","30 min + 4 versnellingen","loop","loop"),D("Kracht B","+ InBody (do 7 jan)","kracht","kracht","B"),D("Rust + meting","Push-ups, plank, spagaat, enkel","rust","meet"),D("Pilates C","Fase 2","pilates","pilates","C"),D("Lange loop","8–10 km rustig","loop","loop")],
   checkin:["Vergelijk met week 4: waar ben je trots op?","Hoe voelde de lange loop?","Welke ijzer + vitamine C-combinatie probeerde je?","Hoe voel je je over de 10 km volgende week?","Wat heb je nodig om uitgerust aan de start te staan?"],
-  food:{t:"IJzer & vitamine C",e:"⚡",lesson:["IJzer vervoert zuurstof naar je spieren. Vrouwen die sporten hebben er extra aandacht voor nodig.","Rood vlees geeft goed opneembaar ijzer. Uit peulvruchten neem je het beter op met vitamine C erbij (paprika, citroen, sinaasappel).","Vaak moe zonder reden? Laat bij de huisarts je ferritine prikken."],rec:["chilisin","steakbowl"],try:"Combineer deze week 2× peulvruchten met paprika of een sinaasappel.",reflect:"Hoe is je energie deze week vergeleken met week 1?"}},
- { kicker:"Week 9 · 10 km-week", title:"Week 9: de 10 km 🏁", intro:"Lichtere krachtweek. Zondag 17 januari: de 10 km!", focus:"Uitrusten, goed eten en genieten van zondag.",
-  days:[D("Kracht A","2 × 8–10, RPE 6–7","kracht","🏋️","A",{sets:2}),RUST,D("Hardlopen","20 min + 4 versnellingen","loop","👟"),D("Kracht B licht","Alleen B3, B4, B7","kracht","🏋️","B",{sets:2,only:["B3","B4","B7"]}),D("Rust","Vroeg naar bed","rust","🌙"),D("Rust of korte C","Avond pasta of rijst","pilates","🧘"),D("10 KM! 🏁","Race-ontbijt 2–3 uur vooraf · brunch erna","loop","🏅")],
-  checkin:["Hoe ging de 10 km?! 🏁","Hoe voelde je race-ontbijt?","Hoe herstellen je benen?","Fase 3 wordt zwaarder (4 × 6–10). Klaar voor?","Wat wil je vieren?"],
-  food:{t:"Eten voor de 10 km",e:"🏁",lesson:["De avond ervoor: een gewone maaltijd met wat extra koolhydraten. Geen experimenten.","2–3 uur vooraf: een vertrouwd ontbijt. Tijdens 10 km is water genoeg.","Erna: eiwit + koolhydraten voor herstel. Brunch telt!"],rec:["tonijnpasta","raceontbijt"],try:"Test je race-ontbijt op woensdag vóór je loop.",reflect:"Hoe voelt het om eten te zien als brandstof voor iets waar je trots op bent?"}},
- { kicker:"Week 10 · fase 3", title:"Week 10: sterker 🦾", intro:"Fase 3: de hoofdoefeningen gaan naar 4 × 6–10.", focus:"Zwaarder met minder herhalingen: dit is waar kracht groeit.",
-  days:[D("Kracht A","A1/A2 4 × 6–10, rest 3 × 8–12","kracht","🏋️","A"),RUST,D("Hardlopen","25–30 min herstel + mobiliteit","loop","👟"),D("Kracht B","B1/B3 4 × 6–10","kracht","🏋️","B"),RUST,D("Pilates C","Fase 3","pilates","🧘","C"),D("Hardlopen","40 min","loop","👟")],
+  food:{t:"IJzer & vitamine C",e:"",lesson:["IJzer vervoert zuurstof naar je spieren. Vrouwen die sporten hebben er extra aandacht voor nodig.","Rood vlees geeft goed opneembaar ijzer. Uit peulvruchten neem je het beter op met vitamine C erbij (paprika, citroen, sinaasappel).","Vaak moe zonder reden? Laat bij de huisarts je ferritine prikken."],rec:["chilisin","steakbowl"],try:"Combineer deze week 2× peulvruchten met paprika of een sinaasappel.",reflect:"Hoe is je energie deze week vergeleken met week 1?"}},
+ { kicker:"Week 9 · 10 km-week", title:"Week 9: de 10 km ", intro:"Lichtere krachtweek. Zondag 17 januari: de 10 km!", focus:"Uitrusten, goed eten en genieten van zondag.",
+  days:[D("Kracht A","2 × 8–10, RPE 6–7","kracht","kracht","A",{sets:2}),RUST,D("Hardlopen","20 min + 4 versnellingen","loop","loop"),D("Kracht B licht","Alleen B3, B4, B7","kracht","kracht","B",{sets:2,only:["B3","B4","B7"]}),D("Rust","Vroeg naar bed","rust","rust"),D("Rust of korte C","Avond pasta of rijst","pilates","pilates"),D("10 KM! ","Race-ontbijt 2–3 uur vooraf · brunch erna","loop","medal")],
+  checkin:["Hoe ging de 10 km?! ","Hoe voelde je race-ontbijt?","Hoe herstellen je benen?","Fase 3 wordt zwaarder (4 × 6–10). Klaar voor?","Wat wil je vieren?"],
+  food:{t:"Eten voor de 10 km",e:"",lesson:["De avond ervoor: een gewone maaltijd met wat extra koolhydraten. Geen experimenten.","2–3 uur vooraf: een vertrouwd ontbijt. Tijdens 10 km is water genoeg.","Erna: eiwit + koolhydraten voor herstel. Brunch telt!"],rec:["tonijnpasta","raceontbijt"],try:"Test je race-ontbijt op woensdag vóór je loop.",reflect:"Hoe voelt het om eten te zien als brandstof voor iets waar je trots op bent?"}},
+ { kicker:"Week 10 · fase 3", title:"Week 10: sterker ", intro:"Fase 3: de hoofdoefeningen gaan naar 4 × 6–10.", focus:"Zwaarder met minder herhalingen: dit is waar kracht groeit.",
+  days:[D("Kracht A","A1/A2 4 × 6–10, rest 3 × 8–12","kracht","kracht","A"),RUST,D("Hardlopen","25–30 min herstel + mobiliteit","loop","loop"),D("Kracht B","B1/B3 4 × 6–10","kracht","kracht","B"),RUST,D("Pilates C","Fase 3","pilates","pilates","C"),D("Hardlopen","40 min","loop","loop")],
   checkin:["Hoe voelden de zware sets (4 × 6–10)?","Hoe sliep je deze week (gevoel of Oura)?","Kwark voor het slapen: lekker of niet?","Welke oefening gaat het snelst vooruit?","Week 11: interval 3 op zondag. Met wie?"],
-  food:{t:"Herstel & slaap",e:"🌙",lesson:["Spieren groeien vooral 's nachts. Goed slapen is gratis training.","Eiwit voor het slapen (zoals kwark) kan je herstel 's nachts ondersteunen.","Een zware maaltijd vlak voor bed kan je slaap verstoren. Liever iets kleins."],rec:["avondkwark","ovenschotel"],try:"Eet 3 avonden een bakje kwark, ongeveer een uur voor het slapen.",reflect:"Merk je verschil in hoe je wakker wordt?"}},
- { kicker:"Week 11 · fase 3", title:"Week 11: records 🏆", intro:"Probeer 1 herhaling meer of 1 stap zwaarder dan vorige week.", focus:"Kijk in je logboek: hoeveel sterker ben je dan in week 1?",
-  days:[D("Kracht A","Zoals week 10, +1","kracht","🏋️","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","👟"),D("Kracht B","Zoals week 10, +1","kracht","🏋️","B"),RUST,D("Pilates C","Fase 3","pilates","🧘","C"),D("Interval 3","4 × 3 min stevig / 2 min rustig","loop","⚡")],
+  food:{t:"Herstel & slaap",e:"",lesson:["Spieren groeien vooral 's nachts. Goed slapen is gratis training.","Eiwit voor het slapen (zoals kwark) kan je herstel 's nachts ondersteunen.","Een zware maaltijd vlak voor bed kan je slaap verstoren. Liever iets kleins."],rec:["avondkwark","ovenschotel"],try:"Eet 3 avonden een bakje kwark, ongeveer een uur voor het slapen.",reflect:"Merk je verschil in hoe je wakker wordt?"}},
+ { kicker:"Week 11 · fase 3", title:"Week 11: records ", intro:"Probeer 1 herhaling meer of 1 stap zwaarder dan vorige week.", focus:"Kijk in je logboek: hoeveel sterker ben je dan in week 1?",
+  days:[D("Kracht A","Zoals week 10, +1","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","loop"),D("Kracht B","Zoals week 10, +1","kracht","kracht","B"),RUST,D("Pilates C","Fase 3","pilates","pilates","C"),D("Interval 3","4 × 3 min stevig / 2 min rustig","loop","interval")],
   checkin:["Haal je op een paar oefeningen een nieuw record?","Hoe ging uit eten: wat koos je?","Interval 3 vergeleken met week 3: hoe voelde dat?","Kun je do 4 feb naar de InBody?","Welke beloning kies je voor week 12?"],
-  food:{t:"Uit eten & sociaal",e:"🥂",lesson:["Er bestaat geen 'fout' gerecht. Kies wat je lekker vindt.","Een simpele check: zit er een eiwitbron in? Dan zit je goed.","Eten met vrienden is ook voeding: voor je humeur."],rec:["pizza","poke"],try:"Bestel de volgende keer dat je uit eten gaat iets wat je echt lekker vindt, zonder te twijfelen.",reflect:"Hoe voel je je als je met anderen eet, vergeleken met een paar maanden geleden?"}},
- { kicker:"Week 12 · finale", title:"Week 12: gehaald! 🎉", intro:"Eindmeting, InBody en terugkijken op 12 weken.", focus:"Noteer je beste sets: dat is je eindresultaat.",
-  days:[D("Kracht A","Beste sets noteren","kracht","🏋️","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","👟"),D("Kracht B","Beste sets · InBody (do 4 feb)","kracht","🏋️","B"),D("Eindmeting","Push-ups, plank, spagaat, enkel","rust","📏"),D("Pilates C","Fase 3","pilates","🧘","C"),D("5 km op gevoel","Grote check-in","loop","🏅")],
+  food:{t:"Uit eten & sociaal",e:"",lesson:["Er bestaat geen 'fout' gerecht. Kies wat je lekker vindt.","Een simpele check: zit er een eiwitbron in? Dan zit je goed.","Eten met vrienden is ook voeding: voor je humeur."],rec:["pizza","poke"],try:"Bestel de volgende keer dat je uit eten gaat iets wat je echt lekker vindt, zonder te twijfelen.",reflect:"Hoe voel je je als je met anderen eet, vergeleken met een paar maanden geleden?"}},
+ { kicker:"Week 12 · finale", title:"Week 12: gehaald! ", intro:"Eindmeting, InBody en terugkijken op 12 weken.", focus:"Noteer je beste sets: dat is je eindresultaat.",
+  days:[D("Kracht A","Beste sets noteren","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","loop"),D("Kracht B","Beste sets · InBody (do 4 feb)","kracht","kracht","B"),D("Eindmeting","Push-ups, plank, spagaat, enkel","rust","meet"),D("Pilates C","Fase 3","pilates","pilates","C"),D("5 km op gevoel","Grote check-in","loop","medal")],
   checkin:["Waar ben je het meest trots op na 12 weken?","Wat is er veranderd in hoe je over eten denkt?","Welke recepten blijven op je vaste lijstje?","Wat wil je in het volgende blok: meer kracht, meer lopen, of iets nieuws?","Hoe vaak wil je in het volgende blok trainen?"],
-  food:{t:"Jouw eigen bord",e:"✍️",lesson:["Je kent nu de bouwstenen: eiwit, koolhydraten, groente en vet.","Met je favorieten maak je eindeloos eigen combinaties.","Eten is geen dieet meer, maar brandstof en plezier."],rec:["eigen","smoothie"],try:"Bedenk je eigen trainingsbord-recept en kook het voor Yorick.",reflect:"Wat is er veranderd in je relatie met eten sinds week 0?"}}
+  food:{t:"Jouw eigen bord",e:"",lesson:["Je kent nu de bouwstenen: eiwit, koolhydraten, groente en vet.","Met je favorieten maak je eindeloos eigen combinaties.","Eten is geen dieet meer, maar brandstof en plezier."],rec:["eigen","smoothie"],try:"Bedenk je eigen trainingsbord-recept en kook het voor Yorick.",reflect:"Wat is er veranderd in je relatie met eten sinds week 0?"}}
 ];
 /* Elke zondag na de check-in: week vaststellen en PUBLISHED ophogen. Latere weken zijn concept. */
 const PUBLISHED = 0;
-const ANCH = {4:"📊 InBody + meting (do 10 dec)",6:"🎄 Kerst",7:"🎆 Oud & nieuw",8:"📊 InBody + meting (do 7 jan)",9:"🏁 10 km (zo 17 jan)",12:"📊 InBody + eindmeting (do 4 feb)"};
+/* Na zondag 00:00 zonder update opent de conceptweek vanzelf. Persoonlijke zin per week: MSG[w]. */
+const MSG = {};
+function isLocked(w){ return w > PUBLISHED && Date.now() < weekStart(w).getTime(); }
+function isConcept(w){ return w > PUBLISHED && !isLocked(w); }
+const ANCH = {4:" InBody + meting (do 10 dec)",6:" Kerst",7:" Oud & nieuw",8:" InBody + meting (do 7 jan)",9:" 10 km (zo 17 jan)",12:" InBody + eindmeting (do 4 feb)"};
 const PHASENAME = w => w===0?"Proefweek":(w<=4?"Fase 1 · techniek leren":(w<=8?"Fase 2 · opbouwen":"Fase 3 · sterker worden"));
-const HABITS = [["👣","10.000+ stappen","Dat doe je al, ga zo door"],["🍽️","3 maaltijden, niets overgeslagen","Kleiner mag, overslaan liever niet"],["🥛","Eiwit bij elk eetmoment","Skyr, kwark, ei, kip, tofu…"],["💧","Fles water mee","Lichtgele plas = goed"]];
+const HABITS = [["steps","10.000+ stappen","Dat doe je al, ga zo door"],["plate","3 maaltijden, niets overgeslagen","Kleiner mag, overslaan liever niet"],["egg","Eiwit bij elk eetmoment","Skyr, kwark, ei, kip, tofu…"],["drop","Fles water mee","Lichtgele plas = goed"]];
 
 /* ======================= STATE ======================= */
 const KEY = "eva-app-v2";
@@ -587,7 +628,7 @@ S.days = S.days || {}; S.habits = S.habits || {}; S.daily = S.daily || {}; S.log
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
 const $ = id => document.getElementById(id);
 const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
-function celebrate(){ const c=$("cele"); $("celeWord").textContent=CW[Math.floor(Math.random()*CW.length)]; c.classList.remove("on"); void c.offsetWidth; c.classList.add("on"); try{navigator.vibrate&&navigator.vibrate(30);}catch(e){} clearTimeout(celebrate._t); celebrate._t=setTimeout(()=>c.classList.remove("on"),1700); }
+function celebrate(word){ const c=$("cele"); $("celeWord").textContent=word||CW[Math.floor(Math.random()*CW.length)]; c.classList.remove("on"); void c.offsetWidth; c.classList.add("on"); try{navigator.vibrate&&navigator.vibrate(30);}catch(e){} clearTimeout(celebrate._t); celebrate._t=setTimeout(()=>c.classList.remove("on"),1700); }
 function toast(t){ const el=$("toast"); el.textContent=t; el.style.display="block"; clearTimeout(toast._t); toast._t=setTimeout(()=>el.style.display="none",2200); }
 
 let W = curWeek();
@@ -616,17 +657,17 @@ function targetFor(k, w, opts){
 }
 function lockedHtml(w, what){
   const st = weekStart(w), sun = new Date(st.getTime()-DAYMS);
-  return `<div class="card" style="text-align:center;padding:26px 18px"><div style="font-size:2.2rem">🔒</div><h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem">${what} volgt na je check-in</h3>
+  return `<div class="card" style="text-align:center;padding:26px 18px"><div style="font-size:2.2rem"></div><h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem">${what} volgt na je check-in</h3>
    <p class="small muted">Zondag ${sun.getDate()} ${MAAND[sun.getMonth()]} kijken we samen hoe je week ging en wanneer je kunt. Daarna verschijnt hier je week, op jouw maat.</p>
    <div class="tip" style="text-align:left"><b>Richting:</b> ${PHASENAME(w)}${ANCH[w]?`<br><b>Staat al vast:</b> ${ANCH[w]}`:""}</div></div>`;
 }
 function renderWeek(){
-  const wk = WEEKS[W], dates = dayDates(W), locked = W > PUBLISHED;
-  $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker) + " · " + fmt(dates[0]) + " – " + fmt(dates[dates.length-1]);
-  $("wtitle").textContent = locked ? "Week "+W+" ✨" : wk.title; $("intro").textContent = locked ? "Deze week maken we samen, na je check-in." : wk.intro; $("focus").textContent = wk.focus;
-  renderWeekSel("wsel", ()=>{ renderWeek(); renderFood(); });
+  const wk = WEEKS[W], dates = dayDates(W), locked = isLocked(W);
+  $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmt(dates[0]) + " – " + fmt(dates[dates.length-1]);
+  $("wtitle").textContent = locked ? "Week "+W+" " : wk.title; $("intro").textContent = locked ? "Deze week maken we samen, na je check-in." : wk.intro; $("focus").textContent = wk.focus;
+  renderRosary();
   $("weekOpen").style.display = locked ? "none" : ""; document.querySelector(".prog").style.display = locked ? "none" : "";
-  $("weekLocked").innerHTML = locked ? lockedHtml(W, "Je week") : "";
+  $("weekLocked").innerHTML = locked ? lockedHtml(W, "Je week") : (isConcept(W) ? `<div class="concept">${ic("lock")} <b>Conceptweek.</b> Deze week is nog niet samen afgestemd. Volg dit concept op gevoel en pas aan wat niet past. De check-in van zondag geldt nog steeds.</div>` : "");
   if (locked) return;
   const el = $("days"); el.innerHTML = "";
   wk.days.forEach((d,i)=>{
@@ -640,10 +681,10 @@ function renderWeek(){
       body += `<button class="btn go" data-log="${key}">▶ Start & log training</button>`;
     } else if (d.type==="loop") body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p>`;
     else if (d.type==="rust") body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
-    div.innerHTML = `<div class="day-head"><div class="badge" style="background:color-mix(in srgb, var(--${d.type}) 22%, #111)">${d.icon}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
+    div.innerHTML = `<div class="day-head"><div class="badge">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); if(S.days[key]) celebrate(); });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); renderRosary(); if(S.days[key]) celebrate(); });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
@@ -653,7 +694,7 @@ function renderWeek(){
   const letters = dates.map(d=>DAG[d.getDay()]);
   HABITS.forEach((hb,hi)=>{
     const row = document.createElement("div"); row.className="habit";
-    row.innerHTML = `<div class="ico">${hb[0]}</div><div class="txt">${hb[1]}<small>${hb[2]}</small></div><div class="dots"></div>`;
+    row.innerHTML = `<div class="ico">${ic(hb[0])}</div><div class="txt">${hb[1]}<small>${hb[2]}</small></div><div class="dots"></div>`;
     letters.forEach((L,li)=>{ const k="h"+hi+"-"+iso(dates[li]); const dot=document.createElement("div"); dot.className="dot"+(S.habits[k]?" on":""); dot.textContent=L;
       dot.addEventListener("click",()=>{ S.habits[k]=!S.habits[k]; save(); dot.classList.toggle("on",!!S.habits[k]); }); row.querySelector(".dots").appendChild(dot); });
     h.appendChild(row);
@@ -664,16 +705,16 @@ function renderWeek(){
   $("checkin").querySelectorAll("textarea").forEach(t=>t.addEventListener("input",()=>{ S.ci[t.dataset.ci]=t.value; save(); }));
   save();
 }
-const DIR = [["🐢","Tandje terug"],["👌","Zo laten"],["🚀","Tandje erbij"]];
+const DIR = [["down","Tandje terug"],["equal","Zo laten"],["up","Tandje erbij"]];
 const WDAYS = ["Ma","Di","Wo","Do","Vr","Za","Zo"];
 function renderCore(){
   const c = S.ci, p = W+"-core-";
   const av = c[p+"av"] || {};
   $("core").innerHTML = `
    <div class="q"><label>Hoe ging je week? (1–10)</label><div class="dots" style="max-width:none;justify-content:flex-start;gap:6px">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot${c[p+"score"]===n?' on':''}" data-score="${n}" style="width:30px;height:30px;font-size:.8rem">${n}</div>`).join("")}</div></div>
-   <div class="q"><label>Volgende week…</label><div class="rate" style="margin-top:0">${DIR.map((d,i)=>`<button data-dir="${i}" class="${c[p+"dir"]===i?'on':''}"><span>${d[0]}</span>${d[1]}</button>`).join("")}</div></div>
+   <div class="q"><label>Volgende week…</label><div class="rate" style="margin-top:0">${DIR.map((d,i)=>`<button data-dir="${i}" class="${c[p+"dir"]===i?'on':''}"><span>${ic(d[0])}</span>${d[1]}</button>`).join("")}</div></div>
    <div class="q"><label>Wanneer kun je volgende week trainen? <span class="muted" style="font-weight:400">(tik: ochtend → avond → hele dag → niet)</span></label>
-     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">${WDAYS.map(d=>{ const v=av[d]||0, lab=["–","🌅","🌙","☀️"][v]; return `<button data-av="${d}" style="background:${v?'#2a2412':'var(--soft)'};border:1px solid ${v?'var(--gold)':'var(--line)'};color:var(--ink);border-radius:12px;padding:8px 0;font:inherit;font-size:.75rem;font-weight:700;cursor:pointer">${d}<span style="display:block;font-size:1.05rem">${lab}</span></button>`; }).join("")}</div></div>
+     <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">${WDAYS.map(d=>{ const v=av[d]||0, lab=["–","","",""][v]; return `<button data-av="${d}" style="background:${v?'#2a2412':'var(--soft)'};border:1px solid ${v?'var(--gold)':'var(--line)'};color:var(--ink);border-radius:12px;padding:8px 0;font:inherit;font-size:.75rem;font-weight:700;cursor:pointer">${d}<span style="display:block;font-size:1.05rem">${lab}</span></button>`; }).join("")}</div></div>
    <div class="q"><label>Bijzonderheden? <span class="muted" style="font-weight:400">(afspraken, reizen, enkel, pijntjes, ongesteld, met wie wil je sporten)</span></label><textarea data-ci="${p}note" placeholder="bv. do kan ik pas 's avonds, Noa wil zo lopen">${esc(c[p+"note"]||"")}</textarea></div>`;
   $("core").querySelectorAll("[data-score]").forEach(b=>b.addEventListener("click",()=>{ c[p+"score"]=+b.dataset.score; save(); renderCore(); }));
   $("core").querySelectorAll("[data-dir]").forEach(b=>b.addEventListener("click",()=>{ c[p+"dir"]=+b.dataset.dir; save(); renderCore(); }));
@@ -682,20 +723,41 @@ function renderCore(){
 }
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 function fmtSec(s){ return s>=60 ? (s%60? Math.floor(s/60)+":"+String(s%60).padStart(2,"0")+" min" : (s/60)+" min") : s+" sec"; }
+function weekDone(w){
+  const wk = WEEKS[w], ds = dayDates(w), idx = wk.days.map((d,i)=>i).filter(i=>wk.days[i].type!=="rust");
+  if (!idx.length) return false; return idx.filter(i=>S.days[iso(ds[i])]).length / idx.length >= .75;
+}
+function renderRosary(){
+  const now = curWeek(), N = WEEKS.length, W0 = 14, W1 = 326;
+  const pos = i => { const t = i/(N-1); return [W0 + t*(W1-W0), 26 + 44*Math.sin(Math.PI*t)]; };
+  let chain = "", beads = "";
+  for (let i=0;i<N-1;i++){ const [x1,y1]=pos(i),[x2,y2]=pos(i+1); chain += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#ece8e1" stroke-opacity=".35" stroke-width="1" stroke-dasharray="1 4" stroke-linecap="round"/>`; }
+  for (let i=0;i<N;i++){
+    const [x,y]=pos(i), done=weekDone(i), sel=i===W, cur=i===now, big=i===9;
+    const r = big?8:6.5, fill = done?"#ece8e1":"#080808", st = (done||cur||sel)?"#ece8e1":"#5a5650";
+    const shape = big ? `<path d="M${x} ${y-r-2}L${x+r} ${y}L${x} ${y+r+2}L${x-r} ${y}Z" fill="${fill}" stroke="${st}" stroke-width="1.2"/>` : `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${st}" stroke-width="1.2"/>`;
+    beads += `<g class="bead" data-w="${i}">${sel?`<circle cx="${x}" cy="${y}" r="${r+5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${cur&&!done?`<circle class="cur" cx="${x}" cy="${y}" r="${r+2.5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${shape}<text x="${x}" y="${y-r-(big?9:7)}" text-anchor="middle" font-size="8" fill="${sel?'#ece8e1':'#8c877f'}" font-family="Inter">${big?'10K':i}</text><rect x="${x-11}" y="${y-22}" width="22" height="36" fill="transparent"/></g>`;
+  }
+  const [ex,ey]=pos(N-1);
+  const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
+  const doneN = WEEKS.map((_,i)=>weekDone(i)).filter(Boolean).length;
+  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
+  $("rosary").querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
+}
 function updateProg(){
   const wk = WEEKS[W]; const idx = wk.days.map((d,i)=>i).filter(i=>wk.days[i].type!=="rust");
   const dts = dayDates(W); const done = idx.filter(i=>S.days[iso(dts[i])]).length, total = idx.length;
   $("progN").textContent = done; $("progT").textContent = total;
   const c = 2*Math.PI*26, fg = $("ringfg"); fg.style.strokeDasharray=c; fg.style.strokeDashoffset = c*(1-(total?done/total:0));
-  const msgs=["Daar gaan we!","Lekker bezig 💪","Je bent goed op weg!","Bijna!","Week gehaald! 🎉"];
+  const msgs=["Daar gaan we!","Lekker bezig ","Je bent goed op weg!","Bijna!","Week gehaald! "];
   $("progMsg").textContent = done>=total ? msgs[4] : msgs[Math.min(3,done)];
 }
 
 /* today / oura */
-const FEELS = [["😴","Moe"],["😐","Oké"],["💪","Fit"]];
+const FEELS = [["rust","Moe"],["dash","Oké"],["flame","Fit"]];
 function renderToday(){
   const st = S.daily[TODAY] || {};
-  $("feel").innerHTML = FEELS.map((f,i)=>`<button data-f="${i}" class="${st.feel===i?'on':''}"><span>${f[0]}</span>${f[1]}</button>`).join("");
+  $("feel").innerHTML = FEELS.map((f,i)=>`<button data-f="${i}" class="${st.feel===i?'on':''}"><span>${ic(f[0])}</span>${f[1]}</button>`).join("");
   $("feel").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ S.daily[TODAY]=Object.assign(S.daily[TODAY]||{}, {feel:+b.dataset.f}); save(); renderToday(); }));
   $("ready").value = st.ready || "";
   const r = st.ready ? +st.ready : null, f = st.feel;
@@ -717,16 +779,16 @@ function openLogger(w, di){
   const d = WEEKS[w].days[di], key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
-  $("mBody").innerHTML = `<div class="tip">💡 Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
+  $("mBody").innerHTML = `<div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
     const x = EX[k], t = targetFor(k,w,d.opts), prev = lastLog(k,key);
     const cur = (S.logs[k]||[]).find(e=>e.key===key);
     let prevTxt = "Nog geen vorige keer. Begin licht en vind je startgewicht.", sugg = "";
     if (prev){
       prevTxt = "Vorige keer ("+prev.date+"): " + prev.sets.filter(s=>s.r).map(s=> (x.nokg?"":(s.kg||0)+" kg × ")+s.r).join(" · ");
       const top = topReps(t.reps), done = prev.sets.filter(s=>s.r);
-      if (!x.nokg && top && done.length && done.every(s=>+s.r>=top)) sugg = "🚀 Alle sets "+top+" gehaald: probeer nu de kleinste stap zwaarder (+1–2 kg) en begin weer onderaan.";
-      else if (!x.nokg && done.length) sugg = "📈 Probeer bij dezelfde kg 1 herhaling meer dan vorige keer.";
-      else if (x.nokg && done.length) sugg = "📈 Probeer 1 herhaling of een paar seconden meer.";
+      if (!x.nokg && top && done.length && done.every(s=>+s.r>=top)) sugg = " Alle sets "+top+" gehaald: probeer nu de kleinste stap zwaarder (+1–2 kg) en begin weer onderaan.";
+      else if (!x.nokg && done.length) sugg = " Probeer bij dezelfde kg 1 herhaling meer dan vorige keer.";
+      else if (x.nokg && done.length) sugg = " Probeer 1 herhaling of een paar seconden meer.";
     }
     const pkg = prev ? (prev.sets.find(s=>s.kg)||{}).kg || "" : "";
     let rows = `<div class="setrow hdr"><span>Set</span><span>${x.nokg?'':'kg'}</span><span>${x.nokg?'herh./sec':'herh.'}</span><span></span></div>`;
@@ -735,9 +797,9 @@ function openLogger(w, di){
       rows += `<div class="setrow"><span class="sn">${s+1}</span>${x.nokg?'<span></span>':`<input type="number" inputmode="decimal" step="0.5" data-k="${k}" data-s="${s}" data-f="kg" value="${cs.kg||''}" placeholder="${pkg}">`}<input type="number" inputmode="numeric" data-k="${k}" data-s="${s}" data-f="r" value="${cs.r||''}" placeholder="${(t.reps.match(/\d+/)||[''])[0]}"><button class="sok${cs.ok?' on':''}" data-k="${k}" data-s="${s}">✓</button></div>`;
     }
     return `<div class="lx" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
-      <div class="target"><span>🎯 ${t.sets} × ${t.reps}</span><span>⏱ rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
+      <div class="target"><span>${ic("target")} ${t.sets} × ${t.reps}</span><span>${ic("clock")} rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
       <div class="prev">${prevTxt}</div>${sugg?`<div class="sugg">${sugg}</div>`:""}${rows}
-      <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}">⏱ Start rust (${fmtSec(t.rest)})</button></div>`;
+      <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}"> Start rust (${fmtSec(t.rest)})</button></div>`;
   }).join("") + `<button class="btn go" id="mDone">Training klaar ✓</button>`;
   $("mBody").querySelectorAll("input").forEach(inp=>inp.addEventListener("input",()=>setVal(inp.dataset.k,+inp.dataset.s,inp.dataset.f,inp.value)));
   $("mBody").querySelectorAll(".sok").forEach(b=>b.addEventListener("click",()=>{
@@ -749,7 +811,11 @@ function openLogger(w, di){
     if (on && kgIn && !kgIn.value && kgIn.placeholder){ kgIn.value = kgIn.placeholder; setVal(b.dataset.k,+b.dataset.s,"kg",kgIn.value); }
     const rIn = $("mBody").querySelector(`input[data-k="${b.dataset.k}"][data-s="${b.dataset.s}"][data-f="r"]`);
     if (on && rIn && !rIn.value && rIn.placeholder){ rIn.value = rIn.placeholder; setVal(b.dataset.k,+b.dataset.s,"r",rIn.value); }
-    if (on) startTimer(EX[b.dataset.k].r, EX[b.dataset.k].n);
+    if (on){
+      const k=b.dataset.k, x=EX[k], prev=bestOf(k, LOGCTX.key), e=(S.logs[k]||[]).find(z=>z.key===LOGCTX.key), st=e&&e.sets[+b.dataset.s];
+      startTimer(x.r, x.n);
+      if (prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); celebrate("Nieuw record"); }
+    }
   }));
   $("mBody").querySelectorAll(".restbtn").forEach(b=>b.addEventListener("click",()=>startTimer(+b.dataset.rest,b.dataset.name)));
   $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); });
@@ -774,14 +840,26 @@ function tick(){
   const left = Math.max(0, Math.round((TEND-Date.now())/1000));
   $("tT").textContent = Math.floor(left/60)+":"+String(left%60).padStart(2,"0");
   $("tBar").style.width = (100*(1-left/Math.max(1,TDUR)))+"%";
-  if (left<=0){ clearInterval(TT); TT=null; $("tT").textContent="Go! 💥"; try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){} setTimeout(()=>{ if(!TT) $("timer").classList.remove("on"); }, 2500); }
+  if (left<=0){ clearInterval(TT); TT=null; $("tT").textContent="Go! "; try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){} setTimeout(()=>{ if(!TT) $("timer").classList.remove("on"); }, 2500); }
 }
 function stopTimer(){ if(TT) clearInterval(TT); TT=null; $("timer").classList.remove("on"); }
 $("tStop").addEventListener("click", stopTimer);
 $("tPlus").addEventListener("click", ()=>{ TEND += 15000; TDUR += 15; if(!TT){ $("timer").classList.add("on"); TT=setInterval(tick,250);} });
 
 /* logbook */
-function renderLogbook(){
+function setScore(x,st){ return x.nokg ? +st.r : (+st.kg||0)*1000 + (+st.r||0); }
+function bestOf(k, exceptKey){
+  const x = EX[k]; let best=null;
+  (S.logs[k]||[]).forEach(e=>{ if(e.key===exceptKey) return; e.sets.forEach(st=>{ if(!st||!st.r) return; if(!x.nokg && !st.kg) return; const sc=setScore(x,st); if(!best||sc>best.sc) best={sc,kg:st.kg,r:st.r,date:e.date,key:e.key}; }); });
+  return best;
+}
+function renderRecords(){
+  const keys = Object.keys(EX).filter(k=>bestOf(k));
+  if (!keys.length){ $("records").innerHTML = `<div class="card small muted">Na je eerste gelogde training verschijnen hier je records. Elke keer dat je er één verbetert, vieren we dat.</div>`; return; }
+  $("records").innerHTML = `<div class="prw">${keys.map(k=>{ const x=EX[k], b=bestOf(k), isNew = S.newpr && S.newpr[k]===b.key;
+    return `<div class="pr${isNew?' new':''}">${ic(isNew?'star':'medal')}<div class="n">${x.n}</div><div class="v">${x.nokg? b.r+(String(x.f[0]).includes('sec')?' sec':'×') : b.kg+' kg × '+b.r}</div><div class="d">${b.date}${isNew?' · nieuw record':''}</div></div>`; }).join("")}</div>`;
+}
+function renderLogbook(){ renderRecords();
   const keys = Object.keys(EX).filter(k=>(S.logs[k]||[]).some(e=>e.sets.some(s=>s&&s.r)));
   if (!keys.length){ $("logbook").innerHTML = `<p class="small muted">Nog leeg. Start een training via de tab Week (knop "Start & log training"). Hier zie je daarna per oefening hoe je sterker wordt.</p>`; return; }
   $("logbook").innerHTML = keys.map(k=>{
@@ -796,21 +874,24 @@ function renderLogbook(){
 }
 
 /* ======================= TRAINING TAB (static) ======================= */
-const STRIP = [["Ma","🏋️","A","kracht"],["Di","🌙","Rust","rust"],["Wo","👟","Loop","loop"],["Do","🏋️","B","kracht"],["Vr","🌙","Rust","rust"],["Za","🧘","Pilates","pilates"],["Zo","👟","Loop","loop"]];
+const STRIP = [["Ma","","A","kracht"],["Di","","Rust","rust"],["Wo","","Loop","loop"],["Do","","B","kracht"],["Vr","","Rust","rust"],["Za","","Pilates","pilates"],["Zo","","Loop","loop"]];
 $("strip").innerHTML = STRIP.map(s=>`<div class="sd" style="border-color:var(--${s[3]});background:color-mix(in srgb, var(--${s[3]}) 14%, #111)">${s[0]}<span class="e">${s[1]}</span>${s[2]}</div>`).join("");
-const PHS = [["Week 0 · proef","11–15 nov","Kennismaken, startmeting, InBody","rust"],["Fase 1 · techniek leren","16 nov – 13 dec","2–3 × 10–12, RPE 6–7 · meting wk 4","loop"],["Fase 2 · opbouwen","14 dec – 10 jan","3 × 8–12, RPE 7–8 · wk 7 licht · meting wk 8","pilates"],["Fase 3 · sterker worden","11 jan – 7 feb","Wk 9 licht + 10 km 🏁 · daarna 4 × 6–10 · eindmeting wk 12","kracht"]];
+const PHS = [["Week 0 · proef","11–15 nov","Kennismaken, startmeting, InBody","rust"],["Fase 1 · techniek leren","16 nov – 13 dec","2–3 × 10–12, RPE 6–7 · meting wk 4","loop"],["Fase 2 · opbouwen","14 dec – 10 jan","3 × 8–12, RPE 7–8 · wk 7 licht · meting wk 8","pilates"],["Fase 3 · sterker worden","11 jan – 7 feb","Wk 9 licht + 10 km  · daarna 4 × 6–10 · eindmeting wk 12","kracht"]];
 $("phases").innerHTML = PHS.map(p=>`<div class="phase" style="border-left-color:var(--${p[3]})"><b>${p[0]}</b><span class="small muted">${p[1]}</span><div class="small">${p[2]}</div></div>`).join("");
 function fig(kind){
-  const b = d=>`<path d="${d}" fill="none" stroke="#ece8e1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const h = (x,y)=>`<circle cx="${x}" cy="${y}" r="9" fill="#ece8e1"/>`;
-  const w = (x,y,ww,hh)=>`<rect x="${x}" y="${y}" width="${ww}" height="${hh}" rx="3" fill="#ece8e1"/>`;
-  const x = 150, g = 118; let s="";
-  if(kind==="squat") s=b(`M${x+14} ${g}L${x} ${g}L${x+28} ${g-30}L${x-10} ${g-34}L${x+8} ${g-78}`)+b(`M${x+8} ${g-78}L${x+24} ${g-62}L${x+20} ${g-70}`)+h(x+14,g-92)+w(x+16,g-80,12,16);
-  if(kind==="rdl") s=b(`M${x+14} ${g}L${x} ${g}L${x+6} ${g-36}L${x-10} ${g-64}L${x+34} ${g-84}`)+b(`M${x+34} ${g-84}L${x+30} ${g-46}`)+h(x+46,g-90)+w(x+22,g-48,18,9);
-  if(kind==="split") s=b(`M${x+40} ${g}L${x+26} ${g}L${x+30} ${g-30}L${x} ${g-44}L${x-22} ${g-10}L${x-40} ${g-2}`)+b(`M${x} ${g-44}L${x+2} ${g-88}L${x+6} ${g-52}`)+h(x+3,g-102)+w(x,g-54,12,9);
-  if(kind==="thrust") s=`<rect x="${x-66}" y="${g-30}" width="36" height="30" rx="4" fill="none" stroke="#6f685f" stroke-width="2"/>`+b(`M${x-36} ${g-36}L${x+2} ${g-46}L${x+32} ${g-46}L${x+34} ${g}L${x+46} ${g}`)+h(x-52,g-40)+w(x-8,g-60,22,10);
-  if(kind==="pushup") s=b(`M${x-62} ${g}L${x-14} ${g-16}L${x+30} ${g-30}L${x+30} ${g}`)+h(x+44,g-34);
-  return `<svg class="fig" viewBox="0 0 300 130" role="img" aria-label="houding"><line x1="20" x2="280" y1="${g+2}" y2="${g+2}" stroke="#2b2b2b" stroke-width="2"/>${s}</svg>`;
+  const L="#ece8e1";
+  const b = d=>`<path d="${d}" fill="none" stroke="${L}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const h = (x,y)=>`<circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${L}" stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="1.2" fill="${L}"/>`;
+  const w = (x,y,ww,hh)=>`<rect x="${x}" y="${y}" width="${ww}" height="${hh}" rx="1.5" fill="none" stroke="${L}" stroke-width="1.2"/><path d="M${x+2} ${y+hh/2}H${x+ww-2}" stroke="${L}" stroke-width=".6"/>`;
+  const j = (x,y)=>`<circle cx="${x}" cy="${y}" r="2" fill="#080808" stroke="${L}" stroke-width="1"/>`;
+  const x = 150, g = 112; let s="";
+  if(kind==="squat") s=b(`M${x+14} ${g}L${x} ${g}L${x+28} ${g-30}L${x-10} ${g-34}L${x+8} ${g-78}`)+b(`M${x+8} ${g-78}L${x+24} ${g-62}L${x+20} ${g-70}`)+h(x+14,g-91)+w(x+16,g-80,12,16)+j(x+28,g-30)+j(x-10,g-34);
+  if(kind==="rdl") s=b(`M${x+14} ${g}L${x} ${g}L${x+6} ${g-36}L${x-10} ${g-64}L${x+34} ${g-84}`)+b(`M${x+34} ${g-84}L${x+30} ${g-46}`)+h(x+45,g-89)+w(x+21,g-48,18,9)+j(x+6,g-36)+j(x-10,g-64);
+  if(kind==="split") s=b(`M${x+40} ${g}L${x+26} ${g}L${x+30} ${g-30}L${x} ${g-44}L${x-22} ${g-10}L${x-40} ${g-2}`)+b(`M${x} ${g-44}L${x+2} ${g-88}L${x+6} ${g-52}`)+h(x+3,g-101)+w(x,g-54,12,9)+j(x+30,g-30)+j(x-22,g-10);
+  if(kind==="thrust") s=`<rect x="${x-66}" y="${g-30}" width="36" height="30" rx="2" fill="none" stroke="#5a5650" stroke-width="1"/>`+b(`M${x-36} ${g-36}L${x+2} ${g-46}L${x+32} ${g-46}L${x+34} ${g}L${x+46} ${g}`)+h(x-51,g-40)+w(x-8,g-60,22,10)+j(x+32,g-46);
+  if(kind==="pushup") s=b(`M${x-62} ${g}L${x-14} ${g-16}L${x+30} ${g-30}L${x+30} ${g}`)+h(x+43,g-34)+j(x-14,g-16);
+  const orn = `<path d="M20 ${g+3}H130M170 ${g+3}H280" stroke="${L}" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1 4" stroke-linecap="round"/><path d="M150 ${g}l3 3-3 3-3-3z" fill="${L}" fill-opacity=".5"/>`;
+  return `<svg class="fig" viewBox="0 0 300 124" role="img" aria-label="houding">${orn}${s}</svg>`;
 }
 function exCard(k){
   const x = EX[k];
@@ -824,37 +905,37 @@ $("exB").innerHTML = SESS.B.map(exCard).join("") + `<div class="tip">B5 + B6 als
 $("exC").innerHTML = SESS.C.map(exCard).join("");
 $("stairs").innerHTML = (()=>{ const st=[["3×8","10 kg","#b8b1a7"],["3×10","10 kg","#b8b1a7"],["3×12","10 kg ✔","#b8b1a7"],["3×8","12 kg","#ece8e1"],["3×10","12 kg","#ece8e1"]];
   let s=`<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="Eerst meer herhalingen, dan zwaarder">`;
-  st.forEach((r,i)=>{ const hh=50+i*20, xx=10+i*61, yy=150-hh; s+=`<rect x="${xx}" y="${yy}" width="55" height="${hh}" rx="8" fill="${r[2]}" fill-opacity=".2" stroke="${r[2]}" stroke-width="1.5"/><text x="${xx+27.5}" y="${yy+20}" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">${r[0]}</text><text x="${xx+27.5}" y="${yy+36}" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">${r[1]}</text>`; });
-  return s+`<text x="72" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#b8b1a7" font-family="Inter">meer herhalingen</text><text x="221" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="#ece8e1" font-family="Inter">zwaarder!</text><text x="10" y="166" font-size="10" fill="#9d968c" font-family="Inter">training na training →</text></svg>`; })();
+  st.forEach((r,i)=>{ const hh=50+i*20, xx=10+i*61, yy=150-hh; s+=`<rect x="${xx}" y="${yy}" width="55" height="${hh}" rx="8" fill="${r[2]}" fill-opacity="0" stroke="${r[2]}" stroke-width="1"/><text x="${xx+27.5}" y="${yy+20}" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">${r[0]}</text><text x="${xx+27.5}" y="${yy+36}" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">${r[1]}</text>`; });
+  return s+`<text x="72" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#b8b1a7" font-family="Inter">meer herhalingen</text><text x="221" y="38" text-anchor="middle" font-size="11" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">zwaarder!</text><text x="10" y="166" font-size="10" fill="#9d968c" font-family="Inter">training na training →</text></svg>`; })();
 
 /* ======================= GIDS ======================= */
-const TL = [["11 nov · De start","5 km gelopen, het avontuur is begonnen","#b8b1a7"],["12 nov · Eerste keer sportschool","InBody-startmeting en de machines leren","#ece8e1"],["13 dec · Week 4 gehaald","Eerste meting + een nieuwe sportlegging","#ece8e1"],["Kerst · Rustiger aan","Genieten, en licht doortrainen","#d6cfc5"],["17 jan · De 10 km! 🏁","Met Noa en Yorick, daarna brunch","#b8b1a7"],["Je eerste echte push-up","Een reformerles als cadeau","#c4bdb3"],["7 feb · Week 12! 🏆","Eindmeting, en het volgende blok plannen","#e6e0d6"]];
+const TL = [["11 nov · De start","5 km gelopen, het avontuur is begonnen","#b8b1a7"],["12 nov · Eerste keer sportschool","InBody-startmeting en de machines leren","#ece8e1"],["13 dec · Week 4 gehaald","Eerste meting + een nieuwe sportlegging","#ece8e1"],["Kerst · Rustiger aan","Genieten, en licht doortrainen","#d6cfc5"],["17 jan · De 10 km! ","Met Noa en Yorick, daarna brunch","#b8b1a7"],["Je eerste echte push-up","Een reformerles als cadeau","#c4bdb3"],["7 feb · Week 12! ","Eindmeting, en het volgende blok plannen","#e6e0d6"]];
 $("tl").innerHTML = TL.map(t=>`<div class="tl-i" style="--c:${t[2]}"><b>${t[0]}</b><span class="small muted">${t[1]}</span></div>`).join("");
-$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity=".25" stroke="#8a8378" stroke-width="2"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="700" fill="#ece8e1" font-family="Inter">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity=".2" stroke="#ece8e1" stroke-width="2"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
+$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity="0" stroke="#8a8378" stroke-width="1" stroke-dasharray="2 3"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity="0" stroke="#ece8e1" stroke-width="1"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
 
 /* ======================= ETEN ======================= */
-const RATES = [["😋","Lekker!"],["😐","Gaat wel"],["👎","Niet voor mij"]];
+const RATES = [["heart","Lekker!"],["dash","Gaat wel"],["x","Niet voor mij"]];
 function recCard(id, withRate){
   const r = R[id], rt = S.rate[id] || {};
-  return `<div class="rec"><div class="rec-h"><b>${r[0]}</b><span><span class="chip">⏱ ${r[1]}</span> <span class="chip">💪 ${r[2]}</span></span></div><p class="small"><b>Nodig:</b> ${r[3]}</p><p class="small"><b>Zo:</b> ${r[4]}</p>
-   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${x[0]}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan? (bv. minder pittig, extra kaas)" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
+  return `<div class="rec"><div class="rec-h"><b>${r[0]}</b><span><span class="chip">${ic("clock")} ${r[1]}</span> <span class="chip">${ic("egg")} ${r[2]}</span></span></div><p class="small"><b>Nodig:</b> ${r[3]}</p><p class="small"><b>Zo:</b> ${r[4]}</p>
+   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${ic(x[0])}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan? (bv. minder pittig, extra kaas)" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
 }
 function bindRates(root){
-  root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast(RATES[+b.dataset.v][0]+" Genoteerd!"); })));
+  root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast("Genoteerd"); })));
   root.querySelectorAll("input[data-note]").forEach(inp=>inp.addEventListener("input",()=>{ const id=inp.dataset.note; S.rate[id]=Object.assign(S.rate[id]||{}, {n:inp.value, w:W}); save(); }));
 }
 function renderFood(){
-  const f = WEEKS[W].food, locked = W > PUBLISHED;
+  const f = WEEKS[W].food, locked = isLocked(W);
   $("foodOpen").style.display = locked ? "none" : "";
   $("foodLocked").innerHTML = locked ? lockedHtml(W, "Je eetthema") : "";
-  if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "🎁 Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); }); renderFavs(); return; }
-  $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.e + " " + f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
+  if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); }); renderFavs(); return; }
+  $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
   renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); });
   $("lesson").innerHTML = `<div class="kicker" style="color:#d6cfc5">Wist je dat?</div><div class="big">${f.t}</div>` + f.lesson.map(l=>`<p class="small">• ${l}</p>`).join("");
   $("weekRecipes").innerHTML = f.rec.map(id=>recCard(id,true)).join(""); bindRates($("weekRecipes"));
   const tk = "try-"+W, tv = S.food[tk];
-  $("tryCard").innerHTML = `<p>${f.try}</p><button class="btn ${tv?'ghost':'go'}" id="tryBtn">${tv?'✅ Gedaan!':'Ik heb het geprobeerd'}</button>`;
-  $("tryBtn").addEventListener("click",()=>{ S.food[tk]=!S.food[tk]; save(); renderFood(); if(S.food[tk]) toast("Goed bezig! 🌱"); });
+  $("tryCard").innerHTML = `<p>${f.try}</p><button class="btn ${tv?'ghost':'go'}" id="tryBtn">${tv?' Gedaan!':'Ik heb het geprobeerd'}</button>`;
+  $("tryBtn").addEventListener("click",()=>{ S.food[tk]=!S.food[tk]; save(); renderFood(); if(S.food[tk]) toast("Goed bezig! "); });
   const rk = "refl-"+W;
   $("reflect").innerHTML = `<p class="small">${f.reflect}</p><textarea id="reflTa" placeholder="Schrijf het kort op, alleen voor jou en Yorick…">${esc(S.food[rk]||"")}</textarea><p class="small muted">Er is geen goed of fout antwoord. Het gaat erom dat je jezelf beter leert kennen.</p>`;
   $("reflTa").addEventListener("input",e=>{ S.food[rk]=e.target.value; save(); });
@@ -862,11 +943,11 @@ function renderFood(){
 }
 function renderFavs(){
   const favs = Object.keys(S.rate).filter(id=>S.rate[id].v===0 && R[id]);
-  $("favs").innerHTML = favs.length ? favs.map(id=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)">😋 <b>${R[id][0]}</b>${S.rate[id].n?`<div class="small muted">${esc(S.rate[id].n)}</div>`:""}</div>`).join("") : `<p class="small muted">Nog geen favorieten. Beoordeel de recepten van de week met 😋 en ze verschijnen hier.</p>`;
+  $("favs").innerHTML = favs.length ? favs.map(id=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)"> <b>${R[id][0]}</b>${S.rate[id].n?`<div class="small muted">${esc(S.rate[id].n)}</div>`:""}</div>`).join("") : `<p class="small muted">Nog geen favorieten. Beoordeel de recepten van de week met  en ze verschijnen hier.</p>`;
 }
-$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="120" cy="105" r="82" fill="#141414"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#d6cfc5" fill-opacity=".3" stroke="#d6cfc5" stroke-width="1.5"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#ece8e1" fill-opacity=".3" stroke="#ece8e1" stroke-width="1.5"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#9e978d" fill-opacity=".3" stroke="#9e978d" stroke-width="1.5"/><text x="78" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">Groente</text><text x="78" y="118" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">½ bord</text><text x="158" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#ece8e1" font-family="Inter">Eiwit</text><text x="158" y="85" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><text x="156" y="140" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ece8e1" font-family="Inter">Koolhydraten</text><text x="156" y="154" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><circle cx="262" cy="50" r="24" fill="#b8b1a7" fill-opacity=".3" stroke="#b8b1a7" stroke-width="1.5"/><text x="262" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#ece8e1" font-family="Inter">Vet</text><text x="262" y="90" text-anchor="middle" font-size="10" fill="#9d968c" font-family="Inter">een duim</text></svg>`;
+$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="120" cy="105" r="82" fill="#141414"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#d6cfc5" fill-opacity=".03" stroke="#d6cfc5" stroke-width="1"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#ece8e1" fill-opacity=".03" stroke="#ece8e1" stroke-width="1"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#9e978d" fill-opacity=".03" stroke="#9e978d" stroke-width="1" stroke-dasharray="2 3"/><text x="78" y="102" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Groente</text><text x="78" y="118" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">½ bord</text><text x="158" y="70" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Eiwit</text><text x="158" y="85" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><text x="156" y="140" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Koolhydraten</text><text x="156" y="154" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><circle cx="262" cy="50" r="24" fill="#b8b1a7" fill-opacity=".03" stroke="#b8b1a7" stroke-width="1"/><text x="262" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Vet</text><text x="262" y="90" text-anchor="middle" font-size="10" fill="#9d968c" font-family="Inter">een duim</text></svg>`;
 const PROT = [["Kipfilet 150 g",35],["Tonijn, 1 blikje",29],["Skyr 250 g",27],["Mager gehakt 125 g",26],["Zalm 125 g",25],["Tofu 200 g",24],["Eiwitshake, 1 schep",24],["Kwark 250 g",22],["Eiwitpudding",20],["Hüttenkäse 150 g",18],["Edamame 150 g",17],["Linzen/bonen 200 g",14],["2 eieren",13],["2 plakken kaas",10],["Glas melk",8]];
-$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:12px;overflow:hidden"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#ece8e1,#c4bdb3);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
+$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:3px;overflow:hidden;margin-top:4px"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#ece8e1,#c4bdb3);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
 function renderAllRecipes(){
   const seen = []; WEEKS.forEach(w=>w.food.rec.forEach(id=>{ if(!seen.includes(id) && id!=="eigen") seen.push(id); }));
   $("allRecipes").innerHTML = `<details><summary><span class="s-main">${seen.length} recepten<span class="s-sub">Elke week komen er nieuwe bij</span></span></summary><div class="dbody">${seen.map(id=>recCard(id,true)).join("")}</div></details>`;
@@ -881,22 +962,22 @@ function buildExport(){
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";
   t += `\n☀️ GEVOEL / OURA\n`; let anyD=false;
-  dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][0]+' '+FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
+  dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
   if(!anyD) t += "(niet ingevuld)\n";
   t += `\n✅ GEWOONTES\n`; HABITS.forEach((h,hi)=>{ const n = dates.filter((_,li)=>S.habits[W+"-h"+hi+"-"+li]).length; t += `${h[0]} ${h[1]}: ${n}/${dates.length}\n`; });
   t += `\n🥗 ETEN · ${wk.food.t}\n`;
-  wk.food.rec.forEach(id=>{ const r=S.rate[id]; t += `${R[id][0]}: ${r&&r.v!==undefined?RATES[r.v][0]+' '+RATES[r.v][1]:'nog niet geprobeerd'}${r&&r.n?' – '+r.n:''}\n`; });
+  wk.food.rec.forEach(id=>{ const r=S.rate[id]; t += `${R[id][0]}: ${r&&r.v!==undefined?RATES[r.v][1]:'nog niet geprobeerd'}${r&&r.n?' – '+r.n:''}\n`; });
   t += `Proefopdracht: ${S.food["try-"+W]?'gedaan ✅':'nog niet'}\n`;
   if (S.food["refl-"+W]) t += `Gevoel: ${S.food["refl-"+W]}\n`;
   const p = W+"-core-", av = S.ci[p+"av"]||{};
-  t += `\n🧭 VOLGENDE WEEK\nCijfer week: ${S.ci[p+"score"]||'-'}/10\nRichting: ${S.ci[p+"dir"]!==undefined?DIR[S.ci[p+"dir"]][0]+' '+DIR[S.ci[p+"dir"]][1]:'-'}\nBeschikbaar: ${WDAYS.map(d=>d+' '+["–","ochtend","avond","hele dag"][av[d]||0]).join(' · ')}\nBijzonderheden: ${S.ci[p+"note"]||'-'}\n`;
+  t += `\n🧭 VOLGENDE WEEK\nCijfer week: ${S.ci[p+"score"]||'-'}/10\nRichting: ${S.ci[p+"dir"]!==undefined?DIR[S.ci[p+"dir"]][1]:'-'}\nBeschikbaar: ${WDAYS.map(d=>d+' '+["–","ochtend","avond","hele dag"][av[d]||0]).join(' · ')}\nBijzonderheden: ${S.ci[p+"note"]||'-'}\n`;
   t += `\n💬 CHECK-IN\n`; wk.checkin.forEach((q,qi)=>{ t += `${qi+1}. ${q}\n→ ${S.ci[W+"-"+qi]||'-'}\n`; });
   return t;
 }
 $("share").addEventListener("click", async ()=>{
   const txt = buildExport(); let ok=false;
   try { await navigator.clipboard.writeText(txt); ok=true; } catch(e){}
-  if (ok) toast("Gekopieerd! Plak het in WhatsApp naar Yorick 📲");
+  if (ok) toast("Gekopieerd! Plak het in WhatsApp naar Yorick ");
   else { const ta=document.createElement("textarea"); ta.value=txt; ta.style.minHeight="200px"; $("share").after(ta); ta.focus(); ta.select(); toast("Selecteer en kopieer de tekst"); }
 });
 let armed=false;
@@ -911,9 +992,18 @@ const TABS = ["week","training","eten","gids"];
 function show(t){ if(!TABS.includes(t)) t="week"; TABS.forEach(x=>$("tab-"+x).classList.toggle("on",x===t)); document.querySelectorAll(".tb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); window.scrollTo(0,0); }
 document.querySelectorAll(".tb").forEach(b=>b.addEventListener("click",()=>{ show(b.dataset.t); try{ history.replaceState(null,"","#"+b.dataset.t); }catch(e){} }));
 
-renderToday(); renderWeek(); renderLogbook(); renderFood(); renderAllRecipes();
+function maybeOpening(){
+  const w = curWeek(); S.opened = S.opened || {};
+  if (w < 1 || w > PUBLISHED || S.opened[w]) return;
+  $("opK").textContent = "Week " + w + " is open"; $("opT").textContent = WEEKS[w].title;
+  $("opM").textContent = MSG[w] || "Nieuwe week. Zelfde jij, iets sterker.";
+  $("opening").classList.add("on");
+  $("opB").onclick = ()=>{ S.opened[w]=true; save(); $("opening").classList.remove("on"); };
+}
+renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFood(); renderAllRecipes();
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
+<script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }</script>
 </body>
 </html>
