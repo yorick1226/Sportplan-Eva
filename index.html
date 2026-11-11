@@ -275,6 +275,12 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .daily-t{font-family:'Pinyon Script',cursive;font-size:1.65rem;line-height:1.35;margin:6px 0 4px;color:#f6efe8}
 .daily-f{font-size:.78rem;color:var(--muted);text-align:right;letter-spacing:.08em}
 @keyframes dailyIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eqbox{background:#141a22;border:1px solid #2c3b52;border-radius:6px;padding:9px 11px;font-size:.86rem;margin:8px 0}
+.eqd{background:none!important;border:0!important;margin:4px 0!important}.eqd summary{padding:6px 0!important;font-size:.84rem;font-weight:600;color:#9fb4d9}.eqd summary:after{content:""!important}
+.pmode{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.pmode button{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:12px 6px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;min-height:56px}
+.pmode button span{display:block;font-size:1.3rem}
+.pmode button.on{border-color:var(--pilates);background:#132219}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
@@ -347,6 +353,18 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   <h2>De 12 weken</h2>
   <p class="small muted">Dit is de richting. Elke week stellen we zondag samen vast op basis van je check-in: tandje erbij, zo laten of tandje terug.</p>
   <div id="phases"></div>
+  <h2>Benodigdheden</h2>
+  <div class="card small">
+    <p>Voor thuis (pilates, rekken, mobiliteit, plan B). In de sportschool ligt dit meestal al klaar.</p>
+    <table><tr><th>Wat</th><th>Waarvoor</th></tr>
+      <tr><td>🧘 Yogamat</td><td>Pilates, rekroutine, mobiliteit, core. Neem er een met grip, ongeveer 5–6 mm dik</td></tr>
+      <tr><td>🟣 Mini-band (licht + medium)</td><td>Clamshell (C4), warming-up, zijwaarts lopen</td></tr>
+      <tr><td>➰ Lange weerstandsband</td><td>Pull-apart (C7), roeien thuis, hamstringstretch</td></tr>
+      <tr><td>🧱 2 yogablokken</td><td>Spagaat en halve spagaat, ondersteuning bij rekken (dikke boeken kan ook)</td></tr>
+      <tr><td>⚪ Balanskussen</td><td>Enkeltraining vanaf week 7 (een opgevouwen handdoek of kussen werkt ook)</td></tr>
+      <tr><td>🪢 Riem of yogaband</td><td>Optioneel: makkelijker hamstrings rekken</td></tr></table>
+    <p class="muted">Sets met bandjes in verschillende zwaartes zijn vaak voordeliger dan losse bandjes.</p>
+  </div>
   <h2>Warming-up</h2>
   <div class="card small">
     <ol>
@@ -363,7 +381,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   <h2>Training B · billen/hamstrings + trekken</h2>
   <div class="card" id="exB"></div>
   <h2>Training C · pilates/core</h2>
-  <div class="card"><p class="small">Studio of thuis. Rust 20–30 sec, bij C3 60 sec. Bij een studioles doe je alleen C3 en C5 erachteraan.</p><div id="exC"></div></div>
+  <div class="card"><p class="small">Kies per keer in je week: <b>📍 les in een studio</b> (dan geen schema nodig, eventueel C3 en C5 erachteraan) of <b>🏠 thuis met dit schema</b>. Rust 20–30 sec, bij C3 60 sec. Nodig thuis: mat, mini-band, lange band.</p><div id="exC"></div></div>
   <h2>Zo word je sterker</h2>
   <div class="card">
     <table><tr><th>RPE</th><th>Nog over</th><th>Gevoel</th></tr>
@@ -381,8 +399,8 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <div class="tip"> Vlakke ondergrond tot je de <b>enkeltest</b> haalt: 30 sec op je rechterbeen met je ogen dicht, en ongeveer even vaak kuitheffen op 1 been rechts als links (20+). Lukt het in week 8 nog niet? Ga naar een fysiotherapeut.</div>
   </div>
   <h2>Mobiliteit & spagaat</h2>
-  <details><summary><span class="s-main">Rekroutine · 10 min<span class="s-sub">Dinsdag en vrijdag</span></span></summary><div class="dbody small"><p>Lage lunge 2 × 30 sec · halve spagaat 2 × 30 sec · duif 45 sec · brede zit voorover 2 × 30 sec · kuitstretch 30 sec (per kant)</p></div></details>
-  <details><summary><span class="s-main">Mobiliteit M · 20–25 min<span class="s-sub">Wo- en zo-avond</span></span></summary><div class="dbody small">
+  <details><summary><span class="s-main">Rekroutine · 10 min<span class="s-sub">Dinsdag en vrijdag · nodig: mat</span></span></summary><div class="dbody small"><p>Lage lunge 2 × 30 sec · halve spagaat 2 × 30 sec · duif 45 sec · brede zit voorover 2 × 30 sec · kuitstretch 30 sec (per kant)</p></div></details>
+  <details><summary><span class="s-main">Mobiliteit M · 20–25 min<span class="s-sub">Wo- en zo-avond · nodig: mat + 2 yogablokken</span></span></summary><div class="dbody small">
     <p><b>Losmaken:</b> cat-cow, bovenrug draaien, heupcirkels.</p><p><b>Actief:</b> 90/90-heupen, world's greatest stretch, diepe squat aan een deurpost.</p>
     <p><b>Spagaat:</b> lage lunge en halve spagaat 2 × 45 sec, spagaat op blokken 2 × 30–45 sec.</p><p><b>Afbouwen:</b> duif, liggende draai, kindhouding.</p>
     <div class="tip">Vanaf week 5: <b>actief rekken</b>. 5 sec hamstring aanspannen, ontspannen, iets verder zakken. 3 rondes.</div></div></details>
@@ -552,32 +570,35 @@ const ICONS = {"kracht": "<path d=\"M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10\"/>", "
 function ic(n){ return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.star}</svg>`; }
 /* ======================= OEFENINGEN ======================= */
 const EX = {
-  A1:{n:"Goblet squat",t:"kracht",m:"Bovenbenen, billen, core",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"squat",u:"Halter verticaal tegen je borst. Zak tussen je knieën door, zo diep als het lukt met een rechte rug. Duw omhoog via je hele voet.",e:"Hielen los, knieën naar binnen, ronde rug.",mk:"Box squat tot een bank.",md:"3 tellen zakken + pauze.",v:"https://fitbod.me/exercises/dumbbell-goblet-squat"},
-  A2:{n:"Roemeense deadlift",t:"kracht",m:"Hamstrings, billen, onderrug",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"rdl",u:"Knieën licht gebogen, billen naar achteren alsof je een deur dichtduwt. Halters langs je benen tot net onder de knie. Omhoog door je billen aan te spannen.",e:"Door je rug buigen.",mk:"1 halter, minder diep.",md:"Stang of 1 been.",v:"https://fitbod.me/exercises/dumbbell-romanian-deadlift"},
-  A3:{n:"Split squat",t:"kracht",m:"Bovenbenen, billen, enkelstabiliteit",f:["2 × 8 p/been","3 × 8–10 p/been","3 × 8–12 p/been"],r:90,fig:"split",u:"Lange stap, recht omlaag tot je achterste knie bijna de grond raakt. Omhoog via je voorste voet.",e:"Knie naar binnen, wiebelen.",mk:"Zonder gewicht, hand aan rek.",md:"Bulgaarse split squat.",v:"https://bodybuilding.com/exercises/tbs-dumbbell-split-squat"},
-  A4:{n:"Chest press",t:"kracht",m:"Borst, schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Handgrepen op borsthoogte, schouderbladen naar achteren. Uitduwen en in 2–3 tellen terug.",e:"Schouders naar voren.",mk:"Push-ups tegen een bank.",md:"Halters.",v:"https://fitbod.me/exercises/hammerstrength-chest-press"},
-  A5:{n:"Lat pulldown",t:"kracht",m:"Rug, schouders, biceps",f:["2–3 × 10–12","4 × 10–12","4 × 8–12"],r:90,u:"Dijen vast. Stang naar je bovenborst, ellebogen naar je zij.",e:"Trekken met alleen je armen.",mk:"Lichter.",md:"Smallere greep.",v:"https://fitbod.me/exercises/lat-pulldown"},
-  A6:{n:"Pallof press",t:"kracht",m:"Buikspieren (anti-draaien)",f:["2 × 10 p/kant","3 × 10 p/kant","3 × 12 p/kant"],r:45,u:"Zijwaarts naast de kabel, recht naar voren duwen, 2 tellen vast zonder mee te draaien.",e:"Romp draait mee.",mk:"Dichter bij de kabel.",md:"Halfgeknield.",v:"https://fitbod.me/exercises/pallof-press"},
-  A7:{n:"Kuitheffen",t:"kracht",m:"Kuiten, enkel",f:["2 × 15","3 × 12 p/been","3 × 15 p/been"],r:45,u:"Op een trede, zo hoog mogelijk, 1 tel vast, 3 tellen zakken. Vanaf week 5 op 1 been.",e:"Stuiteren.",mk:"Op de grond.",md:"Met halter.",v:"https://fitbod.me/exercises/single-leg-standing-calf-raise"},
-  B1:{n:"Hip thrust (machine)",t:"kracht",m:"Billen, hamstrings",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"thrust",u:"Kussen op je heupbotten. Heupen omhoog tot een rechte lijn, kin licht naar je borst, 1 tel billen samenknijpen.",e:"Holle rug bovenin.",mk:"Glute bridge.",md:"3 tellen vast.",v:"https://gymkee.com/exercises/glutes/hip-thrust-machine/"},
-  B2:{n:"Leg press",t:"kracht",m:"Bovenbenen, billen",f:["2–3 × 10–12","3 × 10–12","3 × 8–12"],r:120,u:"Knieën onderin ± 90°, onderrug blijft tegen het kussen. Uitduwen zonder knieën op slot.",e:"Onderrug los.",mk:"Kleinere uitslag.",md:"1 been.",v:"https://fitbod.me/exercises/leg-press"},
-  B3:{n:"Cable row",t:"kracht",m:"Middenrug, houding",f:["2–3 × 10–12","4 × 10–12","4 × 8–10"],r:90,u:"Rechtop, trek naar je navel, schouderbladen samen en omlaag.",e:"Zwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://fitbod.me/exercises/cable-row"},
-  B4:{n:"Shoulder press",t:"kracht",m:"Schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Zittend, halters op schouderhoogte, recht omhoog.",e:"Holle rug.",mk:"Machine.",md:"Staand.",v:"https://fitbod.me/exercises/dumbbell-shoulder-press"},
-  B5:{n:"Leg curl",t:"kracht",m:"Hamstrings",f:["2 × 12–15","3 × 10–12","3 × 10–12"],r:60,u:"Kussen boven je hielen, zo ver mogelijk buigen, 3 tellen terug.",e:"Laten vallen.",mk:"Lichter.",md:"1 been.",v:"https://fitbod.me/exercises/seated-leg-curl"},
-  B6:{n:"Hip abduction",t:"kracht",m:"Zijkant billen",f:["2 × 15","3 × 12–15","3 × 15"],r:45,u:"Knieën naar buiten, 1 tel vast, rustig terug.",e:"Meezwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://fitbod.me/exercises/machine-hip-abductor"},
-  B7:{n:"Dead bug + zijplank",t:"kracht",m:"Core",f:["2 × 8 + 20 sec","3 × 10 + 30 sec","3 × 10 + 40 sec"],r:45,nokg:true,u:"Dead bug: onderrug tegen de mat, arm en tegenovergesteld been strekken. Zijplank: heupen hoog.",e:"Holle rug.",mk:"Op knieën.",md:"Met band.",v:"https://fitbod.me/exercises/dead-bug"},
-  C1:{n:"The Hundred",t:"pilates",f:["1 × 50 tellen","1 × 100","1 × 100"],r:30,nokg:true,u:"Hoofd en schouders opgekruld, armen pompen: 5 tellen in, 5 uit.",v:"https://thebalancedlifeonline.com/the-pilates-hundred/"},
-  C2:{n:"Single-leg stretch",t:"pilates",f:["2 × 8 p/kant","2 × 10","3 × 10"],r:30,nokg:true,u:"Eén knie naar je borst, ander been schuin gestrekt, ritmisch wisselen.",v:"https://thebalancedlifeonline.com/single-leg-stretch/"},
-  C3:{n:"Push-up-progressie",t:"pilates",f:["3 × max − 1","3 × max − 1","4 × max − 1"],r:60,nokg:true,fig:"pushup",u:"Lichaam als een plank. Knieën → bank → tenen. 3 × 12 gelukt? Volgende niveau.",v:"https://fitbod.me/exercises/push-up-on-knees"},
-  C4:{n:"Clamshell + beenlift",t:"pilates",f:["2 × 15 p/kant","3 × 15","3 × 20"],r:30,nokg:true,u:"Op je zij, band boven je knieën, bovenste knie open zonder dat je bekken meedraait.",v:"https://fitbod.me/exercises/clam"},
-  C5:{n:"Glute bridge op 1 been",t:"pilates",f:["2 × 10 p/kant","3 × 10","3 × 12"],r:30,nokg:true,u:"Eén voet plat, ander been omhoog, heupen omhoog zonder scheef te zakken.",v:"https://fitbod.me/exercises/single-leg-glute-bridge"},
-  C6:{n:"Swimming",t:"pilates",f:["3 × 20 sec","3 × 30 sec","3 × 40 sec"],r:30,nokg:true,u:"Op je buik, armen en benen iets omhoog, kleine 'zwem'-bewegingen.",v:"https://fsps.muni.cz/rollpilates/en/exercises.html"},
-  C7:{n:"Band pull-apart",t:"pilates",f:["2 × 15","3 × 15","3 × 20"],r:30,nokg:true,u:"Armen gestrekt, band uit elkaar tot je borst.",v:"https://www.exercise.com/exercises/resistance-band-pull-apart/"},
-  C8:{n:"Bird dog",t:"pilates",f:["2 × 8 p/kant","2 × 10 p/kant","3 × 10 p/kant"],r:30,nokg:true,u:"Op handen en knieën arm en tegenovergesteld been strekken, bekken stil.",v:"https://fitbod.me/exercises/bird-dog"},
-  C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug.",v:"https://thebalancedlifeonline.com/the-pilates-roll-up/"}
+  A1:{n:"Goblet squat met 1 halter",t:"kracht",m:"Bovenbenen, billen, core",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"squat",u:"Halter verticaal tegen je borst. Zak tussen je knieën door, zo diep als het lukt met een rechte rug. Duw omhoog via je hele voet.",e:"Hielen los, knieën naar binnen, ronde rug.",mk:"Box squat tot een bank.",md:"3 tellen zakken + pauze.",v:"https://www.youtube.com/watch?v=3O77G_yiFUw"},
+  A2:{n:"Roemeense deadlift met 2 halters",t:"kracht",m:"Hamstrings, billen, onderrug",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"rdl",u:"Knieën licht gebogen, billen naar achteren alsof je een deur dichtduwt. Halters langs je benen tot net onder de knie. Omhoog door je billen aan te spannen.",e:"Door je rug buigen.",mk:"1 halter, minder diep.",md:"Stang of 1 been.",v:"https://www.youtube.com/watch?v=hQgFixeXdZo"},
+  A3:{n:"Split squat met 2 halters",t:"kracht",m:"Bovenbenen, billen, enkelstabiliteit",f:["2 × 8 p/been","3 × 8–10 p/been","3 × 8–12 p/been"],r:90,fig:"split",u:"Lange stap, recht omlaag tot je achterste knie bijna de grond raakt. Omhoog via je voorste voet.",e:"Knie naar binnen, wiebelen.",mk:"Zonder gewicht, hand aan rek.",md:"Bulgaarse split squat.",v:"https://www.youtube.com/watch?v=Ca9P1Te6vvA"},
+  A4:{n:"Chest press-machine (zittend)",t:"kracht",m:"Borst, schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Handgrepen op borsthoogte, schouderbladen naar achteren. Uitduwen en in 2–3 tellen terug.",e:"Schouders naar voren.",mk:"Push-ups tegen een bank.",md:"Halters.",v:"https://www.youtube.com/watch?v=B-zyH8OTlsg"},
+  A5:{n:"Lat pulldown (kabel, brede stang)",t:"kracht",m:"Rug, schouders, biceps",f:["2–3 × 10–12","4 × 10–12","4 × 8–12"],r:90,u:"Dijen vast. Stang naar je bovenborst, ellebogen naar je zij.",e:"Trekken met alleen je armen.",mk:"Lichter.",md:"Smallere greep.",v:"https://www.youtube.com/watch?v=trZQjegcRx0"},
+  A6:{n:"Pallof press aan de kabel",t:"kracht",m:"Buikspieren (anti-draaien)",f:["2 × 10 p/kant","3 × 10 p/kant","3 × 12 p/kant"],r:45,u:"Zijwaarts naast de kabel, recht naar voren duwen, 2 tellen vast zonder mee te draaien.",e:"Romp draait mee.",mk:"Dichter bij de kabel.",md:"Halfgeknield.",v:"https://www.youtube.com/watch?v=2sW5qodcOak"},
+  A7:{n:"Kuitheffen op 1 been op een trede",t:"kracht",m:"Kuiten, enkel",f:["2 × 15","3 × 12 p/been","3 × 15 p/been"],r:45,u:"Op een trede, zo hoog mogelijk, 1 tel vast, 3 tellen zakken. Vanaf week 5 op 1 been.",e:"Stuiteren.",mk:"Op de grond.",md:"Met halter.",v:"https://www.youtube.com/watch?v=_rKgZMP1X5o"},
+  B1:{n:"Hip thrust-machine",t:"kracht",m:"Billen, hamstrings",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"thrust",u:"Kussen op je heupbotten. Heupen omhoog tot een rechte lijn, kin licht naar je borst, 1 tel billen samenknijpen.",e:"Holle rug bovenin.",mk:"Glute bridge.",md:"3 tellen vast.",v:"https://www.youtube.com/watch?v=UVucPKyQVLU"},
+  B2:{n:"Leg press-machine",t:"kracht",m:"Bovenbenen, billen",f:["2–3 × 10–12","3 × 10–12","3 × 8–12"],r:120,u:"Knieën onderin ± 90°, onderrug blijft tegen het kussen. Uitduwen zonder knieën op slot.",e:"Onderrug los.",mk:"Kleinere uitslag.",md:"1 been.",v:"https://www.youtube.com/watch?v=aTgiRNwi7eY"},
+  B3:{n:"Zittend roeien aan de kabel (V-handvat)",t:"kracht",m:"Middenrug, houding",f:["2–3 × 10–12","4 × 10–12","4 × 8–10"],r:90,u:"Rechtop, trek naar je navel, schouderbladen samen en omlaag.",e:"Zwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://www.youtube.com/watch?v=oFtfkSElE0s"},
+  B4:{n:"Shoulder press met 2 halters, zittend",t:"kracht",m:"Schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Zittend, halters op schouderhoogte, recht omhoog.",e:"Holle rug.",mk:"Machine.",md:"Staand.",v:"https://www.youtube.com/watch?v=8kwDkC8JhdY"},
+  B5:{n:"Leg curl-machine (zittend)",t:"kracht",m:"Hamstrings",f:["2 × 12–15","3 × 10–12","3 × 10–12"],r:60,u:"Kussen boven je hielen, zo ver mogelijk buigen, 3 tellen terug.",e:"Laten vallen.",mk:"Lichter.",md:"1 been.",v:"https://www.youtube.com/watch?v=Z5pRnXaCjpM"},
+  B6:{n:"Abductor-machine (zittend)",t:"kracht",m:"Zijkant billen",f:["2 × 15","3 × 12–15","3 × 15"],r:45,u:"Knieën naar buiten, 1 tel vast, rustig terug.",e:"Meezwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://www.youtube.com/watch?v=soaTR1UtEw0"},
+  B7:{n:"Dead bug + zijplank op de mat",t:"kracht",m:"Core",f:["2 × 8 + 20 sec","3 × 10 + 30 sec","3 × 10 + 40 sec"],r:45,nokg:true,u:"Dead bug: onderrug tegen de mat, arm en tegenovergesteld been strekken. Zijplank: heupen hoog.",e:"Holle rug.",mk:"Op knieën.",md:"Met band.",v:"https://www.youtube.com/watch?v=bxn9FBrt4-A"},
+  C1:{n:"The Hundred",t:"pilates",f:["1 × 50 tellen","1 × 100","1 × 100"],r:30,nokg:true,u:"Hoofd en schouders opgekruld, armen pompen: 5 tellen in, 5 uit.",v:"https://www.youtube.com/watch?v=bUQdYY5QZVg"},
+  C2:{n:"Single-leg stretch",t:"pilates",f:["2 × 8 p/kant","2 × 10","3 × 10"],r:30,nokg:true,u:"Eén knie naar je borst, ander been schuin gestrekt, ritmisch wisselen.",v:"https://www.youtube.com/watch?v=-UHKE2gVcVc"},
+  C3:{n:"Push-up-progressie",t:"pilates",f:["3 × max − 1","3 × max − 1","4 × max − 1"],r:60,nokg:true,fig:"pushup",u:"Lichaam als een plank. Knieën → bank → tenen. 3 × 12 gelukt? Volgende niveau.",v:"https://www.youtube.com/watch?v=rR1efh-33AQ"},
+  C4:{n:"Clamshell + beenlift",t:"pilates",f:["2 × 15 p/kant","3 × 15","3 × 20"],r:30,nokg:true,u:"Op je zij, band boven je knieën, bovenste knie open zonder dat je bekken meedraait.",v:"https://www.youtube.com/watch?v=hQupQ9mJZFw"},
+  C5:{n:"Glute bridge op 1 been",t:"pilates",f:["2 × 10 p/kant","3 × 10","3 × 12"],r:30,nokg:true,u:"Eén voet plat, ander been omhoog, heupen omhoog zonder scheef te zakken.",v:"https://www.youtube.com/watch?v=3KbkpCgW2pQ"},
+  C6:{n:"Swimming",t:"pilates",f:["3 × 20 sec","3 × 30 sec","3 × 40 sec"],r:30,nokg:true,u:"Op je buik, armen en benen iets omhoog, kleine 'zwem'-bewegingen.",v:"https://www.youtube.com/watch?v=dVlIT-WZ-N4"},
+  C7:{n:"Band pull-apart",t:"pilates",f:["2 × 15","3 × 15","3 × 20"],r:30,nokg:true,u:"Armen gestrekt, band uit elkaar tot je borst.",v:"https://www.youtube.com/watch?v=B5pg51YcXiU"},
+  C8:{n:"Bird dog",t:"pilates",f:["2 × 8 p/kant","2 × 10 p/kant","3 × 10 p/kant"],r:30,nokg:true,u:"Op handen en knieën arm en tegenovergesteld been strekken, bekken stil.",v:"https://www.youtube.com/watch?v=LaLKNS7mxrk"},
+  C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug.",v:"https://www.youtube.com/watch?v=wjbN81QqNZs"}
 };
 const SESS = { A:["A1","A2","A3","A4","A5","A6","A7"], B:["B1","B2","B3","B4","B5","B6","B7"], C:["C1","C2","C3","C4","C5","C6","C7","C8","C9"], K:["A1","A2","A3","A4","A5","B1","B2","B3"] };
 const ALT = {A1:"Leg press of box squat op een bank",A2:"Hip thrust of lichte kettlebell-deadlift",A3:"Step-up op een bank (laag)",A4:"Push-ups op knieën of halter-bankdrukken",A5:"Roeien met halter op een bank",A6:"Dead bug (op de mat)",A7:"Kuitheffen op een trede met halter",B1:"Glute bridge of hip thrust met halter op een bank",B2:"Goblet squat",B3:"Roeien met halter op een bank",B4:"Shoulder press-machine of halters zittend",B5:"Roemeense deadlift, licht",B6:"Zijwaarts lopen met een band",B7:"Plank, 3 × 30 sec"};
+const EQ = {"A1": "1 halter (dumbbell). Houd hem rechtop tegen je borst, handen onder de bovenste schijf, ellebogen naar beneden. <i>Niet:</i> een stang op je rug (dat is een back squat).", "A2": "2 halters, staand met je voeten op heupbreedte. <i>Niet:</i> een stang of een machine.", "A3": "2 halters, eentje in elke hand. Week 1–2: zonder gewicht, met een hand aan een rek. Beide voeten op de grond. <i>Niet:</i> je achterste voet op een bank (dat is de Bulgaarse split squat, de moeilijkere variant).", "A4": "De zittende chest press-machine met handgrepen. Zet de stoel zo dat de handgrepen op middenborst-hoogte zitten. <i>Niet:</i> bankdrukken met een stang of met halters op een bank.", "A5": "Kabelstation met een lange stang en kniekussens. Zet het kniekussen strak op je dijen. Pak de stang iets breder dan je schouders, handpalmen van je af. Trek naar je bovenborst, niet achter je hoofd.", "A6": "Kabelstation met één handvat (D-grip) op borsthoogte. Ga er zijwaarts naast staan, 1–2 grote stappen van de kabel af.", "A7": "Een trede, step of plateau, en houd je ergens vast. Hiel zakt onder de rand. Vanaf week 5 eventueel een halter in de hand aan dezelfde kant als het werkende been.", "B1": "Hip thrust-machine: bovenrug tegen het rugkussen, het heupkussen of de gordel op je heupbotten, voeten plat. Bezet? Gebruik een stang op je heupen met je rug tegen een bank.", "B2": "Leg press-machine (schuin of zittend). Voeten op heupbreedte, midden tot hoog op het plateau. Hoe hoger je voeten, hoe meer je billen werken.", "B3": "Laag kabelstation met een bankje en voetsteunen, en een V-handvat (smal, handpalmen naar elkaar). Zit rechtop met je knieën licht gebogen.", "B4": "2 halters, zittend op een bankje met de rugleuning rechtop (90°). <i>Niet:</i> de shoulder press-machine (dat is het makkelijkere alternatief).", "B5": "Zittende leg curl-machine. Je knie op één lijn met het draaipunt, het onderkussen net boven je hielen, het bovenbeenkussen strak.", "B6": "Abductor-machine: kussens tegen de buitenkant van je knieën, en je duwt naar buiten. <i>Let op:</i> niet de adductor, waarbij je je knieën naar elkaar knijpt. Het is vaak dezelfde machine met een omgezette stand.", "B7": "Een mat. De dead bug doe je op je rug. De zijplank op je onderarm; als beginner op je knieën."};
+const NEED = {"A1": "Halter", "A2": "2 halters", "A3": "2 halters", "A4": "Chest press-machine", "A5": "Lat pulldown-station", "A6": "Kabel + D-handvat", "A7": "Trede of step", "B1": "Hip thrust-machine", "B2": "Leg press", "B3": "Laag kabelstation + V-handvat", "B4": "2 halters + bankje", "B5": "Leg curl-machine", "B6": "Abductor-machine", "B7": "Mat", "C1": "Mat", "C2": "Mat", "C3": "Mat (later een bank of stoel)", "C4": "Mat + mini-band", "C5": "Mat", "C6": "Mat", "C7": "Lange weerstandsband", "C8": "Mat", "C9": "Mat (eventueel een opgerolde handdoek)"};
+const VID2 = {B7:"https://www.youtube.com/watch?v=CLaU0OhjGqY"};
 const SUPER = {A6:"Superset met A7: om en om, daarna pas rust.",A7:"Superset met A6.",B5:"Superset met B6: om en om, daarna pas rust.",B6:"Superset met B5."};
 const SESSNAME = { A:"Kracht A", B:"Kracht B", C:"Pilates C", K:"Kennismaking" };
 
@@ -770,9 +791,17 @@ function renderWeek(){
   wk.days.forEach((d,i)=>{
     const dt = dates[i], key = iso(dt), isToday = key===TODAY;
     if (d.opts.done && S.days[key]===undefined) S.days[key]=true;
-    const div = document.createElement("div"); div.className = "day"+(isToday?" today open":"");
+    const div = document.createElement("div"); div.className = "day"+(isToday?" today open":"")+((S.pmode||{})[key]&&!isToday&&renderWeek._last===key?" open":"");
     let body = d.opts.note ? `<div class="tip">${d.opts.note}</div>` : "";
-    if (d.session){
+    const isPil = d.session==="C";
+    const pm = (S.pmode||{})[key];
+    if (isPil){
+      body += `<p class="small" style="margin-top:10px"><b>Hoe doe je pilates deze keer?</b></p><div class="pmode"><button data-pm="studio" class="${pm==='studio'?'on':''}"><span>📍</span>Les in een studio</button><button data-pm="thuis" class="${pm==='thuis'?'on':''}"><span>🏠</span>Thuis met schema</button></div>`;
+      if (!pm) body += `<p class="small muted" style="margin-top:8px">Een les bij een studio (matpilates of reformer) is net zo goed: dan heb je dit schema niet nodig. Thuis? Dan volg je het schema hieronder.</p>`;
+      if (pm==="studio") body += `<div class="tip">📍 Geniet van je les! Geen schema nodig. Zin in iets extra's? Doe na de les alleen C3 (push-ups) en C5 (glute bridge op 1 been), 2 sets.</div>` + ["C3","C5"].map(k=>exRow(k,"2 sets, optioneel")).join("") + `<p class="small muted" style="margin-top:8px">Tip: matpilates is goedkoper en lijkt op dit schema; reformer is pittiger en werkt met veren. Beide zijn prima.</p>`;
+    }
+    if (d.session && (!isPil || pm==="thuis")){
+      if (isPil) body += `<div class="tip">🧺 <b>Nodig thuis:</b> yogamat, mini-band, lange weerstandsband. Zie Training → Benodigdheden.</div>`;
       const list = d.opts.only || SESS[d.session];
       body += `<p class="small muted" style="margin-top:10px">${SESSNAME[d.session]} · ${list.length} oefeningen</p>` + list.map(k=>{ const t=targetFor(k,W,d.opts); return exRow(k, t.sets+" × "+t.reps+" · rust "+fmtSec(t.rest)); }).join("");
       body += `<div class="tip">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</div><button class="btn go" data-log="${key}">▶ Start & log training</button>`;
@@ -785,6 +814,7 @@ function renderWeek(){
     chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
+    div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, d.name+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
   });
@@ -914,6 +944,7 @@ function openLogger(w, di){
       ${fl.alt&&ALT[k]?`<div class="altbox">🔁 Doe in plaats hiervan: <b>${ALT[k]}</b>. Log het gewoon hieronder; het telt niet mee voor je records.</div>`:""}
       ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted" style="margin-top:4px">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
       <div class="target"><span>${ic("target")} ${t.sets} × ${t.reps}</span><span>${ic("clock")} rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
+      ${EQ[k]?`<details class="eqd"><summary>🔧 Welk apparaat / hoe instellen?</summary><div class="small" style="padding:6px 2px">${EQ[k]}</div></details>`:""}
       <div class="prev">${prevTxt}</div>${sugg?`<div class="sugg">${sugg}</div>`:""}${rows}
       ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
       <input type="text" class="setting" data-set="${k}" placeholder="Instelling onthouden (bv. stoel 4, rugleuning 2)" value="${esc((S.mset||{})[k]||'')}" style="margin-top:10px;font-size:.85rem">
@@ -1030,7 +1061,7 @@ function exCard(k){
   const x = EX[k];
   return `<div class="exc"><div class="exc-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
   ${x.fig?fig(x.fig):""}<div class="dose"><div><b>Fase 1</b>${x.f[0]}</div><div><b>Fase 2</b>${x.f[1]}</div><div><b>Fase 3</b>${x.f[2]}</div></div>
-  <div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
+  ${EQ[k]?`<div class="eqbox">🔧 <b>Zo pak je hem:</b> ${EQ[k]}</div>`:""}<div class="kv">🧺 <b>Nodig:</b> ${NEED[k]||"-"}${VID2[k]?` · <a href="${VID2[k]}" target="_blank" rel="noopener">video zijplank</a>`:""}</div><div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
   ${x.e?`<div class="kv"><b>Let op:</b> ${x.e}</div>`:""}${x.mk?`<div class="kv"><b>Makkelijker:</b> ${x.mk} · <b>Moeilijker:</b> ${x.md}</div>`:""}</div>`;
 }
 $("exA").innerHTML = SESS.A.map(exCard).join("") + `<div class="tip">A6 + A7 als superset: om en om, dan rust.</div>`;
@@ -1094,7 +1125,7 @@ function renderAllRecipes(){
 /* ======================= EXPORT ======================= */
 function buildExport(){
   const wk = WEEKS[W], dates = dayDates(W); let t = `📋 Eva · ${wk.kicker} (${fmt(dates[0])} – ${fmt(dates[dates.length-1])})\n\n🏋️ TRAININGEN\n`;
-  wk.days.forEach((d,i)=>{ t += `${S.days[iso(dates[i])]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}\n`; });
+  wk.days.forEach((d,i)=>{ t += `${S.days[iso(dates[i])]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}${(S.pmode||{})[iso(dates[i])]?' ('+S.pmode[iso(dates[i])]+')':''}\n`; });
   t += `\n📒 LOGBOEK\n`; let any=false;
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";

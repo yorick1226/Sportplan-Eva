@@ -26,7 +26,7 @@ DTSTAMP:20261111T000000Z
 DTSTART;TZID=Europe/Amsterdam:20261112T090000
 DTEND;TZID=Europe/Amsterdam:20261112T100000
 SUMMARY:🏋️ Kennismaking sportschool
-DESCRIPTION:InBody + machines leren, alles licht\n\nEerst de InBody-startmeting: niet net gegeten\, eerst naar de wc. Kijk vooral naar je spiermassa.\n\nKennismaking:\n• A1 Goblet squat\n• A2 Roemeense deadlift\n• A3 Split squat\n• A4 Chest press\n• A5 Lat pulldown\n• B1 Hip thrust (machine)\n• B2 Leg press\n• B3 Cable row\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+DESCRIPTION:InBody + machines leren, alles licht\n\nEerst de InBody-startmeting: niet net gegeten\, eerst naar de wc. Kijk vooral naar je spiermassa.\n\nKennismaking:\n• A1 Goblet squat met 1 halter\n• A2 Roemeense deadlift met 2 halters\n• A3 Split squat met 2 halters\n• A4 Chest press-machine (zittend)\n• A5 Lat pulldown (kabel\, brede stang)\n• B1 Hip thrust-machine\n• B2 Leg press-machine\n• B3 Zittend roeien aan de kabel (V-handvat)\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
 URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
