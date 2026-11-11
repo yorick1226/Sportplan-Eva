@@ -21,7 +21,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
-.wrap{max-width:540px;margin:0 auto;padding:14px 16px calc(100px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 28px) 16px calc(110px + env(safe-area-inset-bottom))}
 .tab{display:none}.tab.on{display:block}
 a{color:var(--kracht)}
 .hero{border-radius:6px;padding:26px 20px 22px;position:relative;overflow:hidden;margin-top:4px;background:#000;border:1px solid #2a2a2a}
@@ -70,7 +70,7 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;bord
 .day-name{font-weight:700;font-size:1.03rem}
 .day-sub{font-size:.84rem;color:var(--muted)}
 .today .day-date{color:var(--gold)}
-.check{width:30px;height:30px;border-radius:50%;border:2px solid #3a3a3a;display:flex;align-items:center;justify-content:center;flex:none;color:transparent;cursor:pointer}
+.check{width:40px;height:40px;border-radius:50%;border:2px solid #3a3a3a;display:flex;align-items:center;justify-content:center;flex:none;color:transparent;cursor:pointer}
 .check.on{background:var(--pilates);border-color:var(--pilates);color:#000;font-weight:800}
 .chev{color:var(--muted);font-size:.8rem;transition:transform .2s;flex:none}
 .day.open .chev{transform:rotate(90deg)}
@@ -91,7 +91,7 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;bord
 .habit .ico{font-size:1.25rem;width:28px;text-align:center}
 .habit .txt{flex:1;font-size:.9rem}.habit .txt small{display:block;color:var(--muted);font-size:.76rem}
 .dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:132px}
-.dot{width:24px;height:24px;border-radius:50%;border:2px solid #3a3a3a;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer}
+.dot{width:34px;height:34px;border-radius:50%;border:2px solid #3a3a3a;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer}
 .dot.on{background:var(--pilates);border-color:var(--pilates);color:#000}
 /* checkin */
 .q{margin:12px 0}.q label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px}
@@ -144,7 +144,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 /* logger modal */
 .modal{position:fixed;inset:0;background:var(--bg);z-index:50;display:none;overflow-y:auto}
 .modal.on{display:block}
-.m-head{position:sticky;top:0;background:rgba(13,13,13,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:2}
+.m-head{position:sticky;top:0;padding-top:calc(env(safe-area-inset-top) + 14px)!important;background:rgba(13,13,13,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:2}
 .m-head b{flex:1;font-size:1.05rem}
 .m-close{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-weight:700;cursor:pointer}
 .m-body{max-width:540px;margin:0 auto;padding:12px 16px 140px}
@@ -160,7 +160,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 .setrow .sn{font-size:.78rem;font-weight:800;color:var(--muted)}
 .setrow.hdr{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:10px}
 .setrow input{text-align:center;padding:10px 4px;font-size:1rem;font-weight:700}
-.sok{width:36px;height:36px;border-radius:10px;border:2px solid #3a3a3a;background:none;color:transparent;font-weight:800;cursor:pointer}
+.sok{width:46px;height:46px;border-radius:10px;border:2px solid #3a3a3a;background:none;color:transparent;font-weight:800;cursor:pointer}
 .sok.on{background:var(--pilates);border-color:var(--pilates);color:#000}
 .restbtn{background:#0d0d0d;border:1px solid #3a3733;color:var(--gold);border-radius:12px;padding:9px 12px;font:inherit;font-weight:800;font-size:.85rem;margin-top:10px;cursor:pointer;width:100%}
 .timer{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid #333;padding:14px 16px calc(14px + env(safe-area-inset-bottom));z-index:60;display:none}
@@ -244,6 +244,31 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .chk.on{color:var(--muted);text-decoration:line-through}.chk.on i{background:var(--ink);border-color:var(--ink);color:#000}
 .runf{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .runf label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.dots{max-width:160px!important;gap:6px!important}
+.setrow{grid-template-columns:34px 1fr 1fr 46px!important}
+.chev{padding:10px 4px}
+.chk{padding:11px 0!important}.chk i{width:22px!important;height:22px!important}
+.wchip{padding:9px 14px!important}
+.reset,.linkbtn{padding:10px 6px}
+.exopts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 4px}
+.exopts button{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:10px 4px;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;min-height:44px}
+.exopts button.on{border-color:var(--ink);background:#262626}.exopts button.warn{border-color:#d27c7c;background:#2a1717}
+.altbox{background:#1a1d24;border:1px solid #3a4560;border-radius:6px;padding:9px 11px;font-size:.86rem;margin:6px 0}
+.painnote{margin-top:6px;border-color:#5c2a2a!important}
+.lx.skipped{opacity:.45}.lx.skipped .setrow,.lx.skipped .restbtn,.lx.skipped .setting,.lx.skipped .prev,.lx.skipped .sugg{display:none}
+.when{position:relative;padding-right:40px!important}.whenx{position:absolute;right:4px;top:4px;background:none;border:0;color:var(--muted);font-size:1rem;width:36px;height:36px;cursor:pointer}
+.tour{position:fixed;inset:0;z-index:97;background:#000;display:none;overflow-y:auto}
+.tour.on{display:block}
+.tour-in{max-width:480px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 40px) 24px calc(env(safe-area-inset-bottom) + 30px);min-height:100%;display:flex;flex-direction:column}
+.tour-dots{display:flex;gap:6px;justify-content:center;margin-bottom:26px}.tour-dots i{width:22px;height:2px;background:#333}.tour-dots i.on{background:var(--ink)}
+.tour h1{font-size:2.1rem;margin:14px 0 10px;text-align:center}.tour .lead{text-align:center;color:#d8d2c8}
+.tour .st{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:8px 0;font-size:.92rem}
+.tour .st .n{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.4rem;line-height:1;min-width:20px;color:var(--muted)}
+.tour .sigl{display:block;margin:0 auto}
+.tour-nav{display:flex;gap:10px;margin-top:auto;padding-top:24px}
+.tour-skip{flex:1;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:14px;font:inherit;font-weight:600;cursor:pointer}
+.tour-next{flex:2;background:var(--ink);color:#000;border:0;border-radius:4px;padding:14px;font:inherit;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;cursor:pointer}
+.linkbtn{background:none;border:0;color:var(--ink);text-decoration:underline;font:inherit;font-size:.86rem;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
@@ -264,7 +289,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   </div>
   <div class="rosary" id="rosary"></div>
   <div id="fuelBox"></div>
-  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
+  <div class="when" data-when="w1"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
 
   <div class="card" id="todayCard">
     <b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg> Hoe voel je je vandaag?</b>
@@ -297,7 +322,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <h1>Sterker in 3 fases </h1>
     <p>16 nov 2026 – 7 feb 2027. Elke zondag stemmen we de week af, dus alles mag schuiven.</p>
   </div>
-  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
+  <div class="when" data-when="w2"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
   <h2>Records</h2>
   <p class="small muted">Wat jouw lichaam kan. Per oefening je beste set.</p>
   <div id="records"></div>
@@ -364,7 +389,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <h1>Zo werkt je programma </h1>
     <p>Sterker, strakker en leniger in 12 weken, met een plan dat in je week past.</p>
   </div>
-  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Eén keer rustig doorlezen in week 0. Daarna alleen terugkijken als je iets wilt weten (meten, InBody, rust, cyclus).</div>
+  <div class="when" data-when="w3"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Eén keer rustig doorlezen in week 0. Daarna alleen terugkijken als je iets wilt weten (meten, InBody, rust, cyclus).</div>
   <h2>Jouw avontuur</h2>
   <div class="card"><div class="tl" id="tl"></div></div>
   <h2>Wat 'toned' echt is</h2>
@@ -409,6 +434,8 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <li><b>Log je sets en ga steeds iets zwaarder.</b></li>
     <li><b>2 minuten enkelwerk</b> bij elke training.</li>
     <li><b>Plan met anderen</b> en check elke zondag in.</li></ol></div>
+  <h2>Uitleg</h2>
+  <div class="card small">Hoe werkt de app ook alweer? <button class="linkbtn" id="tourAgain">Bekijk de rondleiding opnieuw</button></div>
   <h2>Bronnen</h2>
   <div class="card small"><ul>
     <li><a href="https://webshop.voedingscentrum.nl/wp-content/uploads/2018/09/Vitamine-D_2026.pdf">Voedingscentrum – Vitamine D (2026)</a></li>
@@ -424,7 +451,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <h1 id="ftitle"></h1>
     <p id="fsub"></p>
   </div>
-  <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
+  <div class="when" data-when="w4"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
   <div class="wsel" id="fsel"></div>
   <div id="foodLocked"></div>
   <div id="foodOpen">
@@ -456,18 +483,17 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <li>🍳 Snel warm: 2–3 eieren met brood, of pasta met tonijn (15 min)</li><li>🥣 Simpel: bakje kwark met fruit en pompoenpitten</li><li>💛 Laat eten is helemaal oké. Overslaan om het 'goed te maken' niet: dat kost juist spier</li></ul></div></details>
     <div class="tip">Merk je dat je vaker maaltijden overslaat of dat eten stress geeft? Bespreek het met Yorick, of met de huisarts of een diëtist. Dat is sterk, niet zwak.</div>
   </div>
-  <h2>🍽️ Het trainingsbord</h2>
-  <div class="card"><div id="plate"></div>
+  <h2>📚 Naslag</h2>
+  <p class="small muted">Tik open wat je wilt opzoeken.</p>
+  <details><summary><span class="s-main">🍽️ Het trainingsbord<span class="s-sub">Hoe stel je een maaltijd samen</span></span></summary><div class="dbody"><div id="plate"></div>
     <table><tr><th>Bouwsteen</th><th>Hoeveel</th></tr>
-      <tr><td> Eiwit</td><td>1–2 handpalmen</td></tr><tr><td> Koolhydraten</td><td>1–2 vuisten</td></tr>
-      <tr><td> Groente/fruit</td><td>1–2 vuisten</td></tr><tr><td> Vet</td><td>1 duim</td></tr></table>
-    <p class="small">Richting: 110–140 g eiwit per dag. Met eiwit bij elk eetmoment zit je daar vanzelf. <b>Walnoot:</b> check het etiket bij granola, muesli, notenmix en pesto.</p></div>
-  <h2>⏰ Rond het trainen</h2>
-  <div class="card small"><table><tr><th>Wanneer</th><th>Wat</th></tr>
+      <tr><td>🥩 Eiwit</td><td>1–2 handpalmen</td></tr><tr><td>🍞 Koolhydraten</td><td>1–2 vuisten</td></tr>
+      <tr><td>🥦 Groente/fruit</td><td>1–2 vuisten</td></tr><tr><td>🥑 Vet</td><td>1 duim</td></tr></table>
+    <p class="small">Richting: 110–140 g eiwit per dag. Met eiwit bij elk eetmoment zit je daar vanzelf. <b>Walnoot:</b> check het etiket bij granola, muesli, notenmix en pesto.</p></div></details>
+  <details><summary><span class="s-main">⏰ Rond het trainen<span class="s-sub">Wat eet je voor en na het sporten</span></span></summary><div class="dbody small"><table><tr><th>Wanneer</th><th>Wat</th></tr>
     <tr><td>2–3 uur voor</td><td>Normaal ontbijt</td></tr><tr><td>30–60 min voor</td><td>Banaan, krentenbol, rijstwafels met pindakaas</td></tr>
-    <tr><td>Direct uit bed</td><td>Chocomelk of een banaan</td></tr><tr><td>≤ 1 uur erna</td><td>Skyr met granola, eieren met brood</td></tr></table></div>
-  <h2>🥚 Eiwit in je favorieten</h2>
-  <div class="card" id="protein"></div>
+    <tr><td>Direct uit bed</td><td>Chocomelk of een banaan</td></tr><tr><td>≤ 1 uur erna</td><td>Skyr met granola, eieren met brood</td></tr></table></div></details>
+  <details><summary><span class="s-main">🥚 Eiwit in je favorieten<span class="s-sub">Hoeveel eiwit zit waarin</span></span></summary><div class="dbody" id="protein"></div></details>
   <h2>📖 Alle recepten</h2>
   <div id="allRecipes"></div>
   <h2>🛒 Boodschappen & supplementen</h2>
@@ -489,6 +515,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="tour" id="tour"><div class="tour-in"><div class="tour-dots" id="tourDots"></div><div id="tourBody"></div><div class="tour-nav"><button class="tour-skip" id="tourSkip">Overslaan</button><button class="tour-next" id="tourNext">Volgende</button></div></div></div>
 <div class="opening" id="opening"><svg width="120" height="150" viewBox="0 0 120 150" fill="none" stroke="#ece8e1" stroke-width="1.1" stroke-linecap="round"><path d="M60 4V146M60 1l3 6-3 5-3-5zM30 48H90M60 30c10 3 15 10 9 18M60 30c-10 3-15 10-9 18M60 88c12 2 17 12 10 22M60 88c-12 2-17 12-10 22"/><circle cx="60" cy="48" r="7"/><path d="M8 18Q34 60 60 48M112 18Q86 60 60 48" stroke-dasharray="1 5"/></svg>
 <div class="k" id="opK"></div><h1 id="opT"></h1><div class="msg" id="opM"></div><div class="from">Yorick</div><button id="opB">Open je week</button></div>
 <div class="celebrate" id="cele"><svg width="170" height="170" viewBox="0 0 170 170" fill="none" stroke="#ece8e1" stroke-width="1.2" stroke-linecap="round">
@@ -535,6 +562,7 @@ const EX = {
   C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug.",v:"https://thebalancedlifeonline.com/the-pilates-roll-up/"}
 };
 const SESS = { A:["A1","A2","A3","A4","A5","A6","A7"], B:["B1","B2","B3","B4","B5","B6","B7"], C:["C1","C2","C3","C4","C5","C6","C7","C8","C9"], K:["A1","A2","A3","A4","A5","B1","B2","B3"] };
+const ALT = {A1:"Leg press of box squat op een bank",A2:"Hip thrust of lichte kettlebell-deadlift",A3:"Step-up op een bank (laag)",A4:"Push-ups op knieën of halter-bankdrukken",A5:"Roeien met halter op een bank",A6:"Dead bug (op de mat)",A7:"Kuitheffen op een trede met halter",B1:"Glute bridge of hip thrust met halter op een bank",B2:"Goblet squat",B3:"Roeien met halter op een bank",B4:"Shoulder press-machine of halters zittend",B5:"Roemeense deadlift, licht",B6:"Zijwaarts lopen met een band",B7:"Plank, 3 × 30 sec"};
 const SUPER = {A6:"Superset met A7: om en om, daarna pas rust.",A7:"Superset met A6.",B5:"Superset met B6: om en om, daarna pas rust.",B6:"Superset met B5."};
 const SESSNAME = { A:"Kracht A", B:"Kracht B", C:"Pilates C", K:"Kennismaking" };
 
@@ -771,7 +799,7 @@ function renderRosary(){
     const [x,y]=pos(i), done=weekDone(i), sel=i===W, cur=i===now, big=i===9;
     const r = big?8:6.5, fill = done?"#ece8e1":"#080808", st = (done||cur||sel)?"#ece8e1":"#5a5650";
     const shape = big ? `<path d="M${x} ${y-r-2}L${x+r} ${y}L${x} ${y+r+2}L${x-r} ${y}Z" fill="${fill}" stroke="${st}" stroke-width="1.2"/>` : `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${st}" stroke-width="1.2"/>`;
-    beads += `<g class="bead" data-w="${i}">${sel?`<circle cx="${x}" cy="${y}" r="${r+5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${cur&&!done?`<circle class="cur" cx="${x}" cy="${y}" r="${r+2.5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${shape}<text x="${x}" y="${y-r-(big?9:7)}" text-anchor="middle" font-size="8" fill="${sel?'#ece8e1':'#8c877f'}" font-family="Inter">${big?'10K':i}</text><rect x="${x-11}" y="${y-22}" width="22" height="36" fill="transparent"/></g>`;
+    beads += `<g class="bead" data-w="${i}">${sel?`<circle cx="${x}" cy="${y}" r="${r+5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${cur&&!done?`<circle class="cur" cx="${x}" cy="${y}" r="${r+2.5}" fill="none" stroke="#ece8e1" stroke-width=".8"/>`:""}${shape}<text x="${x}" y="${y-r-(big?9:7)}" text-anchor="middle" font-size="8" fill="${sel?'#ece8e1':'#8c877f'}" font-family="Inter">${big?'10K':i}</text><rect x="${x-13}" y="${y-26}" width="26" height="46" fill="transparent"/></g>`;
   }
   const [ex,ey]=pos(N-1);
   const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
@@ -827,7 +855,7 @@ function openLogger(w, di){
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
   $("mBody").innerHTML = `<details style="margin-bottom:12px"><summary><span class="s-main">🔥 Warming-up · 8 min<span class="s-sub">Tik af wat je gedaan hebt</span></span></summary><div class="dbody" id="wu"></div></details><div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
-    const x = EX[k], t = targetFor(k,w,d.opts), prev = lastLog(k,key);
+    const x = EX[k], t = targetFor(k,w,d.opts), prev = lastLog(k,key), fl = ((S.flags||{})[key]||{})[k]||{};
     const cur = (S.logs[k]||[]).find(e=>e.key===key);
     let prevTxt = "Nog geen vorige keer. Begin licht en vind je startgewicht.", sugg = "";
     if (prev){
@@ -843,7 +871,10 @@ function openLogger(w, di){
       const cs = cur && cur.sets[s] ? cur.sets[s] : {};
       rows += `<div class="setrow"><span class="sn">${s+1}</span>${x.nokg?'<span></span>':`<input type="number" inputmode="decimal" step="0.5" data-k="${k}" data-s="${s}" data-f="kg" value="${cs.kg||''}" placeholder="${pkg}">`}<input type="number" inputmode="numeric" data-k="${k}" data-s="${s}" data-f="r" value="${cs.r||''}" placeholder="${(t.reps.match(/\d+/)||[''])[0]}"><button class="sok${cs.ok?' on':''}" data-k="${k}" data-s="${s}">✓</button></div>`;
     }
-    return `<div class="lx" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
+    return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
+      <div class="exopts"><button data-opt="alt" data-k="${k}" class="${fl.alt?'on':''}">🔁 Bezet</button><button data-opt="skip" data-k="${k}" class="${fl.skip?'on':''}">⏭ Overslaan</button><button data-opt="pain" data-k="${k}" class="${fl.pain?'on warn':''}">⚠️ Niet goed</button></div>
+      ${fl.alt&&ALT[k]?`<div class="altbox">🔁 Doe in plaats hiervan: <b>${ALT[k]}</b>. Log het gewoon hieronder; het telt niet mee voor je records.</div>`:""}
+      ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted" style="margin-top:4px">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
       <div class="target"><span>${ic("target")} ${t.sets} × ${t.reps}</span><span>${ic("clock")} rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
       <div class="prev">${prevTxt}</div>${sugg?`<div class="sugg">${sugg}</div>`:""}${rows}
       ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
@@ -863,13 +894,20 @@ function openLogger(w, di){
     if (on){
       const k=b.dataset.k, x=EX[k], prev=bestOf(k, LOGCTX.key), e=(S.logs[k]||[]).find(z=>z.key===LOGCTX.key), st=e&&e.sets[+b.dataset.s];
       startTimer(x.r, x.n);
-      if (prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); celebrate("Nieuw record"); }
+      const isAlt=(((S.flags||{})[LOGCTX.key]||{})[k]||{}).alt;
+      if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); celebrate("Nieuw record"); }
     }
   }));
   const WU = ["5 min roeien, fietsen of crosstrainer","Op 1 been staan, 2 × 30 sec per been","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Opwarmsets: 10× heel licht, 5× op ±70%"];
   S.wu = S.wu || {}; const wuk = LOGCTX.key;
   $("wu").innerHTML = WU.map((w,i)=>`<div class="chk${(S.wu[wuk]||{})[i]?' on':''}" data-i="${i}"><i>✓</i>${w}</div>`).join("");
   $("wu").querySelectorAll(".chk").forEach(c=>c.addEventListener("click",()=>{ S.wu[wuk]=S.wu[wuk]||{}; S.wu[wuk][c.dataset.i]=!S.wu[wuk][c.dataset.i]; save(); c.classList.toggle("on"); }));
+  $("mBody").querySelectorAll("[data-opt]").forEach(bt=>bt.addEventListener("click",()=>{
+    S.flags=S.flags||{}; const f=S.flags[LOGCTX.key]=S.flags[LOGCTX.key]||{}; const e=f[bt.dataset.k]=f[bt.dataset.k]||{};
+    e[bt.dataset.opt]=!e[bt.dataset.opt]; save(); const y=$("modal").scrollTop; openLogger(LOGCTX.w, LOGCTX.di); $("modal").scrollTop=y;
+    if (bt.dataset.opt==="skip" && e.skip) toast("Overgeslagen. Geen probleem.");
+  }));
+  $("mBody").querySelectorAll(".painnote").forEach(inp=>inp.addEventListener("input",()=>{ S.flags[LOGCTX.key][inp.dataset.k].note=inp.value; save(); }));
   $("mBody").querySelectorAll(".setting").forEach(inp=>inp.addEventListener("input",()=>{ S.mset=S.mset||{}; S.mset[inp.dataset.set]=inp.value; save(); }));
   $("mBody").querySelectorAll(".restbtn").forEach(b=>b.addEventListener("click",()=>startTimer(+b.dataset.rest,b.dataset.name)));
   $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); startFuel(); show("week"); });
@@ -904,7 +942,7 @@ $("tPlus").addEventListener("click", ()=>{ TEND += 15000; TDUR += 15; if(!TT){ $
 function setScore(x,st){ return x.nokg ? +st.r : (+st.kg||0)*1000 + (+st.r||0); }
 function bestOf(k, exceptKey){
   const x = EX[k]; let best=null;
-  (S.logs[k]||[]).forEach(e=>{ if(e.key===exceptKey) return; e.sets.forEach(st=>{ if(!st||!st.r) return; if(!x.nokg && !st.kg) return; const sc=setScore(x,st); if(!best||sc>best.sc) best={sc,kg:st.kg,r:st.r,date:e.date,key:e.key}; }); });
+  (S.logs[k]||[]).forEach(e=>{ if(e.key===exceptKey) return; if((((S.flags||{})[e.key]||{})[k]||{}).alt) return; e.sets.forEach(st=>{ if(!st||!st.r) return; if(!x.nokg && !st.kg) return; const sc=setScore(x,st); if(!best||sc>best.sc) best={sc,kg:st.kg,r:st.r,date:e.date,key:e.key}; }); });
   return best;
 }
 function renderRecords(){
@@ -1019,6 +1057,7 @@ function buildExport(){
   t += `\n📒 LOGBOEK\n`; let any=false;
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";
+  t += `\n⚠️ BIJZONDERHEDEN TRAINING\n`; let anyF=false; dates.forEach(d=>{ const f=(S.flags||{})[iso(d)]; if(!f) return; Object.keys(f).forEach(k=>{ const e=f[k]; const bits=[]; if(e.alt) bits.push("bezet → alternatief"); if(e.skip) bits.push("overgeslagen"); if(e.pain) bits.push("voelde niet goed"+(e.note?": "+e.note:"")); if(bits.length){ anyF=true; t += `${fmt(d)} ${k} ${EX[k].n}: ${bits.join(", ")}\n`; } }); }); if(!anyF) t += "(niets bijzonders)\n";
   t += `\n👟 LOPEN\n`; let anyR=false; dates.forEach(d=>{ const r=(S.runs||{})[iso(d)]; if(r&&r.km){ anyR=true; t += `${fmt(d)}: ${r.km} km${r.min?" in "+r.min+" min ("+pace(r).replace("Tempo: ","")+")":""}\n`; } }); if(!anyR) t += "(niets gelogd)\n";
   t += `\n☀️ GEVOEL / OURA\n`; let anyD=false;
   dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
@@ -1061,7 +1100,22 @@ function renderFuel(){
   $("fuelOk").onclick = ()=>{ S.fuel.done = true; const k="h2-"+TODAY; S.habits[k]=true; save(); renderFuel(); renderWeek(); toast("Top! Je spieren zeggen dankjewel 💪"); };
 }
 setInterval(renderFuel, 30000);
+const STANDALONE = (()=>{ try{ return window.navigator.standalone===true || matchMedia("(display-mode: standalone)").matches; }catch(e){ return false; } })();
+const TOUR = [
+ ()=>`<svg class="sigl" width="70" height="96" viewBox="0 0 120 150" fill="none" stroke="#ece8e1" stroke-width="1.2" stroke-linecap="round"><path d="M60 4V146M60 1l3 6-3 5-3-5zM30 48H90M60 30c10 3 15 10 9 18M60 30c-10 3-15 10-9 18M60 88c12 2 17 12 10 22M60 88c-12 2-17 12-10 22"/><circle cx="60" cy="48" r="7"/></svg><h1>Welkom, Eva</h1><p class="lead">Dit is jouw plan voor 12 weken: sterker worden, de 10 km lopen en leren wat eten voor je doet. Yorick stemt elke week met je af.</p><div class="st"><span class="n">📅</span><div><b>Week</b>: wat je vandaag doet, afvinken en loggen.</div></div><div class="st"><span class="n">🏋️</span><div><b>Training</b>: uitleg en video per oefening, je records en logboek.</div></div><div class="st"><span class="n">🥗</span><div><b>Eten</b>: elke week een nieuw thema, recepten en tips.</div></div><div class="st"><span class="n">🧭</span><div><b>Gids</b>: hoe alles werkt. Eén keer lezen is genoeg.</div></div>`,
+ ()=> STANDALONE ? `<h1>Je app staat klaar 📲</h1><p class="lead">Je hebt hem al op je beginscherm. Open hem voortaan altijd via dit icoon: daar worden je vinkjes en logs bewaard. Hij werkt ook zonder internet, handig in de sportschool.</p>` :
+   `<h1>Zet me op je beginscherm 📲</h1><p class="lead">Dan werkt de app als een echte app, ook zonder internet in de sportschool.</p><div class="st"><span class="n">1</span><div><b>iPhone:</b> open deze pagina in <b>Safari</b> en tik op het deel-icoon (vierkantje met pijl omhoog).</div></div><div class="st"><span class="n">2</span><div>Kies <b>Zet op beginscherm</b> en tik op <b>Voeg toe</b>.</div></div><div class="st"><span class="n">3</span><div><b>Android:</b> in Chrome via ⋮ → <b>Toevoegen aan startscherm</b>.</div></div><div class="st"><span class="n">!</span><div>Open de app daarna <b>altijd via het icoon</b>. Daar worden je vinkjes en logs bewaard.</div></div>`,
+ ()=>`<h1>Zo gebruik je hem</h1><div class="st"><span class="n">1</span><div><b>Elke dag:</b> open de app, tik in hoe je je voelt en vink af wat je gedaan hebt. Elke afgevinkte training is een kraal in je ketting.</div></div><div class="st"><span class="n">2</span><div><b>Trainingsdag:</b> tik op <b>Start & log</b>. Vul per set je kg en herhalingen in en tik ✓. De rusttimer start vanzelf.</div></div><div class="st"><span class="n">3</span><div><b>Machine bezet?</b> Tik op 🔁 voor een alternatief. Iets voelt niet goed? Tik op ⚠️.</div></div><div class="st"><span class="n">4</span><div><b>Na het trainen:</b> binnen een uur eten. De app helpt je onthouden.</div></div>`,
+ ()=>`<h1>Elke zondag 💬</h1><div class="st"><span class="n">1</span><div>Vul de <b>check-in</b> in onderaan Week: hoe ging het, en wanneer kun je volgende week?</div></div><div class="st"><span class="n">2</span><div>Tik op <b>Stuur mijn week naar Yorick</b> en plak het in WhatsApp. Dat is ook je back-up.</div></div><div class="st"><span class="n">3</span><div>Maandag opent je nieuwe week, op jouw maat gemaakt.</div></div><p class="lead" style="margin-top:22px;font-family:'Pinyon Script',cursive;font-size:1.8rem">Veel plezier. Je kunt dit.</p>`
+];
+let TI=0;
+function renderTour(){ $("tourBody").innerHTML=TOUR[TI](); $("tourDots").innerHTML=TOUR.map((_,i)=>`<i class="${i===TI?'on':''}"></i>`).join(""); $("tourNext").textContent = TI===TOUR.length-1 ? "Begin" : "Volgende"; $("tour").scrollTop=0; }
+function openTour(){ TI=0; renderTour(); $("tour").classList.add("on"); }
+function closeTour(){ S.onboarded=true; save(); $("tour").classList.remove("on"); maybeOpening(); }
+$("tourNext").addEventListener("click",()=>{ if(TI<TOUR.length-1){ TI++; renderTour(); } else closeTour(); });
+$("tourSkip").addEventListener("click",closeTour);
 function maybeOpening(){
+  if (!S.onboarded) return;
   const w = curWeek(); S.opened = S.opened || {};
   if (w < 1 || w > PUBLISHED || S.opened[w]) return;
   $("opK").textContent = "Week " + w + " is open"; $("opT").textContent = WEEKS[w].title;
@@ -1072,7 +1126,12 @@ function maybeOpening(){
 const PRAISE = ["Je benen hebben je deze week kilometers ver gedragen.","Elke set maakt je sterker, ook de zware.","Consistent zijn is jouw superkracht.","Jij komt opdagen. Dat is het hele geheim.","Sterk is een gevoel, en jij hebt het.","Rust nemen is ook trainen. Goed bezig."];
 $("sig").style.pointerEvents="auto"; $("sig").style.cursor="pointer";
 $("sig").addEventListener("click",()=>toast("✨ "+PRAISE[Math.floor(Math.random()*PRAISE.length)]));
-renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel(); renderFood(); renderAllRecipes();
+S.first = S.first || Date.now(); S.whenHide = S.whenHide || {};
+document.querySelectorAll(".when").forEach(w=>{ if (S.whenHide[w.dataset.when] || Date.now()-S.first > 7*DAYMS) w.style.display="none";
+  w.querySelector(".whenx").addEventListener("click",()=>{ S.whenHide[w.dataset.when]=true; save(); w.style.display="none"; }); });
+renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
+if (!S.onboarded) openTour();
+$("tourAgain").addEventListener("click", openTour); renderFood(); renderAllRecipes();
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
