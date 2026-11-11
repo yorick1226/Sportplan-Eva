@@ -231,7 +231,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .opening .from{font-size:.78rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;opacity:0;animation:rise .8s 1.9s forwards}
 .opening button{margin-top:28px;background:var(--ink);color:#000;border:0;border-radius:4px;padding:13px 28px;font:inherit;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;opacity:0;animation:rise .8s 2.2s forwards;cursor:pointer}
 .bars div{background:transparent!important;border:1px solid #ece8e1;border-bottom:0;border-radius:2px 2px 0 0}
-#tab-eten h1,#tab-eten h2,#tab-eten .chip,#tab-eten .rate button span,#tab-eten .lesson{filter:none}
+#tab-eten h1,#tab-eten h2,#tab-eten summary,#tab-eten .chip,#tab-eten .rate button span,#tab-eten .lesson{filter:none}
 #tab-eten .lesson{background:linear-gradient(135deg,#13241c,#111);border-color:#2b4a3b}
 #tab-eten .rec{border-left:3px solid #8fcaa9}
 .fuel{background:linear-gradient(135deg,#1d1a10,#141414);border:1px solid #5a4a22;border-radius:6px;padding:14px 16px;margin:12px 0}
@@ -443,6 +443,19 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   <h2>⭐ Jouw favorieten</h2>
   <div class="card" id="favs"></div>
 
+  <h2>🤍 Maaltijd vergeten?</h2>
+  <div class="card" id="sos">
+    <p class="small">Gebeurt iedereen. Liever iets kleins dan niets: je lichaam heeft de energie nodig om sterker te worden.</p>
+    <details open><summary><span class="s-main">⏱️ Geen tijd (2 minuten)<span class="s-sub">Pakken en gaan</span></span></summary><div class="dbody small"><ul>
+      <li>🥛 Chocomelk of drinkyoghurt + een banaan</li><li>🥣 Bakje skyr of kwark, eventueel met een handje granola (check: geen walnoot)</li><li>🥜 Krentenbol of rijstwafels met pindakaas</li><li>🍫 Eiwitreep of eiwitpudding uit de supermarkt</li></ul></div></details>
+    <details><summary><span class="s-main">😶 Geen honger<span class="s-sub">Drinken gaat makkelijker dan kauwen</span></span></summary><div class="dbody small"><ul>
+      <li>🥤 Power-smoothie (skyr, banaan, havermout, pindakaas): veel energie in een paar slokken</li><li>🍮 Iets kleins en zachts: eiwitpudding, kwark met honing</li><li>⏰ Zet een wekker op vaste eetmomenten, dan hoef je niet op honger te wachten</li></ul></div></details>
+    <details><summary><span class="s-main">🚶 Onderweg of op werk<span class="s-sub">Altijd iets in je tas</span></span></summary><div class="dbody small"><ul>
+      <li>🎒 Vaste tasvoorraad: eiwitreep, amandelen, rijstwafels, een stuk fruit</li><li>🏪 Bij de supermarkt of het station: drinkyoghurt, broodje kip of ei, sushi, hüttenkäse</li><li>☕ Matcha of koffie telt niet als maaltijd. Pak er iets bij</li></ul></div></details>
+    <details><summary><span class="s-main">🌙 Het is avond en ik heb weinig gegeten<span class="s-sub">Gewoon nog eten, ook laat</span></span></summary><div class="dbody small"><ul>
+      <li>🍳 Snel warm: 2–3 eieren met brood, of pasta met tonijn (15 min)</li><li>🥣 Simpel: bakje kwark met fruit en pompoenpitten</li><li>💛 Laat eten is helemaal oké. Overslaan om het 'goed te maken' niet: dat kost juist spier</li></ul></div></details>
+    <div class="tip">Merk je dat je vaker maaltijden overslaat of dat eten stress geeft? Bespreek het met Yorick, of met de huisarts of een diëtist. Dat is sterk, niet zwak.</div>
+  </div>
   <h2>🍽️ Het trainingsbord</h2>
   <div class="card"><div id="plate"></div>
     <table><tr><th>Bouwsteen</th><th>Hoeveel</th></tr>
@@ -637,7 +650,7 @@ function isLocked(w){ return w > PUBLISHED && Date.now() < weekStart(w).getTime(
 function isConcept(w){ return w > PUBLISHED && !isLocked(w); }
 const ANCH = {4:" InBody + meting (do 10 dec)",6:" Kerst",7:" Oud & nieuw",8:" InBody + meting (do 7 jan)",9:" 10 km (zo 17 jan)",12:" InBody + eindmeting (do 4 feb)"};
 const PHASENAME = w => w===0?"Proefweek":(w<=4?"Fase 1 · techniek leren":(w<=8?"Fase 2 · opbouwen":"Fase 3 · sterker worden"));
-const HABITS = [["steps","10.000+ stappen","Dat doe je al, ga zo door"],["plate","3 maaltijden, niets overgeslagen","Kleiner mag, overslaan liever niet"],["egg","Eiwit bij elk eetmoment","Skyr, kwark, ei, kip, tofu…"],["drop","Fles water mee","Lichtgele plas = goed"]];
+const HABITS = [["steps","10.000+ stappen","Dat doe je al, ga zo door"],["plate","3 maaltijden, niets overgeslagen","Gemist? Kijk bij Eten → Maaltijd vergeten"],["egg","Eiwit bij elk eetmoment","Skyr, kwark, ei, kip, tofu…"],["drop","Fles water mee","Lichtgele plas = goed"]];
 
 /* ======================= STATE ======================= */
 const KEY = "eva-app-v2";
