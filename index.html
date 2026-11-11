@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d0d0d">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,31 +11,31 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23000'/%3E%3Ctext x='90' y='118' font-size='96' text-anchor='middle'%3E%F0%9F%92%AA%3C/text%3E%3C/svg%3E">
 <title>Eva's sportplan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Pinyon+Script&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0d0d0d; --card:#171717; --card2:#202020; --ink:#f5f2ed; --muted:#9d968c; --line:#2b2b2b; --soft:#232323;
-  --kracht:#5b8cff; --loop:#ff8a4c; --pilates:#34c38f; --rust:#8a8378; --tennis:#f2c14e; --mob:#a78bfa; --gold:#ffd166; --red:#ff6b6b;
+  --bg:#080808; --card:#111; --card2:#181818; --ink:#ece8e1; --muted:#8c877f; --line:#262626; --soft:#1a1a1a;
+  --kracht:#ece8e1; --loop:#b8b1a7; --pilates:#d6cfc5; --rust:#6e6a64; --tennis:#9e978d; --mob:#c4bdb3; --gold:#e6e0d6; --red:#b05a5a;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
 .wrap{max-width:540px;margin:0 auto;padding:14px 16px calc(100px + env(safe-area-inset-bottom))}
 .tab{display:none}.tab.on{display:block}
 a{color:var(--kracht)}
-.hero{border-radius:24px;padding:22px 20px 20px;position:relative;overflow:hidden;margin-top:4px;background:#000;border:1px solid #262626}
-.hero:before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--glow,#ffd16655) 0%,transparent 70%)}
+.hero{border-radius:6px;padding:26px 20px 22px;position:relative;overflow:hidden;margin-top:4px;background:#000;border:1px solid #2a2a2a}
+.hero:before{content:"";position:absolute;right:6px;top:4px;width:120px;height:200px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200' fill='none' stroke='%23ece8e1' stroke-width='1' stroke-linecap='round'><path d='M60 14V186'/><path d='M60 2l3 7-3 6-3-6z M60 198l3-7-3-6-3 6z' fill='%23ece8e1'/><path d='M28 70H92'/><path d='M24 70l4-2 0 4z M96 70l-4-2 0 4z' fill='%23ece8e1'/><circle cx='60' cy='70' r='7'/><circle cx='60' cy='70' r='2' fill='%23ece8e1'/><path d='M60 38c10 3 16 11 10 20-2-4-6-6-10-4M60 38c-10 3-16 11-10 20 2-4 6-6 10-4'/><path d='M60 108c13 2 19 13 11 24M60 108c-13 2-19 13-11 24'/><path d='M71 132l2 8M49 132l-2 8'/><path d='M8 26Q34 82 60 70M112 26Q86 82 60 70' stroke-dasharray='0.5 5' stroke-width='1.6'/><path d='M60 150c6 4 6 10 0 14-6-4-6-10 0-14z'/></svg>") no-repeat center/contain;opacity:.22;pointer-events:none}
 .hero>*{position:relative}
 .kicker{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
-h1{font-family:Fraunces,Georgia,serif;font-size:1.9rem;line-height:1.1;margin:6px 0}
+h1{font-weight:600;letter-spacing:.01em;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;line-height:1.1;margin:6px 0}
 .hero p{margin:0;color:#d8d2c8;font-size:.95rem}
-h2{font-family:Fraunces,Georgia,serif;font-size:1.3rem;margin:28px 0 10px}
+h2{font-weight:600;font-size:1.5rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;margin:28px 0 10px}
 h3{font-size:1rem;margin:14px 0 6px}
 p{margin:8px 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:12px}
 .muted{color:var(--muted)}.small{font-size:.86rem}
 .tip{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:.9rem;margin-top:10px}
 .warn{background:#2a1515;border:1px solid #5c2a2a;border-radius:12px;padding:10px 12px;font-size:.9rem;margin-top:10px}
-.focus{background:#1f1a0c;border:1px solid #4a3d12;border-radius:16px;padding:14px 16px;margin:14px 0 6px;font-size:.95rem}
+.focus{background:#0d0d0d;border:1px solid #3a3733;border-radius:16px;padding:14px 16px;margin:14px 0 6px;font-size:.95rem}
 .focus b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 /* week selector */
 .wsel{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;margin:10px -2px 0;scrollbar-width:none}
@@ -52,7 +52,7 @@ p{margin:8px 0}
 .feel{display:flex;gap:8px;margin-top:8px}
 .feel button{flex:1;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:10px 4px;font:inherit;color:var(--ink);font-size:.8rem;cursor:pointer}
 .feel button span{display:block;font-size:1.5rem}
-.feel button.on{border-color:var(--gold);background:#2a2412}
+.feel button.on{border-color:var(--gold);background:#1d1b18}
 .light{display:flex;align-items:center;gap:10px;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:.9rem;font-weight:600}
 .light i{width:14px;height:14px;border-radius:50%;flex:none}
 input[type=number],input[type=text],textarea{background:#0f0f0f;border:1px solid var(--line);color:var(--ink);border-radius:10px;font:inherit;padding:8px 10px;width:100%}
@@ -129,9 +129,9 @@ td:first-child{font-weight:600;white-space:nowrap}
 .rate{display:flex;gap:6px;margin-top:10px}
 .rate button{flex:1;background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:8px 4px;font:inherit;font-size:.78rem;cursor:pointer}
 .rate button span{display:block;font-size:1.25rem}
-.rate button.on{border-color:var(--gold);background:#2a2412}
-.lesson{background:linear-gradient(135deg,#0f2a20,#111);border:1px solid #1f4a39;border-radius:18px;padding:16px}
-.lesson .big{font-family:Fraunces,Georgia,serif;font-size:1.2rem;font-weight:700;margin:2px 0 6px}
+.rate button.on{border-color:var(--gold);background:#1d1b18}
+.lesson{background:#0d0d0d;border:1px solid #3a3733;border-radius:18px;padding:16px}
+.lesson .big{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:700;margin:2px 0 6px}
 .foot{text-align:center;color:var(--muted);font-size:.76rem;margin-top:26px}
 .reset{background:none;border:0;color:var(--muted);text-decoration:underline;font:inherit;font-size:.76rem;cursor:pointer}
 /* log list */
@@ -147,24 +147,24 @@ td:first-child{font-weight:600;white-space:nowrap}
 .m-close{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-weight:700;cursor:pointer}
 .m-body{max-width:540px;margin:0 auto;padding:12px 16px 140px}
 .lx{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
-.lx.donex{border-color:#1f4a39}
+.lx.donex{border-color:#4a4640}
 .lx-h{display:flex;align-items:center;gap:10px}
 .lx-h .ex-name{flex:1;font-size:1rem}
 .target{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
 .target span{background:var(--soft);border-radius:999px;padding:4px 10px;font-size:.76rem;font-weight:700}
 .prev{font-size:.82rem;color:var(--muted);margin:4px 0}
-.sugg{font-size:.84rem;background:#1b2338;border:1px solid #2c3b63;border-radius:10px;padding:8px 10px;margin:6px 0}
+.sugg{font-size:.84rem;background:#141414;border:1px dashed #4a4640;border-radius:10px;padding:8px 10px;margin:6px 0}
 .setrow{display:grid;grid-template-columns:38px 1fr 1fr 40px;gap:8px;align-items:center;margin-top:8px}
 .setrow .sn{font-size:.78rem;font-weight:800;color:var(--muted)}
 .setrow.hdr{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:10px}
 .setrow input{text-align:center;padding:10px 4px;font-size:1rem;font-weight:700}
 .sok{width:36px;height:36px;border-radius:10px;border:2px solid #3a3a3a;background:none;color:transparent;font-weight:800;cursor:pointer}
 .sok.on{background:var(--pilates);border-color:var(--pilates);color:#000}
-.restbtn{background:#1f1a0c;border:1px solid #4a3d12;color:var(--gold);border-radius:12px;padding:9px 12px;font:inherit;font-weight:800;font-size:.85rem;margin-top:10px;cursor:pointer;width:100%}
+.restbtn{background:#0d0d0d;border:1px solid #3a3733;color:var(--gold);border-radius:12px;padding:9px 12px;font:inherit;font-weight:800;font-size:.85rem;margin-top:10px;cursor:pointer;width:100%}
 .timer{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid #333;padding:14px 16px calc(14px + env(safe-area-inset-bottom));z-index:60;display:none}
 .timer.on{display:block}
 .timer-in{max-width:540px;margin:0 auto;display:flex;align-items:center;gap:14px}
-.timer .t{font-family:Fraunces,Georgia,serif;font-size:2rem;font-weight:700;min-width:90px}
+.timer .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:700;min-width:90px}
 .timer .lab{flex:1;font-size:.85rem;color:var(--muted)}
 .timer button{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:8px 12px;font:inherit;font-weight:700;cursor:pointer}
 .tbar{height:4px;background:#222;border-radius:4px;margin-top:10px;max-width:540px;margin-left:auto;margin-right:auto;overflow:hidden}
@@ -176,6 +176,30 @@ td:first-child{font-weight:600;white-space:nowrap}
 .tb span{font-size:1.3rem;filter:grayscale(1);opacity:.6}
 .tb.on{color:var(--ink);background:#1d1d1d}.tb.on span{filter:none;opacity:1}
 .when{background:#151515;border:1px dashed #3a3a3a;border-radius:14px;padding:10px 12px;font-size:.84rem;color:#d8d2c8;margin:10px 0 4px}
+
+h2:after{content:"";display:block;height:12px;margin-top:4px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 12' fill='none' stroke='%23ece8e1' stroke-linecap='round'><path d='M0 6H56M84 6H140' stroke-width='.6'/><path d='M70 0l3 6-3 6-3-6z' fill='%23ece8e1' stroke='none'/><path d='M62 6c2-4 4-4 5 0M78 6c-2-4-4-4-5 0' stroke-width='.8'/><path d='M20 6h.1M32 6h.1M44 6h.1M96 6h.1M108 6h.1M120 6h.1' stroke-width='2'/></svg>") no-repeat left center/auto 12px;opacity:.7}
+.card,.day,details,.rec,.habits,.lx,.phase,.lesson,.focus,.when{border-radius:6px}
+.badge{border-radius:4px;filter:grayscale(1)}
+.kicker{letter-spacing:.22em}
+.sig{position:absolute;right:18px;bottom:-4px;font-family:'Pinyon Script',cursive;font-size:3.4rem;color:#ece8e1;opacity:.08;pointer-events:none}
+.check.on{background:var(--ink);border-color:var(--ink);color:#000}
+.dot.on{background:var(--ink);border-color:var(--ink)}
+.sok.on{background:var(--ink);border-color:var(--ink)}
+.wchip.on{background:var(--ink);color:#000}
+.btn.go{background:var(--ink);color:#000;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem;border-radius:4px}
+.btn.ghost{border-radius:4px}
+.ex-n{border-radius:3px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:.85rem}
+.tb.on{background:#151515}
+h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.kicker,.lesson,.chip{filter:grayscale(1)}
+.celebrate{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.82);pointer-events:none;opacity:0;transition:opacity .25s}
+.celebrate.on{opacity:1}
+.celebrate svg path:not(.chain),.celebrate svg circle{stroke-dasharray:var(--l);stroke-dashoffset:var(--l)}
+.celebrate .chain{opacity:0}.celebrate.on .chain{animation:rise .5s .4s forwards}
+.celebrate.on svg path:not(.chain),.celebrate.on svg circle{animation:draw 1s ease forwards}
+.celebrate .word{font-family:'Pinyon Script',cursive;font-size:2.8rem;color:#ece8e1;margin-top:-8px;opacity:0;transform:translateY(8px)}
+.celebrate.on .word{animation:rise .6s .55s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes rise{to{opacity:1;transform:none}}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
@@ -184,10 +208,11 @@ td:first-child{font-weight:600;white-space:nowrap}
 
 <!-- ================= WEEK ================= -->
 <section class="tab on" id="tab-week">
-  <div class="hero" style="--glow:#ffd16644">
+  <div class="hero" style="--glow:#e6e0d644">
     <div class="kicker" id="kicker"></div>
     <h1 id="wtitle"></h1>
     <p id="intro"></p>
+    <div class="sig">Eva</div>
     <div class="prog">
       <svg class="ring" viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="26"/><circle class="fg" id="ringfg" cx="32" cy="32" r="26" transform="rotate(-90 32 32)"/></svg>
       <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
@@ -221,7 +246,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 
 <!-- ================= TRAINING ================= -->
 <section class="tab" id="tab-training">
-  <div class="hero" style="--glow:#5b8cff55">
+  <div class="hero" style="--glow:#ece8e155">
     <div class="kicker">Trainingsschema · 12 weken</div>
     <h1>Sterker in 3 fases 💪</h1>
     <p>16 nov 2026 – 7 feb 2027. Elke zondag stemmen we de week af, dus alles mag schuiven.</p>
@@ -285,7 +310,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 
 <!-- ================= GIDS ================= -->
 <section class="tab" id="tab-gids">
-  <div class="hero" style="--glow:#a78bfa55">
+  <div class="hero" style="--glow:#c4bdb355">
     <div class="kicker">Gids</div>
     <h1>Zo werkt je programma 🧭</h1>
     <p>Sterker, strakker en leniger in 12 weken, met een plan dat in je week past.</p>
@@ -345,7 +370,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 
 <!-- ================= ETEN ================= -->
 <section class="tab" id="tab-eten">
-  <div class="hero" style="--glow:#34c38f55">
+  <div class="hero" style="--glow:#d6cfc555">
     <div class="kicker" id="fkicker">Eten deze week</div>
     <h1 id="ftitle"></h1>
     <p id="fsub"></p>
@@ -400,6 +425,12 @@ td:first-child{font-weight:600;white-space:nowrap}
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="celebrate" id="cele"><svg width="170" height="170" viewBox="0 0 170 170" fill="none" stroke="#ece8e1" stroke-width="1.2" stroke-linecap="round">
+<path style="--l:700" d="M85 6L94 76 164 85 94 94 85 164 76 94 6 85 76 76Z"/>
+<circle style="--l:120" cx="85" cy="85" r="18"/>
+<path style="--l:300" d="M85 46c14 4 20 16 12 26M85 46c-14 4-20 16-12 26M85 124c14-4 20-16 12-26M85 124c-14-4-20-16-12-26"/>
+<path class="chain" d="M22 30Q60 60 85 67M148 30Q110 60 85 67" stroke-dasharray="1 5"/>
+</svg><div class="word" id="celeWord">Gedaan</div></div>
 
 <nav class="tabbar"><div class="tabbar-in">
   <button class="tb on" data-t="week"><span>📅</span>Week</button>
@@ -555,6 +586,8 @@ try { S = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ S = {}; }
 S.days = S.days || {}; S.habits = S.habits || {}; S.daily = S.daily || {}; S.logs = S.logs || {}; S.rate = S.rate || {}; S.ci = S.ci || {}; S.food = S.food || {};
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
 const $ = id => document.getElementById(id);
+const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
+function celebrate(){ const c=$("cele"); $("celeWord").textContent=CW[Math.floor(Math.random()*CW.length)]; c.classList.remove("on"); void c.offsetWidth; c.classList.add("on"); try{navigator.vibrate&&navigator.vibrate(30);}catch(e){} clearTimeout(celebrate._t); celebrate._t=setTimeout(()=>c.classList.remove("on"),1700); }
 function toast(t){ const el=$("toast"); el.textContent=t; el.style.display="block"; clearTimeout(toast._t); toast._t=setTimeout(()=>el.style.display="none",2200); }
 
 let W = curWeek();
@@ -583,7 +616,7 @@ function targetFor(k, w, opts){
 }
 function lockedHtml(w, what){
   const st = weekStart(w), sun = new Date(st.getTime()-DAYMS);
-  return `<div class="card" style="text-align:center;padding:26px 18px"><div style="font-size:2.2rem">🔒</div><h3 style="font-family:Fraunces,Georgia,serif;font-size:1.25rem">${what} volgt na je check-in</h3>
+  return `<div class="card" style="text-align:center;padding:26px 18px"><div style="font-size:2.2rem">🔒</div><h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem">${what} volgt na je check-in</h3>
    <p class="small muted">Zondag ${sun.getDate()} ${MAAND[sun.getMonth()]} kijken we samen hoe je week ging en wanneer je kunt. Daarna verschijnt hier je week, op jouw maat.</p>
    <div class="tip" style="text-align:left"><b>Richting:</b> ${PHASENAME(w)}${ANCH[w]?`<br><b>Staat al vast:</b> ${ANCH[w]}`:""}</div></div>`;
 }
@@ -610,7 +643,7 @@ function renderWeek(){
     div.innerHTML = `<div class="day-head"><div class="badge" style="background:color-mix(in srgb, var(--${d.type}) 22%, #111)">${d.icon}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); if(S.days[key]) celebrate(); });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
@@ -668,7 +701,7 @@ function renderToday(){
   const r = st.ready ? +st.ready : null, f = st.feel;
   let lvl = null;
   if (f===0 || (r!==null && r<60)) lvl = 2; else if (f===1 || (r!==null && r<75)) lvl = 1; else if (f===2 || r!==null) lvl = 0;
-  const L = [["#34c38f","#0f2a20","Groen: train zoals gepland. Geniet ervan!"],["#ffd166","#2a2412","Oranje: train, maar doe 1 set minder of een lagere RPE."],["#ff6b6b","#2a1515","Rood: kies pilates, mobiliteit of een wandeling. Rust is ook training."]];
+  const L = [["#7fae95","#101a14","Groen: train zoals gepland. Geniet ervan!"],["#cfae6a","#1c170d","Oranje: train, maar doe 1 set minder of een lagere RPE."],["#c07070","#1e1111","Rood: kies pilates, mobiliteit of een wandeling. Rust is ook training."]];
   $("lightBox").innerHTML = lvl===null ? "" : `<div class="light" style="background:${L[lvl][1]}"><i style="background:${L[lvl][0]}"></i>${L[lvl][2]}</div>`;
 }
 $("ready").addEventListener("change",()=>{ const v=$("ready").value; S.daily[TODAY]=Object.assign(S.daily[TODAY]||{}, {ready: v?+v:undefined}); save(); renderToday(); });
@@ -719,7 +752,7 @@ function openLogger(w, di){
     if (on) startTimer(EX[b.dataset.k].r, EX[b.dataset.k].n);
   }));
   $("mBody").querySelectorAll(".restbtn").forEach(b=>b.addEventListener("click",()=>startTimer(+b.dataset.rest,b.dataset.name)));
-  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); toast("Top gedaan! 💪 Opgeslagen in je logboek"); });
+  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); });
   $("modal").classList.add("on"); document.body.style.overflow="hidden"; $("modal").scrollTop=0;
 }
 function setVal(k,s,f,v){
@@ -768,9 +801,9 @@ $("strip").innerHTML = STRIP.map(s=>`<div class="sd" style="border-color:var(--$
 const PHS = [["Week 0 · proef","11–15 nov","Kennismaken, startmeting, InBody","rust"],["Fase 1 · techniek leren","16 nov – 13 dec","2–3 × 10–12, RPE 6–7 · meting wk 4","loop"],["Fase 2 · opbouwen","14 dec – 10 jan","3 × 8–12, RPE 7–8 · wk 7 licht · meting wk 8","pilates"],["Fase 3 · sterker worden","11 jan – 7 feb","Wk 9 licht + 10 km 🏁 · daarna 4 × 6–10 · eindmeting wk 12","kracht"]];
 $("phases").innerHTML = PHS.map(p=>`<div class="phase" style="border-left-color:var(--${p[3]})"><b>${p[0]}</b><span class="small muted">${p[1]}</span><div class="small">${p[2]}</div></div>`).join("");
 function fig(kind){
-  const b = d=>`<path d="${d}" fill="none" stroke="#f5f2ed" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const h = (x,y)=>`<circle cx="${x}" cy="${y}" r="9" fill="#f5f2ed"/>`;
-  const w = (x,y,ww,hh)=>`<rect x="${x}" y="${y}" width="${ww}" height="${hh}" rx="3" fill="#5b8cff"/>`;
+  const b = d=>`<path d="${d}" fill="none" stroke="#ece8e1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const h = (x,y)=>`<circle cx="${x}" cy="${y}" r="9" fill="#ece8e1"/>`;
+  const w = (x,y,ww,hh)=>`<rect x="${x}" y="${y}" width="${ww}" height="${hh}" rx="3" fill="#ece8e1"/>`;
   const x = 150, g = 118; let s="";
   if(kind==="squat") s=b(`M${x+14} ${g}L${x} ${g}L${x+28} ${g-30}L${x-10} ${g-34}L${x+8} ${g-78}`)+b(`M${x+8} ${g-78}L${x+24} ${g-62}L${x+20} ${g-70}`)+h(x+14,g-92)+w(x+16,g-80,12,16);
   if(kind==="rdl") s=b(`M${x+14} ${g}L${x} ${g}L${x+6} ${g-36}L${x-10} ${g-64}L${x+34} ${g-84}`)+b(`M${x+34} ${g-84}L${x+30} ${g-46}`)+h(x+46,g-90)+w(x+22,g-48,18,9);
@@ -789,15 +822,15 @@ function exCard(k){
 $("exA").innerHTML = SESS.A.map(exCard).join("") + `<div class="tip">A6 + A7 als superset: om en om, dan rust.</div>`;
 $("exB").innerHTML = SESS.B.map(exCard).join("") + `<div class="tip">B5 + B6 als superset.</div>`;
 $("exC").innerHTML = SESS.C.map(exCard).join("");
-$("stairs").innerHTML = (()=>{ const st=[["3×8","10 kg","#ff8a4c"],["3×10","10 kg","#ff8a4c"],["3×12","10 kg ✔","#ff8a4c"],["3×8","12 kg","#5b8cff"],["3×10","12 kg","#5b8cff"]];
+$("stairs").innerHTML = (()=>{ const st=[["3×8","10 kg","#b8b1a7"],["3×10","10 kg","#b8b1a7"],["3×12","10 kg ✔","#b8b1a7"],["3×8","12 kg","#ece8e1"],["3×10","12 kg","#ece8e1"]];
   let s=`<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="Eerst meer herhalingen, dan zwaarder">`;
-  st.forEach((r,i)=>{ const hh=50+i*20, xx=10+i*61, yy=150-hh; s+=`<rect x="${xx}" y="${yy}" width="55" height="${hh}" rx="8" fill="${r[2]}" fill-opacity=".2" stroke="${r[2]}" stroke-width="1.5"/><text x="${xx+27.5}" y="${yy+20}" text-anchor="middle" font-size="13" font-weight="700" fill="#f5f2ed" font-family="Inter">${r[0]}</text><text x="${xx+27.5}" y="${yy+36}" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">${r[1]}</text>`; });
-  return s+`<text x="72" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#ff8a4c" font-family="Inter">meer herhalingen</text><text x="221" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="#5b8cff" font-family="Inter">zwaarder!</text><text x="10" y="166" font-size="10" fill="#9d968c" font-family="Inter">training na training →</text></svg>`; })();
+  st.forEach((r,i)=>{ const hh=50+i*20, xx=10+i*61, yy=150-hh; s+=`<rect x="${xx}" y="${yy}" width="55" height="${hh}" rx="8" fill="${r[2]}" fill-opacity=".2" stroke="${r[2]}" stroke-width="1.5"/><text x="${xx+27.5}" y="${yy+20}" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">${r[0]}</text><text x="${xx+27.5}" y="${yy+36}" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">${r[1]}</text>`; });
+  return s+`<text x="72" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#b8b1a7" font-family="Inter">meer herhalingen</text><text x="221" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="#ece8e1" font-family="Inter">zwaarder!</text><text x="10" y="166" font-size="10" fill="#9d968c" font-family="Inter">training na training →</text></svg>`; })();
 
 /* ======================= GIDS ======================= */
-const TL = [["11 nov · De start","5 km gelopen, het avontuur is begonnen","#ff8a4c"],["12 nov · Eerste keer sportschool","InBody-startmeting en de machines leren","#5b8cff"],["13 dec · Week 4 gehaald","Eerste meting + een nieuwe sportlegging","#5b8cff"],["Kerst · Rustiger aan","Genieten, en licht doortrainen","#34c38f"],["17 jan · De 10 km! 🏁","Met Noa en Yorick, daarna brunch","#ff8a4c"],["Je eerste echte push-up","Een reformerles als cadeau","#a78bfa"],["7 feb · Week 12! 🏆","Eindmeting, en het volgende blok plannen","#ffd166"]];
+const TL = [["11 nov · De start","5 km gelopen, het avontuur is begonnen","#b8b1a7"],["12 nov · Eerste keer sportschool","InBody-startmeting en de machines leren","#ece8e1"],["13 dec · Week 4 gehaald","Eerste meting + een nieuwe sportlegging","#ece8e1"],["Kerst · Rustiger aan","Genieten, en licht doortrainen","#d6cfc5"],["17 jan · De 10 km! 🏁","Met Noa en Yorick, daarna brunch","#b8b1a7"],["Je eerste echte push-up","Een reformerles als cadeau","#c4bdb3"],["7 feb · Week 12! 🏆","Eindmeting, en het volgende blok plannen","#e6e0d6"]];
 $("tl").innerHTML = TL.map(t=>`<div class="tl-i" style="--c:${t[2]}"><b>${t[0]}</b><span class="small muted">${t[1]}</span></div>`).join("");
-$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity=".25" stroke="#8a8378" stroke-width="2"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#f5f2ed" font-family="Inter">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="700" fill="#f5f2ed" font-family="Inter">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#5b8cff" fill-opacity=".2" stroke="#5b8cff" stroke-width="2"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#5b8cff" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#f5f2ed" font-family="Inter">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
+$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity=".25" stroke="#8a8378" stroke-width="2"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="700" fill="#ece8e1" font-family="Inter">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity=".2" stroke="#ece8e1" stroke-width="2"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
 
 /* ======================= ETEN ======================= */
 const RATES = [["😋","Lekker!"],["😐","Gaat wel"],["👎","Niet voor mij"]];
@@ -817,7 +850,7 @@ function renderFood(){
   if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "🎁 Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); }); renderFavs(); return; }
   $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.e + " " + f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
   renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); });
-  $("lesson").innerHTML = `<div class="kicker" style="color:#34c38f">Wist je dat?</div><div class="big">${f.t}</div>` + f.lesson.map(l=>`<p class="small">• ${l}</p>`).join("");
+  $("lesson").innerHTML = `<div class="kicker" style="color:#d6cfc5">Wist je dat?</div><div class="big">${f.t}</div>` + f.lesson.map(l=>`<p class="small">• ${l}</p>`).join("");
   $("weekRecipes").innerHTML = f.rec.map(id=>recCard(id,true)).join(""); bindRates($("weekRecipes"));
   const tk = "try-"+W, tv = S.food[tk];
   $("tryCard").innerHTML = `<p>${f.try}</p><button class="btn ${tv?'ghost':'go'}" id="tryBtn">${tv?'✅ Gedaan!':'Ik heb het geprobeerd'}</button>`;
@@ -831,9 +864,9 @@ function renderFavs(){
   const favs = Object.keys(S.rate).filter(id=>S.rate[id].v===0 && R[id]);
   $("favs").innerHTML = favs.length ? favs.map(id=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)">😋 <b>${R[id][0]}</b>${S.rate[id].n?`<div class="small muted">${esc(S.rate[id].n)}</div>`:""}</div>`).join("") : `<p class="small muted">Nog geen favorieten. Beoordeel de recepten van de week met 😋 en ze verschijnen hier.</p>`;
 }
-$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="120" cy="105" r="82" fill="#141414"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#34c38f" fill-opacity=".3" stroke="#34c38f" stroke-width="1.5"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#5b8cff" fill-opacity=".3" stroke="#5b8cff" stroke-width="1.5"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#ff6fa0" fill-opacity=".3" stroke="#ff6fa0" stroke-width="1.5"/><text x="78" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#f5f2ed" font-family="Inter">Groente</text><text x="78" y="118" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">½ bord</text><text x="158" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#f5f2ed" font-family="Inter">Eiwit</text><text x="158" y="85" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><text x="156" y="140" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f5f2ed" font-family="Inter">Koolhydraten</text><text x="156" y="154" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><circle cx="262" cy="50" r="24" fill="#ff8a4c" fill-opacity=".3" stroke="#ff8a4c" stroke-width="1.5"/><text x="262" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#f5f2ed" font-family="Inter">Vet</text><text x="262" y="90" text-anchor="middle" font-size="10" fill="#9d968c" font-family="Inter">een duim</text></svg>`;
+$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="120" cy="105" r="82" fill="#141414"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#d6cfc5" fill-opacity=".3" stroke="#d6cfc5" stroke-width="1.5"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#ece8e1" fill-opacity=".3" stroke="#ece8e1" stroke-width="1.5"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#9e978d" fill-opacity=".3" stroke="#9e978d" stroke-width="1.5"/><text x="78" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#ece8e1" font-family="Inter">Groente</text><text x="78" y="118" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">½ bord</text><text x="158" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#ece8e1" font-family="Inter">Eiwit</text><text x="158" y="85" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><text x="156" y="140" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ece8e1" font-family="Inter">Koolhydraten</text><text x="156" y="154" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><circle cx="262" cy="50" r="24" fill="#b8b1a7" fill-opacity=".3" stroke="#b8b1a7" stroke-width="1.5"/><text x="262" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#ece8e1" font-family="Inter">Vet</text><text x="262" y="90" text-anchor="middle" font-size="10" fill="#9d968c" font-family="Inter">een duim</text></svg>`;
 const PROT = [["Kipfilet 150 g",35],["Tonijn, 1 blikje",29],["Skyr 250 g",27],["Mager gehakt 125 g",26],["Zalm 125 g",25],["Tofu 200 g",24],["Eiwitshake, 1 schep",24],["Kwark 250 g",22],["Eiwitpudding",20],["Hüttenkäse 150 g",18],["Edamame 150 g",17],["Linzen/bonen 200 g",14],["2 eieren",13],["2 plakken kaas",10],["Glas melk",8]];
-$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:12px;overflow:hidden"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#5b8cff,#a78bfa);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
+$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:12px;overflow:hidden"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#ece8e1,#c4bdb3);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
 function renderAllRecipes(){
   const seen = []; WEEKS.forEach(w=>w.food.rec.forEach(id=>{ if(!seen.includes(id) && id!=="eigen") seen.push(id); }));
   $("allRecipes").innerHTML = `<details><summary><span class="s-main">${seen.length} recepten<span class="s-sub">Elke week komen er nieuwe bij</span></span></summary><div class="dbody">${seen.map(id=>recCard(id,true)).join("")}</div></details>`;
