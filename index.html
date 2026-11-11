@@ -281,6 +281,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .pmode button{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:12px 6px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;min-height:56px}
 .pmode button span{display:block;font-size:1.3rem}
 .pmode button.on{border-color:var(--pilates);background:#132219}
+.wucd{margin:10px 0 0!important}.wucd summary{padding:11px 14px!important}.wucd ol{margin:4px 0;padding-left:18px}.wucd li{margin:3px 0}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
@@ -365,17 +366,9 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
       <tr><td>🪢 Riem of yogaband</td><td>Optioneel: makkelijker hamstrings rekken</td></tr></table>
     <p class="muted">Sets met bandjes in verschillende zwaartes zijn vaak voordeliger dan losse bandjes.</p>
   </div>
-  <h2>Warming-up</h2>
-  <div class="card small">
-    <ol>
-      <li><b>5 min</b> roeien, fietsen of crosstrainer</li>
-      <li><b>Op 1 been staan</b>, 2 × 30 sec per been (wk 1–2 ogen open, wk 3–6 dicht, vanaf wk 7 op een kussen)</li>
-      <li><b>15× kuitheffen</b></li>
-      <li><b>World's greatest stretch</b>, 3× per kant</li>
-      <li><b>12× glute bridge</b></li>
-      <li><b>Opwarmsets:</b> 10× heel licht, 5× op ± 70%</li>
-    </ol>
-  </div>
+  <h2>Warming-up & cooling-down</h2>
+  <p class="small muted">Altijd doen, ook als je weinig tijd hebt: het verkleint de kans op blessures (zeker voor je enkel) en je traint er beter door. Ze staan ook bij elke dag in je week.</p>
+  <div id="wucdAll"></div>
   <h2>Training A · benen/billen + duwen</h2>
   <div class="card" id="exA"></div>
   <h2>Training B · billen/hamstrings + trekken</h2>
@@ -599,6 +592,21 @@ const ALT = {A1:"Leg press of box squat op een bank",A2:"Hip thrust of lichte ke
 const EQ = {"A1": "1 halter (dumbbell). Houd hem rechtop tegen je borst, handen onder de bovenste schijf, ellebogen naar beneden. <i>Niet:</i> een stang op je rug (dat is een back squat).", "A2": "2 halters, staand met je voeten op heupbreedte. <i>Niet:</i> een stang of een machine.", "A3": "2 halters, eentje in elke hand. Week 1–2: zonder gewicht, met een hand aan een rek. Beide voeten op de grond. <i>Niet:</i> je achterste voet op een bank (dat is de Bulgaarse split squat, de moeilijkere variant).", "A4": "De zittende chest press-machine met handgrepen. Zet de stoel zo dat de handgrepen op middenborst-hoogte zitten. <i>Niet:</i> bankdrukken met een stang of met halters op een bank.", "A5": "Kabelstation met een lange stang en kniekussens. Zet het kniekussen strak op je dijen. Pak de stang iets breder dan je schouders, handpalmen van je af. Trek naar je bovenborst, niet achter je hoofd.", "A6": "Kabelstation met één handvat (D-grip) op borsthoogte. Ga er zijwaarts naast staan, 1–2 grote stappen van de kabel af.", "A7": "Een trede, step of plateau, en houd je ergens vast. Hiel zakt onder de rand. Vanaf week 5 eventueel een halter in de hand aan dezelfde kant als het werkende been.", "B1": "Hip thrust-machine: bovenrug tegen het rugkussen, het heupkussen of de gordel op je heupbotten, voeten plat. Bezet? Gebruik een stang op je heupen met je rug tegen een bank.", "B2": "Leg press-machine (schuin of zittend). Voeten op heupbreedte, midden tot hoog op het plateau. Hoe hoger je voeten, hoe meer je billen werken.", "B3": "Laag kabelstation met een bankje en voetsteunen, en een V-handvat (smal, handpalmen naar elkaar). Zit rechtop met je knieën licht gebogen.", "B4": "2 halters, zittend op een bankje met de rugleuning rechtop (90°). <i>Niet:</i> de shoulder press-machine (dat is het makkelijkere alternatief).", "B5": "Zittende leg curl-machine. Je knie op één lijn met het draaipunt, het onderkussen net boven je hielen, het bovenbeenkussen strak.", "B6": "Abductor-machine: kussens tegen de buitenkant van je knieën, en je duwt naar buiten. <i>Let op:</i> niet de adductor, waarbij je je knieën naar elkaar knijpt. Het is vaak dezelfde machine met een omgezette stand.", "B7": "Een mat. De dead bug doe je op je rug. De zijplank op je onderarm; als beginner op je knieën."};
 const NEED = {"A1": "Halter", "A2": "2 halters", "A3": "2 halters", "A4": "Chest press-machine", "A5": "Lat pulldown-station", "A6": "Kabel + D-handvat", "A7": "Trede of step", "B1": "Hip thrust-machine", "B2": "Leg press", "B3": "Laag kabelstation + V-handvat", "B4": "2 halters + bankje", "B5": "Leg curl-machine", "B6": "Abductor-machine", "B7": "Mat", "C1": "Mat", "C2": "Mat", "C3": "Mat (later een bank of stoel)", "C4": "Mat + mini-band", "C5": "Mat", "C6": "Mat", "C7": "Lange weerstandsband", "C8": "Mat", "C9": "Mat (eventueel een opgerolde handdoek)"};
 const VID2 = {B7:"https://www.youtube.com/watch?v=CLaU0OhjGqY"};
+const WUCD = {
+ kracht:{wu:["5 min roeien, fietsen of crosstrainer, rustig","Op 1 been staan, 30 sec per been (goed voor je enkel)","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Eerste oefening: 1 opwarmset licht (10×)"],wut:"8 min",
+         cd:["2–3 min rustig fietsen of wandelen","Lage lunge (heup), 30 sec per kant","Hamstrings rekken (been gestrekt op bank), 30 sec per kant","Kuit tegen de muur, 30 sec per kant"],cdt:"5 min"},
+ loop:{wu:["5 min stevig wandelen of heel rustig joggen","10× beenzwaaien naar voren + 10× opzij, per been","10× kuitheffen + 10× enkelrondjes per kant","Op 1 been staan, 30 sec per been","Interval vandaag? Doe 3× 20 sec iets sneller"],wut:"7 min",
+       cd:["5 min uitwandelen","Kuit tegen een muur of paal, 30 sec per kant","Staande bovenbeenstretch (hiel naar bil), 30 sec per kant","Hamstring: hiel op een bankje of stoep, 30 sec per kant"],cdt:"5 min"},
+ tennis:{wu:["3 min huppelen en zijwaarts pasjes","10× enkelrondjes per kant + 10× kuitheffen","10× lunge vooruit (afwisselend)","10× armcirkels voor- en achteruit","3–5 min rustig inslaan voor je echt gaat spelen"],wut:"8 min",
+       cd:["3 min uitwandelen","Schouder: arm voor je borst trekken, 30 sec per kant","Kuit tegen het hek, 30 sec per kant","Lage lunge (heup), 30 sec per kant"],cdt:"5 min"},
+ pilates:{wu:["8× cat-cow op handen en knieën","10× bekken kantelen op je rug","10× schouders rollen + 5× nekrondjes rustig","Diep ademhalen: 5× in door je neus, uit door je mond"],wut:"3 min",
+       cd:["Kindhouding, 45 sec","Liggende draai, 30 sec per kant","Knieën naar je borst en zacht wiegen, 30 sec"],cdt:"3 min"}
+};
+function wucd(type, which, label){
+  const t = WUCD[type]; if(!t) return "";
+  const list = which==="wu" ? t.wu : t.cd, time = which==="wu" ? t.wut : t.cdt;
+  return `<details class="wucd"><summary><span class="s-main">${which==="wu"?"🔥 Warming-up":"🧊 Cooling-down"}${label?" "+label:""} · ${time}<span class="s-sub">${which==="wu"?"Eerst even opwarmen":"Rustig afbouwen en rekken"}</span></span></summary><div class="dbody small"><ol>${list.map(x=>`<li>${x}</li>`).join("")}</ol></div></details>`;
+}
 const SUPER = {A6:"Superset met A7: om en om, daarna pas rust.",A7:"Superset met A6.",B5:"Superset met B6: om en om, daarna pas rust.",B6:"Superset met B5."};
 const SESSNAME = { A:"Kracht A", B:"Kracht B", C:"Pilates C", K:"Kennismaking" };
 
@@ -793,6 +801,9 @@ function renderWeek(){
     if (d.opts.done && S.days[key]===undefined) S.days[key]=true;
     const div = document.createElement("div"); div.className = "day"+(isToday?" today open":"")+((S.pmode||{})[key]&&!isToday&&renderWeek._last===key?" open":"");
     let body = d.opts.note ? `<div class="tip">${d.opts.note}</div>` : "";
+    const wType = d.session==="K" ? "kracht" : (d.session==="C" ? ((S.pmode||{})[key]==="thuis" ? "pilates" : null) : (WUCD[d.type] ? d.type : null));
+    const isTennisDay = /tennis/i.test(d.name) && d.type!=="tennis";
+    if (wType) body += wucd(wType,"wu", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","wu","tennis") : "");
     const isPil = d.session==="C";
     const pm = (S.pmode||{})[key];
     if (isPil){
@@ -808,6 +819,7 @@ function renderWeek(){
     } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
       body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
     else if (d.type==="rust") body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
+    if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
     div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
@@ -922,7 +934,7 @@ function openLogger(w, di){
   const d = WEEKS[w].days[di], key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
-  $("mBody").innerHTML = `<details style="margin-bottom:12px"><summary><span class="s-main">🔥 Warming-up · 8 min<span class="s-sub">Tik af wat je gedaan hebt</span></span></summary><div class="dbody" id="wu"></div></details><div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
+  $("mBody").innerHTML = `<details style="margin-bottom:12px"><summary><span class="s-main">🔥 Warming-up · ${d.session==="C"?"3":"8"} min<span class="s-sub">Tik af wat je gedaan hebt</span></span></summary><div class="dbody" id="wu"></div></details><div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
     const x = EX[k], t = targetFor(k,w,d.opts), prev = lastLog(k,key), fl = ((S.flags||{})[key]||{})[k]||{};
     const cur = (S.logs[k]||[]).find(e=>e.key===key);
     let prevTxt = "Nog geen vorige keer. Begin licht en vind je startgewicht.", sugg = "";
@@ -949,7 +961,7 @@ function openLogger(w, di){
       ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
       <input type="text" class="setting" data-set="${k}" placeholder="Instelling onthouden (bv. stoel 4, rugleuning 2)" value="${esc((S.mset||{})[k]||'')}" style="margin-top:10px;font-size:.85rem">
       <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}">⏱ Start rust (${fmtSec(t.rest)})</button></div>`;
-  }).join("") + `<div class="card small" style="margin-top:6px"><b>🧘 Afsluiten (5 min)</b><br>Uitlopen of fietsen 2–3 min, dan heupen en hamstrings rekken (lage lunge en halve spagaat, 30 sec per kant). Daarna: eten binnen een uur.</div><div class="card"><b>Hoe zwaar was deze training?</b><div class="dots" id="srpe" style="max-width:none!important;justify-content:flex-start;margin-top:8px"></div><div class="small muted" style="margin-top:6px">1 = heel licht · 10 = alles gegeven</div></div><button class="btn go" id="mDone">Training klaar ✓</button>`;
+  }).join("") + `<div class="card small" style="margin-top:6px"><b>🧊 Cooling-down · ${d.session==="C"?"3":"5"} min</b><ol style="margin:6px 0 4px;padding-left:18px">${(d.session==="C"?WUCD.pilates.cd:WUCD.kracht.cd).map(x=>`<li>${x}</li>`).join("")}</ol>Daarna: eten binnen een uur 🍽️</div><div class="card"><b>Hoe zwaar was deze training?</b><div class="dots" id="srpe" style="max-width:none!important;justify-content:flex-start;margin-top:8px"></div><div class="small muted" style="margin-top:6px">1 = heel licht · 10 = alles gegeven</div></div><button class="btn go" id="mDone">Training klaar ✓</button>`;
   $("mBody").querySelectorAll("input").forEach(inp=>inp.addEventListener("input",()=>setVal(inp.dataset.k,+inp.dataset.s,inp.dataset.f,inp.value)));
   $("mBody").querySelectorAll(".sok").forEach(b=>b.addEventListener("click",()=>{
     const on = !b.classList.contains("on"); b.classList.toggle("on",on); setVal(b.dataset.k,+b.dataset.s,"ok",on);
@@ -967,7 +979,7 @@ function openLogger(w, di){
       if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); enqueue("Records", k, [x.n, x.nokg? st.r : st.kg+" kg × "+st.r, e.date]); celebrate("Nieuw record"); }
     }
   }));
-  const WU = ["5 min roeien, fietsen of crosstrainer","Op 1 been staan, 2 × 30 sec per been","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Opwarmsets: 10× heel licht, 5× op ±70%"];
+  const WU = (d.session==="C" ? WUCD.pilates.wu : WUCD.kracht.wu);
   S.wu = S.wu || {}; const wuk = LOGCTX.key;
   $("wu").innerHTML = WU.map((w,i)=>`<div class="chk${(S.wu[wuk]||{})[i]?' on':''}" data-i="${i}"><i>✓</i>${w}</div>`).join("");
   $("wu").querySelectorAll(".chk").forEach(c=>c.addEventListener("click",()=>{ S.wu[wuk]=S.wu[wuk]||{}; S.wu[wuk][c.dataset.i]=!S.wu[wuk][c.dataset.i]; save(); c.classList.toggle("on"); }));
@@ -1064,6 +1076,7 @@ function exCard(k){
   ${EQ[k]?`<div class="eqbox">🔧 <b>Zo pak je hem:</b> ${EQ[k]}</div>`:""}<div class="kv">🧺 <b>Nodig:</b> ${NEED[k]||"-"}${VID2[k]?` · <a href="${VID2[k]}" target="_blank" rel="noopener">video zijplank</a>`:""}</div><div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
   ${x.e?`<div class="kv"><b>Let op:</b> ${x.e}</div>`:""}${x.mk?`<div class="kv"><b>Makkelijker:</b> ${x.mk} · <b>Moeilijker:</b> ${x.md}</div>`:""}</div>`;
 }
+$("wucdAll").innerHTML = [["kracht","🏋️ Kracht"],["loop","👟 Hardlopen"],["tennis","🎾 Tennis"],["pilates","🧘 Pilates thuis"]].map(([t,l])=>`<p class="small" style="margin:12px 0 4px"><b>${l}</b></p>`+wucd(t,"wu")+wucd(t,"cd")).join("");
 $("exA").innerHTML = SESS.A.map(exCard).join("") + `<div class="tip">A6 + A7 als superset: om en om, dan rust.</div>`;
 $("exB").innerHTML = SESS.B.map(exCard).join("") + `<div class="tip">B5 + B6 als superset.</div>`;
 $("exC").innerHTML = SESS.C.map(exCard).join("");
