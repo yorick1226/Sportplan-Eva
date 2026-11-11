@@ -402,6 +402,27 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
 /* focus zichtbaar voor toetsenbord */
 :focus-visible{outline:1.5px solid var(--ink);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* ===== v4: rust ===== */
+.whead-prog,#progMsg,.whead .intro{display:none!important}
+.whead h1{margin-right:96px}
+/* gewoontes vandaag */
+.hab-today{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hab-today button{background:#141414;border:1px solid #262626;border-radius:8px;color:var(--muted);font:inherit;font-size:.72rem;font-weight:600;padding:12px 4px 10px;min-height:76px;cursor:pointer;line-height:1.25}
+.hab-today button .ic{display:block;width:22px;height:22px;margin:0 auto 6px}
+.hab-today button.on{border-color:var(--pilates);color:var(--ink);background:#132219}
+.hab-week{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:.86rem;color:#d8d2c8}
+.hab-week span:nth-child(even){color:var(--muted);text-align:right}
+/* check-in inklapbaar */
+#ciDet>summary .s-main{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem;font-weight:600}
+#ciDet .dbody{padding-top:8px}
+#ciDet .s-sub,.exdet .s-sub{font-family:Inter,system-ui,sans-serif;font-size:.8rem}
+#ciDet{margin-top:var(--s6)}
+/* trainingen inklapbaar */
+.exdet>summary .s-main{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:600}
+.exdet .dbody{padding:0 16px 8px}
+/* eten: samengevoegd */
+.trybox hr{border:0;border-top:1px dashed #2a2a2a;margin:14px 0}
 </style>
 </head>
 <body>
@@ -443,11 +464,10 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
   <div id="calBtn"></div>
   <h2>Elke dag</h2>
   <div class="habits" id="habits"></div>
-  <h2>Check-in zondag</h2>
-  <div class="card"><div class="small muted">Op basis hiervan maken we samen je volgende week: hoe vaak, welke dagen en hoe zwaar.</div><div id="core"></div><div id="checkin"></div>
+  <details id="ciDet"><summary><span class="s-main">Check-in zondag<span class="s-sub" id="ciSub">Vul je in op zaterdag of zondag</span></span></summary><div class="dbody"><div class="small muted">Op basis hiervan maken we samen je volgende week: hoe vaak, welke dagen en hoe zwaar.</div><div id="core"></div><div id="checkin"></div>
     <button class="btn go" id="share"> Stuur mijn week naar Yorick</button>
     <div class="small muted" style="margin-top:6px;text-align:center">Kopieert je trainingen, logboek, eetfeedback en antwoorden. Plak het daarna in WhatsApp.</div>
-  </div>
+  </div></details>
   <div class="foot">Alles wordt bewaard op dit apparaat. Stuur je week elke zondag naar Yorick als back-up.<br><button class="reset" id="reset">Vinkjes van deze week wissen</button></div>
   </div>
 </section>
@@ -491,12 +511,10 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
   <h2>Warming-up & cooling-down</h2>
   <p class="small muted">Altijd doen, ook als je weinig tijd hebt: het verkleint de kans op blessures (zeker voor je enkel) en je traint er beter door. Ze staan ook bij elke dag in je week.</p>
   <div id="wucdAll"></div>
-  <h2>Training A · benen/billen + duwen</h2>
-  <div class="card" id="exA"></div>
-  <h2>Training B · billen/hamstrings + trekken</h2>
-  <div class="card" id="exB"></div>
-  <h2>Training C · pilates/core</h2>
-  <div class="card"><p class="small">Kies per keer in je week: <b>📍 les in een studio</b> (dan geen schema nodig, eventueel C3 en C5 erachteraan) of <b>🏠 thuis met dit schema</b>. Rust 20–30 sec, bij C3 60 sec. Nodig thuis: mat, mini-band, lange band.</p><div id="exC"></div></div>
+  <h2>Oefeningen</h2>
+  <details class="exdet"><summary><span class="s-main">Training A<span class="s-sub">Benen en billen + duwen · 7 oefeningen</span></span></summary><div class="dbody" id="exA"></div></details>
+  <details class="exdet"><summary><span class="s-main">Training B<span class="s-sub">Billen en hamstrings + trekken · 7 oefeningen</span></span></summary><div class="dbody" id="exB"></div></details>
+  <details class="exdet"><summary><span class="s-main">Training C<span class="s-sub">Pilates en core · 9 oefeningen</span></span></summary><div class="dbody"><p class="small">Kies per keer in je week: <b>📍 les in een studio</b> (dan geen schema nodig, eventueel C3 en C5 erachteraan) of <b>🏠 thuis met dit schema</b>. Rust 20–30 sec, bij C3 60 sec. Nodig thuis: mat, mini-band, lange band.</p><div id="exC"></div></div></details>
   <h2>Zo word je sterker</h2>
   <div class="card">
     <table><tr><th>RPE</th><th>Nog over</th><th>Gevoel</th></tr>
@@ -610,10 +628,8 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
   <div id="weekRecipes"></div>
   <h2>🛒 Boodschappen voor deze recepten</h2>
   <div class="card" id="shop"></div>
-  <h2>🧪 Proefopdracht</h2>
-  <div class="card" id="tryCard"></div>
-  <h2>💭 Even voelen</h2>
-  <div class="card" id="reflect"></div>
+  <h2>🧪 Deze week proberen</h2>
+  <div class="card trybox"><div id="tryCard"></div><hr><div id="reflect"></div></div>
   </div>
   <h2>⭐ Jouw favorieten</h2>
   <div class="card" id="favs"></div>
@@ -957,14 +973,14 @@ function renderWeek(){
   if (!$("todayDay").children.length) $("todayDay").innerHTML = `<p class="small muted" style="margin:0 0 4px">${W===curWeek()?"Vandaag staat er niets gepland. Wandelen en je stappen halen is genoeg 🌙":"Je bekijkt week "+W+". Tik op de kraal met • voor deze week."}</p>`;
   // habits
   const h = $("habits"); h.innerHTML = "";
-  const letters = dates.map(d=>DAG[d.getDay()]);
-  HABITS.forEach((hb,hi)=>{
-    const row = document.createElement("div"); row.className="habit";
-    row.innerHTML = `<div class="ico">${ic(hb[0])}</div><div class="txt">${hb[1]}<small>${hb[2]}</small></div><div class="dots"></div>`;
-    letters.forEach((L,li)=>{ const k="h"+hi+"-"+iso(dates[li]); const dot=document.createElement("div"); dot.className="dot"+(S.habits[k]?" on":""); dot.textContent=L;
-      dot.addEventListener("click",()=>{ S.habits[k]=!S.habits[k]; save(); dot.classList.toggle("on",!!S.habits[k]); }); row.querySelector(".dots").appendChild(dot); });
-    h.appendChild(row);
-  });
+  const ti = dates.findIndex(d=>iso(d)===TODAY);
+  if (ti >= 0){
+    h.innerHTML = `<div class="hab-today">${HABITS.map((hb,hi)=>{ const k="h"+hi+"-"+TODAY; return `<button data-hk="${k}" class="${S.habits[k]?'on':''}">${ic(hb[0])}${hb[1].replace(", niets overgeslagen","").replace("Eiwit bij elk eetmoment","Eiwit bij elk eetmoment")}</button>`; }).join("")}</div><p class="small muted" style="margin-top:8px">Tik aan wat je vandaag gedaan hebt. Gemist? Kijk bij Eten → Maaltijd vergeten.</p>`;
+    h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); }));
+  } else {
+    h.innerHTML = `<div class="hab-week">${HABITS.map((hb,hi)=>{ const n=dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; return `<span>${hb[1]}</span><span>${n}/${dates.length}</span>`; }).join("")}</div>`;
+  }
+  { const wd=new Date().getDay(); $("ciDet").open = (W===curWeek() && (wd===6||wd===0)) || W<curWeek(); $("ciSub").textContent = $("ciDet").open ? "Op basis hiervan plannen we je volgende week" : "Vul je in op zaterdag of zondag"; }
   // checkin: vaste kern + vragen van deze week
   renderCore();
   $("checkin").innerHTML = `<h3 style="margin-top:18px">En deze week specifiek</h3>` + wk.checkin.map((q,qi)=>`<div class="q"><label>${qi+1}. ${q}</label><textarea data-ci="${W}-${qi}" placeholder="Jouw antwoord…">${esc(S.ci[W+"-"+qi]||"")}</textarea></div>`).join("");
@@ -1033,6 +1049,7 @@ function renderNudge(){
     if (!msg && h >= 21) msg = "🌙 Bijna bedtijd. Een bakje kwark nu helpt je spieren vannacht herstellen. Slaap lekker.";
   }
   $("nudge").innerHTML = msg ? `<div class="nudge">${msg}</div>` : "";
+  tipPriority();
 }
 function renderToday(){
   renderNudge();
@@ -1302,11 +1319,18 @@ document.querySelectorAll(".tb").forEach(b=>b.addEventListener("click",()=>{ sho
 
 const FUELIDEAS = ["🥣 Skyr of kwark met granola en fruit","🍳 2 eieren op brood","🥤 Chocomelk + banaan","🥤 Eiwitshake + krentenbol","🍝 Restje avondeten met kip of tofu"];
 function startFuel(){ S.fuel = {until: Date.now()+3600e3, done:false}; save(); renderFuel(); }
+function tipPriority(){
+  const fuelOn = !!($("fuelBox") && $("fuelBox").innerHTML.trim()), nudgeOn = !!($("nudge") && $("nudge").innerHTML.trim());
+  if ($("nudge")) $("nudge").style.display = fuelOn ? "none" : "";
+  const w1 = document.querySelector('[data-when="w1"]');
+  if (w1){ const base = (S.whenHide||{}).w1 || (S.first && Date.now()-S.first > 7*DAYMS); w1.style.display = (base || fuelOn || nudgeOn) ? "none" : ""; }
+}
 function renderFuel(){
   const el = $("fuelBox"); if (!el) return; const f = S.fuel;
-  if (!f || f.done || Date.now() > f.until + 30*60e3){ el.innerHTML = ""; return; }
+  if (!f || f.done || Date.now() > f.until + 30*60e3){ el.innerHTML = ""; tipPriority(); return; }
   const left = Math.max(0, Math.round((f.until - Date.now())/60e3)), pick = FUELIDEAS.slice().sort(()=>Math.random()-.5).slice(0,3);
   el.innerHTML = `<div class="fuel"><span class="t">${left} min</span><b>🍽️ Herstelvenster: nu eten!</b><div class="small muted">${left>0?"Binnen een uur na je training eet je iets met eiwit. Je spieren staan nu open om te herstellen.":"Het uur is om, maar eten helpt nog steeds. Eet zo snel mogelijk."}</div><ul>${pick.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn go" id="fuelOk">Gegeten ✓</button></div>`;
+  tipPriority();
   $("fuelOk").onclick = ()=>{ S.fuel.done = true; const k="h2-"+TODAY; S.habits[k]=true; save(); renderFuel(); renderWeek(); toast("Top! Je spieren zeggen dankjewel 💪"); };
 }
 setInterval(renderFuel, 30000);
@@ -1364,7 +1388,7 @@ document.querySelectorAll(".when").forEach(w=>{ if (S.whenHide[w.dataset.when] |
   w.querySelector(".whenx").addEventListener("click",()=>{ S.whenHide[w.dataset.when]=true; save(); w.style.display="none"; }); });
 $("love").addEventListener("click",()=>$("love").classList.remove("on"));
 let taps=[]; $("starHit").addEventListener("click",()=>{ const n=Date.now(); taps=taps.filter(t=>n-t<1200); taps.push(n); if(taps.length>=3){ taps=[]; showLove("Je hebt een geheimpje gevonden ✨"); } });
-renderDaily(); renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
+renderDaily(); renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel(); tipPriority();
 if (!S.onboarded) openTour();
 else { S.loveSeen=S.loveSeen||{}; const fri=new Date().getDay()===5; if ((fri||LOVE_DATES[TODAY]) && !S.loveSeen[TODAY]){ S.loveSeen[TODAY]=true; save(); setTimeout(()=>showLove(LOVE_DATES[TODAY]?"Speciaal voor vandaag":"Het is vrijdag 💌", LOVE_DATES[TODAY]||null), 1400); } }
 $("tourAgain").addEventListener("click", openTour);
