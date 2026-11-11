@@ -363,6 +363,45 @@ h2:after{margin-top:6px}
 .target{margin:10px 0 4px!important}
 #mBody>.tip{font-size:.82rem;padding:8px 10px}
 .m-head b{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem!important;font-weight:600}
+
+/* ===== v3: scherpte ===== */
+/* tabbalk: dun, actieve lijn */
+.tabbar{background:rgba(8,8,8,.92)!important;border-top:1px solid #1f1f1f!important;padding:4px 8px calc(4px + env(safe-area-inset-bottom))!important}
+.tb{position:relative;border-radius:0!important;padding:8px 0 6px!important;font-size:.66rem!important;letter-spacing:.06em;font-weight:600!important}
+.tb.on{background:none!important;color:var(--ink)}
+.tb:after{content:"";position:absolute;top:0;left:30%;right:30%;height:1.5px;background:var(--ink);transform:scaleX(0);transition:transform .25s ease}
+.tb.on:after{transform:scaleX(1)}
+/* dagkaarten */
+.badge{width:40px!important;height:40px!important;border-radius:50%!important;background:none!important}
+.day-head{gap:14px}
+.day-date{letter-spacing:.14em;font-size:.66rem}
+.day-sub{font-size:.82rem}
+.check{width:36px!important;height:36px!important;border-width:1.5px!important}
+.chev{font-size:.7rem}
+.day.done .day-name{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#6b6660}
+/* knoppen */
+.btn{border-radius:6px!important;min-height:48px}
+.btn.go{letter-spacing:.1em;font-size:.82rem;font-weight:700}
+.btn.ghost{background:none!important;border:1px solid #333!important;font-weight:600}
+.vid{border-radius:999px}
+/* tabellen */
+table{border-collapse:collapse}
+th{font-weight:600;color:#8e8880;border-bottom:1px solid #2a2a2a}
+td{border-bottom:1px solid #1d1d1d}
+tr:last-child td{border-bottom:0}
+/* kaarten iets strakker */
+.card{background:#141414;border-color:#232323}
+.tip{background:#191919;border-radius:6px}
+details{background:#141414;border-color:#232323}
+summary{padding:13px 14px}
+/* invoer */
+input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a2a2a;border-radius:6px}
+/* tab-overgang */
+.tab.on{animation:tabIn .22s ease both}
+@keyframes tabIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* focus zichtbaar voor toetsenbord */
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -561,7 +600,7 @@ h2:after{margin-top:6px}
     <p id="fsub"></p>
   </div>
   <div class="when" data-when="w4"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
-  <div class="wsel" id="fsel"></div>
+  <div class="rosary" id="fsel"></div>
   <div id="foodLocked"></div>
   <div id="foodOpen">
   <h2>🎓 Les van de week</h2>
@@ -956,7 +995,7 @@ function weekDone(w){
   if (!idx.length) return false; return idx.filter(i=>S.days[iso(ds[i])]).length / idx.length >= .75;
 }
 function renderCountdown(){ const d=Math.ceil((new Date(2027,0,17)-new Date().setHours(0,0,0,0))/DAYMS); $("countdown").textContent = d>0 ? "🏁 nog "+d+" dagen tot je 10 km" : (d===0 ? "🏁 vandaag: de 10 km!" : "🏅 10 km gelopen"); }
-function renderRosary(){ renderCountdown();
+function renderRosary(target){ target = target || "rosary"; if (target==="rosary") renderCountdown();
   const now = curWeek(), N = WEEKS.length, W0 = 14, W1 = 326;
   const pos = i => { const t = i/(N-1); return [W0 + t*(W1-W0), 26 + 44*Math.sin(Math.PI*t)]; };
   let chain = "", beads = "";
@@ -970,8 +1009,8 @@ function renderRosary(){ renderCountdown();
   const [ex,ey]=pos(N-1);
   const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
   const doneN = WEEKS.map((_,i)=>weekDone(i)).filter(Boolean).length;
-  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
-  $("rosary").querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
+  $(target).innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
+  $(target).querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
 }
 function updateProg(){
   const wk = WEEKS[W]; const idx = wk.days.map((d,i)=>i).filter(i=>wk.days[i].type!=="rust");
@@ -1191,9 +1230,9 @@ function renderFood(){
   const f = WEEKS[W].food, locked = isLocked(W);
   $("foodOpen").style.display = locked ? "none" : "";
   $("foodLocked").innerHTML = locked ? lockedHtml(W, "Je eetthema") : "";
-  if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); }); renderFavs(); return; }
+  if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderRosary("fsel"); renderFavs(); return; }
   $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.e + " " + f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
-  renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); });
+  renderRosary("fsel");
   $("lesson").innerHTML = `<div class="kicker" style="color:#d6cfc5">Wist je dat?</div><div class="big">${f.t}</div>` + f.lesson.map(l=>`<p class="small">• ${l}</p>`).join("");
   $("weekRecipes").innerHTML = f.rec.map(id=>recCard(id,true)).join(""); bindRates($("weekRecipes"));
   const items = []; f.rec.forEach(id=>{ if(id==="eigen") return; R[id][3].split(/,(?![^(]*\))/).map(x=>x.trim()).filter(Boolean).forEach(x=>{ if(!items.includes(x)) items.push(x); }); });
