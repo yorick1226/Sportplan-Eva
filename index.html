@@ -16,8 +16,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Pinyon+Script&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080808; --card:#111; --card2:#181818; --ink:#ece8e1; --muted:#8c877f; --line:#262626; --soft:#1a1a1a;
-  --kracht:#ece8e1; --loop:#b8b1a7; --pilates:#d6cfc5; --rust:#6e6a64; --tennis:#9e978d; --mob:#c4bdb3; --gold:#e6e0d6; --red:#b05a5a;
+  --bg:#0b0b0b; --card:#161616; --card2:#1d1d1d; --ink:#f2eee8; --muted:#aaa49b; --line:#323232; --soft:#202020;
+  --kracht:#93acdf; --loop:#e0a47e; --pilates:#8fcaa9; --rust:#8a8378; --tennis:#e2c97c; --mob:#b9a6e3; --gold:#e6e0d6; --red:#d27c7c;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
@@ -25,7 +25,7 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,syste
 .tab{display:none}.tab.on{display:block}
 a{color:var(--kracht)}
 .hero{border-radius:6px;padding:26px 20px 22px;position:relative;overflow:hidden;margin-top:4px;background:#000;border:1px solid #2a2a2a}
-.hero:before{content:"";position:absolute;right:6px;top:4px;width:120px;height:200px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200' fill='none' stroke='%23ece8e1' stroke-width='1' stroke-linecap='round'><path d='M60 14V186'/><path d='M60 2l3 7-3 6-3-6z M60 198l3-7-3-6-3 6z' fill='%23ece8e1'/><path d='M28 70H92'/><path d='M24 70l4-2 0 4z M96 70l-4-2 0 4z' fill='%23ece8e1'/><circle cx='60' cy='70' r='7'/><circle cx='60' cy='70' r='2' fill='%23ece8e1'/><path d='M60 38c10 3 16 11 10 20-2-4-6-6-10-4M60 38c-10 3-16 11-10 20 2-4 6-6 10-4'/><path d='M60 108c13 2 19 13 11 24M60 108c-13 2-19 13-11 24'/><path d='M71 132l2 8M49 132l-2 8'/><path d='M8 26Q34 82 60 70M112 26Q86 82 60 70' stroke-dasharray='0.5 5' stroke-width='1.6'/><path d='M60 150c6 4 6 10 0 14-6-4-6-10 0-14z'/></svg>") no-repeat center/contain;opacity:.22;pointer-events:none}
+.hero:before{content:"";position:absolute;right:6px;top:4px;width:120px;height:200px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200' fill='none' stroke='%23ece8e1' stroke-width='1' stroke-linecap='round'><path d='M60 14V186'/><path d='M60 2l3 7-3 6-3-6z M60 198l3-7-3-6-3 6z' fill='%23ece8e1'/><path d='M28 70H92'/><path d='M24 70l4-2 0 4z M96 70l-4-2 0 4z' fill='%23ece8e1'/><circle cx='60' cy='70' r='7'/><circle cx='60' cy='70' r='2' fill='%23ece8e1'/><path d='M60 38c10 3 16 11 10 20-2-4-6-6-10-4M60 38c-10 3-16 11-10 20 2-4 6-6 10-4'/><path d='M60 108c13 2 19 13 11 24M60 108c-13 2-19 13-11 24'/><path d='M71 132l2 8M49 132l-2 8'/><path d='M8 26Q34 82 60 70M112 26Q86 82 60 70' stroke-dasharray='0.5 5' stroke-width='1.6'/><path d='M60 150c6 4 6 10 0 14-6-4-6-10 0-14z'/></svg>") no-repeat center/contain;opacity:.16;pointer-events:none}
 .hero>*{position:relative}
 .kicker{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
 h1{font-weight:600;letter-spacing:.01em;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;line-height:1.1;margin:6px 0}
@@ -181,7 +181,7 @@ td:first-child{font-weight:600;white-space:nowrap}
 
 h2:after{content:"";display:block;height:12px;margin-top:4px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 12' fill='none' stroke='%23ece8e1' stroke-linecap='round'><path d='M0 6H56M84 6H140' stroke-width='.6'/><path d='M70 0l3 6-3 6-3-6z' fill='%23ece8e1' stroke='none'/><path d='M62 6c2-4 4-4 5 0M78 6c-2-4-4-4-5 0' stroke-width='.8'/><path d='M20 6h.1M32 6h.1M44 6h.1M96 6h.1M108 6h.1M120 6h.1' stroke-width='2'/></svg>") no-repeat left center/auto 12px;opacity:.7}
 .card,.day,details,.rec,.habits,.lx,.phase,.lesson,.focus,.when{border-radius:6px}
-.badge{border-radius:4px;filter:grayscale(1)}
+.badge{border-radius:4px}
 .kicker{letter-spacing:.22em}
 .sig{position:absolute;right:18px;bottom:-4px;font-family:'Pinyon Script',cursive;font-size:3.4rem;color:#ece8e1;opacity:.08;pointer-events:none}
 .check.on{background:var(--ink);border-color:var(--ink);color:#000}
@@ -204,7 +204,8 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 @keyframes rise{to{opacity:1;transform:none}}
 
 .ic{width:1.15em;height:1.15em;vertical-align:-.2em;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.badge{background:#0d0d0d;border:1px solid #2e2e2e;color:var(--ink)}.badge .ic{width:24px;height:24px}
+.badge{background:#0d0d0d;border:1px solid #2e2e2e;color:var(--ink)}
+.badge.t-kracht{color:var(--kracht);border-color:color-mix(in srgb,var(--kracht) 45%,#000)}.badge.t-loop{color:var(--loop);border-color:color-mix(in srgb,var(--loop) 45%,#000)}.badge.t-pilates{color:var(--pilates);border-color:color-mix(in srgb,var(--pilates) 45%,#000)}.badge.t-tennis{color:var(--tennis);border-color:color-mix(in srgb,var(--tennis) 45%,#000)}.badge .ic{width:24px;height:24px}
 .tb span .ic{width:22px;height:22px}.tb span{filter:none;opacity:.55}.tb.on span{opacity:1}
 .feel button span .ic,.rate button span .ic{width:24px;height:24px;margin:2px auto 4px;display:block}
 .habit .ico .ic{width:22px;height:22px}
@@ -230,7 +231,20 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .opening .from{font-size:.78rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;opacity:0;animation:rise .8s 1.9s forwards}
 .opening button{margin-top:28px;background:var(--ink);color:#000;border:0;border-radius:4px;padding:13px 28px;font:inherit;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;opacity:0;animation:rise .8s 2.2s forwards;cursor:pointer}
 .bars div{background:transparent!important;border:1px solid #ece8e1;border-bottom:0;border-radius:2px 2px 0 0}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+#tab-eten h1,#tab-eten h2,#tab-eten .chip,#tab-eten .rate button span,#tab-eten .lesson{filter:none}
+#tab-eten .lesson{background:linear-gradient(135deg,#13241c,#111);border-color:#2b4a3b}
+#tab-eten .rec{border-left:3px solid #8fcaa9}
+.fuel{background:linear-gradient(135deg,#1d1a10,#141414);border:1px solid #5a4a22;border-radius:6px;padding:14px 16px;margin:12px 0}
+.fuel b{font-size:1.02rem}.fuel .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;float:right;line-height:1}
+.fuel ul{margin:8px 0 4px;padding-left:18px;font-size:.88rem}
+.nudge{background:#151515;border:1px solid #3a3a3a;border-radius:6px;padding:10px 12px;font-size:.88rem;margin-top:10px}
+.count{display:inline-block;margin-top:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.9rem;cursor:pointer}
+.chk i{width:18px;height:18px;border:1.5px solid #555;border-radius:3px;flex:none;margin-top:2px;font-style:normal;font-size:.7rem;display:flex;align-items:center;justify-content:center;color:transparent}
+.chk.on{color:var(--muted);text-decoration:line-through}.chk.on i{background:var(--ink);border-color:var(--ink);color:#000}
+.runf{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.runf label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
 <body>
@@ -242,13 +256,14 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <div class="kicker" id="kicker"></div>
     <h1 id="wtitle"></h1>
     <p id="intro"></p>
-    <div class="sig">Eva</div>
+    <div class="sig" id="sig">Eva</div>
     <div class="prog">
       <svg class="ring" viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="26"/><circle class="fg" id="ringfg" cx="32" cy="32" r="26" transform="rotate(-90 32 32)"/></svg>
       <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
     </div>
   </div>
   <div class="rosary" id="rosary"></div>
+  <div id="fuelBox"></div>
   <div class="when"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
 
   <div class="card" id="todayCard">
@@ -256,6 +271,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <div class="feel" id="feel"></div>
     <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
     <div id="lightBox"></div>
+    <div id="nudge"></div>
   </div>
 
   <div id="weekLocked"></div>
@@ -412,34 +428,36 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
   <div class="wsel" id="fsel"></div>
   <div id="foodLocked"></div>
   <div id="foodOpen">
-  <h2>Les van de week</h2>
+  <h2>🎓 Les van de week</h2>
   <div class="lesson" id="lesson"></div>
-  <h2>Recepten van de week</h2>
+  <h2>👩‍🍳 Recepten van de week</h2>
   <p class="small muted">Probeer ze en laat weten wat je ervan vond. Je oordeel bepaalt mee wat je volgende week krijgt.</p>
   <div id="weekRecipes"></div>
-  <h2>Proefopdracht</h2>
+  <h2>🛒 Boodschappen voor deze recepten</h2>
+  <div class="card" id="shop"></div>
+  <h2>🧪 Proefopdracht</h2>
   <div class="card" id="tryCard"></div>
-  <h2>Even voelen</h2>
+  <h2>💭 Even voelen</h2>
   <div class="card" id="reflect"></div>
   </div>
-  <h2>Jouw favorieten</h2>
+  <h2>⭐ Jouw favorieten</h2>
   <div class="card" id="favs"></div>
 
-  <h2>Het trainingsbord</h2>
+  <h2>🍽️ Het trainingsbord</h2>
   <div class="card"><div id="plate"></div>
     <table><tr><th>Bouwsteen</th><th>Hoeveel</th></tr>
       <tr><td> Eiwit</td><td>1–2 handpalmen</td></tr><tr><td> Koolhydraten</td><td>1–2 vuisten</td></tr>
       <tr><td> Groente/fruit</td><td>1–2 vuisten</td></tr><tr><td> Vet</td><td>1 duim</td></tr></table>
     <p class="small">Richting: 110–140 g eiwit per dag. Met eiwit bij elk eetmoment zit je daar vanzelf. <b>Walnoot:</b> check het etiket bij granola, muesli, notenmix en pesto.</p></div>
-  <h2>Rond het trainen</h2>
+  <h2>⏰ Rond het trainen</h2>
   <div class="card small"><table><tr><th>Wanneer</th><th>Wat</th></tr>
     <tr><td>2–3 uur voor</td><td>Normaal ontbijt</td></tr><tr><td>30–60 min voor</td><td>Banaan, krentenbol, rijstwafels met pindakaas</td></tr>
     <tr><td>Direct uit bed</td><td>Chocomelk of een banaan</td></tr><tr><td>≤ 1 uur erna</td><td>Skyr met granola, eieren met brood</td></tr></table></div>
-  <h2>Eiwit in je favorieten</h2>
+  <h2>🥚 Eiwit in je favorieten</h2>
   <div class="card" id="protein"></div>
-  <h2>Alle recepten</h2>
+  <h2>📖 Alle recepten</h2>
   <div id="allRecipes"></div>
-  <h2>Boodschappen & supplementen</h2>
+  <h2>🛒 Boodschappen & supplementen</h2>
   <details><summary><span class="s-main">Vaste basislijst</span></summary><div class="dbody small">
     <p><b>Zuivel & eieren:</b> skyr, kwark, hüttenkäse, melk, chocomelk, kaas, feta, eieren</p><p><b>Eiwit:</b> kipfilet, mager gehakt, zalm, garnalen, tonijn, tofu</p>
     <p><b>Peulvruchten:</b> kikkererwten, linzen, kidneybonen, hummus</p><p><b>Granen:</b> havermout, granola zonder walnoot, brood, wraps, rijst, pasta, noedels, couscous</p>
@@ -475,7 +493,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 </div></nav>
 
 <script>
-const ICONS = {"kracht": "<path d=\"M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10\"/>", "loop": "<path d=\"M3 17c5 0 9-2 11-6s4-6 7-6c-1 5-3 9-7 11s-7 2-11 1z\"/><path d=\"M8 15.5l3-3M12 14l3-4M15.5 11.5l2.5-4\"/>", "pilates": "<circle cx=\"12\" cy=\"5.5\" r=\"2\"/><path d=\"M4 20c2-5 4.5-7 8-7s6 2 8 7M7.5 12.5l4.5-2 4.5 2\"/>", "rust": "<path d=\"M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z\"/>", "tennis": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M5.5 7.5c3.5 2 3.5 7 0 9M18.5 7.5c-3.5 2-3.5 7 0 9\"/>", "meet": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"8\" rx=\"1\"/><path d=\"M7 8v3M11 8v4M15 8v3M19 8v4\"/>", "interval": "<path d=\"M13 3L6 13h5l-1 8 7-10h-5z\"/>", "star": "<path d=\"M12 2l1.6 8.4L22 12l-8.4 1.6L12 22l-1.6-8.4L2 12l8.4-1.6z\"/>", "medal": "<circle cx=\"12\" cy=\"15\" r=\"5\"/><path d=\"M9 3l3 7 3-7\"/><path d=\"M12 13l.8 1.6 1.7.2-1.2 1.2.3 1.7-1.6-.8-1.6.8.3-1.7-1.2-1.2 1.7-.2z\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"1\"/><path d=\"M4 10h16M8 3v4M16 3v4\"/>", "plate": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"4.5\"/>", "compass": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z\"/>", "steps": "<path d=\"M8 3.5c1.8 0 2.8 2 2.8 4.8S9.8 13 8 13 5.2 11 5.2 8.3 6.2 3.5 8 3.5zM16 9.5c1.8 0 2.8 2 2.8 4.8S17.8 19 16 19s-2.8-2-2.8-4.7 1-4.8 2.8-4.8z\"/>", "egg": "<path d=\"M12 3c3.5 0 6 6 6 10a6 6 0 0 1-12 0c0-4 2.5-10 6-10z\"/>", "drop": "<path d=\"M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z\"/>", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"12\" cy=\"12\" r=\".8\"/>", "pin": "<path d=\"M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2\"/>", "flame": "<path d=\"M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 2 3 1-2 1-5 1-7z\"/>", "dash": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8.5 12h7\"/>", "heart": "<path d=\"M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z\"/>", "x": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.5 9.5l5 5M14.5 9.5l-5 5\"/>", "down": "<path d=\"M12 5v14M6.5 13.5L12 19l5.5-5.5\"/>", "equal": "<path d=\"M6 10h12M6 14h12\"/>", "up": "<path d=\"M12 19V5M6.5 10.5L12 5l5.5 5.5\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 8v4l3 2\"/>", "lock": "<rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"1\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/>", "cross": "<path d=\"M12 3v18M7 8h10\"/><path d=\"M12 1.5l1 1.5-1 1.5-1-1.5z\"/>", "book": "<path d=\"M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "leaf": "<path d=\"M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8\"/>"};
+const ICONS = {"kracht": "<path d=\"M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10\"/>", "loop": "<path d=\"M3 17c5 0 9-2 11-6s4-6 7-6c-1 5-3 9-7 11s-7 2-11 1z\"/><path d=\"M8 15.5l3-3M12 14l3-4M15.5 11.5l2.5-4\"/>", "pilates": "<circle cx=\"12\" cy=\"5.5\" r=\"2\"/><path d=\"M4 20c2-5 4.5-7 8-7s6 2 8 7M7.5 12.5l4.5-2 4.5 2\"/>", "rust": "<path d=\"M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z\"/>", "tennis": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M5.5 7.5c3.5 2 3.5 7 0 9M18.5 7.5c-3.5 2-3.5 7 0 9\"/>", "meet": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"8\" rx=\"1\"/><path d=\"M7 8v3M11 8v4M15 8v3M19 8v4\"/>", "interval": "<path d=\"M13 3L6 13h5l-1 8 7-10h-5z\"/>", "star": "<path d=\"M12 2l1.6 8.4L22 12l-8.4 1.6L12 22l-1.6-8.4L2 12l8.4-1.6z\"/>", "medal": "<circle cx=\"12\" cy=\"15\" r=\"5\"/><path d=\"M9 3l3 7 3-7\"/><path d=\"M12 13l.8 1.6 1.7.2-1.2 1.2.3 1.7-1.6-.8-1.6.8.3-1.7-1.2-1.2 1.7-.2z\"/>", "calendar": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"1\"/><path d=\"M4 10h16M8 3v4M16 3v4\"/>", "plate": "<circle cx=\"12\" cy=\"12\" r=\"8.5\"/><circle cx=\"12\" cy=\"12\" r=\"4.5\"/>", "compass": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z\"/>", "steps": "<ellipse cx=\"8.5\" cy=\"9\" rx=\"2.6\" ry=\"4.2\" transform=\"rotate(-12 8.5 9)\"/><ellipse cx=\"15.5\" cy=\"15\" rx=\"2.6\" ry=\"4.2\" transform=\"rotate(12 15.5 15)\"/><path d=\"M7.4 2.6h.1M9.6 2.4h.1M14.4 8.4h.1M16.6 8.6h.1\" stroke-width=\"2\"/>", "egg": "<path d=\"M12 3c3.5 0 6 6 6 10a6 6 0 0 1-12 0c0-4 2.5-10 6-10z\"/>", "drop": "<path d=\"M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z\"/>", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2\"/>", "target": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"12\" cy=\"12\" r=\".8\"/>", "pin": "<path d=\"M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2\"/>", "flame": "<path d=\"M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 2 3 1-2 1-5 1-7z\"/>", "dash": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M8.5 12h7\"/>", "heart": "<path d=\"M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z\"/>", "x": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M9.5 9.5l5 5M14.5 9.5l-5 5\"/>", "down": "<path d=\"M12 5v14M6.5 13.5L12 19l5.5-5.5\"/>", "equal": "<path d=\"M6 10h12M6 14h12\"/>", "up": "<path d=\"M12 19V5M6.5 10.5L12 5l5.5 5.5\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><path d=\"M12 8v4l3 2\"/>", "lock": "<rect x=\"5\" y=\"11\" width=\"14\" height=\"9\" rx=\"1\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/>", "cross": "<path d=\"M12 3v18M7 8h10\"/><path d=\"M12 1.5l1 1.5-1 1.5-1-1.5z\"/>", "book": "<path d=\"M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "leaf": "<path d=\"M5 19C5 10 10 5 19 5c0 9-5 14-14 14zM5 19l8-8\"/>"};
 function ic(n){ return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.star}</svg>`; }
 /* ======================= OEFENINGEN ======================= */
 const EX = {
@@ -504,35 +522,36 @@ const EX = {
   C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug.",v:"https://thebalancedlifeonline.com/the-pilates-roll-up/"}
 };
 const SESS = { A:["A1","A2","A3","A4","A5","A6","A7"], B:["B1","B2","B3","B4","B5","B6","B7"], C:["C1","C2","C3","C4","C5","C6","C7","C8","C9"], K:["A1","A2","A3","A4","A5","B1","B2","B3"] };
+const SUPER = {A6:"Superset met A7: om en om, daarna pas rust.",A7:"Superset met A6.",B5:"Superset met B6: om en om, daarna pas rust.",B6:"Superset met B5."};
 const SESSNAME = { A:"Kracht A", B:"Kracht B", C:"Pilates C", K:"Kennismaking" };
 
 /* ======================= RECEPTEN ======================= */
 const R = {
- smoothie:["Power-smoothie ","3 min","± 35 g","200 g skyr, 1 banaan, 30 g havermout, 1 el pindakaas, 200 ml melk, eventueel cacao en ijs","Alles in de blender. Ideaal bij weinig honger."],
- shakshuka:["Shakshuka met feta ","20 min","± 30 g","3 eieren, blik tomaten, paprika, ½ ui, komijn, paprikapoeder, 30 g feta, brood","Ui en paprika bakken, tomaat erbij, 5 min pruttelen. Kuiltjes, eieren erin, deksel erop. Feta erover."],
- oats:["Overnight oats, 3 varianten ","5 min","± 30 g","60 g havermout, 200 ml melk, 1 schep eiwitpoeder of 100 g skyr. Variant: appel-kaneel, choco-banaan of rood fruit-kokos","'s Avonds mengen in een bakje, 's ochtends pakken en gaan."],
- pancakes:["Eiwitpannenkoekjes ","15 min","± 27 g","2 eieren, 1 rijpe banaan, 40 g havermout, 100 g kwark, kaneel","Mixen en kleine pannenkoekjes bakken. Met bessen en honing."],
- teriyaki:["Zalm-teriyaki ","25 min","± 36 g","125 g zalm, 100 g edamame, 75 g rijst, broccoli, 2 el teriyaki, sesam","Zalm 12 min in de oven met saus. Rijst en groente koken."],
- zoeteaardappel:["Zoete-aardappel-kipschotel ","35 min","± 38 g","1 zoete aardappel, 150 g kipfilet, paprika, rode ui, 1 el olijfolie, paprikapoeder, 2 el Griekse yoghurt","Alles in blokjes op een bakplaat, 25–30 min op 200 °C. Met een klodder yoghurt."],
- avotoast:["Avocado-ei-toast met zaden ","10 min","± 22 g","2 sneetjes zuurdesem, ½ avocado, 2 eieren, pompoen- en sesamzaad, chilivlokken","Toast, avocado erop, gebakken ei erop, zaden erover."],
- pesto:["Romige pestopasta met kip ","20 min","± 50 g","85 g pasta, 125 g kip, 100 g hüttenkäse, 1 el pesto (zonder walnoot!), cherrytomaatjes, spinazie","Hüttenkäse met pesto glad mixen als saus. Kip bakken, alles door elkaar."],
- regenboog:["Regenboog-bowl ","15 min","± 25 g","Couscous of quinoa, kikkererwten, rode kool of biet, wortel, mais, komkommer, edamame, hummus","Alles in vakjes in een kom. Hoe meer kleuren, hoe beter."],
- linzensoep:["Linzen-groentesoep ","30 min","± 22 g","75 g rode linzen, wortel, ui, bleekselderij, blik tomaten, bouillon, spinazie + brood met kaas","Groente fruiten, linzen en tomaat erbij, 20 min laten koken. Maak een grote pan."],
- kwarkcake:["Cheesecake-kwarkbakje ","3 min","± 22 g","250 g magere kwark, honing, vanille, 1 speculaas, bessen","Roeren, kruimels en bessen erop."],
- bliss:["Eiwit-bliss-balls ","15 min","± 5 g per stuk","100 g dadels, 60 g havermout, 2 el pindakaas, 1 schep eiwitpoeder, cacao (geen walnoot!)","Alles in de blender, balletjes rollen, koelkast in. Snack voor in je tas."],
- wentel:["Kerst-wentelteefjes met kwark ","15 min","± 28 g","2 sneetjes brioche of volkoren, 2 eieren, scheutje melk, kaneel, kwark, frambozen, honing","Brood door ei en melk, goudbruin bakken. Kwark en fruit erop."],
- portobello:["Gevulde portobello ","25 min","± 24 g","2 grote portobello's, 125 g mager gehakt of linzen, feta, spinazie, knoflook, + krieltjes","Vulling bakken, in de champignons, 15 min in de oven."],
- matcha:["Matcha-banaan-smoothie ","3 min","± 26 g","1 tl matcha, 1 banaan, 150 g skyr, 150 ml melk, ijs (vóór 14:00 vanwege cafeïne)","Blender, klaar. Een ontbijt én je matcha in één."],
- kippensoep:["Kippensoep met noedels ","30 min","± 32 g","150 g kipfilet, noedels, wortel, prei, gember, bouillon, lente-ui","Kip in bouillon garen, groente en noedels erbij."],
- chilisin:["Spinazie-linzencurry ","30 min","± 24 g","75 g linzen, kikkererwten, spinazie, paprika, ui, kerrie, tomaat, rijst + citroen erover","Kruiden en ui bakken, rest erbij, 20 min pruttelen. Citroen = vitamine C voor je ijzer!"],
- steakbowl:["Biefstuk-rijstbowl ","20 min","± 40 g","125 g biefstuk, rijst, paprika, broccoli, sojasaus, sesam","Biefstuk kort bakken en in reepjes. Rood vlees = goed opneembaar ijzer."],
- tonijnpasta:["Pasta tomaat-tonijn ","15 min","± 38 g","100 g pasta, blik tonijn, passata, knoflook, kappertjes, basilicum","Saus 5 min laten pruttelen, door de pasta. Perfect voor de avond vóór de 10 km."],
- raceontbijt:["Race-ontbijt ","5 min","± 15 g","60 g havermout, melk, banaan, 1 el honing, snufje zout","2–3 uur vóór de start. Test hem op een gewone loopdag!"],
- avondkwark:["Avond-kwarkbowl ","3 min","± 25 g","250 g kwark, kiwi, 1 tl pindakaas, pompoenpitten","1 uur voor het slapen. Eiwit voor je herstel 's nachts."],
- ovenschotel:["Kip-groente-ovenschotel ","40 min","± 40 g","150 g kip, broccoli, courgette, krieltjes, 30 g geraspte kaas, kruiden","Alles in een ovenschaal, kaas erover, 30 min op 200 °C."],
- pizza:["Zelfgemaakte pizza met kip ","25 min","± 38 g","Wrap of pizzabodem, passata, mozzarella light, kip, rode ui, rucola","Beleggen, 10–12 min in de oven, rucola erop."],
- poke:["Pokebowl ","15 min","± 32 g","Sushirijst, zalm of tonijn, edamame, avocado, komkommer, wortel, sojasaus, sesam","Alles in een kom. Net zo lekker als afhalen."],
- eigen:["Jouw eigen trainingsbord ","—","jij kiest","Kies 1 eiwit, 1 koolhydraat, 2 groenten en 1 vet uit je favorieten","Geef het een naam en laat het Yorick proeven "]
+ smoothie:["Power-smoothie 🥤","3 min","± 35 g","200 g skyr, 1 banaan, 30 g havermout, 1 el pindakaas, 200 ml melk, eventueel cacao en ijs","Alles in de blender. Ideaal bij weinig honger."],
+ shakshuka:["Shakshuka met feta 🍳","20 min","± 30 g","3 eieren, blik tomaten, paprika, ½ ui, komijn, paprikapoeder, 30 g feta, brood","Ui en paprika bakken, tomaat erbij, 5 min pruttelen. Kuiltjes, eieren erin, deksel erop. Feta erover."],
+ oats:["Overnight oats, 3 varianten 🥣","5 min","± 30 g","60 g havermout, 200 ml melk, 1 schep eiwitpoeder of 100 g skyr. Variant: appel-kaneel, choco-banaan of rood fruit-kokos","'s Avonds mengen in een bakje, 's ochtends pakken en gaan."],
+ pancakes:["Eiwitpannenkoekjes 🥞","15 min","± 27 g","2 eieren, 1 rijpe banaan, 40 g havermout, 100 g kwark, kaneel","Mixen en kleine pannenkoekjes bakken. Met bessen en honing."],
+ teriyaki:["Zalm-teriyaki 🍣","25 min","± 36 g","125 g zalm, 100 g edamame, 75 g rijst, broccoli, 2 el teriyaki, sesam","Zalm 12 min in de oven met saus. Rijst en groente koken."],
+ zoeteaardappel:["Zoete-aardappel-kipschotel 🍠","35 min","± 38 g","1 zoete aardappel, 150 g kipfilet, paprika, rode ui, 1 el olijfolie, paprikapoeder, 2 el Griekse yoghurt","Alles in blokjes op een bakplaat, 25–30 min op 200 °C. Met een klodder yoghurt."],
+ avotoast:["Avocado-ei-toast met zaden 🥑","10 min","± 22 g","2 sneetjes zuurdesem, ½ avocado, 2 eieren, pompoen- en sesamzaad, chilivlokken","Toast, avocado erop, gebakken ei erop, zaden erover."],
+ pesto:["Romige pestopasta met kip 🍝","20 min","± 50 g","85 g pasta, 125 g kip, 100 g hüttenkäse, 1 el pesto (zonder walnoot!), cherrytomaatjes, spinazie","Hüttenkäse met pesto glad mixen als saus. Kip bakken, alles door elkaar."],
+ regenboog:["Regenboog-bowl 🌈","15 min","± 25 g","Couscous of quinoa, kikkererwten, rode kool of biet, wortel, mais, komkommer, edamame, hummus","Alles in vakjes in een kom. Hoe meer kleuren, hoe beter."],
+ linzensoep:["Linzen-groentesoep 🍲","30 min","± 22 g","75 g rode linzen, wortel, ui, bleekselderij, blik tomaten, bouillon, spinazie + brood met kaas","Groente fruiten, linzen en tomaat erbij, 20 min laten koken. Maak een grote pan."],
+ kwarkcake:["Cheesecake-kwarkbakje 🍰","3 min","± 22 g","250 g magere kwark, honing, vanille, 1 speculaas, bessen","Roeren, kruimels en bessen erop."],
+ bliss:["Eiwit-bliss-balls 🍫","15 min","± 5 g per stuk","100 g dadels, 60 g havermout, 2 el pindakaas, 1 schep eiwitpoeder, cacao (geen walnoot!)","Alles in de blender, balletjes rollen, koelkast in. Snack voor in je tas."],
+ wentel:["Kerst-wentelteefjes met kwark 🎄","15 min","± 28 g","2 sneetjes brioche of volkoren, 2 eieren, scheutje melk, kaneel, kwark, frambozen, honing","Brood door ei en melk, goudbruin bakken. Kwark en fruit erop."],
+ portobello:["Gevulde portobello 🍄","25 min","± 24 g","2 grote portobello's, 125 g mager gehakt of linzen, feta, spinazie, knoflook, + krieltjes","Vulling bakken, in de champignons, 15 min in de oven."],
+ matcha:["Matcha-banaan-smoothie 🍵","3 min","± 26 g","1 tl matcha, 1 banaan, 150 g skyr, 150 ml melk, ijs (vóór 14:00 vanwege cafeïne)","Blender, klaar. Een ontbijt én je matcha in één."],
+ kippensoep:["Kippensoep met noedels 🍜","30 min","± 32 g","150 g kipfilet, noedels, wortel, prei, gember, bouillon, lente-ui","Kip in bouillon garen, groente en noedels erbij."],
+ chilisin:["Spinazie-linzencurry 🌶️","30 min","± 24 g","75 g linzen, kikkererwten, spinazie, paprika, ui, kerrie, tomaat, rijst + citroen erover","Kruiden en ui bakken, rest erbij, 20 min pruttelen. Citroen = vitamine C voor je ijzer!"],
+ steakbowl:["Biefstuk-rijstbowl 🥩","20 min","± 40 g","125 g biefstuk, rijst, paprika, broccoli, sojasaus, sesam","Biefstuk kort bakken en in reepjes. Rood vlees = goed opneembaar ijzer."],
+ tonijnpasta:["Pasta tomaat-tonijn 🍝","15 min","± 38 g","100 g pasta, blik tonijn, passata, knoflook, kappertjes, basilicum","Saus 5 min laten pruttelen, door de pasta. Perfect voor de avond vóór de 10 km."],
+ raceontbijt:["Race-ontbijt 🏁","5 min","± 15 g","60 g havermout, melk, banaan, 1 el honing, snufje zout","2–3 uur vóór de start. Test hem op een gewone loopdag!"],
+ avondkwark:["Avond-kwarkbowl 🌙","3 min","± 25 g","250 g kwark, kiwi, 1 tl pindakaas, pompoenpitten","1 uur voor het slapen. Eiwit voor je herstel 's nachts."],
+ ovenschotel:["Kip-groente-ovenschotel 🥘","40 min","± 40 g","150 g kip, broccoli, courgette, krieltjes, 30 g geraspte kaas, kruiden","Alles in een ovenschaal, kaas erover, 30 min op 200 °C."],
+ pizza:["Zelfgemaakte pizza met kip 🍕","25 min","± 38 g","Wrap of pizzabodem, passata, mozzarella light, kip, rode ui, rucola","Beleggen, 10–12 min in de oven, rucola erop."],
+ poke:["Pokebowl 🐟","15 min","± 32 g","Sushirijst, zalm of tonijn, edamame, avocado, komkommer, wortel, sojasaus, sesam","Alles in een kom. Net zo lekker als afhalen."],
+ eigen:["Jouw eigen trainingsbord ✍️","—","jij kiest","Kies 1 eiwit, 1 koolhydraat, 2 groenten en 1 vet uit je favorieten","Geef het een naam en laat het Yorick proeven 😄"]
 };
 
 /* ======================= WEEKS ======================= */
@@ -560,55 +579,55 @@ const WEEKS = [
     D("Pilates + startmeting","45 min + 15 min meten","pilates","pilates","C",{note:"Startmeting: max. push-ups, plank en zijplank, spagaat in cm, enkeltest."}),
     D("Rust + check-in","Wandelen + avond mobiliteit","rust","rust",null,{note:"Check-in met Yorick vanavond."})],
   checkin:["Hoe voelde de eerste week? (1–10)","Welke oefening vond je leuk, en welke lastig?","Hoe voelde je enkel bij het tennis?","Hoe vaak lukte eten binnen een uur na het sporten?","Wil je volgende week samen met Yorick of Noa trainen of lopen?"],
-  food:{t:"Eiwit: je bouwstenen",e:"",lesson:["Eiwit is het bouwmateriaal voor je spieren. Na het trainen gebruikt je lichaam het om sterker terug te komen.","Je hoeft het niet te tellen: een handpalm bij elk eetmoment is genoeg.","Wist je dat een bakje skyr ongeveer evenveel eiwit heeft als 4 eieren?"],rec:["smoothie","shakshuka"],try:"Probeer deze week skyr of kwark als tussendoortje, minstens 3 keer.",reflect:"Wanneer had je deze week de meeste energie? Wat had je toen gegeten?"}},
+  food:{t:"Eiwit: je bouwstenen",e:"🥚",lesson:["Eiwit is het bouwmateriaal voor je spieren. Na het trainen gebruikt je lichaam het om sterker terug te komen.","Je hoeft het niet te tellen: een handpalm bij elk eetmoment is genoeg.","Wist je dat een bakje skyr ongeveer evenveel eiwit heeft als 4 eieren?"],rec:["smoothie","shakshuka"],try:"Probeer deze week skyr of kwark als tussendoortje, minstens 3 keer.",reflect:"Wanneer had je deze week de meeste energie? Wat had je toen gegeten?"}},
  { kicker:"Week 1 · fase 1", title:"Week 1: de basis ", intro:"4 trainingen, alles licht. Je zoekt je startgewichten.", focus:"Schrijf bij elke oefening je gewicht op in het logboek. Dat is je startpunt.",
   days:[D("Kracht A","Startgewichten zoeken · samen met Yorick","kracht","kracht","A"),RUST,D("Hardlopen","20–25 min heel rustig","loop","loop"),D("Kracht B","Startgewichten zoeken","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Rust / wandelen","Check-in","rust","rust")],
   checkin:["Hoe ging het startgewicht zoeken? Welke oefening voelde onwennig?","Spierpijn: waar en hoe erg (1–10)?","Overnight oats: gelukt, en lekker?","Hoeveel trainingen zijn gelukt, en wat hielp?","Wil je zondag lopen, en met wie?"],
-  food:{t:"Ontbijt na het trainen",e:"",lesson:["Na een training staat je lichaam open voor eten: het wil herstellen.","Echt haasten hoeft niet, maar voor jou is 'binnen een uur' een handige vaste regel.","Een goed ontbijt na de training = eiwit + koolhydraten. Denk aan skyr met granola, of eieren met brood."],rec:["oats","pancakes"],try:"Zet deze week 2× overnight oats klaar voor een trainingsochtend.",reflect:"Hoe voelde je ochtend als je wél ontbeten had na de training?"}},
+  food:{t:"Ontbijt na het trainen",e:"🌅",lesson:["Na een training staat je lichaam open voor eten: het wil herstellen.","Echt haasten hoeft niet, maar voor jou is 'binnen een uur' een handige vaste regel.","Een goed ontbijt na de training = eiwit + koolhydraten. Denk aan skyr met granola, of eieren met brood."],rec:["oats","pancakes"],try:"Zet deze week 2× overnight oats klaar voor een trainingsochtend.",reflect:"Hoe voelde je ochtend als je wél ontbeten had na de training?"}},
  { kicker:"Week 2 · fase 1", title:"Week 2: iets meer ", intro:"Probeer bij elke oefening 1 herhaling meer of een kleine stap zwaarder.", focus:"Kijk in de logger naar 'vorige keer' en doe er net iets bij.",
   days:[D("Kracht A","+1 herhaling of kleine stap","kracht","kracht","A"),RUST,D("Hardlopen","25 min + avond mobiliteit","loop","loop"),D("Kracht B","+1 herhaling of kleine stap","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Hardlopen (optioneel)","20–25 min rustig + check-in","loop","loop")],
   checkin:["Lukte het om 1 herhaling meer of iets zwaarder te doen?","Hoe was de eerste mobiliteitssessie op de mat?","Wat merkte je van koolhydraten vóór je loop?","Hoe voelt je enkel bij de balansoefening?","Week 3 wordt 3 sets en een interval op zondag. Zin in?"],
-  food:{t:"Koolhydraten = brandstof",e:"",lesson:["Koolhydraten zijn de favoriete brandstof van je spieren en je hersenen.","Je spieren slaan ze op met water erbij. Daardoor ben je soms iets zwaarder: dat is brandstof, geen vet.","Te weinig koolhydraten = zware benen en minder kracht."],rec:["teriyaki","zoeteaardappel"],try:"Eet 1–2 uur vóór je loop iets met koolhydraten en let op hoe je benen voelen.",reflect:"Welke gedachte heb je over koolhydraten, en klopt die eigenlijk?"}},
+  food:{t:"Koolhydraten = brandstof",e:"🍞",lesson:["Koolhydraten zijn de favoriete brandstof van je spieren en je hersenen.","Je spieren slaan ze op met water erbij. Daardoor ben je soms iets zwaarder: dat is brandstof, geen vet.","Te weinig koolhydraten = zware benen en minder kracht."],rec:["teriyaki","zoeteaardappel"],try:"Eet 1–2 uur vóór je loop iets met koolhydraten en let op hoe je benen voelen.",reflect:"Welke gedachte heb je over koolhydraten, en klopt die eigenlijk?"}},
  { kicker:"Week 3 · fase 1", title:"Week 3: 3 sets ", intro:"Nu 3 sets per oefening en je eerste interval op zondag.", focus:"Rust echt tussen de sets: de timer helpt je.",
   days:[D("Kracht A","3 sets, RPE 7","kracht","kracht","A"),RUST,D("Hardlopen","30 min + avond mobiliteit","loop","loop"),D("Kracht B","3 sets, RPE 7","kracht","kracht","B"),RUST,D("Pilates C","Fase 1","pilates","pilates","C"),D("Interval 1","6 × 1 min stevig / 2 min wandelen","loop","interval",null,{note:"10 min inlopen, 5 min uitlopen. Alleen op vlakke ondergrond."})],
   checkin:["Hoe voelde het interval: te zwaar, goed of te makkelijk?","Haal je bij sommige oefeningen al 12 herhalingen?","Welke vetten heb je toegevoegd, en wat vond je lekker?","Hoe was je energie overdag (1–10)?","Week 4 is meetweek. Kun je do 10 dec naar de InBody?"],
-  food:{t:"Gezonde vetten",e:"",lesson:["Vetten helpen je hormonen en de opname van vitamines A, D, E en K.","Vet is energierijk: handig als je weinig honger hebt. Een kleine portie geeft veel energie.","Goede bronnen: olijfolie, avocado, zaden, noten (behalve walnoot), vette vis."],rec:["avotoast","pesto"],try:"Strooi deze week een handje zaden of noten over je lunch of yoghurt.",reflect:"Merk je verschil in hoe lang je verzadigd blijft met een beetje extra vet?"}},
+  food:{t:"Gezonde vetten",e:"🥑",lesson:["Vetten helpen je hormonen en de opname van vitamines A, D, E en K.","Vet is energierijk: handig als je weinig honger hebt. Een kleine portie geeft veel energie.","Goede bronnen: olijfolie, avocado, zaden, noten (behalve walnoot), vette vis."],rec:["avotoast","pesto"],try:"Strooi deze week een handje zaden of noten over je lunch of yoghurt.",reflect:"Merk je verschil in hoe lang je verzadigd blijft met een beetje extra vet?"}},
  { kicker:"Week 4 · meetweek", title:"Week 4: meten ", intro:"Fase 1 afronden, InBody en metingen. Kijk hoe ver je al bent!", focus:"Vergelijk je metingen met week 0. Elke stap vooruit telt.",
   days:[D("Kracht A","3 × 10–12, overal 12? Zwaarder","kracht","kracht","A"),RUST,D("Hardlopen","30–35 min + mobiliteit","loop","loop"),D("Kracht B","+ InBody (do 10 dec)","kracht","kracht","B",{note:"InBody vóór de training, zelfde omstandigheden als in week 0."}),D("Rust + meting","Push-ups, plank, spagaat, enkeltest","rust","meet"),D("Pilates C","Fase 1","pilates","pilates","C"),D("Hardlopen","40 min · evaluatie fase 1","loop","loop")],
   checkin:["Vergelijk je metingen met week 0: wat is beter geworden?","Hoe gaat de enkeltest?","Welke kleur groente was nieuw voor je?","Wat wil je in fase 2 anders doen?","Beloning: welke sportlegging wordt het? "],
-  food:{t:"Vezels & kleur op je bord",e:"",lesson:["Vezels houden je darmen gezond en je energie stabiel.","Elke kleur groente of fruit geeft andere vitamines. 'Eet de regenboog' is dus echt een ding.","Diepvriesgroente is net zo voedzaam als vers, en sneller."],rec:["regenboog","linzensoep"],try:"Eet deze week 5 verschillende kleuren groente of fruit.",reflect:"Hoe voelde je buik en je energie met meer groente erbij?"}},
+  food:{t:"Vezels & kleur op je bord",e:"🌈",lesson:["Vezels houden je darmen gezond en je energie stabiel.","Elke kleur groente of fruit geeft andere vitamines. 'Eet de regenboog' is dus echt een ding.","Diepvriesgroente is net zo voedzaam als vers, en sneller."],rec:["regenboog","linzensoep"],try:"Eet deze week 5 verschillende kleuren groente of fruit.",reflect:"Hoe voelde je buik en je energie met meer groente erbij?"}},
  { kicker:"Week 5 · fase 2", title:"Week 5: zwaarder ", intro:"Fase 2: 3 × 8–12 en zwaardere gewichten.", focus:"Durf de stap zwaarder als het logboek het aangeeft.",
   days:[D("Kracht A","3 × 8–12, RPE 7–8 · kuitheffen op 1 been","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit (actief rekken)","loop","loop"),D("Kracht B","3 × 8–12","kracht","kracht","B"),RUST,D("Pilates C","Fase 2","pilates","pilates","C"),D("Hardlopen","45 min · plan rond Kerst","loop","loop")],
   checkin:["Hoe voelde het zwaardere werk (3 × 8–12)?","Kuitheffen op 1 been: hoe ging dat?","Welke snack werkte het best in je tas?","Kerstweek: wanneer kun je trainen?","Merk je verschil bij de spagaat door actief rekken?"],
-  food:{t:"Slimme snacks",e:"",lesson:["Een snack is een mini-maaltijd: liefst eiwit + iets energierijks.","Een snack in je tas voorkomt dat je een maaltijd overslaat als het druk is.","Eiwitrepen verschillen enorm: kijk naar eiwit en of je hem lekker vindt."],rec:["kwarkcake","bliss"],try:"Maak een snackvoorraad: 3 dingen die altijd in je tas zitten.",reflect:"Op welk moment van de dag krijg je de meeste trek, en wat helpt dan?"}},
+  food:{t:"Slimme snacks",e:"🎒",lesson:["Een snack is een mini-maaltijd: liefst eiwit + iets energierijks.","Een snack in je tas voorkomt dat je een maaltijd overslaat als het druk is.","Eiwitrepen verschillen enorm: kijk naar eiwit en of je hem lekker vindt."],rec:["kwarkcake","bliss"],try:"Maak een snackvoorraad: 3 dingen die altijd in je tas zitten.",reflect:"Op welk moment van de dag krijg je de meeste trek, en wat helpt dan?"}},
  { kicker:"Week 6 · Kerst", title:"Week 6: Kerst ", intro:"Training B schuift naar woensdag. Geniet van de feestdagen!", focus:"Train wat lukt, en geniet zonder schuldgevoel.",
   days:[D("Kracht A","3 × 8–12, RPE 8","kracht","kracht","A"),RUST,D("Kracht B (vervroegd)","3 × 8–12","kracht","kracht","B"),D("Hardlopen","35 min of kerstloopje","loop","loop"),D("Kerst ","Genieten","rust","star"),D("Rust of Pilates C","Als je zin hebt","pilates","pilates","C"),D("Interval 2","5 × 2 min stevig / 2 min rustig","loop","interval")],
   checkin:["Hoe ging trainen rond Kerst?","Hoe voelde je je bij de kerstmaaltijden: ontspannen of gespannen?","Interval 2: hoe ging het?","Week 7 is licht en rond oud en nieuw: wanneer wil je trainen?","Wat gun je jezelf deze week?"],
-  food:{t:"Genieten zonder stress",e:"",lesson:["Eén feestmaaltijd verandert niets aan je resultaat. Wat telt is wat je meestal doet.","Compenseer niet door maaltijden over te slaan. Eet gewoon je vaste momenten, ook rond de feestdagen.","Genieten hoort bij een gezonde relatie met eten."],rec:["wentel","portobello"],try:"Kies één kerstgerecht en geniet er bewust van: proef, ruik, neem je tijd.",reflect:"Wat helpt jou om rond de feestdagen ontspannen met eten om te gaan?"}},
+  food:{t:"Genieten zonder stress",e:"🍽️",lesson:["Eén feestmaaltijd verandert niets aan je resultaat. Wat telt is wat je meestal doet.","Compenseer niet door maaltijden over te slaan. Eet gewoon je vaste momenten, ook rond de feestdagen.","Genieten hoort bij een gezonde relatie met eten."],rec:["wentel","portobello"],try:"Kies één kerstgerecht en geniet er bewust van: proef, ruik, neem je tijd.",reflect:"Wat helpt jou om rond de feestdagen ontspannen met eten om te gaan?"}},
  { kicker:"Week 7 · lichte week", title:"Week 7: herladen ", intro:"Lichtere week: 2 sets, zelfde gewicht. Ook rust maakt je sterker.", focus:"Licht trainen is geen luiheid: je lichaam bouwt nu op.",
   days:[D("Kracht A","2 sets, zelfde gewicht, RPE 6","kracht","kracht","A",{sets:2}),RUST,D("Hardlopen","30 min + mobiliteit","loop","loop"),D("Kracht B of vrij","2 sets, RPE 6","kracht","kracht","B",{sets:2}),D("Nieuwjaar ","Wandelen","rust","star"),D("Pilates C","Rustig","pilates","pilates","C"),D("Hardlopen","45–50 min op gevoel","loop","loop")],
   checkin:["Heb je de rust van een lichtere week gevoeld?","Hoeveel water dronk je gemiddeld?","Hoe ging opstarten na de feestdagen?","Week 8: InBody (do 7 jan) en een lange loop. Met wie loop je?","Wat is je doel voor januari?"],
-  food:{t:"Drinken & hydratatie",e:"",lesson:["Al een klein beetje vochttekort kan je kracht en concentratie verminderen.","Lichtgele plas = goed. Donkergeel = drinken!","Matcha en koffie tellen mee, maar door de cafeïne liefst vóór 14:00 voor een goede slaap."],rec:["matcha","kippensoep"],try:"Neem elke dag een fles water mee en kijk hoe vaak je hem leeg krijgt.",reflect:"Merk je verschil in energie op dagen dat je meer drinkt?"}},
+  food:{t:"Drinken & hydratatie",e:"💧",lesson:["Al een klein beetje vochttekort kan je kracht en concentratie verminderen.","Lichtgele plas = goed. Donkergeel = drinken!","Matcha en koffie tellen mee, maar door de cafeïne liefst vóór 14:00 voor een goede slaap."],rec:["matcha","kippensoep"],try:"Neem elke dag een fles water mee en kijk hoe vaak je hem leeg krijgt.",reflect:"Merk je verschil in energie op dagen dat je meer drinkt?"}},
  { kicker:"Week 8 · meetweek", title:"Week 8: lange loop ", intro:"InBody, metingen en een lange loop als repetitie voor de 10 km.", focus:"Vergelijk met week 4 en zie hoe je groeit.",
   days:[D("Kracht A","3 × 8–12, RPE 8","kracht","kracht","A"),RUST,D("Hardlopen","30 min + 4 versnellingen","loop","loop"),D("Kracht B","+ InBody (do 7 jan)","kracht","kracht","B"),D("Rust + meting","Push-ups, plank, spagaat, enkel","rust","meet"),D("Pilates C","Fase 2","pilates","pilates","C"),D("Lange loop","8–10 km rustig","loop","loop")],
   checkin:["Vergelijk met week 4: waar ben je trots op?","Hoe voelde de lange loop?","Welke ijzer + vitamine C-combinatie probeerde je?","Hoe voel je je over de 10 km volgende week?","Wat heb je nodig om uitgerust aan de start te staan?"],
-  food:{t:"IJzer & vitamine C",e:"",lesson:["IJzer vervoert zuurstof naar je spieren. Vrouwen die sporten hebben er extra aandacht voor nodig.","Rood vlees geeft goed opneembaar ijzer. Uit peulvruchten neem je het beter op met vitamine C erbij (paprika, citroen, sinaasappel).","Vaak moe zonder reden? Laat bij de huisarts je ferritine prikken."],rec:["chilisin","steakbowl"],try:"Combineer deze week 2× peulvruchten met paprika of een sinaasappel.",reflect:"Hoe is je energie deze week vergeleken met week 1?"}},
+  food:{t:"IJzer & vitamine C",e:"⚡",lesson:["IJzer vervoert zuurstof naar je spieren. Vrouwen die sporten hebben er extra aandacht voor nodig.","Rood vlees geeft goed opneembaar ijzer. Uit peulvruchten neem je het beter op met vitamine C erbij (paprika, citroen, sinaasappel).","Vaak moe zonder reden? Laat bij de huisarts je ferritine prikken."],rec:["chilisin","steakbowl"],try:"Combineer deze week 2× peulvruchten met paprika of een sinaasappel.",reflect:"Hoe is je energie deze week vergeleken met week 1?"}},
  { kicker:"Week 9 · 10 km-week", title:"Week 9: de 10 km ", intro:"Lichtere krachtweek. Zondag 17 januari: de 10 km!", focus:"Uitrusten, goed eten en genieten van zondag.",
   days:[D("Kracht A","2 × 8–10, RPE 6–7","kracht","kracht","A",{sets:2}),RUST,D("Hardlopen","20 min + 4 versnellingen","loop","loop"),D("Kracht B licht","Alleen B3, B4, B7","kracht","kracht","B",{sets:2,only:["B3","B4","B7"]}),D("Rust","Vroeg naar bed","rust","rust"),D("Rust of korte C","Avond pasta of rijst","pilates","pilates"),D("10 KM! ","Race-ontbijt 2–3 uur vooraf · brunch erna","loop","medal")],
   checkin:["Hoe ging de 10 km?! ","Hoe voelde je race-ontbijt?","Hoe herstellen je benen?","Fase 3 wordt zwaarder (4 × 6–10). Klaar voor?","Wat wil je vieren?"],
-  food:{t:"Eten voor de 10 km",e:"",lesson:["De avond ervoor: een gewone maaltijd met wat extra koolhydraten. Geen experimenten.","2–3 uur vooraf: een vertrouwd ontbijt. Tijdens 10 km is water genoeg.","Erna: eiwit + koolhydraten voor herstel. Brunch telt!"],rec:["tonijnpasta","raceontbijt"],try:"Test je race-ontbijt op woensdag vóór je loop.",reflect:"Hoe voelt het om eten te zien als brandstof voor iets waar je trots op bent?"}},
+  food:{t:"Eten voor de 10 km",e:"🏁",lesson:["De avond ervoor: een gewone maaltijd met wat extra koolhydraten. Geen experimenten.","2–3 uur vooraf: een vertrouwd ontbijt. Tijdens 10 km is water genoeg.","Erna: eiwit + koolhydraten voor herstel. Brunch telt!"],rec:["tonijnpasta","raceontbijt"],try:"Test je race-ontbijt op woensdag vóór je loop.",reflect:"Hoe voelt het om eten te zien als brandstof voor iets waar je trots op bent?"}},
  { kicker:"Week 10 · fase 3", title:"Week 10: sterker ", intro:"Fase 3: de hoofdoefeningen gaan naar 4 × 6–10.", focus:"Zwaarder met minder herhalingen: dit is waar kracht groeit.",
   days:[D("Kracht A","A1/A2 4 × 6–10, rest 3 × 8–12","kracht","kracht","A"),RUST,D("Hardlopen","25–30 min herstel + mobiliteit","loop","loop"),D("Kracht B","B1/B3 4 × 6–10","kracht","kracht","B"),RUST,D("Pilates C","Fase 3","pilates","pilates","C"),D("Hardlopen","40 min","loop","loop")],
   checkin:["Hoe voelden de zware sets (4 × 6–10)?","Hoe sliep je deze week (gevoel of Oura)?","Kwark voor het slapen: lekker of niet?","Welke oefening gaat het snelst vooruit?","Week 11: interval 3 op zondag. Met wie?"],
-  food:{t:"Herstel & slaap",e:"",lesson:["Spieren groeien vooral 's nachts. Goed slapen is gratis training.","Eiwit voor het slapen (zoals kwark) kan je herstel 's nachts ondersteunen.","Een zware maaltijd vlak voor bed kan je slaap verstoren. Liever iets kleins."],rec:["avondkwark","ovenschotel"],try:"Eet 3 avonden een bakje kwark, ongeveer een uur voor het slapen.",reflect:"Merk je verschil in hoe je wakker wordt?"}},
+  food:{t:"Herstel & slaap",e:"🌙",lesson:["Spieren groeien vooral 's nachts. Goed slapen is gratis training.","Eiwit voor het slapen (zoals kwark) kan je herstel 's nachts ondersteunen.","Een zware maaltijd vlak voor bed kan je slaap verstoren. Liever iets kleins."],rec:["avondkwark","ovenschotel"],try:"Eet 3 avonden een bakje kwark, ongeveer een uur voor het slapen.",reflect:"Merk je verschil in hoe je wakker wordt?"}},
  { kicker:"Week 11 · fase 3", title:"Week 11: records ", intro:"Probeer 1 herhaling meer of 1 stap zwaarder dan vorige week.", focus:"Kijk in je logboek: hoeveel sterker ben je dan in week 1?",
   days:[D("Kracht A","Zoals week 10, +1","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","loop"),D("Kracht B","Zoals week 10, +1","kracht","kracht","B"),RUST,D("Pilates C","Fase 3","pilates","pilates","C"),D("Interval 3","4 × 3 min stevig / 2 min rustig","loop","interval")],
   checkin:["Haal je op een paar oefeningen een nieuw record?","Hoe ging uit eten: wat koos je?","Interval 3 vergeleken met week 3: hoe voelde dat?","Kun je do 4 feb naar de InBody?","Welke beloning kies je voor week 12?"],
-  food:{t:"Uit eten & sociaal",e:"",lesson:["Er bestaat geen 'fout' gerecht. Kies wat je lekker vindt.","Een simpele check: zit er een eiwitbron in? Dan zit je goed.","Eten met vrienden is ook voeding: voor je humeur."],rec:["pizza","poke"],try:"Bestel de volgende keer dat je uit eten gaat iets wat je echt lekker vindt, zonder te twijfelen.",reflect:"Hoe voel je je als je met anderen eet, vergeleken met een paar maanden geleden?"}},
+  food:{t:"Uit eten & sociaal",e:"🥂",lesson:["Er bestaat geen 'fout' gerecht. Kies wat je lekker vindt.","Een simpele check: zit er een eiwitbron in? Dan zit je goed.","Eten met vrienden is ook voeding: voor je humeur."],rec:["pizza","poke"],try:"Bestel de volgende keer dat je uit eten gaat iets wat je echt lekker vindt, zonder te twijfelen.",reflect:"Hoe voel je je als je met anderen eet, vergeleken met een paar maanden geleden?"}},
  { kicker:"Week 12 · finale", title:"Week 12: gehaald! ", intro:"Eindmeting, InBody en terugkijken op 12 weken.", focus:"Noteer je beste sets: dat is je eindresultaat.",
   days:[D("Kracht A","Beste sets noteren","kracht","kracht","A"),RUST,D("Hardlopen","35 min + mobiliteit","loop","loop"),D("Kracht B","Beste sets · InBody (do 4 feb)","kracht","kracht","B"),D("Eindmeting","Push-ups, plank, spagaat, enkel","rust","meet"),D("Pilates C","Fase 3","pilates","pilates","C"),D("5 km op gevoel","Grote check-in","loop","medal")],
   checkin:["Waar ben je het meest trots op na 12 weken?","Wat is er veranderd in hoe je over eten denkt?","Welke recepten blijven op je vaste lijstje?","Wat wil je in het volgende blok: meer kracht, meer lopen, of iets nieuws?","Hoe vaak wil je in het volgende blok trainen?"],
-  food:{t:"Jouw eigen bord",e:"",lesson:["Je kent nu de bouwstenen: eiwit, koolhydraten, groente en vet.","Met je favorieten maak je eindeloos eigen combinaties.","Eten is geen dieet meer, maar brandstof en plezier."],rec:["eigen","smoothie"],try:"Bedenk je eigen trainingsbord-recept en kook het voor Yorick.",reflect:"Wat is er veranderd in je relatie met eten sinds week 0?"}}
+  food:{t:"Jouw eigen bord",e:"✍️",lesson:["Je kent nu de bouwstenen: eiwit, koolhydraten, groente en vet.","Met je favorieten maak je eindeloos eigen combinaties.","Eten is geen dieet meer, maar brandstof en plezier."],rec:["eigen","smoothie"],try:"Bedenk je eigen trainingsbord-recept en kook het voor Yorick.",reflect:"Wat is er veranderd in je relatie met eten sinds week 0?"}}
 ];
 /* Elke zondag na de check-in: week vaststellen en PUBLISHED ophogen. Latere weken zijn concept. */
 const PUBLISHED = 0;
@@ -678,14 +697,16 @@ function renderWeek(){
     if (d.session){
       const list = d.opts.only || SESS[d.session];
       body += `<p class="small muted" style="margin-top:10px">${SESSNAME[d.session]} · ${list.length} oefeningen</p>` + list.map(k=>{ const t=targetFor(k,W,d.opts); return exRow(k, t.sets+" × "+t.reps+" · rust "+fmtSec(t.rest)); }).join("");
-      body += `<button class="btn go" data-log="${key}">▶ Start & log training</button>`;
-    } else if (d.type==="loop") body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p>`;
+      body += `<div class="tip">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</div><button class="btn go" data-log="${key}">▶ Start & log training</button>`;
+    } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
+      body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
     else if (d.type==="rust") body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
-    div.innerHTML = `<div class="day-head"><div class="badge">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
+    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); renderRosary(); if(S.days[key]) celebrate(); });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
+    div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     el.appendChild(div); paint();
   });
@@ -721,6 +742,7 @@ function renderCore(){
   $("core").querySelectorAll("[data-av]").forEach(b=>b.addEventListener("click",()=>{ const a=c[p+"av"]=c[p+"av"]||{}; a[b.dataset.av]=((a[b.dataset.av]||0)+1)%4; save(); renderCore(); }));
   $("core").querySelector("textarea").addEventListener("input",e=>{ c[p+"note"]=e.target.value; save(); });
 }
+function pace(r){ if(!r||!r.km||!r.min) return "Vul in en zie je tempo per km."; const p=r.min/r.km, m=Math.floor(p), sec=Math.round((p-m)*60); return `Tempo: ${m}:${String(sec).padStart(2,"0")} min/km${+r.km>=10?" · 🏅 dubbele cijfers!":""}`; }
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 function fmtSec(s){ return s>=60 ? (s%60? Math.floor(s/60)+":"+String(s%60).padStart(2,"0")+" min" : (s/60)+" min") : s+" sec"; }
 function weekDone(w){
@@ -741,7 +763,7 @@ function renderRosary(){
   const [ex,ey]=pos(N-1);
   const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
   const doneN = WEEKS.map((_,i)=>weekDone(i)).filter(Boolean).length;
-  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
+  $("rosary").innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div><div class="count">${(()=>{ const d=Math.ceil((new Date(2027,0,17)-new Date().setHours(0,0,0,0))/DAYMS); return d>0?"🏁 Nog "+d+" dagen tot je 10 km":(d===0?"🏁 Vandaag: de 10 km! Geniet ervan":"🏅 10 km gelopen"); })()}</div>`;
   $("rosary").querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
 }
 function updateProg(){
@@ -755,7 +777,19 @@ function updateProg(){
 
 /* today / oura */
 const FEELS = [["rust","Moe"],["dash","Oké"],["flame","Fit"]];
+function renderNudge(){
+  const h = new Date().getHours(); let wkI = curWeek(), msg = "";
+  if (!isLocked(wkI)){ const ds = dayDates(wkI), i = ds.findIndex(d=>iso(d)===TODAY), d = i>=0 ? WEEKS[wkI].days[i] : null;
+    if (d && d.type!=="rust" && !S.days[TODAY]){
+      if (h < 12) msg = "🍌 Train je vanochtend? Eet 30–60 min vooraf iets kleins: een banaan, krentenbol of glas chocomelk. Nooit nuchter trainen.";
+      else if (h < 18) msg = "💧 Training vandaag? Drink nu alvast een glas water en neem een snack mee voor erna.";
+    }
+    if (!msg && h >= 21) msg = "🌙 Bijna bedtijd. Een bakje kwark nu helpt je spieren vannacht herstellen. Slaap lekker.";
+  }
+  $("nudge").innerHTML = msg ? `<div class="nudge">${msg}</div>` : "";
+}
 function renderToday(){
+  renderNudge();
   const st = S.daily[TODAY] || {};
   $("feel").innerHTML = FEELS.map((f,i)=>`<button data-f="${i}" class="${st.feel===i?'on':''}"><span>${ic(f[0])}</span>${f[1]}</button>`).join("");
   $("feel").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ S.daily[TODAY]=Object.assign(S.daily[TODAY]||{}, {feel:+b.dataset.f}); save(); renderToday(); }));
@@ -779,7 +813,7 @@ function openLogger(w, di){
   const d = WEEKS[w].days[di], key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
-  $("mBody").innerHTML = `<div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
+  $("mBody").innerHTML = `<details style="margin-bottom:12px"><summary><span class="s-main">🔥 Warming-up · 8 min<span class="s-sub">Tik af wat je gedaan hebt</span></span></summary><div class="dbody" id="wu"></div></details><div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
     const x = EX[k], t = targetFor(k,w,d.opts), prev = lastLog(k,key);
     const cur = (S.logs[k]||[]).find(e=>e.key===key);
     let prevTxt = "Nog geen vorige keer. Begin licht en vind je startgewicht.", sugg = "";
@@ -799,8 +833,10 @@ function openLogger(w, di){
     return `<div class="lx" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
       <div class="target"><span>${ic("target")} ${t.sets} × ${t.reps}</span><span>${ic("clock")} rust ${fmtSec(t.rest)}</span>${x.t==='kracht'?'<span>RPE '+(PH(w)===0?'6–7':'7–8')+'</span>':''}</div>
       <div class="prev">${prevTxt}</div>${sugg?`<div class="sugg">${sugg}</div>`:""}${rows}
-      <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}"> Start rust (${fmtSec(t.rest)})</button></div>`;
-  }).join("") + `<button class="btn go" id="mDone">Training klaar ✓</button>`;
+      ${SUPER[k]?`<div class="small muted" style="margin-top:8px">🔁 ${SUPER[k]}</div>`:""}
+      <input type="text" class="setting" data-set="${k}" placeholder="Instelling onthouden (bv. stoel 4, rugleuning 2)" value="${esc((S.mset||{})[k]||'')}" style="margin-top:10px;font-size:.85rem">
+      <button class="restbtn" data-rest="${t.rest}" data-name="${x.n}">⏱ Start rust (${fmtSec(t.rest)})</button></div>`;
+  }).join("") + `<div class="card small" style="margin-top:6px"><b>🧘 Afsluiten (5 min)</b><br>Uitlopen of fietsen 2–3 min, dan heupen en hamstrings rekken (lage lunge en halve spagaat, 30 sec per kant). Daarna: eten binnen een uur.</div><button class="btn go" id="mDone">Training klaar ✓</button>`;
   $("mBody").querySelectorAll("input").forEach(inp=>inp.addEventListener("input",()=>setVal(inp.dataset.k,+inp.dataset.s,inp.dataset.f,inp.value)));
   $("mBody").querySelectorAll(".sok").forEach(b=>b.addEventListener("click",()=>{
     const on = !b.classList.contains("on"); b.classList.toggle("on",on); setVal(b.dataset.k,+b.dataset.s,"ok",on);
@@ -817,8 +853,13 @@ function openLogger(w, di){
       if (prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); celebrate("Nieuw record"); }
     }
   }));
+  const WU = ["5 min roeien, fietsen of crosstrainer","Op 1 been staan, 2 × 30 sec per been","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Opwarmsets: 10× heel licht, 5× op ±70%"];
+  S.wu = S.wu || {}; const wuk = LOGCTX.key;
+  $("wu").innerHTML = WU.map((w,i)=>`<div class="chk${(S.wu[wuk]||{})[i]?' on':''}" data-i="${i}"><i>✓</i>${w}</div>`).join("");
+  $("wu").querySelectorAll(".chk").forEach(c=>c.addEventListener("click",()=>{ S.wu[wuk]=S.wu[wuk]||{}; S.wu[wuk][c.dataset.i]=!S.wu[wuk][c.dataset.i]; save(); c.classList.toggle("on"); }));
+  $("mBody").querySelectorAll(".setting").forEach(inp=>inp.addEventListener("input",()=>{ S.mset=S.mset||{}; S.mset[inp.dataset.set]=inp.value; save(); }));
   $("mBody").querySelectorAll(".restbtn").forEach(b=>b.addEventListener("click",()=>startTimer(+b.dataset.rest,b.dataset.name)));
-  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); });
+  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); closeLogger(); celebrate(); startFuel(); show("week"); });
   $("modal").classList.add("on"); document.body.style.overflow="hidden"; $("modal").scrollTop=0;
 }
 function setVal(k,s,f,v){
@@ -914,14 +955,14 @@ $("tl").innerHTML = TL.map(t=>`<div class="tl-i" style="--c:${t[2]}"><b>${t[0]}<
 $("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity="0" stroke="#8a8378" stroke-width="1" stroke-dasharray="2 3"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity="0" stroke="#ece8e1" stroke-width="1"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
 
 /* ======================= ETEN ======================= */
-const RATES = [["heart","Lekker!"],["dash","Gaat wel"],["x","Niet voor mij"]];
+const RATES = [["😋","Lekker!"],["😐","Gaat wel"],["👎","Niet voor mij"]];
 function recCard(id, withRate){
   const r = R[id], rt = S.rate[id] || {};
-  return `<div class="rec"><div class="rec-h"><b>${r[0]}</b><span><span class="chip">${ic("clock")} ${r[1]}</span> <span class="chip">${ic("egg")} ${r[2]}</span></span></div><p class="small"><b>Nodig:</b> ${r[3]}</p><p class="small"><b>Zo:</b> ${r[4]}</p>
-   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${ic(x[0])}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan? (bv. minder pittig, extra kaas)" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
+  return `<div class="rec"><div class="rec-h"><b>${r[0]}</b><span><span class="chip">⏱ ${r[1]}</span> <span class="chip">💪 ${r[2]}</span></span></div><p class="small"><b>Nodig:</b> ${r[3]}</p><p class="small"><b>Zo:</b> ${r[4]}</p>
+   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${x[0]}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan? (bv. minder pittig, extra kaas)" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
 }
 function bindRates(root){
-  root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast("Genoteerd"); })));
+  root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast(RATES[+b.dataset.v][0]+" Genoteerd!"); })));
   root.querySelectorAll("input[data-note]").forEach(inp=>inp.addEventListener("input",()=>{ const id=inp.dataset.note; S.rate[id]=Object.assign(S.rate[id]||{}, {n:inp.value, w:W}); save(); }));
 }
 function renderFood(){
@@ -929,10 +970,14 @@ function renderFood(){
   $("foodOpen").style.display = locked ? "none" : "";
   $("foodLocked").innerHTML = locked ? lockedHtml(W, "Je eetthema") : "";
   if (locked){ $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = "Verrassing"; $("fsub").textContent = "Je nieuwe thema en recepten kiezen we na je check-in, op basis van wat je lekker vond."; renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); }); renderFavs(); return; }
-  $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
+  $("fkicker").textContent = "Eten · week " + W; $("ftitle").textContent = f.e + " " + f.t; $("fsub").textContent = "Elke week een nieuw thema: ontdekken, proeven en leren.";
   renderWeekSel("fsel", ()=>{ renderFood(); renderWeek(); });
   $("lesson").innerHTML = `<div class="kicker" style="color:#d6cfc5">Wist je dat?</div><div class="big">${f.t}</div>` + f.lesson.map(l=>`<p class="small">• ${l}</p>`).join("");
   $("weekRecipes").innerHTML = f.rec.map(id=>recCard(id,true)).join(""); bindRates($("weekRecipes"));
+  const items = []; f.rec.forEach(id=>{ if(id==="eigen") return; R[id][3].split(/,(?![^(]*\))/).map(x=>x.trim()).filter(Boolean).forEach(x=>{ if(!items.includes(x)) items.push(x); }); });
+  S.shop = S.shop || {}; const sk = "w"+W;
+  $("shop").innerHTML = items.length ? items.map((x,i)=>`<div class="chk${(S.shop[sk]||{})[i]?' on':''}" data-i="${i}"><i>✓</i>${x}</div>`).join("") + `<p class="small muted" style="margin-top:8px">Tik af wat je al hebt of gekocht hebt. Let op walnoot in granola en pesto!</p>` : `<p class="small muted">Deze week verzin je zelf je recept. Kies uit je favorieten!</p>`;
+  $("shop").querySelectorAll(".chk").forEach(c=>c.addEventListener("click",()=>{ S.shop[sk]=S.shop[sk]||{}; S.shop[sk][c.dataset.i]=!S.shop[sk][c.dataset.i]; save(); c.classList.toggle("on"); }));
   const tk = "try-"+W, tv = S.food[tk];
   $("tryCard").innerHTML = `<p>${f.try}</p><button class="btn ${tv?'ghost':'go'}" id="tryBtn">${tv?' Gedaan!':'Ik heb het geprobeerd'}</button>`;
   $("tryBtn").addEventListener("click",()=>{ S.food[tk]=!S.food[tk]; save(); renderFood(); if(S.food[tk]) toast("Goed bezig! "); });
@@ -945,9 +990,9 @@ function renderFavs(){
   const favs = Object.keys(S.rate).filter(id=>S.rate[id].v===0 && R[id]);
   $("favs").innerHTML = favs.length ? favs.map(id=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)"> <b>${R[id][0]}</b>${S.rate[id].n?`<div class="small muted">${esc(S.rate[id].n)}</div>`:""}</div>`).join("") : `<p class="small muted">Nog geen favorieten. Beoordeel de recepten van de week met  en ze verschijnen hier.</p>`;
 }
-$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="2"/><circle cx="120" cy="105" r="82" fill="#141414"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#d6cfc5" fill-opacity=".03" stroke="#d6cfc5" stroke-width="1"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#ece8e1" fill-opacity=".03" stroke="#ece8e1" stroke-width="1"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#9e978d" fill-opacity=".03" stroke="#9e978d" stroke-width="1" stroke-dasharray="2 3"/><text x="78" y="102" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Groente</text><text x="78" y="118" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">½ bord</text><text x="158" y="70" text-anchor="middle" font-size="12.5" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Eiwit</text><text x="158" y="85" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><text x="156" y="140" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Koolhydraten</text><text x="156" y="154" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">¼</text><circle cx="262" cy="50" r="24" fill="#b8b1a7" fill-opacity=".03" stroke="#b8b1a7" stroke-width="1"/><text x="262" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">Vet</text><text x="262" y="90" text-anchor="middle" font-size="10" fill="#9d968c" font-family="Inter">een duim</text></svg>`;
+$("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-label="Het trainingsbord"><circle cx="120" cy="105" r="92" fill="none" stroke="#3a3a3a" stroke-width="1.5"/><circle cx="120" cy="105" r="82" fill="#121212"/><path d="M120 23A82 82 0 0 0 120 187Z" fill="#8fcaa9" fill-opacity=".28" stroke="#8fcaa9" stroke-width="1.2"/><path d="M120 105L120 23A82 82 0 0 1 202 105Z" fill="#e8908a" fill-opacity=".28" stroke="#e8908a" stroke-width="1.2"/><path d="M120 105L202 105A82 82 0 0 1 120 187Z" fill="#e2c97c" fill-opacity=".28" stroke="#e2c97c" stroke-width="1.2"/><text x="78" y="96" text-anchor="middle" font-size="20">🥦</text><text x="78" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#f2eee8" font-family="Inter">Groente</text><text x="78" y="131" text-anchor="middle" font-size="10.5" fill="#aaa49b" font-family="Inter">½ bord</text><text x="158" y="62" text-anchor="middle" font-size="18">🍗</text><text x="158" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#f2eee8" font-family="Inter">Eiwit</text><text x="158" y="93" text-anchor="middle" font-size="10.5" fill="#aaa49b" font-family="Inter">¼</text><text x="156" y="134" text-anchor="middle" font-size="18">🍚</text><text x="156" y="151" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f2eee8" font-family="Inter">Koolhydraten</text><text x="156" y="164" text-anchor="middle" font-size="10.5" fill="#aaa49b" font-family="Inter">¼</text><circle cx="262" cy="56" r="26" fill="#e0a47e" fill-opacity=".25" stroke="#e0a47e" stroke-width="1.2"/><text x="262" y="62" text-anchor="middle" font-size="20">🥑</text><text x="262" y="98" text-anchor="middle" font-size="11" font-weight="700" fill="#f2eee8" font-family="Inter">Vet</text><text x="262" y="112" text-anchor="middle" font-size="10" fill="#aaa49b" font-family="Inter">een duim</text></svg>`;
 const PROT = [["Kipfilet 150 g",35],["Tonijn, 1 blikje",29],["Skyr 250 g",27],["Mager gehakt 125 g",26],["Zalm 125 g",25],["Tofu 200 g",24],["Eiwitshake, 1 schep",24],["Kwark 250 g",22],["Eiwitpudding",20],["Hüttenkäse 150 g",18],["Edamame 150 g",17],["Linzen/bonen 200 g",14],["2 eieren",13],["2 plakken kaas",10],["Glas melk",8]];
-$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:3px;overflow:hidden;margin-top:4px"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#ece8e1,#c4bdb3);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
+$("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:8px;overflow:hidden;margin-top:4px"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#8fcaa9,#e2c97c);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
 function renderAllRecipes(){
   const seen = []; WEEKS.forEach(w=>w.food.rec.forEach(id=>{ if(!seen.includes(id) && id!=="eigen") seen.push(id); }));
   $("allRecipes").innerHTML = `<details><summary><span class="s-main">${seen.length} recepten<span class="s-sub">Elke week komen er nieuwe bij</span></span></summary><div class="dbody">${seen.map(id=>recCard(id,true)).join("")}</div></details>`;
@@ -961,6 +1006,7 @@ function buildExport(){
   t += `\n📒 LOGBOEK\n`; let any=false;
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";
+  t += `\n👟 LOPEN\n`; let anyR=false; dates.forEach(d=>{ const r=(S.runs||{})[iso(d)]; if(r&&r.km){ anyR=true; t += `${fmt(d)}: ${r.km} km${r.min?" in "+r.min+" min ("+pace(r).replace("Tempo: ","")+")":""}\n`; } }); if(!anyR) t += "(niets gelogd)\n";
   t += `\n☀️ GEVOEL / OURA\n`; let anyD=false;
   dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
   if(!anyD) t += "(niet ingevuld)\n";
@@ -992,6 +1038,16 @@ const TABS = ["week","training","eten","gids"];
 function show(t){ if(!TABS.includes(t)) t="week"; TABS.forEach(x=>$("tab-"+x).classList.toggle("on",x===t)); document.querySelectorAll(".tb").forEach(b=>b.classList.toggle("on",b.dataset.t===t)); window.scrollTo(0,0); }
 document.querySelectorAll(".tb").forEach(b=>b.addEventListener("click",()=>{ show(b.dataset.t); try{ history.replaceState(null,"","#"+b.dataset.t); }catch(e){} }));
 
+const FUELIDEAS = ["🥣 Skyr of kwark met granola en fruit","🍳 2 eieren op brood","🥤 Chocomelk + banaan","🥤 Eiwitshake + krentenbol","🍝 Restje avondeten met kip of tofu"];
+function startFuel(){ S.fuel = {until: Date.now()+3600e3, done:false}; save(); renderFuel(); }
+function renderFuel(){
+  const el = $("fuelBox"); if (!el) return; const f = S.fuel;
+  if (!f || f.done || Date.now() > f.until + 30*60e3){ el.innerHTML = ""; return; }
+  const left = Math.max(0, Math.round((f.until - Date.now())/60e3)), pick = FUELIDEAS.slice().sort(()=>Math.random()-.5).slice(0,3);
+  el.innerHTML = `<div class="fuel"><span class="t">${left} min</span><b>🍽️ Herstelvenster: nu eten!</b><div class="small muted">${left>0?"Binnen een uur na je training eet je iets met eiwit. Je spieren staan nu open om te herstellen.":"Het uur is om, maar eten helpt nog steeds. Eet zo snel mogelijk."}</div><ul>${pick.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn go" id="fuelOk">Gegeten ✓</button></div>`;
+  $("fuelOk").onclick = ()=>{ S.fuel.done = true; const k="h2-"+TODAY; S.habits[k]=true; save(); renderFuel(); renderWeek(); toast("Top! Je spieren zeggen dankjewel 💪"); };
+}
+setInterval(renderFuel, 30000);
 function maybeOpening(){
   const w = curWeek(); S.opened = S.opened || {};
   if (w < 1 || w > PUBLISHED || S.opened[w]) return;
@@ -1000,7 +1056,10 @@ function maybeOpening(){
   $("opening").classList.add("on");
   $("opB").onclick = ()=>{ S.opened[w]=true; save(); $("opening").classList.remove("on"); };
 }
-renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFood(); renderAllRecipes();
+const PRAISE = ["Je benen hebben je deze week kilometers ver gedragen.","Elke set maakt je sterker, ook de zware.","Consistent zijn is jouw superkracht.","Jij komt opdagen. Dat is het hele geheim.","Sterk is een gevoel, en jij hebt het.","Rust nemen is ook trainen. Goed bezig."];
+$("sig").style.pointerEvents="auto"; $("sig").style.cursor="pointer";
+$("sig").addEventListener("click",()=>toast("✨ "+PRAISE[Math.floor(Math.random()*PRAISE.length)]));
+renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel(); renderFood(); renderAllRecipes();
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
