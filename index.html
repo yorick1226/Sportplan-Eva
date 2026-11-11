@@ -282,6 +282,16 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .pmode button span{display:block;font-size:1.3rem}
 .pmode button.on{border-color:var(--pilates);background:#132219}
 .wucd{margin:10px 0 0!important}.wucd summary{padding:11px 14px!important}.wucd ol{margin:4px 0;padding-left:18px}.wucd li{margin:3px 0}
+.love{position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;text-align:center;padding:30px;overflow:hidden}
+.love.on{display:flex;animation:rise .4s ease both}
+.love-in{max-width:330px;position:relative;z-index:2}
+.love-k{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.love-t{font-family:'Pinyon Script',cursive;font-size:2.1rem;line-height:1.3;margin:12px 0 8px;color:#fbf3ee}
+.love-f{font-size:.8rem;letter-spacing:.12em;color:var(--muted)}
+.love-x{font-size:.7rem;color:#5a5650;margin-top:26px;letter-spacing:.1em}
+.love-hearts span{position:absolute;bottom:-40px;animation:floatUp 3.6s ease-in forwards;opacity:0}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+.starhit{position:absolute;right:4px;top:2px;width:120px;height:170px;background:transparent;border:0;z-index:3;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);text-align:center;background:var(--ink);color:#000;font-weight:700;border-radius:999px;padding:10px 16px;font-size:.88rem;z-index:80;display:none;white-space:normal;max-width:88vw;border-radius:14px}
 </style>
 </head>
@@ -295,6 +305,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
     <h1 id="wtitle"></h1>
     <p id="intro"></p>
     <div class="sig" id="sig">Eva</div>
+    <button class="starhit" id="starHit" aria-label="Ster"></button>
     <div class="prog">
       <svg class="ring" viewBox="0 0 64 64"><circle class="bgc" cx="32" cy="32" r="26"/><circle class="fg" id="ringfg" cx="32" cy="32" r="26" transform="rotate(-90 32 32)"/></svg>
       <div class="prog-text"><b id="progN">0</b> van <span id="progT">0</span> trainingen afgevinkt<br><span id="progMsg" class="muted"></span></div>
@@ -541,6 +552,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="love" id="love"><div class="love-hearts" id="loveHearts"></div><div class="love-in"><div class="love-k" id="loveK"></div><div class="love-t" id="loveT"></div><div class="love-f">— Yorick 🤍</div><div class="love-x">tik om te sluiten</div></div></div>
 <div class="tour" id="tour"><div class="tour-in"><div class="tour-dots" id="tourDots"></div><div id="tourBody"></div><div class="tour-nav"><button class="tour-skip" id="tourSkip">Overslaan</button><button class="tour-next" id="tourNext">Volgende</button></div></div></div>
 <div class="opening" id="opening"><svg width="120" height="150" viewBox="0 0 120 150" fill="none" stroke="#ece8e1" stroke-width="1.1" stroke-linecap="round"><path d="M60 4V146M60 1l3 6-3 5-3-5zM30 48H90M60 30c10 3 15 10 9 18M60 30c-10 3-15 10-9 18M60 88c12 2 17 12 10 22M60 88c-12 2-17 12-10 22"/><circle cx="60" cy="48" r="7"/><path d="M8 18Q34 60 60 48M112 18Q86 60 60 48" stroke-dasharray="1 5"/></svg>
 <div class="k" id="opK"></div><h1 id="opT"></h1><div class="msg" id="opM"></div><div class="from">Yorick</div><button id="opB">Open je week</button></div>
@@ -823,7 +835,7 @@ function renderWeek(){
     div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(d.type!=="rust" && key===TODAY) startFuel(); } });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, d.name+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
@@ -976,7 +988,7 @@ function openLogger(w, di){
       const k=b.dataset.k, x=EX[k], prev=bestOf(k, LOGCTX.key), e=(S.logs[k]||[]).find(z=>z.key===LOGCTX.key), st=e&&e.sets[+b.dataset.s];
       startTimer(x.r, x.n); syncSession(LOGCTX.key);
       const isAlt=(((S.flags||{})[LOGCTX.key]||{})[k]||{}).alt;
-      if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); enqueue("Records", k, [x.n, x.nokg? st.r : st.kg+" kg × "+st.r, e.date]); celebrate("Nieuw record"); }
+      if (!isAlt && prev && st && st.r && (x.nokg || st.kg) && setScore(x,st) > prev.sc){ S.newpr=S.newpr||{}; S.newpr[k]=LOGCTX.key; save(); enqueue("Records", k, [x.n, x.nokg? st.r : st.kg+" kg × "+st.r, e.date]); celebrate("Nieuw record"); setTimeout(()=>showLove("Na je nieuwe record"), 1900); }
     }
   }));
   const WU = (d.session==="C" ? WUCD.pilates.wu : WUCD.kracht.wu);
@@ -1218,16 +1230,30 @@ function maybeOpening(){
 const DAILY = ["Goedemorgen monkey. Ik ben zo trots op hoe je hieraan begonnen bent.", "Kleine stappen, elke dag. Zo word je sterk.", "Je hoeft vandaag niet perfect te zijn. Je hoeft er alleen te zijn.", "Ik vind het zo knap hoe je dit allemaal doet. Echt.", "Sterk zijn is geen gevoel dat je hebt, het is iets wat je doet. En jij doet het.", "Monkey, vergeet niet te ontbijten. Je spieren rekenen op je 🍌", "Elke set die je doet, is een cadeautje aan jezelf van later.", "Ik hou van je. Ook op dagen dat het niet lukt.", "Rust is ook training. Gun het jezelf.", "Jij laat elke week zien dat je doorzet. Daar word ik blij van.", "Vandaag een goede dag? Dan maak je hem nog beter. Een zware dag? Dan ben je extra stoer.", "Je bent sterker dan je denkt, monkey.", "Niemand begint als expert. Jij bent gewoon aan het worden wie je wil zijn.", "Trots op je. Gewoon omdat je jij bent.", "Eet goed, slaap goed, en de rest komt vanzelf.", "Je hoeft niet te winnen van anderen. Alleen van jezelf van gisteren.", "Ik ben er altijd, ook voor de saaie trainingen 🐒", "Jouw benen hebben je al zoveel kilometers gedragen. Wees lief voor ze.", "Doorzetten is ook gewoon morgen weer beginnen.", "Hoe voel je je vandaag? Luister naar je lijf, dat weet het beste.", "Je bent mijn favoriete sportmaatje, monkey.", "Geen motivatie vandaag? Discipline is gewoon motivatie die even op zichzelf past.", "Wat je vandaag doet, is morgen makkelijker.", "Ik zie hoeveel moeite je doet. Dat telt meer dan elk getal.", "Sterk, lief en een tikje koppig. Precies goed.", "Goed bezig, monkey. Echt.", "Je eerste set is altijd de zwaarste. Daarna ben je al bezig.", "Vergeet niet: plezier hebben hoort er ook bij.", "Ik ben trots op je, en dat zeg ik niet vaak genoeg.", "Vandaag is een mooie dag om iets te doen waar je morgen blij van wordt.", "Water mee, snack mee, monkey mee 🐒", "Je wordt niet sterker op de dagen dat het makkelijk is. Maar wel op de dagen dat je toch gaat.", "Hoe het ook gaat vandaag: ik ben blij met je.", "Elke kraal aan je ketting heb jij verdiend.", "Zachter voor jezelf zijn is ook sterk.", "Jij + een plan = niet te stoppen.", "Even ademhalen. Je doet het goed.", "Monkey, jij gaat die 10 km straks gewoon lachend lopen.", "Kracht zit niet alleen in je spieren, ook in hoe je doorgaat.", "Ik denk aan je vandaag. Succes, lief."];
 /* Eigen zinnen van Yorick per datum gaan voor: */
 const DAILY_OVERRIDE = {};
-function dailyLine(){ if (DAILY_OVERRIDE[TODAY]) return DAILY_OVERRIDE[TODAY]; const n = Math.floor(new Date().setHours(0,0,0,0)/DAYMS); return DAILY[((n*7)%DAILY.length+DAILY.length)%DAILY.length]; }
-function renderDaily(){ const h=new Date().getHours(); const g = h<12?"Goedemorgen":(h<18?"Hoi":"Goedenavond"); $("daily").innerHTML = `<div class="daily-k">${g} Eva</div><div class="daily-t">${dailyLine()}</div><div class="daily-f">— Yorick 🤍</div>`; }
+function dailyLine(){ if (DAILY_OVERRIDE[TODAY]) return DAILY_OVERRIDE[TODAY]; if (LOVE_DATES[TODAY]) return LOVE_DATES[TODAY]; const nday=Math.floor(new Date().setHours(0,0,0,0)/DAYMS); if (new Date().getDay()===5) return LOVE[(nday%LOVE.length+LOVE.length)%LOVE.length]; if (RARE) return LOVE[((nday*3+1)%LOVE.length+LOVE.length)%LOVE.length]; const n = Math.floor(new Date().setHours(0,0,0,0)/DAYMS); return DAILY[((n*7)%DAILY.length+DAILY.length)%DAILY.length]; }
+function renderDaily(){ const h=new Date().getHours(); const g = h<12?"Goedemorgen":(h<18?"Hoi":"Goedenavond"); $("daily").innerHTML = `<div class="daily-k">${(new Date().getDay()===5||RARE||LOVE_DATES[TODAY])?"💌 "+g+" Eva":g+" Eva"}</div><div class="daily-t">${dailyLine()}</div><div class="daily-f">— Yorick 🤍</div>`; }
+const LOVE = ["Je lange haar is echt zo mooi, monkey. Ik word er elke keer weer blij van.", "Jouw ogen. Ik kan er gewoon niet over uit.", "Je bent de liefste persoon die ik ken.", "Hoe creatief jij bent, met je stijl, je ideeën, alles. Ik bewonder het.", "Je lach maakt elke dag beter.", "Zwart staat niemand zo goed als jou.", "Ik hou van je haar, je ogen, je humor en je koppigheid. Allemaal tegelijk.", "Jij maakt van gewone dagen iets moois.", "Je bent zo lief voor de mensen om je heen. Dat zie ik echt.", "Monkey, je bent prachtig. Van binnen en van buiten.", "Jouw ogen als je ergens enthousiast over bent: mijn favoriete uitzicht.", "Slim, grappig en creatief. Wat een combinatie ben jij.", "Ik ben zo blij dat jij mijn vriendin bent.", "Dat lange haar van je. Ik snap dat je er trots op bent. Terecht.", "Je hebt de mooiste glimlach die ik ken.", "Je bent zo zorgzaam, ook als je het zelf druk hebt.", "Jouw smaak in kleding, muziek en kunst vind ik zo mooi.", "Je straalt, monkey. Echt.", "Lief, eigenwijs en ontzettend mooi. Precies mijn type.", "Jij hebt een eigen stijl die niemand kan kopiëren.", "Weet je hoe mooi je ogen zijn als je lacht? Nu wel.", "Jij bent mijn favoriete mens. Altijd al geweest."];
+/* Eigen momenten van Yorick (verjaardag, jaardag): "2027-01-03": "tekst" */
+const LOVE_DATES = {};
+const RARE = Math.random() < 0.2;
+function loveLine(){ return LOVE[Math.floor(Math.random()*LOVE.length)]; }
+function showLove(kicker, text){
+  const o=$("love"); $("loveK").textContent = kicker || "Even tussendoor"; $("loveT").textContent = text || loveLine();
+  $("loveHearts").innerHTML = Array.from({length:16},(_,i)=>`<span style="left:${Math.random()*92}%;animation-delay:${(Math.random()*1.6).toFixed(2)}s;font-size:${(14+Math.random()*16).toFixed(0)}px">${["🤍","🖤","❤️","🤍"][i%4]}</span>`).join("");
+  o.classList.remove("on"); void o.offsetWidth; o.classList.add("on");
+  try{ navigator.vibrate && navigator.vibrate([30,60,30]); }catch(e){}
+}
 const PRAISE = ["Je benen hebben je deze week kilometers ver gedragen.","Elke set maakt je sterker, ook de zware.","Consistent zijn is jouw superkracht.","Jij komt opdagen. Dat is het hele geheim.","Sterk is een gevoel, en jij hebt het.","Rust nemen is ook trainen. Goed bezig."];
 $("sig").style.pointerEvents="auto"; $("sig").style.cursor="pointer";
 $("sig").addEventListener("click",()=>toast("✨ "+PRAISE[Math.floor(Math.random()*PRAISE.length)]));
 S.first = S.first || Date.now(); S.whenHide = S.whenHide || {};
 document.querySelectorAll(".when").forEach(w=>{ if (S.whenHide[w.dataset.when] || Date.now()-S.first > 7*DAYMS) w.style.display="none";
   w.querySelector(".whenx").addEventListener("click",()=>{ S.whenHide[w.dataset.when]=true; save(); w.style.display="none"; }); });
+$("love").addEventListener("click",()=>$("love").classList.remove("on"));
+let taps=[]; $("starHit").addEventListener("click",()=>{ const n=Date.now(); taps=taps.filter(t=>n-t<1200); taps.push(n); if(taps.length>=3){ taps=[]; showLove("Je hebt een geheimpje gevonden ✨"); } });
 renderDaily(); renderToday(); renderWeek(); renderLogbook(); maybeOpening(); renderFuel();
 if (!S.onboarded) openTour();
+else { S.loveSeen=S.loveSeen||{}; const fri=new Date().getDay()===5; if ((fri||LOVE_DATES[TODAY]) && !S.loveSeen[TODAY]){ S.loveSeen[TODAY]=true; save(); setTimeout(()=>showLove(LOVE_DATES[TODAY]?"Speciaal voor vandaag":"Het is vrijdag 💌", LOVE_DATES[TODAY]||null), 1400); } }
 $("tourAgain").addEventListener("click", openTour);
 renderShare(); flush();
 $("restoreBtn").addEventListener("click",()=>{ try{ const d=JSON.parse($("restoreTa").value.trim()); ["days","logs","runs","flags","mset","newpr","srpe"].forEach(k=>{ if(d[k]) S[k]=Object.assign(S[k]||{}, d[k]); }); save(); renderWeek(); renderLogbook(); toast("Hersteld! Je gegevens zijn terug ✨"); $("restoreTa").value=""; }catch(e){ toast("Die code klopt niet. Kopieer de hele cel uit de sheet."); } }); renderFood(); renderAllRecipes();

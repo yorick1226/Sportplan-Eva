@@ -14,6 +14,7 @@ Eva's gegevens (vinkjes, logs, records, check-in, beoordelingen) staan in `local
 - Nieuwe week vrijgeven: `PUBLISHED` ophogen, `WEEKS[n]` invullen, persoonlijke zin in `MSG[n]`.
 - Bij een nieuwe versie het cachenummer in `sw.js` ophogen.
 - Dagbericht: eigen zin van Yorick voor een datum in `DAILY_OVERRIDE` (bv. `"2026-11-16": "..."`). Nooit over uiterlijk.
+- Complimenten: eigen zin voor een speciale datum in `LOVE_DATES` (bv. `"2027-01-03": "..."`); verschijnt als dagbericht en als scherm.
 - Agenda per week: tijden in `opts.time` (bv. "07:30") op basis van de beschikbaarheid uit de check-in, dan `node tools/make_week_ics.js N` en N toevoegen aan `ICSWEEKS`.
 
 ## Controle voor elke push
