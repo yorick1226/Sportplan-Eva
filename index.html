@@ -237,7 +237,7 @@ h1,h2,.when,.focus b,.card>b,.feel button span,.rate button span,.tb.on span,.ki
 .fuel{background:linear-gradient(135deg,#1d1a10,#141414);border:1px solid #5a4a22;border-radius:6px;padding:14px 16px;margin:12px 0}
 .fuel b{font-size:1.02rem}.fuel .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:600;float:right;line-height:1}
 .fuel ul{margin:8px 0 4px;padding-left:18px;font-size:.88rem}
-.nudge{background:#151515;border:1px solid #3a3a3a;border-radius:6px;padding:10px 12px;font-size:.88rem;margin-top:10px}
+.nudge{display:flex;gap:12px;align-items:flex-start;background:#151515;border:1px solid #3a3a3a;border-radius:14px;padding:12px 14px;font-size:.92rem;line-height:1.45;margin:12px 0 4px}.nudge-e{font-size:1.3rem;line-height:1.2}.nudge-k{font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
 .count{display:inline-block;margin-top:8px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.9rem;cursor:pointer}
 .chk i{width:18px;height:18px;border:1.5px solid #555;border-radius:3px;flex:none;margin-top:2px;font-style:normal;font-size:.7rem;display:flex;align-items:center;justify-content:center;color:transparent}
@@ -456,6 +456,9 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .bk-go,.bk-later{display:block;width:100%;border-radius:999px;padding:13px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer}
 .bk-go{background:var(--ink);color:#000;border:0;margin-bottom:8px}
 .bk-later{background:none;color:var(--ink);border:1px solid var(--line)}
+.daydone{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:14px 16px;border:1px solid var(--ink);border-radius:16px;background:var(--soft);animation:mvup .3s ease-out}
+.daydone svg{flex:none}.daydone b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem;font-weight:600;line-height:1.2}
+.daydone span{display:block;font-size:.85rem;color:var(--muted);margin-top:2px;line-height:1.4}
 </style>
 </head>
 <body>
@@ -475,8 +478,9 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
     <button class="starhit" id="starHit" aria-label="Ster"></button>
   </header>
   <div class="daily" id="daily"></div>
-  <div class="rosary" id="rosary"></div>
   <div id="fuelBox"></div>
+  <div id="nudge"></div>
+  <div class="rosary" id="rosary"></div>
   <div class="when" data-when="w1"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Elke dag:</b> hier kijken en afvinken. <b>Trainingsdag:</b> Start &amp; log. <b>Zondag:</b> check-in invullen en naar Yorick sturen.</div>
 
   <h2>Vandaag</h2>
@@ -485,8 +489,8 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
     <div class="feel" id="feel"></div>
     <div class="tf-oura"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
     <div id="lightBox"></div>
-    <div id="nudge"></div>
   </div>
+  <div id="dayDone"></div>
   <div id="todayDay"></div>
 
   <div id="weekLocked"></div>
@@ -960,6 +964,22 @@ function lockedHtml(w, what){
    <p class="small muted">Zondag ${sun.getDate()} ${MAAND[sun.getMonth()]} kijken we samen hoe je week ging en wanneer je kunt. Daarna verschijnt hier je week, op jouw maat.</p>
    <div class="tip" style="text-align:left"><b>Richting:</b> ${PHASENAME(w)}${ANCH[w]?`<br><b>Staat al vast:</b> ${ANCH[w]}`:""}</div></div>`;
 }
+/* Alles van vandaag gedaan? (training/activiteit van vandaag + de 4 dagelijkse gewoontes) */
+function dayStatus(){
+  const ti = W===curWeek() ? dayDates(W).findIndex(d=>iso(d)===TODAY) : -1;
+  if(ti<0 || isLocked(W)) return null;
+  const hasAct = !!WEEKS[W].days[ti], act = hasAct ? !!S.days[TODAY] : true;
+  const hab = HABITS.map((hb,hi)=>!!S.habits["h"+hi+"-"+TODAY]);
+  return {act, hasAct, hab, all: act && hab.every(Boolean), n:(hasAct?1:0)+HABITS.length, done:(hasAct&&act?1:0)+hab.filter(Boolean).length};
+}
+function renderDayDone(user){
+  const el=$("dayDone"); if(!el) return; const st=dayStatus();
+  if(!st || !st.all){ el.innerHTML=""; el.className=""; return; }
+  el.className="daydone";
+  el.innerHTML=`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="17" cy="17" r="15"/><path d="M10.5 17.5l4.5 4.5 8.5-9.5"/></svg><div><b>Alles van vandaag is gedaan</b><span>${st.hasAct?"Training én je vier dagelijkse dingen":"Je vier dagelijkse dingen"} staan afgevinkt. Rust lekker, monkey 🤍</span></div>`;
+  S.dayDoneSeen=S.dayDoneSeen||{};
+  if(user && !S.dayDoneSeen[TODAY]){ S.dayDoneSeen[TODAY]=1; save(); setTimeout(()=>{ celebrate("Dag rond"); el.scrollIntoView({behavior:"smooth",block:"center"}); }, 1900); }
+}
 function renderWeek(){
   const wk = WEEKS[W], dates = dayDates(W), locked = isLocked(W);
   $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmt(dates[0]) + " – " + fmt(dates[dates.length-1]);
@@ -972,7 +992,7 @@ function renderWeek(){
   wk.days.forEach((d,i)=>{
     const dt = dates[i], key = iso(dt), isToday = key===TODAY;
     if (d.opts.done && S.days[key]===undefined) S.days[key]=true;
-    const div = document.createElement("div"); div.className = "day"+(isToday?" today open":"")+((S.pmode||{})[key]&&!isToday&&renderWeek._last===key?" open":"");
+    const div = document.createElement("div"); div.className = "day"+(isToday?" today"+(S.days[key]?"":" open"):"")+((S.pmode||{})[key]&&!isToday&&renderWeek._last===key?" open":"");
     let body = d.opts.note ? `<div class="tip">${d.opts.note}</div>` : "";
     const wType = d.session==="K" ? "kracht" : (d.session==="C" ? ((S.pmode||{})[key]==="thuis" ? "pilates" : null) : (WUCD[d.type] ? d.type : null));
     const isTennisDay = /tennis/i.test(d.name) && d.type!=="tennis";
@@ -995,8 +1015,8 @@ function renderWeek(){
     if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
     div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
-    const paint = ()=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
+    const paint = (user)=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); if(isToday){ if(user) setTimeout(()=>div.classList.toggle("open",!S.days[key]), S.days[key]?1400:0); renderDayDone(user); } };
+    chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, d.name+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
@@ -1010,7 +1030,7 @@ function renderWeek(){
   const ti = dates.findIndex(d=>iso(d)===TODAY);
   if (ti >= 0){
     h.innerHTML = `<div class="hab-today">${HABITS.map((hb,hi)=>{ const k="h"+hi+"-"+TODAY; return `<button data-hk="${k}" class="${S.habits[k]?'on':''}">${ic(hb[0])}${hb[1].replace(", niets overgeslagen","").replace("Eiwit bij elk eetmoment","Eiwit bij elk eetmoment")}</button>`; }).join("")}</div><p class="small muted" style="margin-top:8px">Tik aan wat je vandaag gedaan hebt. Gemist? Kijk bij Eten → Maaltijd vergeten.</p>`;
-    h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); }));
+    h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); renderDayDone(true); }));
   } else {
     h.innerHTML = `<div class="hab-week">${HABITS.map((hb,hi)=>{ const n=dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; return `<span>${hb[1]}</span><span>${n}/${dates.length}</span>`; }).join("")}</div>`;
   }
@@ -1019,6 +1039,7 @@ function renderWeek(){
   renderCore();
   $("checkin").innerHTML = `<h3 style="margin-top:18px">En deze week specifiek</h3>` + wk.checkin.map((q,qi)=>`<div class="q"><label>${qi+1}. ${q}</label><textarea data-ci="${W}-${qi}" placeholder="Jouw antwoord…">${esc(S.ci[W+"-"+qi]||"")}</textarea></div>`).join("");
   $("checkin").querySelectorAll("textarea").forEach(t=>t.addEventListener("input",()=>{ S.ci[t.dataset.ci]=t.value; save(); }));
+  renderDayDone(false);
   save();
 }
 const DIR = [["down","Tandje terug"],["equal","Zo laten"],["up","Tandje erbij"]];
@@ -1073,16 +1094,29 @@ function updateProg(){
 
 /* today / oura */
 const FEELS = [["rust","Moe"],["dash","Oké"],["flame","Fit"]];
+const MORNING = [
+  ["Water eerst","Begin met een groot glas water, nog vóór je koffie. Je hebt de hele nacht niets gedronken."],
+  ["Ontbijt met eiwit","Skyr, kwark of een ei bij je ontbijt houdt je langer vol tot de lunch."],
+  ["Even naar buiten","10 minuten ochtendlicht, bijvoorbeeld op de fiets of lopend, helpt je vanavond beter in slaap te vallen."],
+  ["Tas klaarzetten","Pak nu je waterfles en een snack voor vandaag, dan hoef je er straks niet meer aan te denken."],
+  ["Twee minuten los","Rek even naast je bed: knieën naar je borst, rustig je heupen en schouders rond."],
+  ["Rustig aan","Geen haast vanochtend. Eén ding tegelijk, de rest komt vanzelf."],
+  ["Plan je eten","Weet je al wat je vanavond eet? Even kijken bij Eten scheelt straks keuzestress."]
+];
 function renderNudge(){
-  const h = new Date().getHours(); let wkI = curWeek(), msg = "";
+  const h = new Date().getHours(); let wkI = curWeek(), msg = null;
+  const dayN = Math.floor(Date.now()/864e5);
   if (!isLocked(wkI)){ const ds = dayDates(wkI), i = ds.findIndex(d=>iso(d)===TODAY), d = i>=0 ? WEEKS[wkI].days[i] : null;
-    if (d && d.type!=="rust" && !S.days[TODAY]){
-      if (h < 12) msg = "🍌 Train je vanochtend? Eet 30–60 min vooraf iets kleins: een banaan, krentenbol of glas chocomelk. Nooit nuchter trainen.";
-      else if (h < 18) msg = "💧 Training vandaag? Drink nu alvast een glas water en neem een snack mee voor erna.";
+    const trainToday = d && d.type!=="rust" && !S.days[TODAY];
+    if (h >= 5 && h < 12){
+      if (trainToday) msg = ["☀️","Ochtendtip","Train je vanochtend? Eet 30–60 min vooraf iets kleins: een banaan, krentenbol of glas chocomelk. Nooit nuchter trainen."];
+      else if (!(S.daily[TODAY]||{}).ready && dayN%3===0) msg = ["☀️","Ochtendtip","Kijk even naar je Oura-score en vul hem hieronder in. Dan weet je hoe zwaar je vandaag kunt gaan."];
+      else { const m = MORNING[dayN % MORNING.length]; msg = ["☀️","Ochtendtip · "+m[0], m[1]]; }
     }
-    if (!msg && h >= 21) msg = "🌙 Bijna bedtijd. Een bakje kwark nu helpt je spieren vannacht herstellen. Slaap lekker.";
+    else if (h >= 12 && h < 18 && trainToday) msg = ["💧","Middagtip","Training vandaag? Drink nu alvast een glas water en neem een snack mee voor erna."];
+    else if (h >= 21 || h < 2) msg = ["🌙","Avondtip","Bijna bedtijd. Een bakje kwark nu helpt je spieren vannacht herstellen. Slaap lekker."];
   }
-  $("nudge").innerHTML = msg ? `<div class="nudge">${msg}</div>` : "";
+  $("nudge").innerHTML = msg ? `<div class="nudge"><span class="nudge-e" aria-hidden="true">${msg[0]}</span><div><div class="nudge-k">${msg[1]}</div>${msg[2]}</div></div>` : "";
   tipPriority();
 }
 function renderToday(){
@@ -1171,7 +1205,7 @@ function openLogger(w, di){
   S.srpe=S.srpe||{};
   const paintR=()=>{ $("srpe").innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot${S.srpe[key]===n?' on':''}" data-n="${n}">${n}</div>`).join(""); $("srpe").querySelectorAll(".dot").forEach(o=>o.addEventListener("click",()=>{ S.srpe[key]=+o.dataset.n; save(); paintR(); })); };
   paintR();
-  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); syncSession(key); syncDay(key, d.name, w); syncBackup(); closeLogger(); celebrate(); startFuel(); show("week"); });
+  $("mDone").addEventListener("click",()=>{ S.days[key]=true; save(); syncSession(key); syncDay(key, d.name, w); syncBackup(); closeLogger(); celebrate(); startFuel(); show("week"); renderDayDone(true); });
   $("modal").classList.add("on"); document.body.style.overflow="hidden"; $("modal").scrollTop=0;
 }
 function setVal(k,s,f,v){
