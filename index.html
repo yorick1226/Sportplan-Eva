@@ -446,6 +446,16 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .cuem span{display:block;margin-top:6px;padding:7px 10px;border-left:2px solid var(--ink);color:var(--ink);font-size:.9rem}
 .mvreal{display:block;text-align:center;margin:0 0 12px;padding:10px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
 .mvreal span{display:block;font-weight:400;font-size:.72rem;color:var(--muted);margin-top:2px}
+.m-back{display:inline-flex;align-items:center;gap:4px;flex:none;background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px 8px 10px;min-height:40px;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.m-head{gap:12px}
+.bk{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center}
+.bk.on{display:flex}
+.bk-in{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));animation:mvup .2s ease-out}
+.bk-t{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.45rem;font-weight:600;margin-bottom:6px}
+.bk-m{color:var(--muted);line-height:1.45;margin-bottom:16px}
+.bk-go,.bk-later{display:block;width:100%;border-radius:999px;padding:13px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+.bk-go{background:var(--ink);color:#000;border:0;margin-bottom:8px}
+.bk-later{background:none;color:var(--ink);border:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -698,11 +708,12 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 
 <!-- logger -->
 <div class="modal" id="modal">
-  <div class="m-head"><b id="mTitle"></b><button class="m-close" id="mClose">Klaar ✓</button></div>
+  <div class="m-head"><button class="m-back" id="mClose" aria-label="Terug naar je week"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Terug</button><b id="mTitle"></b></div>
   <div class="m-body" id="mBody"></div>
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="bk" id="bk" role="dialog" aria-modal="true" aria-labelledby="bkT"><div class="bk-in"><div class="bk-t" id="bkT">Training nog niet afgerond</div><div class="bk-m" id="bkM"></div><button class="bk-go" id="bkGo">Verder trainen</button><button class="bk-later" id="bkLater">Terug naar je week</button></div></div>
 <div class="love" id="love"><div class="love-hearts" id="loveHearts"></div><div class="love-in"><div class="love-k" id="loveK"></div><div class="love-t" id="loveT"></div><div class="love-f">— Yorick 🤍</div><div class="love-x">tik om te sluiten</div></div></div>
 <div class="tour" id="tour"><div class="tour-in"><div class="tour-dots" id="tourDots"></div><div id="tourBody"></div><div class="tour-nav"><button class="tour-skip" id="tourSkip">Overslaan</button><button class="tour-next" id="tourNext">Volgende</button></div></div></div>
 <div class="opening" id="opening"><svg width="120" height="150" viewBox="0 0 120 150" fill="none" stroke="#ece8e1" stroke-width="1.1" stroke-linecap="round"><path d="M60 4V146M60 1l3 6-3 5-3-5zM30 48H90M60 30c10 3 15 10 9 18M60 30c-10 3-15 10-9 18M60 88c12 2 17 12 10 22M60 88c-12 2-17 12-10 22"/><circle cx="60" cy="48" r="7"/><path d="M8 18Q34 60 60 48M112 18Q86 60 60 48" stroke-dasharray="1 5"/></svg>
@@ -1096,6 +1107,7 @@ function lastLog(k, beforeKey){
 }
 function topReps(reps){ const m = String(reps).match(/(\d+)\D*$/); return m? +m[1] : null; }
 function openLogger(w, di){
+  if(!$("modal").classList.contains("on") && !(history.state&&history.state.logger)) history.pushState({logger:1},"");
   const d = WEEKS[w].days[di], key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
@@ -1168,8 +1180,33 @@ function setVal(k,s,f,v){
   if (!e){ e = {key, week:w, date: fmt(dayDates(w)[LOGCTX.di]), iso: iso(dayDates(w)[LOGCTX.di]), sets:[]}; S.logs[k].push(e); S.logs[k].sort((a,b)=>a.iso<b.iso?-1:1); }
   e.sets[s] = e.sets[s]||{}; e.sets[s][f] = v; save();
 }
-function closeLogger(){ $("modal").classList.remove("on"); document.body.style.overflow=""; stopTimer(); renderWeek(); renderLogbook(); }
-$("mClose").addEventListener("click", closeLogger);
+function closeLogger(fromPop){
+  $("bk").classList.remove("on");
+  if(!$("modal").classList.contains("on")) return;
+  $("modal").classList.remove("on"); document.body.style.overflow=""; stopTimer(); renderWeek(); renderLogbook();
+  if(!fromPop && history.state && history.state.logger){ closeLogger._skip=true; history.back(); }
+}
+/* Is er in deze training al iets ingevuld? */
+function loggerStarted(){
+  if(!LOGCTX) return false; const key=LOGCTX.key;
+  if((S.days||{})[key]) return false; // al afgerond: gewoon terug
+  const sets=Object.keys(S.logs||{}).some(k=>(S.logs[k]||[]).some(e=>e.key===key && (e.sets||[]).some(st=>st&&(st.r||st.kg||st.ok))));
+  const wu=Object.values((S.wu||{})[key]||{}).some(Boolean);
+  return sets||wu;
+}
+function loggerBack(fromPop){
+  if(!$("modal").classList.contains("on")) return;
+  if(!loggerStarted()){ closeLogger(fromPop); return; }
+  if(fromPop) history.pushState({logger:1},""); // blijf in de training tot ze kiest
+  $("bkM").textContent="Wat je hebt ingevuld blijft bewaard. Je kunt later gewoon verder, of nu doortrainen.";
+  $("bk").classList.add("on"); $("bkGo").focus();
+}
+$("mClose").addEventListener("click", ()=>loggerBack(false));
+$("bkGo").addEventListener("click", ()=>$("bk").classList.remove("on"));
+$("bkLater").addEventListener("click", ()=>{ closeLogger(false); toast("Bewaard. Je kunt later verder."); });
+$("bk").addEventListener("click", e=>{ if(e.target.id==="bk") $("bk").classList.remove("on"); });
+/* Terug-gebaar van de telefoon (Android / swipe) doet hetzelfde als de Terug-knop */
+window.addEventListener("popstate", ()=>{ if(closeLogger._skip){ closeLogger._skip=false; return; } if($("modal").classList.contains("on")) loggerBack(true); });
 
 /* timer */
 let TT = null, TEND = 0, TDUR = 0;
