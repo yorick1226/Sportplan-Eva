@@ -423,6 +423,19 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
 .exdet .dbody{padding:0 16px 8px}
 /* eten: samengevoegd */
 .trybox hr{border:0;border-top:1px dashed #2a2a2a;margin:14px 0}
+.mvov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.72);display:none;align-items:flex-end;justify-content:center}
+.mvov.on{display:flex}
+.mvcard{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;animation:mvup .22s ease-out}
+@keyframes mvup{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.mvtop{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:1.02rem}
+.mvx{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;width:34px;height:34px;font-size:.9rem;flex:none}
+.mvstage{--mvbg:#111;background:#111;border:1px solid var(--line);border-radius:14px;margin:12px 0 8px;color:var(--ink)}
+.mv{display:block;width:100%;height:auto}
+.mvtempo{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px}
+.mvcues{margin:0 0 10px;padding-left:20px;line-height:1.5;font-size:.93rem}.mvcues li{margin:4px 0}
+.mvwarn{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:8px;line-height:1.45}
+button.vid{border:0;cursor:pointer;font-family:inherit}
+button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;padding:0;font:inherit;cursor:pointer}
 </style>
 </head>
 <body>
@@ -479,7 +492,7 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
     <h1>Sterker in 3 fases </h1>
     <p>16 nov 2026 – 7 feb 2027. Elke zondag stemmen we de week af, dus alles mag schuiven.</p>
   </div>
-  <div class="when" data-when="w2"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + video) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
+  <div class="when" data-when="w2"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Vóór elke krachttraining (uitleg + bewegend voorbeeld) en erna in je logboek. Loggen zelf doe je via <b>Week → Start &amp; log</b>.</div>
   <h2>Records</h2>
   <div class="small muted" id="shareLine"></div>
   <p class="small muted">Wat jouw lichaam kan. Per oefening je beste set.</p>
@@ -703,35 +716,34 @@ const ICONS = {"kracht": "<path d=\"M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10\"/>", "
 function ic(n){ return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.star}</svg>`; }
 /* ======================= OEFENINGEN ======================= */
 const EX = {
-  A1:{n:"Goblet squat met 1 halter",t:"kracht",m:"Bovenbenen, billen, core",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"squat",u:"Halter verticaal tegen je borst. Zak tussen je knieën door, zo diep als het lukt met een rechte rug. Duw omhoog via je hele voet.",e:"Hielen los, knieën naar binnen, ronde rug.",mk:"Box squat tot een bank.",md:"3 tellen zakken + pauze.",v:"https://www.youtube.com/watch?v=3O77G_yiFUw"},
-  A2:{n:"Roemeense deadlift met 2 halters",t:"kracht",m:"Hamstrings, billen, onderrug",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"rdl",u:"Knieën licht gebogen, billen naar achteren alsof je een deur dichtduwt. Halters langs je benen tot net onder de knie. Omhoog door je billen aan te spannen.",e:"Door je rug buigen.",mk:"1 halter, minder diep.",md:"Stang of 1 been.",v:"https://www.youtube.com/watch?v=hQgFixeXdZo"},
-  A3:{n:"Split squat met 2 halters",t:"kracht",m:"Bovenbenen, billen, enkelstabiliteit",f:["2 × 8 p/been","3 × 8–10 p/been","3 × 8–12 p/been"],r:90,fig:"split",u:"Lange stap, recht omlaag tot je achterste knie bijna de grond raakt. Omhoog via je voorste voet.",e:"Knie naar binnen, wiebelen.",mk:"Zonder gewicht, hand aan rek.",md:"Bulgaarse split squat.",v:"https://www.youtube.com/watch?v=Ca9P1Te6vvA"},
-  A4:{n:"Chest press-machine (zittend)",t:"kracht",m:"Borst, schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Handgrepen op borsthoogte, schouderbladen naar achteren. Uitduwen en in 2–3 tellen terug.",e:"Schouders naar voren.",mk:"Push-ups tegen een bank.",md:"Halters.",v:"https://www.youtube.com/watch?v=B-zyH8OTlsg"},
-  A5:{n:"Lat pulldown (kabel, brede stang)",t:"kracht",m:"Rug, schouders, biceps",f:["2–3 × 10–12","4 × 10–12","4 × 8–12"],r:90,u:"Dijen vast. Stang naar je bovenborst, ellebogen naar je zij.",e:"Trekken met alleen je armen.",mk:"Lichter.",md:"Smallere greep.",v:"https://www.youtube.com/watch?v=trZQjegcRx0"},
-  A6:{n:"Pallof press aan de kabel",t:"kracht",m:"Buikspieren (anti-draaien)",f:["2 × 10 p/kant","3 × 10 p/kant","3 × 12 p/kant"],r:45,u:"Zijwaarts naast de kabel, recht naar voren duwen, 2 tellen vast zonder mee te draaien.",e:"Romp draait mee.",mk:"Dichter bij de kabel.",md:"Halfgeknield.",v:"https://www.youtube.com/watch?v=2sW5qodcOak"},
-  A7:{n:"Kuitheffen op 1 been op een trede",t:"kracht",m:"Kuiten, enkel",f:["2 × 15","3 × 12 p/been","3 × 15 p/been"],r:45,u:"Op een trede, zo hoog mogelijk, 1 tel vast, 3 tellen zakken. Vanaf week 5 op 1 been.",e:"Stuiteren.",mk:"Op de grond.",md:"Met halter.",v:"https://www.youtube.com/watch?v=_rKgZMP1X5o"},
-  B1:{n:"Hip thrust-machine",t:"kracht",m:"Billen, hamstrings",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"thrust",u:"Kussen op je heupbotten. Heupen omhoog tot een rechte lijn, kin licht naar je borst, 1 tel billen samenknijpen.",e:"Holle rug bovenin.",mk:"Glute bridge.",md:"3 tellen vast.",v:"https://www.youtube.com/watch?v=UVucPKyQVLU"},
-  B2:{n:"Leg press-machine",t:"kracht",m:"Bovenbenen, billen",f:["2–3 × 10–12","3 × 10–12","3 × 8–12"],r:120,u:"Knieën onderin ± 90°, onderrug blijft tegen het kussen. Uitduwen zonder knieën op slot.",e:"Onderrug los.",mk:"Kleinere uitslag.",md:"1 been.",v:"https://www.youtube.com/watch?v=aTgiRNwi7eY"},
-  B3:{n:"Zittend roeien aan de kabel (V-handvat)",t:"kracht",m:"Middenrug, houding",f:["2–3 × 10–12","4 × 10–12","4 × 8–10"],r:90,u:"Rechtop, trek naar je navel, schouderbladen samen en omlaag.",e:"Zwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://www.youtube.com/watch?v=oFtfkSElE0s"},
-  B4:{n:"Shoulder press met 2 halters, zittend",t:"kracht",m:"Schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Zittend, halters op schouderhoogte, recht omhoog.",e:"Holle rug.",mk:"Machine.",md:"Staand.",v:"https://www.youtube.com/watch?v=8kwDkC8JhdY"},
-  B5:{n:"Leg curl-machine (zittend)",t:"kracht",m:"Hamstrings",f:["2 × 12–15","3 × 10–12","3 × 10–12"],r:60,u:"Kussen boven je hielen, zo ver mogelijk buigen, 3 tellen terug.",e:"Laten vallen.",mk:"Lichter.",md:"1 been.",v:"https://www.youtube.com/watch?v=Z5pRnXaCjpM"},
-  B6:{n:"Abductor-machine (zittend)",t:"kracht",m:"Zijkant billen",f:["2 × 15","3 × 12–15","3 × 15"],r:45,u:"Knieën naar buiten, 1 tel vast, rustig terug.",e:"Meezwaaien.",mk:"Band.",md:"2 tellen vast.",v:"https://www.youtube.com/watch?v=soaTR1UtEw0"},
-  B7:{n:"Dead bug + zijplank op de mat",t:"kracht",m:"Core",f:["2 × 8 + 20 sec","3 × 10 + 30 sec","3 × 10 + 40 sec"],r:45,nokg:true,u:"Dead bug: onderrug tegen de mat, arm en tegenovergesteld been strekken. Zijplank: heupen hoog.",e:"Holle rug.",mk:"Op knieën.",md:"Met band.",v:"https://www.youtube.com/watch?v=bxn9FBrt4-A"},
-  C1:{n:"The Hundred",t:"pilates",f:["1 × 50 tellen","1 × 100","1 × 100"],r:30,nokg:true,u:"Hoofd en schouders opgekruld, armen pompen: 5 tellen in, 5 uit.",v:"https://www.youtube.com/watch?v=bUQdYY5QZVg"},
-  C2:{n:"Single-leg stretch",t:"pilates",f:["2 × 8 p/kant","2 × 10","3 × 10"],r:30,nokg:true,u:"Eén knie naar je borst, ander been schuin gestrekt, ritmisch wisselen.",v:"https://www.youtube.com/watch?v=-UHKE2gVcVc"},
-  C3:{n:"Push-up-progressie",t:"pilates",f:["3 × max − 1","3 × max − 1","4 × max − 1"],r:60,nokg:true,fig:"pushup",u:"Lichaam als een plank. Knieën → bank → tenen. 3 × 12 gelukt? Volgende niveau.",v:"https://www.youtube.com/watch?v=rR1efh-33AQ"},
-  C4:{n:"Clamshell + beenlift",t:"pilates",f:["2 × 15 p/kant","3 × 15","3 × 20"],r:30,nokg:true,u:"Op je zij, band boven je knieën, bovenste knie open zonder dat je bekken meedraait.",v:"https://www.youtube.com/watch?v=hQupQ9mJZFw"},
-  C5:{n:"Glute bridge op 1 been",t:"pilates",f:["2 × 10 p/kant","3 × 10","3 × 12"],r:30,nokg:true,u:"Eén voet plat, ander been omhoog, heupen omhoog zonder scheef te zakken.",v:"https://www.youtube.com/watch?v=3KbkpCgW2pQ"},
-  C6:{n:"Swimming",t:"pilates",f:["3 × 20 sec","3 × 30 sec","3 × 40 sec"],r:30,nokg:true,u:"Op je buik, armen en benen iets omhoog, kleine 'zwem'-bewegingen.",v:"https://www.youtube.com/watch?v=dVlIT-WZ-N4"},
-  C7:{n:"Band pull-apart",t:"pilates",f:["2 × 15","3 × 15","3 × 20"],r:30,nokg:true,u:"Armen gestrekt, band uit elkaar tot je borst.",v:"https://www.youtube.com/watch?v=B5pg51YcXiU"},
-  C8:{n:"Bird dog",t:"pilates",f:["2 × 8 p/kant","2 × 10 p/kant","3 × 10 p/kant"],r:30,nokg:true,u:"Op handen en knieën arm en tegenovergesteld been strekken, bekken stil.",v:"https://www.youtube.com/watch?v=LaLKNS7mxrk"},
-  C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug.",v:"https://www.youtube.com/watch?v=wjbN81QqNZs"}
+  A1:{n:"Goblet squat met 1 halter",t:"kracht",m:"Bovenbenen, billen, core",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"squat",u:"Halter verticaal tegen je borst. Zak tussen je knieën door, zo diep als het lukt met een rechte rug. Duw omhoog via je hele voet.",e:"Hielen los, knieën naar binnen, ronde rug.",mk:"Box squat tot een bank.",md:"3 tellen zakken + pauze."},
+  A2:{n:"Roemeense deadlift met 2 halters",t:"kracht",m:"Hamstrings, billen, onderrug",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"rdl",u:"Knieën licht gebogen, billen naar achteren alsof je een deur dichtduwt. Halters langs je benen tot net onder de knie. Omhoog door je billen aan te spannen.",e:"Door je rug buigen.",mk:"1 halter, minder diep.",md:"Stang of 1 been."},
+  A3:{n:"Split squat met 2 halters",t:"kracht",m:"Bovenbenen, billen, enkelstabiliteit",f:["2 × 8 p/been","3 × 8–10 p/been","3 × 8–12 p/been"],r:90,fig:"split",u:"Lange stap, recht omlaag tot je achterste knie bijna de grond raakt. Omhoog via je voorste voet.",e:"Knie naar binnen, wiebelen.",mk:"Zonder gewicht, hand aan rek.",md:"Bulgaarse split squat."},
+  A4:{n:"Chest press-machine (zittend)",t:"kracht",m:"Borst, schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Handgrepen op borsthoogte, schouderbladen naar achteren. Uitduwen en in 2–3 tellen terug.",e:"Schouders naar voren.",mk:"Push-ups tegen een bank.",md:"Halters."},
+  A5:{n:"Lat pulldown (kabel, brede stang)",t:"kracht",m:"Rug, schouders, biceps",f:["2–3 × 10–12","4 × 10–12","4 × 8–12"],r:90,u:"Dijen vast. Stang naar je bovenborst, ellebogen naar je zij.",e:"Trekken met alleen je armen.",mk:"Lichter.",md:"Smallere greep."},
+  A6:{n:"Pallof press aan de kabel",t:"kracht",m:"Buikspieren (anti-draaien)",f:["2 × 10 p/kant","3 × 10 p/kant","3 × 12 p/kant"],r:45,u:"Zijwaarts naast de kabel, recht naar voren duwen, 2 tellen vast zonder mee te draaien.",e:"Romp draait mee.",mk:"Dichter bij de kabel.",md:"Halfgeknield."},
+  A7:{n:"Kuitheffen op 1 been op een trede",t:"kracht",m:"Kuiten, enkel",f:["2 × 15","3 × 12 p/been","3 × 15 p/been"],r:45,u:"Op een trede, zo hoog mogelijk, 1 tel vast, 3 tellen zakken. Vanaf week 5 op 1 been.",e:"Stuiteren.",mk:"Op de grond.",md:"Met halter."},
+  B1:{n:"Hip thrust-machine",t:"kracht",m:"Billen, hamstrings",f:["2–3 × 10–12","3 × 8–12","4 × 6–10"],r:120,fig:"thrust",u:"Kussen op je heupbotten. Heupen omhoog tot een rechte lijn, kin licht naar je borst, 1 tel billen samenknijpen.",e:"Holle rug bovenin.",mk:"Glute bridge.",md:"3 tellen vast."},
+  B2:{n:"Leg press-machine",t:"kracht",m:"Bovenbenen, billen",f:["2–3 × 10–12","3 × 10–12","3 × 8–12"],r:120,u:"Knieën onderin ± 90°, onderrug blijft tegen het kussen. Uitduwen zonder knieën op slot.",e:"Onderrug los.",mk:"Kleinere uitslag.",md:"1 been."},
+  B3:{n:"Zittend roeien aan de kabel (V-handvat)",t:"kracht",m:"Middenrug, houding",f:["2–3 × 10–12","4 × 10–12","4 × 8–10"],r:90,u:"Rechtop, trek naar je navel, schouderbladen samen en omlaag.",e:"Zwaaien.",mk:"Band.",md:"2 tellen vast."},
+  B4:{n:"Shoulder press met 2 halters, zittend",t:"kracht",m:"Schouders, triceps",f:["2–3 × 10–12","3 × 8–12","3 × 8–10"],r:90,u:"Zittend, halters op schouderhoogte, recht omhoog.",e:"Holle rug.",mk:"Machine.",md:"Staand."},
+  B5:{n:"Leg curl-machine (zittend)",t:"kracht",m:"Hamstrings",f:["2 × 12–15","3 × 10–12","3 × 10–12"],r:60,u:"Kussen boven je hielen, zo ver mogelijk buigen, 3 tellen terug.",e:"Laten vallen.",mk:"Lichter.",md:"1 been."},
+  B6:{n:"Abductor-machine (zittend)",t:"kracht",m:"Zijkant billen",f:["2 × 15","3 × 12–15","3 × 15"],r:45,u:"Knieën naar buiten, 1 tel vast, rustig terug.",e:"Meezwaaien.",mk:"Band.",md:"2 tellen vast."},
+  B7:{n:"Dead bug + zijplank op de mat",t:"kracht",m:"Core",f:["2 × 8 + 20 sec","3 × 10 + 30 sec","3 × 10 + 40 sec"],r:45,nokg:true,u:"Dead bug: onderrug tegen de mat, arm en tegenovergesteld been strekken. Zijplank: heupen hoog.",e:"Holle rug.",mk:"Op knieën.",md:"Met band."},
+  C1:{n:"The Hundred",t:"pilates",f:["1 × 50 tellen","1 × 100","1 × 100"],r:30,nokg:true,u:"Hoofd en schouders opgekruld, armen pompen: 5 tellen in, 5 uit."},
+  C2:{n:"Single-leg stretch",t:"pilates",f:["2 × 8 p/kant","2 × 10","3 × 10"],r:30,nokg:true,u:"Eén knie naar je borst, ander been schuin gestrekt, ritmisch wisselen."},
+  C3:{n:"Push-up-progressie",t:"pilates",f:["3 × max − 1","3 × max − 1","4 × max − 1"],r:60,nokg:true,fig:"pushup",u:"Lichaam als een plank. Knieën → bank → tenen. 3 × 12 gelukt? Volgende niveau."},
+  C4:{n:"Clamshell + beenlift",t:"pilates",f:["2 × 15 p/kant","3 × 15","3 × 20"],r:30,nokg:true,u:"Op je zij, band boven je knieën, bovenste knie open zonder dat je bekken meedraait."},
+  C5:{n:"Glute bridge op 1 been",t:"pilates",f:["2 × 10 p/kant","3 × 10","3 × 12"],r:30,nokg:true,u:"Eén voet plat, ander been omhoog, heupen omhoog zonder scheef te zakken."},
+  C6:{n:"Swimming",t:"pilates",f:["3 × 20 sec","3 × 30 sec","3 × 40 sec"],r:30,nokg:true,u:"Op je buik, armen en benen iets omhoog, kleine 'zwem'-bewegingen."},
+  C7:{n:"Band pull-apart",t:"pilates",f:["2 × 15","3 × 15","3 × 20"],r:30,nokg:true,u:"Armen gestrekt, band uit elkaar tot je borst."},
+  C8:{n:"Bird dog",t:"pilates",f:["2 × 8 p/kant","2 × 10 p/kant","3 × 10 p/kant"],r:30,nokg:true,u:"Op handen en knieën arm en tegenovergesteld been strekken, bekken stil."},
+  C9:{n:"Roll-up",t:"pilates",f:["2 × 5","2 × 8","2 × 8"],r:30,nokg:true,u:"Wervel voor wervel omhoog rollen en weer terug."}
 };
 const SESS = { A:["A1","A2","A3","A4","A5","A6","A7"], B:["B1","B2","B3","B4","B5","B6","B7"], C:["C1","C2","C3","C4","C5","C6","C7","C8","C9"], K:["A1","A2","A3","A4","A5","B1","B2","B3"] };
 const ALT = {A1:"Leg press of box squat op een bank",A2:"Hip thrust of lichte kettlebell-deadlift",A3:"Step-up op een bank (laag)",A4:"Push-ups op knieën of halter-bankdrukken",A5:"Roeien met halter op een bank",A6:"Dead bug (op de mat)",A7:"Kuitheffen op een trede met halter",B1:"Glute bridge of hip thrust met halter op een bank",B2:"Goblet squat",B3:"Roeien met halter op een bank",B4:"Shoulder press-machine of halters zittend",B5:"Roemeense deadlift, licht",B6:"Zijwaarts lopen met een band",B7:"Plank, 3 × 30 sec"};
 const EQ = {"A1": "1 halter (dumbbell). Houd hem rechtop tegen je borst, handen onder de bovenste schijf, ellebogen naar beneden. <i>Niet:</i> een stang op je rug (dat is een back squat).", "A2": "2 halters, staand met je voeten op heupbreedte. <i>Niet:</i> een stang of een machine.", "A3": "2 halters, eentje in elke hand. Week 1–2: zonder gewicht, met een hand aan een rek. Beide voeten op de grond. <i>Niet:</i> je achterste voet op een bank (dat is de Bulgaarse split squat, de moeilijkere variant).", "A4": "De zittende chest press-machine met handgrepen. Zet de stoel zo dat de handgrepen op middenborst-hoogte zitten. <i>Niet:</i> bankdrukken met een stang of met halters op een bank.", "A5": "Kabelstation met een lange stang en kniekussens. Zet het kniekussen strak op je dijen. Pak de stang iets breder dan je schouders, handpalmen van je af. Trek naar je bovenborst, niet achter je hoofd.", "A6": "Kabelstation met één handvat (D-grip) op borsthoogte. Ga er zijwaarts naast staan, 1–2 grote stappen van de kabel af.", "A7": "Een trede, step of plateau, en houd je ergens vast. Hiel zakt onder de rand. Vanaf week 5 eventueel een halter in de hand aan dezelfde kant als het werkende been.", "B1": "Hip thrust-machine: bovenrug tegen het rugkussen, het heupkussen of de gordel op je heupbotten, voeten plat. Bezet? Gebruik een stang op je heupen met je rug tegen een bank.", "B2": "Leg press-machine (schuin of zittend). Voeten op heupbreedte, midden tot hoog op het plateau. Hoe hoger je voeten, hoe meer je billen werken.", "B3": "Laag kabelstation met een bankje en voetsteunen, en een V-handvat (smal, handpalmen naar elkaar). Zit rechtop met je knieën licht gebogen.", "B4": "2 halters, zittend op een bankje met de rugleuning rechtop (90°). <i>Niet:</i> de shoulder press-machine (dat is het makkelijkere alternatief).", "B5": "Zittende leg curl-machine. Je knie op één lijn met het draaipunt, het onderkussen net boven je hielen, het bovenbeenkussen strak.", "B6": "Abductor-machine: kussens tegen de buitenkant van je knieën, en je duwt naar buiten. <i>Let op:</i> niet de adductor, waarbij je je knieën naar elkaar knijpt. Het is vaak dezelfde machine met een omgezette stand.", "B7": "Een mat. De dead bug doe je op je rug. De zijplank op je onderarm; als beginner op je knieën."};
 const NEED = {"A1": "Halter", "A2": "2 halters", "A3": "2 halters", "A4": "Chest press-machine", "A5": "Lat pulldown-station", "A6": "Kabel + D-handvat", "A7": "Trede of step", "B1": "Hip thrust-machine", "B2": "Leg press", "B3": "Laag kabelstation + V-handvat", "B4": "2 halters + bankje", "B5": "Leg curl-machine", "B6": "Abductor-machine", "B7": "Mat", "C1": "Mat", "C2": "Mat", "C3": "Mat (later een bank of stoel)", "C4": "Mat + mini-band", "C5": "Mat", "C6": "Mat", "C7": "Lange weerstandsband", "C8": "Mat", "C9": "Mat (eventueel een opgerolde handdoek)"};
-const VID2 = {B7:"https://www.youtube.com/watch?v=CLaU0OhjGqY"};
 const WUCD = {
  kracht:{wu:["5 min roeien, fietsen of crosstrainer, rustig","Op 1 been staan, 30 sec per been (goed voor je enkel)","15× kuitheffen","World's greatest stretch, 3× per kant","12× glute bridge","Eerste oefening: 1 opwarmset licht (10×)"],wut:"8 min",
          cd:["2–3 min rustig fietsen of wandelen","Lage lunge (heup), 30 sec per kant","Hamstrings rekken (been gestrekt op bank), 30 sec per kant","Kuit tegen de muur, 30 sec per kant"],cdt:"5 min"},
@@ -912,7 +924,7 @@ function renderWeekSel(elId, onPick){
   $(elId).querySelectorAll(".wchip").forEach(b=>b.addEventListener("click",()=>{ W=+b.dataset.w; onPick(); }));
   const on = $(elId).querySelector(".on"); if(on) on.scrollIntoView({inline:"center",block:"nearest"});
 }
-function exRow(k, dose){ const x=EX[k]; return `<div class="ex"><span class="ex-n" style="background:var(--${x.t})">${k}</span><div class="ex-main"><div class="ex-name">${x.n}</div><div class="ex-dose">${dose}</div></div><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶</a></div>`; }
+function exRow(k, dose){ const x=EX[k]; return `<div class="ex"><span class="ex-n" style="background:var(--${x.t})">${k}</span><div class="ex-main"><div class="ex-name">${x.n}</div><div class="ex-dose">${dose}</div></div><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶</button></div>`; }
 function targetFor(k, w, opts){
   const x = EX[k]; const f = x.f[PH(w)];
   const m = f.match(/^(\d)(?:–(\d))?\s*×\s*(.*)$/);
@@ -1094,7 +1106,7 @@ function openLogger(w, di){
       const cs = cur && cur.sets[s] ? cur.sets[s] : {};
       rows += `<div class="setrow"><span class="sn">${s+1}</span>${x.nokg?'<span></span>':`<input type="number" inputmode="decimal" step="0.5" data-k="${k}" data-s="${s}" data-f="kg" value="${cs.kg||''}" placeholder="${pkg}">`}<input type="number" inputmode="numeric" data-k="${k}" data-s="${s}" data-f="r" value="${cs.r||''}" placeholder="${(t.reps.match(/\d+/)||[''])[0]}"><button class="sok${cs.ok?' on':''}" data-k="${k}" data-s="${s}">✓</button></div>`;
     }
-    return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
+    return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>
       <div class="exopts"><button data-opt="alt" data-k="${k}" class="${fl.alt?'on':''}">🔁 Bezet</button><button data-opt="skip" data-k="${k}" class="${fl.skip?'on':''}">⏭ Overslaan</button><button data-opt="pain" data-k="${k}" class="${fl.pain?'on warn':''}">⚠️ Niet goed</button></div>
       ${fl.alt&&ALT[k]?`<div class="altbox">🔁 Doe in plaats hiervan: <b>${ALT[k]}</b>. Log het gewoon hieronder; het telt niet mee voor je records.</div>`:""}
       ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted painhelp">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
@@ -1197,6 +1209,204 @@ const STRIP = [["Ma","","A","kracht"],["Di","","Rust","rust"],["Wo","","Loop","l
 $("strip").innerHTML = STRIP.map(s=>`<div class="sd" style="border-color:var(--${s[3]});background:color-mix(in srgb, var(--${s[3]}) 14%, #111)">${s[0]}<span class="e">${s[1]}</span>${s[2]}</div>`).join("");
 const PHS = [["Week 0 · proef","11–15 nov","Kennismaken, startmeting, InBody","rust"],["Fase 1 · techniek leren","16 nov – 13 dec","2–3 × 10–12, RPE 6–7 · meting wk 4","loop"],["Fase 2 · opbouwen","14 dec – 10 jan","3 × 8–12, RPE 7–8 · wk 7 licht · meting wk 8","pilates"],["Fase 3 · sterker worden","11 jan – 7 feb","Wk 9 licht + 10 km  · daarna 4 × 6–10 · eindmeting wk 12","kracht"]];
 $("phases").innerHTML = PHS.map(p=>`<div class="phase" style="border-left-color:var(--${p[3]})"><b>${p[0]}</b><span class="small muted">${p[1]}</span><div class="small">${p[2]}</div></div>`).join("");
+/* ===== BEWEGING: eigen geanimeerde lijnfiguren, geen video's, geen reclame, werkt offline ===== */
+const MV_LEN = {torso:38, neck:10, head:7, ua:21, fa:19, th:30, sh:29, ft:10};
+const R2 = Math.PI/180;
+function mvDir(a, l){ return [Math.cos(a*R2)*l, -Math.sin(a*R2)*l]; }
+function mvAdd(p, v){ return [p[0]+v[0], p[1]+v[1]]; }
+function mvIK(P, Q, L1, L2, s){
+  let dx=Q[0]-P[0], dy=Q[1]-P[1], d=Math.hypot(dx,dy); const mx=L1+L2-0.01;
+  if(d>mx){ dx*=mx/d; dy*=mx/d; d=mx; } d=Math.max(d, Math.abs(L1-L2)+0.01);
+  const base=Math.atan2(dy,dx), a=Math.acos(Math.min(1,Math.max(-1,(L1*L1+d*d-L2*L2)/(2*L1*d))));
+  const ang=base+s*a; return [P[0]+Math.cos(ang)*L1, P[1]+Math.sin(ang)*L1];
+}
+/* limb: {a:[a1,a2]} hoeken, of {t:[x,y]} absoluut doel, {r:[dx,dy]} t.o.v. schouder/heup, + k: knikrichting (1/-1) */
+function mvLimb(base, spec, L1, L2, defK){
+  if(spec.a){ const j=mvAdd(base, mvDir(spec.a[0],L1)); return [j, mvAdd(j, mvDir(spec.a[1],L2))]; }
+  const t = spec.t ? spec.t : [base[0]+spec.r[0], base[1]+spec.r[1]];
+  const j = mvIK(base, t, L1, L2, spec.k||defK);
+  const v=[t[0]-base[0], t[1]-base[1]], d=Math.hypot(v[0],v[1]), mx=L1+L2-0.01;
+  const end = d>mx ? [base[0]+v[0]*mx/d, base[1]+v[1]*mx/d] : t;
+  return [j, end];
+}
+function mvSolve(p){
+  if(p.pts) return p.pts;
+  const L=MV_LEN, hip=p.hip, sh=mvAdd(hip, mvDir(p.T, L.torso)), hd=mvAdd(sh, mvDir(p.N??p.T, L.neck+L.head));
+  const arm=p.arm||{a:[-90,-90]}, arm2=p.arm2||arm, leg=p.leg||{a:[-90,-90]}, leg2=p.leg2||leg;
+  const A=mvLimb(sh, arm, L.ua, L.fa, 1), A2=mvLimb(sh, arm2, L.ua, L.fa, 1);
+  const G=mvLimb(hip, leg, L.th, L.sh, -1), G2=mvLimb(hip, leg2, L.th, L.sh, -1);
+  const toe=(an,f)=>mvAdd(an, mvDir(f??-15, L.ft));
+  return {hip, sh, hd, el:A[0], ha:A[1], el2:A2[0], ha2:A2[1], kn:G[0], an:G[1], to:toe(G[1],leg.f), kn2:G2[0], an2:G2[1], to2:toe(G2[1],leg2.f)};
+}
+function mvLerp(a, b, t){
+  if(typeof a==="number") return a+(b-a)*t;
+  if(Array.isArray(a)) return a.map((v,i)=>mvLerp(v,b[i],t));
+  if(a&&typeof a==="object"){ const o={}; for(const k in a) o[k]= (b&&k in b)? mvLerp(a[k],b[k],t) : a[k]; return o; }
+  return a;
+}
+const mvEase = t => t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+/* frame: {pose, hold, go} — go = seconden naar volgende pose */
+function mvAt(m, time){
+  const seq=m.seq, tot=seq.reduce((s,f)=>s+(f.hold||0)+(f.go||1),0); let t=time%tot;
+  for(let i=0;i<seq.length;i++){ const f=seq[i], n=seq[(i+1)%seq.length];
+    if(t < (f.hold||0)) return {p:f.p, i, phase:"hold"}; t-=(f.hold||0);
+    const g=f.go||1; if(t < g) return {p:mvLerp(f.p, n.p, mvEase(t/g)), i, phase:"go"}; t-=g; }
+  return {p:seq[0].p, i:0};
+}
+function mvSVG(pt, m){
+  const C="currentColor", seg=(a,b,w,o)=>`<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="${C}" stroke-width="${w||2.2}" stroke-linecap="round" ${o?`stroke-opacity="${o}"`:""}/>`;
+  const dot=(p,o)=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1" ${o?`stroke-opacity="${o}"`:""}/>`;
+  let s="", props=(m.props||[]).map(fn=>fn(pt)).join("");
+  if(m.front){ const P=pt, o=.95;
+    const pairs=m.front; pairs.forEach(([a,b])=>{ s+=seg(P[a],P[b],2.2); });
+    s+=`<circle cx="${P.hd[0]}" cy="${P.hd[1]}" r="7" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1.6"/>`;
+    return props+s;
+  }
+  const far=.38;
+  s+=seg(pt.hip,pt.kn2,2.2,far)+seg(pt.kn2,pt.an2,2.2,far)+seg(pt.an2,pt.to2,2,far);
+  s+=seg(pt.sh,pt.el2,2.2,far)+seg(pt.el2,pt.ha2,2.2,far);
+  s+=seg(pt.hip,pt.sh,2.6)+seg(pt.sh,mvAdd(pt.sh,[(pt.hd[0]-pt.sh[0])*.45,(pt.hd[1]-pt.sh[1])*.45]),2.2);
+  s+=seg(pt.hip,pt.kn)+seg(pt.kn,pt.an)+seg(pt.an,pt.to,2);
+  s+=seg(pt.sh,pt.el)+seg(pt.el,pt.ha);
+  s+=`<circle cx="${pt.hd[0].toFixed(1)}" cy="${pt.hd[1].toFixed(1)}" r="7" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1.6"/>`;
+  s+=dot(pt.kn)+dot(pt.el)+dot(pt.hip);
+  return props+s;
+}
+/* ---- props (krijgen de berekende punten) ---- */
+const PR = {
+  floor:()=>`<path d="M14 128.5H286" stroke="currentColor" stroke-opacity=".35" stroke-width=".8" stroke-dasharray="1 4" stroke-linecap="round"/>`,
+  mat:()=>`<rect x="40" y="127" width="220" height="3" rx="1.5" fill="currentColor" fill-opacity=".18"/>`,
+  box:(x,y,w,h,o)=>()=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="none" stroke="currentColor" stroke-opacity="${o||.4}" stroke-width="1.1"/>`,
+  line:(d,o)=>()=>`<path d="${d}" fill="none" stroke="currentColor" stroke-opacity="${o||.4}" stroke-width="1.2" stroke-linecap="round"/>`,
+  dbH:(k)=>p=>{ const h=p[k||"ha"]; return `<rect x="${h[0]-7}" y="${h[1]-2.5}" width="14" height="5" rx="1.2" fill="var(--mvbg,#111)" stroke="currentColor" stroke-width="1.2"/><rect x="${h[0]-8.5}" y="${h[1]-4}" width="3" height="8" rx="1" fill="currentColor" fill-opacity=".8"/><rect x="${h[0]+5.5}" y="${h[1]-4}" width="3" height="8" rx="1" fill="currentColor" fill-opacity=".8"/>`; },
+  dbV:(k)=>p=>{ const h=p[k||"ha"]; return `<rect x="${h[0]-3}" y="${h[1]-9}" width="6" height="18" rx="1.2" fill="var(--mvbg,#111)" stroke="currentColor" stroke-width="1.2"/><rect x="${h[0]-5}" y="${h[1]-10}" width="10" height="4" rx="1" fill="currentColor" fill-opacity=".8"/><rect x="${h[0]-5}" y="${h[1]+6}" width="10" height="4" rx="1" fill="currentColor" fill-opacity=".8"/>`; },
+  grip:(k)=>p=>{ const h=p[k||"ha"]; return `<circle cx="${h[0]}" cy="${h[1]}" r="3.4" fill="none" stroke="currentColor" stroke-width="1.3"/>`; },
+  cable:(x,y,k)=>p=>{ const h=p[k||"ha"]; return `<path d="M${x} ${y}L${h[0].toFixed(1)} ${h[1].toFixed(1)}" stroke="currentColor" stroke-opacity=".55" stroke-width=".9" stroke-dasharray="2 2"/><circle cx="${x}" cy="${y}" r="3" fill="none" stroke="currentColor" stroke-opacity=".6"/>`; },
+  bar:(w)=>p=>{ const h=p.ha; return `<path d="M${h[0]-w} ${h[1]}H${h[0]+w}" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>`; },
+  padAt:(k,w,hh,dy)=>p=>{ const h=p[k]; return `<rect x="${(h[0]-w/2).toFixed(1)}" y="${(h[1]+(dy||0)-hh/2).toFixed(1)}" width="${w}" height="${hh}" rx="3" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-opacity=".6"/>`; },
+  band:()=>p=>`<path d="M${p.ha[0]} ${p.ha[1]}L${p.ha2[0]} ${p.ha2[1]}" stroke="currentColor" stroke-opacity=".7" stroke-width="1.6"/>`,
+  plate:(k,len)=>p=>{ const a=p[k||"an"], t=p.to; const dx=t[0]-a[0], dy=t[1]-a[1], d=Math.hypot(dx,dy)||1, nx=dx/d, ny=dy/d; const c=[a[0]+nx*5+ny*4, a[1]+ny*5-nx*4]; return `<path d="M${(c[0]-nx*len).toFixed(1)} ${(c[1]-ny*len).toFixed(1)}L${(c[0]+nx*len).toFixed(1)} ${(c[1]+ny*len).toFixed(1)}" stroke="currentColor" stroke-opacity=".7" stroke-width="2.4" stroke-linecap="round"/>`; },
+};
+const STAND={hip:[150,66], T:90, leg:{t:[150,125]}, arm:{r:[0,39.5]}};
+const FRONT_STAND = (o)=>Object.assign({hd:[150,11], sh:[150,28], shL:[137,30], shR:[163,30], hip:[150,66], hpL:[143,66], hpR:[157,66], knL:[142,96], knR:[158,96], anL:[141,125], anR:[159,125], toL:[136,127], toR:[164,127], elL:[134,50], elR:[166,50], haL:[133,68], haR:[167,68]}, o);
+const FRONT_EDGES=[["hd","sh"],["shL","shR"],["sh","hip"],["hpL","hpR"],["shL","elL"],["elL","haL"],["shR","elR"],["elR","haR"],["hpL","knL"],["knL","anL"],["anL","toL"],["hpR","knR"],["knR","anR"],["anR","toR"]];
+const MOVES = {
+  A1:{tempo:"2 tellen omlaag · 1 omhoog", props:[PR.floor, PR.dbV()],
+    seq:[{p:{hip:[149,66],T:90,N:90,leg:{t:[150,125]},arm:{r:[14,12],k:1}}, hold:.5, go:2},
+         {p:{hip:[127,100],T:62,N:72,leg:{t:[150,125]},arm:{r:[13,11],k:1}}, hold:.4, go:1.2}]},
+  A2:{tempo:"3 tellen zakken · 1 omhoog", props:[PR.floor, PR.dbH()],
+    seq:[{p:{hip:[150,66],T:90,N:90,leg:{t:[150,125]},arm:{r:[1,39]}}, hold:.5, go:2.4},
+         {p:{hip:[131,72],T:20,N:14,leg:{t:[150,125]},arm:{r:[2,39]}}, hold:.3, go:1.2}]},
+  A3:{tempo:"2 tellen omlaag · 1 omhoog", props:[PR.floor, PR.dbH(), PR.dbH("ha2")],
+    seq:[{p:{hip:[148,72],T:90,N:90,leg:{t:[172,125]},leg2:{t:[114,119],f:-75},arm:{r:[0,39]}}, hold:.4, go:2},
+         {p:{hip:[144,98],T:88,N:88,leg:{t:[172,125]},leg2:{t:[114,119],f:-75},arm:{r:[0,39]}}, hold:.3, go:1.2}]},
+  A4:{extra:[[118,48]], tempo:"1 tel duwen · 2 tellen terug", props:[PR.floor, PR.line("M118 96H160M126 96L117 48",.5), PR.line("M128 125V96",.3), PR.grip()],
+    seq:[{p:{hip:[134,90],T:100,N:96,leg:{t:[168,125]},arm:{r:[8,16],k:1}}, hold:.3, go:1},
+         {p:{hip:[134,90],T:100,N:96,leg:{t:[168,125]},arm:{r:[38,14],k:1}}, hold:.3, go:2}]},
+  A5:{extra:[[150,0]], tempo:"1 tel omlaag · 2 tellen omhoog", props:[PR.floor, PR.line("M114 98H150",.5), PR.line("M128 125V98",.3), PR.padAt("kn",14,6,-7), PR.cable(150,2), PR.bar(14)],
+    seq:[{p:{hip:[134,94],T:92,N:92,leg:{t:[170,125]},arm:{r:[8,-38],k:1}}, hold:.3, go:1},
+         {p:{hip:[134,94],T:100,N:100,leg:{t:[170,125]},arm:{r:[12,4],k:1}}, hold:.4, go:2}]},
+  A6:{extra:[[58,46]], tempo:"2 tellen uit · 2 tellen vast · 2 terug", props:[PR.floor, PR.cable(60,46), PR.grip()],
+    seq:[{p:{hip:[146,70],T:90,N:90,leg:{t:[140,125]},leg2:{t:[160,125]},arm:{r:[12,16],k:1}}, hold:.3, go:2},
+         {p:{hip:[146,70],T:90,N:90,leg:{t:[140,125]},leg2:{t:[160,125]},arm:{r:[39,8],k:1}}, hold:2, go:2}]},
+  A7:{extra:[[196,30],[192,128]], tempo:"1 tel omhoog · 1 vast · 3 omlaag", props:[PR.floor, PR.box(152,118,40,10,.5), PR.line("M196 30V128",.35)],
+    seq:[{p:{hip:[149,63],T:90,N:90,leg:{t:[150,121],f:14},leg2:{a:[-100,-155]},arm:{t:[194,64]},arm2:{r:[0,39]}}, hold:.3, go:1},
+         {p:{hip:[152,54],T:90,N:90,leg:{t:[153,112],f:-50},leg2:{a:[-100,-155]},arm:{t:[194,56]},arm2:{r:[0,39]}}, hold:1, go:2.4}]},
+  B1:{extra:[[66,101]], tempo:"1 tel omhoog · 1 knijpen · 2 omlaag", props:[PR.floor, PR.box(66,101,38,27,.45), PR.padAt("hip",18,6,-6)],
+    seq:[{p:{hip:[140,112],T:160,N:140,leg:{t:[176,125]},arm:{r:[24,10],k:1}}, hold:.3, go:1},
+         {p:{hip:[141,90],T:196,N:168,leg:{t:[176,125]},arm:{r:[24,-8],k:1}}, hold:1, go:2}]},
+  B2:{extra:[[88,104]], tempo:"2 tellen omlaag · 1 duwen", props:[PR.line("M88 104H124L96 62",.45), PR.line("M100 104V128",.3), PR.plate("an",16), PR.floor],
+    seq:[{p:{hip:[118,100],T:128,N:110,leg:{t:[166,64],f:58,k:1},arm:{r:[8,30],k:1}}, hold:.3, go:2},
+         {p:{hip:[118,100],T:128,N:110,leg:{t:[146,84],f:58,k:1},arm:{r:[8,30],k:1}}, hold:.2, go:1}]},
+  B3:{extra:[[98,104],[188,86]], tempo:"1 tel trekken · 1 vast · 2 terug", props:[PR.floor, PR.box(98,104,46,10,.4), PR.box(182,86,6,40,.45), PR.cable(182,100), PR.grip()],
+    seq:[{p:{hip:[124,102],T:84,N:86,leg:{t:[180,104],f:60},arm:{r:[38,12],k:1}}, hold:.3, go:1},
+         {p:{hip:[124,102],T:94,N:92,leg:{t:[180,104],f:60},arm:{r:[12,28],k:1}}, hold:1, go:2}]},
+  B4:{extra:[[116,40]], tempo:"1 tel omhoog · 2 omlaag", props:[PR.floor, PR.line("M116 96H158M122 96L118 40",.5), PR.line("M132 125V96",.3), PR.dbH()],
+    seq:[{p:{hip:[138,92],T:92,N:92,leg:{t:[168,125]},arm:{r:[5,-2],k:-1}}, hold:.3, go:1},
+         {p:{hip:[138,92],T:92,N:92,leg:{t:[168,125]},arm:{r:[3,-39],k:-1}}, hold:.3, go:2}]},
+  B5:{extra:[[98,44]], tempo:"1 tel buigen · 1 vast · 2 terug", props:[PR.floor, PR.line("M100 94H160M104 94L98 44",.5), PR.line("M118 128V94",.3), PR.padAt("an",8,8,-4), PR.padAt("kn",12,5,-6)],
+    seq:[{p:{hip:[128,90],T:96,N:96,leg:{a:[0,-8]},arm:{r:[10,30],k:1}}, hold:.3, go:1},
+         {p:{hip:[128,90],T:96,N:96,leg:{a:[0,-100]},arm:{r:[10,30],k:1}}, hold:1, go:2}]},
+  B6:{extra:[[124,72],[176,72]], tempo:"1 tel open · 1 vast · 2 dicht", front:FRONT_EDGES, props:[PR.floor, PR.line("M124 72H176",.45), PR.padAt("knL",6,14,0), PR.padAt("knR",6,14,0)],
+    seq:[{p:{pts:FRONT_STAND({hip:[150,72],hpL:[142,72],hpR:[158,72],sh:[150,34],shL:[137,36],shR:[163,36],hd:[150,17],knL:[144,92],knR:[156,92],anL:[143,124],anR:[157,124],toL:[139,127],toR:[161,127],elL:[132,54],elR:[168,54],haL:[132,72],haR:[168,72]})}, hold:.3, go:1},
+         {p:{pts:FRONT_STAND({hip:[150,72],hpL:[142,72],hpR:[158,72],sh:[150,34],shL:[137,36],shR:[163,36],hd:[150,17],knL:[122,92],knR:[178,92],anL:[134,124],anR:[166,124],toL:[130,127],toR:[170,127],elL:[132,54],elR:[168,54],haL:[132,72],haR:[168,72]})}, hold:1, go:2}]},
+  B7:{tempo:"rustig uitstrekken · uitademen", props:[PR.mat],
+    seq:[{p:{hip:[160,120],T:180,N:180,leg:{a:[90,0]},leg2:{a:[90,0]},arm:{a:[90,90]},arm2:{a:[90,90]}}, hold:.4, go:1.6},
+         {p:{hip:[160,120],T:180,N:180,leg:{a:[90,0]},leg2:{a:[12,8]},arm:{a:[172,174]},arm2:{a:[90,90]}}, hold:.6, go:1.6},
+         {p:{hip:[160,120],T:180,N:180,leg:{a:[90,0]},leg2:{a:[90,0]},arm:{a:[90,90]},arm2:{a:[90,90]}}, hold:.4, go:1.6},
+         {p:{hip:[160,120],T:180,N:180,leg:{a:[12,8]},leg2:{a:[90,0]},arm:{a:[90,90]},arm2:{a:[172,174]}}, hold:.6, go:1.6}]},
+  B7b:{tempo:"heup omhoog · vasthouden", props:[PR.mat],
+    seq:[{p:{hip:[151,112],T:164,N:164,leg:{t:[208,124],f:-10},arm:{t:[132,126],k:-1},arm2:{r:[30,8]}}, hold:.6, go:1.2},
+         {p:{hip:[152,102],T:156,N:156,leg:{t:[208,124],f:-10},arm:{t:[132,126],k:-1},arm2:{r:[14,-26]}}, hold:2.5, go:1.2}]},
+  C1:{tempo:"5 tikken in · 5 tikken uit", props:[PR.mat],
+    seq:[{p:{hip:[150,121],T:162,N:150,leg:{a:[38,38],f:30},arm:{a:[-8,-8]}}, hold:0, go:.3},
+         {p:{hip:[150,121],T:162,N:150,leg:{a:[38,38],f:30},arm:{a:[8,8]}}, hold:0, go:.3}]},
+  C2:{tempo:"wissel elke uitademing", props:[PR.mat],
+    seq:[{p:{hip:[160,121],T:160,N:150,leg:{a:[112,-10]},leg2:{a:[22,22],f:20},arm:{a:[40,-30]}}, hold:.2, go:.8},
+         {p:{hip:[160,121],T:160,N:150,leg:{a:[22,22],f:20},leg2:{a:[112,-10]},arm:{a:[40,-30]}}, hold:.2, go:.8}]},
+  C3:{tempo:"2 tellen omlaag · 1 omhoog", props:[PR.mat],
+    seq:[{p:{hip:[143,101],T:23,N:20,leg:{t:[90,123],f:-80},arm:{t:[178,126],k:1}}, hold:.3, go:2},
+         {p:{hip:[140,116],T:8,N:8,leg:{t:[90,123],f:-80},arm:{t:[178,126],k:1}}, hold:.2, go:1}]},
+  C4:{tempo:"1 tel open · 1 vast · 2 dicht", front:[["hd","sh"],["sh","hip"],["hip","kn2"],["kn2","an2"],["hip","kn"],["kn","an"],["sh","el"],["el","ha"]], props:[PR.mat],
+    seq:[{p:{pts:{hd:[86,108],sh:[104,118],hip:[140,120],kn:[174,114],an:[154,121],kn2:[176,118],an2:[154,124],el:[86,125],ha:[80,111]}}, hold:.3, go:1},
+         {p:{pts:{hd:[86,108],sh:[104,118],hip:[140,120],kn:[166,86],an:[154,120],kn2:[176,118],an2:[154,124],el:[86,125],ha:[80,111]}}, hold:1, go:2}]},
+  C5:{tempo:"1 tel omhoog · 1 vast · 2 omlaag", props:[PR.mat],
+    seq:[{p:{hip:[148,121],T:180,N:180,leg:{t:[174,124]},leg2:{a:[40,40],f:40},arm:{t:[150,126],k:1}}, hold:.3, go:1},
+         {p:{hip:[150,104],T:206,N:206,leg:{t:[174,124]},leg2:{a:[26,26],f:26},arm:{t:[152,126],k:1}}, hold:1, go:2}]},
+  C6:{tempo:"snel wisselen · lang blijven", props:[PR.mat],
+    seq:[{p:{hip:[140,119],T:6,N:8,leg:{a:[184,184],f:186},leg2:{a:[170,170],f:172},arm:{a:[14,14]},arm2:{a:[0,0]}}, hold:0, go:.45},
+         {p:{hip:[140,119],T:6,N:8,leg:{a:[170,170],f:172},leg2:{a:[184,184],f:186},arm:{a:[0,0]},arm2:{a:[14,14]}}, hold:0, go:.45}]},
+  C7:{tempo:"1 tel open · 1 vast · 2 terug", front:FRONT_EDGES, props:[PR.floor, p=>`<path d="M${p.haL[0]} ${p.haL[1]}L${p.haR[0]} ${p.haR[1]}" stroke="currentColor" stroke-opacity=".7" stroke-width="1.6"/>`],
+    seq:[{p:{pts:FRONT_STAND({elL:[141,36],elR:[159,36],haL:[145,38],haR:[155,38]})}, hold:.3, go:1},
+         {p:{pts:FRONT_STAND({elL:[116,30],elR:[184,30],haL:[96,30],haR:[204,30]})}, hold:1, go:2}]},
+  C8:{tempo:"langzaam uit · 2 tellen vast · terug", props:[PR.mat],
+    seq:[{p:{hip:[128,96],T:14,N:10,leg:{a:[-90,180],f:180},leg2:{a:[-90,180],f:180},arm:{t:[166,126]},arm2:{t:[166,126]}}, hold:.3, go:1.4},
+         {p:{hip:[128,96],T:14,N:10,leg:{a:[-90,180],f:180},leg2:{a:[178,178],f:180},arm:{a:[4,4]},arm2:{t:[166,126]}}, hold:1.5, go:1.4},
+         {p:{hip:[128,96],T:14,N:10,leg:{a:[-90,180],f:180},leg2:{a:[-90,180],f:180},arm:{t:[166,126]},arm2:{t:[166,126]}}, hold:.3, go:1.4},
+         {p:{hip:[128,96],T:14,N:10,leg:{a:[178,178],f:180},leg2:{a:[-90,180],f:180},arm:{t:[166,126]},arm2:{a:[4,4]}}, hold:1.5, go:1.4}]},
+  C9:{tempo:"wervel voor wervel · 3 tellen", props:[PR.mat],
+    seq:[{p:{hip:[150,121],T:180,N:180,leg:{a:[-2,-2],f:80},arm:{a:[178,178]}}, hold:.6, go:3},
+         {p:{hip:[150,121],T:42,N:30,leg:{a:[-2,-2],f:80},arm:{a:[-6,-8]}}, hold:.8, go:3}]},
+};
+/* Teken één moment (voor statische weergave) */
+function mvFrame(k, time){ const m=MOVES[k]; if(!m) return ""; const st=mvAt(m, time||0); const pt=mvSolve(st.p); return `<svg class="mv" viewBox="0 -14 300 150" role="img" aria-label="beweging">${mvSVG(pt,m)}</svg>`; }
+/* Start een lus in een element; geeft stopfunctie terug */
+function mvBox(m){
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; const tot=m.seq.reduce((s,f)=>s+(f.hold||0)+(f.go||1),0);
+  for(let i=0;i<=40;i++){ const pt=mvSolve(mvAt(m, tot*i/40).p); for(const k in pt){ const v=pt[k]; if(!Array.isArray(v)) continue; x0=Math.min(x0,v[0]); y0=Math.min(y0,v[1]); x1=Math.max(x1,v[0]); y1=Math.max(y1,v[1]); } }
+  (m.extra||[]).forEach(v=>{ x0=Math.min(x0,v[0]); y0=Math.min(y0,v[1]); x1=Math.max(x1,v[0]); y1=Math.max(y1,v[1]); });
+  x0-=18; x1+=18; y0-=16; y1=Math.max(y1+6,132);
+  let w=x1-x0, h=y1-y0; if(w/h<1.35){ const nw=h*1.35; x0-=(nw-w)/2; w=nw; } else { const nh=w/1.35; y0-=(nh-h); h=nh; }
+  return `${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`;
+}
+function mvPlay(el, k, onPhase){
+  const m=MOVES[k]; if(!m){ el.innerHTML=""; return ()=>{}; }
+  el.innerHTML=`<svg class="mv" viewBox="${mvBox(m)}" role="img" aria-label="beweging"></svg>`;
+  const svg=el.firstChild, t0=performance.now(); let raf, last=-1;
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const tick=now=>{ const st=mvAt(m, reduce?0:(now-t0)/1000); svg.innerHTML=mvSVG(mvSolve(st.p),m); if(onPhase && st.i!==last){ last=st.i; onPhase(st.i); } if(!reduce) raf=requestAnimationFrame(tick); };
+  raf=requestAnimationFrame(tick); return ()=>cancelAnimationFrame(raf);
+}
+
+function cues(txt){ return (txt||"").split(/(?<=\.)\s+/).map(t=>t.trim()).filter(Boolean).slice(0,3); }
+function openMove(k){
+  const base = k==="B7b" ? "B7" : k, x = EX[base]; if(!x) return;
+  const name = k==="B7b" ? "Zijplank" : x.n, m = MOVES[k];
+  const ov=$("mvov"); ov.innerHTML=`<div class="mvcard" role="dialog" aria-label="${name}">
+    <div class="mvtop"><b>${name}</b><button class="mvx" aria-label="Sluiten">✕</button></div>
+    <div class="mvstage" id="mvstage"></div>
+    <div class="mvtempo">${m?m.tempo:""}</div>
+    ${k==="B7b"?`<ol class="mvcues"><li>Op je onderarm, elleboog onder je schouder.</li><li>Heup omhoog tot een rechte lijn van hoofd tot voet.</li><li>Vasthouden en rustig doorademen.</li></ol>`
+      :`<ol class="mvcues">${cues(x.u).map(c=>`<li>${c}</li>`).join("")}</ol>${x.e?`<div class="mvwarn"><b>Let op:</b> ${x.e}</div>`:""}${EQ[base]?`<div class="mvwarn">🔧 ${EQ[base]}</div>`:""}`}
+  </div>`;
+  ov.classList.add("on"); document.body.style.overflow="hidden";
+  const stop=mvPlay($("mvstage"), k);
+  const close=()=>{ stop(); ov.classList.remove("on"); ov.innerHTML=""; document.body.style.overflow=""; document.removeEventListener("keydown",esc); };
+  const esc=e=>{ if(e.key==="Escape") close(); };
+  document.addEventListener("keydown",esc);
+  ov.onclick=e=>{ if(e.target===ov || e.target.closest(".mvx")) close(); };
+}
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-mv]"); if(!b) return; e.preventDefault(); e.stopPropagation(); openMove(b.dataset.mv); }, true);
 function fig(kind){
   const L="#ece8e1";
   const b = d=>`<path d="${d}" fill="none" stroke="${L}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -1214,9 +1424,9 @@ function fig(kind){
 }
 function exCard(k){
   const x = EX[k];
-  return `<div class="exc"><div class="exc-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><a class="vid" href="${x.v}" target="_blank" rel="noopener">▶ Video</a></div>
+  return `<div class="exc"><div class="exc-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>
   ${x.fig?fig(x.fig):""}<div class="dose"><div><b>Fase 1</b>${x.f[0]}</div><div><b>Fase 2</b>${x.f[1]}</div><div><b>Fase 3</b>${x.f[2]}</div></div>
-  ${EQ[k]?`<div class="eqbox">🔧 <b>Zo pak je hem:</b> ${EQ[k]}</div>`:""}<div class="kv">🧺 <b>Nodig:</b> ${NEED[k]||"-"}${VID2[k]?` · <a href="${VID2[k]}" target="_blank" rel="noopener">video zijplank</a>`:""}</div><div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
+  ${EQ[k]?`<div class="eqbox">🔧 <b>Zo pak je hem:</b> ${EQ[k]}</div>`:""}<div class="kv">🧺 <b>Nodig:</b> ${NEED[k]||"-"}${k==="B7"?` · <button class="lnk" data-mv="B7b">zijplank bekijken</button>`:""}</div><div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
   ${x.e?`<div class="kv"><b>Let op:</b> ${x.e}</div>`:""}${x.mk?`<div class="kv"><b>Makkelijker:</b> ${x.mk} · <b>Moeilijker:</b> ${x.md}</div>`:""}</div>`;
 }
 $("wucdAll").innerHTML = [["kracht","🏋️ Kracht"],["loop","👟 Hardlopen"],["tennis","🎾 Tennis"],["pilates","🧘 Pilates thuis"]].map(([t,l])=>`<p class="small" style="margin:12px 0 4px"><b>${l}</b></p>`+wucd(t,"wu")+wucd(t,"cd")).join("");
@@ -1399,5 +1609,6 @@ show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }</script>
+<div id="mvov" class="mvov"></div>
 </body>
 </html>
