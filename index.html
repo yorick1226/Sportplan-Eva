@@ -440,6 +440,12 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .cue-t{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-basis:100%}
 .cue-x{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 9px;font:inherit;font-size:.72rem;cursor:pointer}
 .mvcue{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-weight:600;text-align:center;line-height:1.2;margin:4px 6px 6px}
+.cuem{margin:6px 0 0;font-size:.85rem;color:var(--muted)}
+.cuem summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.cuem summary::-webkit-details-marker{display:none}.cuem summary::before{content:"+";font-weight:700}.cuem[open] summary::before{content:"–"}
+.cuem span{display:block;margin-top:6px;padding:7px 10px;border-left:2px solid var(--ink);color:var(--ink);font-size:.9rem}
+.mvreal{display:block;text-align:center;margin:0 0 12px;padding:10px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
+.mvreal span{display:block;font-weight:400;font-size:.72rem;color:var(--muted);margin-top:2px}
 </style>
 </head>
 <body>
@@ -1392,6 +1398,11 @@ function mvPlay(el, k, onPhase){
   raf=requestAnimationFrame(tick); return ()=>cancelAnimationFrame(raf);
 }
 
+const MW = { A1:"dumbbell-goblet-squat", A2:"dumbbell-romanian-deadlift", A3:"dumbbell-split-squat", A4:"machine-chest-press", A5:"machine-pulldown",
+  A6:"cable-pallof-press", A7:"bodyweight-single-leg-calf-raise", B1:"machine-hip-thrust", B2:"machine-leg-press", B3:"machine-seated-cable-row",
+  B4:"dumbbell-seated-overhead-press", B5:"machine-seated-leg-curl", B6:"machine-hip-abduction", B7:"dead-bug", B7b:"elbow-side-plank",
+  C1:"pilates-hundred", C3:"push-up", C5:"single-leg-glute-bridge", C7:"band-pull-apart", C8:"bird-dog" };
+const mwUrl = k => MW[k] ? `https://musclewiki.com/exercise/${MW[k]}?model=f` : "";
 const CUE = {
   A1:"Duw de vloer weg om omhoog te komen", A2:"Duw je billen naar de muur achter je", A3:"Laat je achterste knie recht naar de vloer zakken",
   A4:"Duw de handvatten ver van je af", A5:"Trek de stang naar je bovenste ribben", A6:"Houd het handvat precies voor je borstbeen",
@@ -1402,10 +1413,11 @@ const CUE = {
   C4:"Open als een schelp, voeten blijven tegen elkaar", C5:"Duw je hiel in de vloer, heup naar het plafond", C6:"Reik met handen en voeten naar de muren voor en achter je",
   C7:"Trek de band uit elkaar naar de muren naast je", C8:"Reik met je hand naar voren en met je hiel naar achteren", C9:"Reik met je vingers voorbij je tenen"
 };
-const CUE_FADE = 3; // na 3 gelogde trainingen met deze oefening verdwijnt de hint (blijft bij ▶ Bekijk)
+const CUE_FADE = 3; // na 3 gelogde trainingen met deze oefening klapt de hint in (blijft open te tikken)
 function cueCount(k, skipKey){ return (S.logs[k]||[]).filter(e=>e.key!==skipKey && (e.sets||[]).some(st=>st&&(st.r||st.kg))).length; }
-function cueHTML(k, skipKey){ if(!CUE[k] || (S.cueOff||{})[k] || cueCount(k, skipKey)>=CUE_FADE) return ""; return `<div class="cue" data-cue="${k}"><span class="cue-t">Denk aan</span>${CUE[k]}<button class="cue-x" data-cuex="${k}" aria-label="Snap ik, verbergen">Snap ik</button></div>`; }
-document.addEventListener("click", e=>{ const b=e.target.closest("[data-cuex]"); if(!b) return; e.preventDefault(); e.stopPropagation(); S.cueOff=S.cueOff||{}; S.cueOff[b.dataset.cuex]=1; save(); document.querySelectorAll(`[data-cue="${b.dataset.cuex}"]`).forEach(n=>n.remove()); toast("Hint verborgen. Staat nog bij ▶ Bekijk."); }, true);
+function cueMini(k){ return `<details class="cuem" data-cue="${k}"><summary>Hint</summary><span>${CUE[k]}</span></details>`; }
+function cueHTML(k, skipKey){ if(!CUE[k]) return ""; if((S.cueOff||{})[k] || cueCount(k, skipKey)>=CUE_FADE) return cueMini(k); return `<div class="cue" data-cue="${k}"><span class="cue-t">Denk aan</span>${CUE[k]}<button class="cue-x" data-cuex="${k}" aria-label="Snap ik, inklappen">Snap ik</button></div>`; }
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-cuex]"); if(!b) return; e.preventDefault(); e.stopPropagation(); S.cueOff=S.cueOff||{}; S.cueOff[b.dataset.cuex]=1; save(); document.querySelectorAll(`[data-cue="${b.dataset.cuex}"]`).forEach(n=>n.outerHTML=cueMini(b.dataset.cuex)); toast("Ingeklapt. Tik op Hint om hem terug te zien."); }, true);
 function cues(txt){ return (txt||"").split(/(?<=\.)\s+/).map(t=>t.trim()).filter(Boolean).slice(0,3); }
 function openMove(k){
   const base = k==="B7b" ? "B7" : k, x = EX[base]; if(!x) return;
@@ -1413,7 +1425,7 @@ function openMove(k){
   const ov=$("mvov"); ov.innerHTML=`<div class="mvcard" role="dialog" aria-label="${name}">
     <div class="mvtop"><b>${name}</b><button class="mvx" aria-label="Sluiten">✕</button></div>
     <div class="mvstage" id="mvstage"></div>
-    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>
+    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>${MW[k]?`<a class="mvreal" href="${mwUrl(k)}" target="_blank" rel="noopener">Echte beelden bekijken <span>MuscleWiki · Engels · zonder geluid ↗</span></a>`:""}
     ${k==="B7b"?`<ol class="mvcues"><li>Op je onderarm, elleboog onder je schouder.</li><li>Heup omhoog tot een rechte lijn van hoofd tot voet.</li><li>Vasthouden en rustig doorademen.</li></ol>`
       :`<ol class="mvcues">${cues(x.u).map(c=>`<li>${c}</li>`).join("")}</ol>${x.e?`<div class="mvwarn"><b>Let op:</b> ${x.e}</div>`:""}${EQ[base]?`<div class="mvwarn">🔧 ${EQ[base]}</div>`:""}`}
   </div>`;
