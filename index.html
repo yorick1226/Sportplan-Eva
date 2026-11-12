@@ -463,6 +463,13 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .todayhab{margin:14px 0 4px}.todayhab .tf-label{margin-bottom:8px}
 .daytodo{font-size:.85rem;color:var(--muted);margin:0 0 10px;padding:8px 12px;border:1px dashed var(--line);border-radius:10px}
 .dt-n{color:var(--ink);font-weight:700;margin-right:6px}
+.idea{margin:14px 0 6px;padding:14px;border:1px solid var(--ink);border-radius:16px;background:var(--soft)}
+.idea-top{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.idea-meals{display:flex;gap:6px;flex-wrap:wrap}.idea-meals button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:5px 11px;font:inherit;font-size:.78rem;cursor:pointer}
+.idea-meals button.on{background:var(--ink);color:#000;border-color:var(--ink);font-weight:700}
+.idea .rec{margin:0;border:0;background:none;padding:4px 0 0}
+.idea-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.idea-next{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
 </style>
 </head>
 <body>
@@ -662,6 +669,7 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
   </div>
   <div class="when" data-when="w4"><button class="whenx" aria-label="Verbergen">✕</button><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg> <b>Wanneer kijk je hier?</b> Maandag: nieuw thema + recepten. Bij boodschappen en koken. Zondag: recepten beoordelen vóór je check-in.</div>
   <div class="rosary" id="fsel"></div>
+  <div id="idea"></div>
   <div id="foodLocked"></div>
   <div id="foodOpen">
   <h2>🎓 Les van de week</h2>
@@ -818,6 +826,22 @@ const R = {
  ovenschotel:["Kip-groente-ovenschotel 🥘","40 min","± 40 g","150 g kip, broccoli, courgette, krieltjes, 30 g geraspte kaas, kruiden","Alles in een ovenschaal, kaas erover, 30 min op 200 °C."],
  pizza:["Zelfgemaakte pizza met kip 🍕","25 min","± 38 g","Wrap of pizzabodem, passata, mozzarella light, kip, rode ui, rucola","Beleggen, 10–12 min in de oven, rucola erop."],
  poke:["Pokebowl 🐟","15 min","± 32 g","Sushirijst, zalm of tonijn, edamame, avocado, komkommer, wortel, sojasaus, sesam","Alles in een kom. Net zo lekker als afhalen."],
+ quinoabowl:["Mediterrane quinoa-bowl met feta 🫒","20 min","± 45 g","70 g quinoa, 125 g kipfilet, 50 g feta, komkommer, cherrytomaatjes, ½ rode ui, olijven, 2 el hummus, citroen, oregano","Kook de quinoa 12 min. Bak de kip in reepjes met oregano en een snuf paprikapoeder. Snijd de groente klein. Quinoa onderin, alles er los bovenop, klodder hummus en een kneep citroen."],
+ quinoaontbijt:["Warme quinoa-ontbijtpot met bessen 🫐","15 min","± 27 g","50 g quinoa, 150 ml (amandel)melk, 150 g skyr, blauwe bessen, kaneel, 1 tl honing, amandelschaafsel","Kook de quinoa 12 min in de melk met kaneel (of maak hem de avond ervoor). Lepel de skyr erop, dan bessen, honing en amandelschaafsel. Lekker warm op koude ochtenden."],
+ bietenbowl:["Roze bietenbowl met falafel 💗","20 min","± 30 g","70 g quinoa, 4 falafelballetjes, 1 gekookte biet, 100 g edamame, rucola, 3 el Griekse yoghurt, za'atar of komijn, citroen","Kook de quinoa. Warm de falafel 8 min in de airfryer of oven. Prak een stukje biet door de yoghurt met citroen: een knalroze saus. Rest van de biet in blokjes. Alles in een kom, saus erover."],
+ bessenbowl:["Paarse bessenbowl met crunch 💜","5 min","± 20 g","150 g bevroren bosvruchten, ½ banaan, 150 g skyr, scheutje melk; topping: granola (zonder walnoot!), kokosrasp, aardbei","Blend fruit, skyr en een klein scheutje melk tot een dikke ijsachtige massa (niet te veel melk). In een kom en mooi toppen. Eet hem meteen, hij smelt snel."],
+ cheesecakeoats:["Aardbeien-cheesecake overnight oats 🍓","5 min + nacht","± 25 g","50 g havermout, 150 g kwark, 100 ml melk, 1 tl vanille, aardbeien, 1 volkoren biscuitje","Roer havermout, kwark, melk en vanille door elkaar in een pot. Aardbeien erop, dicht en de nacht in de koelkast. 's Ochtends het biscuitje erover verkruimelen: cheesecake-bodem."],
+ citroenzalm:["Zalm uit de oven met citroen-quinoa 🍋","25 min","± 38 g","125 g zalmfilet, 60 g quinoa, broccoli, 1 citroen, dille, 2 el Griekse yoghurt","Zalm met plakjes citroen 15 min op 200 °C, broccoli ernaast op de bakplaat. Kook de quinoa en roer er citroenrasp en dille door. Yoghurt met dille en een kneep citroen als frisse saus."],
+ hummuswrap:["Hummus-wrap met kip & granaatappel 🌯","10 min","± 35 g","1 volkoren wrap, 100 g kipreepjes, 2 el hummus, spinazie, komkommer, granaatappelpitjes, 30 g feta","Bak de kip. Smeer de wrap in met hummus, beleg met spinazie, komkommer, kip, verkruimelde feta en granaatappel. Strak oprollen en schuin doorsnijden: ziet er meteen uit als iets van een lunchtent."],
+ summerrolls:["Summer rolls met garnalen 🌸","20 min","± 25 g","6 rijstvelletjes, 120 g gekookte garnalen, mango, komkommer, wortel, munt, rijstnoedels; dip: 1 el pindakaas, 1 el sojasaus, limoen","Week een rijstvel 10 sec in lauw water. Leg garnalen (roze kant naar onder), groente, mango en munt erop en rol op als een burrito. Roer de dip los met een beetje warm water."],
+ orzo:["Romige orzo met tomaat & mozzarella 🍅","20 min","± 30 g","70 g orzo, ½ bol mozzarella, 100 g hüttenkäse, cherrytomaten, 1 teen knoflook, spinazie, basilicum","Fruit knoflook en tomaatjes tot ze knappen. Orzo erbij met een bodempje water of bouillon en 10 min zachtjes laten garen, af en toe roeren. Spinazie en hüttenkäse erdoor voor de romigheid, mozzarella en basilicum erop."],
+ sesamtofu:["Krokante sesamtofu met quinoa 🥢","25 min","± 25 g","150 g stevige tofu, 50 g quinoa, paksoi, 1 el sojasaus, 1 tl honing, sesamzaad, lente-ui","Dep de tofu droog, snijd in blokjes en bak krokant (of 15 min airfryer). Laat sojasaus en honing even meebruisen tot het plakt. Paksoi kort roerbakken. Over de quinoa, sesam en lente-ui erop."],
+ pompoenquinoa:["Pompoen-quinoa met halloumi 🎃","30 min","± 30 g","200 g pompoenblokjes, 60 g quinoa, 100 g kikkererwten, 60 g halloumi, rucola, granaatappel, pompoenpitten, honing-mosterddressing","Pompoen en kikkererwten 25 min op 200 °C met olijfolie en een snuf kaneel. Bak de halloumi goudbruin. Meng met quinoa en rucola, top met granaatappel en pitten. Dressing: 1 tl honing, 1 tl mosterd, olie, citroen."],
+ chiamango:["Kokos-mango chiapudding 🥭","5 min + 2 uur","± 20 g","150 g skyr, 100 ml kokosdrink, 2 el chiazaad, ½ mango, kokosrasp, limoen","Roer skyr, kokosdrink en chiazaad los en zet minimaal 2 uur (of een nacht) koud. Erop: blokjes mango, kokosrasp en wat limoenrasp. Ook lekker als toetje."],
+ rodecurry:["Rode curry met kip & sperziebonen 🍛","25 min","± 35 g","125 g kipfilet, 1 el rode currypasta, 200 ml kokosmelk light, sperziebonen, rode paprika, 60 g zilvervliesrijst, limoen, koriander","Bak de currypasta 1 min, dan de kip erbij. Kokosmelk, boontjes en paprika erbij en 10 min zachtjes laten pruttelen. Met rijst, limoen en koriander. Pittig? Neem minder pasta."],
+ bento:["Bento-box lunch 🍱","10 min","± 28 g","2 gekookte eieren, 100 g edamame, 2 el hummus, 4 volkoren crackers, komkommer, wortel, druiven","Alles in vakjes in een lunchbox: eieren gehalveerd, edamame, hummus in een bakje, crackers, groente in stokjes en wat fruit. Handig voor kantoor of onderweg, niks opwarmen."],
+ groenepasta:["Green goddess pasta 💚","20 min","± 30 g","85 g volkoren pasta, 100 g hüttenkäse, ½ avocado, handje spinazie, basilicum, citroen, 1 teen knoflook, 100 g doperwten, Parmezaan","Blend hüttenkäse, avocado, spinazie, basilicum, citroen en knoflook tot een felgroene saus. Kook de pasta, de laatste 3 min de erwtjes erbij. Afgieten, saus erdoor, Parmezaan erover."],
+ yoghurtbark:["Bevroren yoghurt-bark met bessen 🍫","10 min + 2 uur","± 8 g per stuk","300 g Griekse yoghurt (0%), 1 tl honing, frambozen, blauwe bessen, 20 g pure chocola, gehakte pistache","Smeer de yoghurt met honing dun uit op bakpapier. Bessen erin drukken, gesmolten chocola erover sprenkelen, pistache erop. 2 uur in de vriezer, dan in stukken breken. Bewaar in de vriezer."],
  eigen:["Jouw eigen trainingsbord ✍️","—","jij kiest","Kies 1 eiwit, 1 koolhydraat, 2 groenten en 1 vet uit je favorieten","Geef het een naam en laat het Yorick proeven 😄"]
 };
 
@@ -1567,7 +1591,34 @@ function bindRates(root){
   root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast(RATES[+b.dataset.v][0]+" Genoteerd!"); })));
   root.querySelectorAll("input[data-note]").forEach(inp=>inp.addEventListener("input",()=>{ const id=inp.dataset.note; S.rate[id]=Object.assign(S.rate[id]||{}, {n:inp.value, w:W}); save(); }));
 }
+/* ===== IDEE VOOR VANDAAG ===== */
+const MEAL = { o:"ontbijt", l:"lunch", d:"diner", s:"snack" };
+const RMEAL = { smoothie:"os", shakshuka:"ol", oats:"o", pancakes:"o", teriyaki:"d", zoeteaardappel:"d", avotoast:"ol", pesto:"d", regenboog:"ld", linzensoep:"ld", kwarkcake:"s", bliss:"s", wentel:"o", portobello:"d", matcha:"os", kippensoep:"ld", chilisin:"d", steakbowl:"d", tonijnpasta:"d", raceontbijt:"o", avondkwark:"s", ovenschotel:"d", pizza:"d", poke:"ld",
+  quinoabowl:"ld", quinoaontbijt:"o", bietenbowl:"ld", bessenbowl:"os", cheesecakeoats:"o", citroenzalm:"d", hummuswrap:"l", summerrolls:"ld", orzo:"d", sesamtofu:"d", pompoenquinoa:"ld", chiamango:"os", rodecurry:"d", bento:"l", groenepasta:"d", yoghurtbark:"s" };
+function mealNow(){ const h=new Date().getHours(); return h<10?"o":h<14?"l":h<20?"d":"s"; }
+function seeded(arr, seed){ const a=arr.slice(); let x=seed||1; for(let i=a.length-1;i>0;i--){ x=(x*9301+49297)%233280; const j=Math.floor(x/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function ideaList(meal){
+  const wk = curWeek(), weekRec = (!isLocked(wk) && WEEKS[wk]) ? WEEKS[wk].food.rec : [];
+  const late = new Date().getHours()>=14; // matcha = cafeïne, alleen vóór 14:00
+  const ok = id => id!=="eigen" && !(id==="matcha" && late) && (S.rate[id]||{}).v!==2 && (RMEAL[id]||"").includes(meal);
+  const all = Object.keys(R).filter(ok), day = Math.floor(Date.now()/864e5);
+  const fav = id => weekRec.includes(id) || (S.rate[id]||{}).v===0;
+  const a = seeded(all.filter(fav), day*7+meal.charCodeAt(0)), b = seeded(all.filter(x=>!fav(x)), day*13+meal.charCodeAt(0));
+  return (day%2 ? [...b, ...a] : [...a, ...b]);
+}
+function renderIdea(){
+  const el=$("idea"); if(!el) return;
+  S.idea=S.idea||{}; const st=S.idea[TODAY]||{}; const meal=st.m||mealNow(); const list=ideaList(meal); if(!list.length){ el.innerHTML=""; return; }
+  const id=list[(st.n||0)%list.length], wk=curWeek(), inWeek=!isLocked(wk) && WEEKS[wk] && WEEKS[wk].food.rec.includes(id);
+  el.innerHTML = `<div class="idea"><div class="idea-top"><div><div class="kicker">Idee voor vandaag</div></div><div class="idea-meals">${Object.entries(MEAL).map(([k,v])=>`<button data-meal="${k}" class="${k===meal?'on':''}">${v}</button>`).join("")}</div></div>
+    ${recCard(id,true)}
+    <div class="idea-foot"><span class="small muted">${inWeek?"✓ Staat al op je boodschappenlijst":(S.rate[id]||{}).v===0?"😋 Eén van je favorieten":"🛒 Misschien even iets extra halen"}</span><button class="idea-next" id="ideaNext">Iets anders ↻</button></div></div>`;
+  bindRates(el);
+  $("ideaNext").addEventListener("click",()=>{ S.idea[TODAY]={m:meal, n:(st.n||0)+1}; save(); renderIdea(); });
+  el.querySelectorAll("[data-meal]").forEach(b=>b.addEventListener("click",()=>{ S.idea[TODAY]={m:b.dataset.meal, n:0}; save(); renderIdea(); }));
+}
 function renderFood(){
+  renderIdea();
   const f = WEEKS[W].food, locked = isLocked(W);
   $("foodOpen").style.display = locked ? "none" : "";
   $("foodLocked").innerHTML = locked ? lockedHtml(W, "Je eetthema") : "";
