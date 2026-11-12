@@ -459,6 +459,10 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .daydone{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:14px 16px;border:1px solid var(--ink);border-radius:16px;background:var(--soft);animation:mvup .3s ease-out}
 .daydone svg{flex:none}.daydone b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem;font-weight:600;line-height:1.2}
 .daydone span{display:block;font-size:.85rem;color:var(--muted);margin-top:2px;line-height:1.4}
+.exlist{margin-top:10px}
+.todayhab{margin:14px 0 4px}.todayhab .tf-label{margin-bottom:8px}
+.daytodo{font-size:.85rem;color:var(--muted);margin:0 0 10px;padding:8px 12px;border:1px dashed var(--line);border-radius:10px}
+.dt-n{color:var(--ink);font-weight:700;margin-right:6px}
 </style>
 </head>
 <body>
@@ -490,6 +494,7 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
     <div class="tf-oura"><span class="small muted" style="flex:1">Oura-readiness (optioneel)</span><input type="number" inputmode="numeric" id="ready" placeholder="bv. 78" style="width:100px;text-align:center"></div>
     <div id="lightBox"></div>
   </div>
+  <div class="todayhab"><div class="tf-label">Elke dag</div><div class="habits" id="habits"></div></div>
   <div id="dayDone"></div>
   <div id="todayDay"></div>
 
@@ -499,8 +504,8 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
   <p class="focusline"><span>Focus</span><span id="focus"></span></p>
   <div id="days"></div>
   <div id="calBtn"></div>
-  <h2>Elke dag</h2>
-  <div class="habits" id="habits"></div>
+  <h2 id="habWeekH">Elke dag</h2>
+  <div class="habits" id="habWeek"></div>
   <details id="ciDet"><summary><span class="s-main">Check-in zondag<span class="s-sub" id="ciSub">Vul je in op zaterdag of zondag</span></span></summary><div class="dbody"><div class="small muted">Op basis hiervan maken we samen je volgende week: hoe vaak, welke dagen en hoe zwaar.</div><div id="core"></div><div id="checkin"></div>
     <button class="btn go" id="share"> Stuur mijn week naar Yorick</button>
     <div class="small muted" style="margin-top:6px;text-align:center">Kopieert je trainingen, logboek, eetfeedback en antwoorden. Plak het daarna in WhatsApp.</div>
@@ -822,6 +827,7 @@ const DAYMS = 864e5;
 function weekStart(n){ return n===0 ? new Date(2026,10,9) : new Date(START.getTime() + (n-1)*7*DAYMS); }
 function iso(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 const MAAND = ["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"], DAG = ["Zo","Ma","Di","Wo","Do","Vr","Za"];
+function fmtRange(a,b){ return a.getMonth()===b.getMonth() ? a.getDate()+"–"+b.getDate()+" "+MAAND[b.getMonth()] : a.getDate()+" "+MAAND[a.getMonth()]+" – "+b.getDate()+" "+MAAND[b.getMonth()]; }
 function fmt(d){ return DAG[d.getDay()]+" "+d.getDate()+" "+MAAND[d.getMonth()]; }
 function curWeek(){ const t = new Date(); t.setHours(0,0,0,0); if (t < START) return 0; return Math.min(12, Math.floor((t-START)/DAYMS/7)+1); }
 
@@ -966,28 +972,35 @@ function lockedHtml(w, what){
 }
 /* Alles van vandaag gedaan? (training/activiteit van vandaag + de 4 dagelijkse gewoontes) */
 function dayStatus(){
-  const ti = W===curWeek() ? dayDates(W).findIndex(d=>iso(d)===TODAY) : -1;
-  if(ti<0 || isLocked(W)) return null;
-  const hasAct = !!WEEKS[W].days[ti], act = hasAct ? !!S.days[TODAY] : true;
+  const cw = curWeek(), ti = (cw>=0 && WEEKS[cw]) ? dayDates(cw).findIndex(d=>iso(d)===TODAY) : -1;
+  if(ti<0) return null;
+  const hasAct = !isLocked(cw) && !!WEEKS[cw].days[ti], act = hasAct ? !!S.days[TODAY] : true;
   const hab = HABITS.map((hb,hi)=>!!S.habits["h"+hi+"-"+TODAY]);
   return {act, hasAct, hab, all: act && hab.every(Boolean), n:(hasAct?1:0)+HABITS.length, done:(hasAct&&act?1:0)+hab.filter(Boolean).length};
 }
 function renderDayDone(user){
   const el=$("dayDone"); if(!el) return; const st=dayStatus();
-  if(!st || !st.all){ el.innerHTML=""; el.className=""; return; }
+  if(!st){ el.innerHTML=""; el.className=""; return; }
+  if(!st.all){ const names=["stappen","maaltijden","eiwit","water"], todo=[...(st.hasAct&&!st.act?["training"]:[]), ...st.hab.map((v,i)=>v?null:names[i]).filter(Boolean)];
+    el.className="daytodo"; el.innerHTML = st.done===0 ? "" : `<span class="dt-n">${st.done}/${st.n}</span> Nog te doen: ${todo.join(" · ")}`; if(!el.innerHTML) el.className=""; return; }
   el.className="daydone";
   el.innerHTML=`<svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="17" cy="17" r="15"/><path d="M10.5 17.5l4.5 4.5 8.5-9.5"/></svg><div><b>Alles van vandaag is gedaan</b><span>${st.hasAct?"Training én je vier dagelijkse dingen":"Je vier dagelijkse dingen"} staan afgevinkt. Rust lekker, monkey 🤍</span></div>`;
   S.dayDoneSeen=S.dayDoneSeen||{};
   if(user && !S.dayDoneSeen[TODAY]){ S.dayDoneSeen[TODAY]=1; save(); setTimeout(()=>{ celebrate("Dag rond"); el.scrollIntoView({behavior:"smooth",block:"center"}); }, 1900); }
 }
+function renderTodayHabits(){
+  const h = $("habits");
+  h.innerHTML = `<div class="hab-today">${HABITS.map((hb,hi)=>{ const k="h"+hi+"-"+TODAY; return `<button data-hk="${k}" class="${S.habits[k]?'on':''}">${ic(hb[0])}${hb[1].replace(", niets overgeslagen","").replace("Eiwit bij elk eetmoment","Eiwit bij elk eetmoment")}</button>`; }).join("")}</div><p class="small muted" style="margin-top:8px">Gemist? Kijk bij Eten → Maaltijd vergeten.</p>`;
+  h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); renderDayDone(true); }));
+}
 function renderWeek(){
   const wk = WEEKS[W], dates = dayDates(W), locked = isLocked(W);
-  $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmt(dates[0]) + " – " + fmt(dates[dates.length-1]);
+  $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmtRange(dates[0], dates[dates.length-1]);
   $("wtitle").textContent = locked ? "Week "+W+" " : wk.title; $("intro").textContent = locked ? "Deze week maken we samen, na je check-in." : wk.intro; $("focus").textContent = wk.focus;
   renderRosary();
   $("weekOpen").style.display = locked ? "none" : ""; document.querySelector(".whead-prog").style.display = locked ? "none" : "";
   $("weekLocked").innerHTML = locked ? lockedHtml(W, "Je week") : (isConcept(W) ? `<div class="concept">${ic("lock")} <b>Conceptweek.</b> Deze week is nog niet samen afgestemd. Volg dit concept op gevoel en pas aan wat niet past. De check-in van zondag geldt nog steeds.</div>` : "");
-  if (locked) return;
+  if (locked){ renderTodayHabits(); renderDayDone(false); return; }
   const el = $("days"); el.innerHTML = ""; $("todayDay").innerHTML = "";
   wk.days.forEach((d,i)=>{
     const dt = dates[i], key = iso(dt), isToday = key===TODAY;
@@ -1007,8 +1020,8 @@ function renderWeek(){
     if (d.session && (!isPil || pm==="thuis")){
       if (isPil) body += `<div class="tip">🧺 <b>Nodig thuis:</b> yogamat, mini-band, lange weerstandsband. Zie Training → Benodigdheden.</div>`;
       const list = d.opts.only || SESS[d.session];
-      body += `<p class="small muted" style="margin-top:10px">${SESSNAME[d.session]} · ${list.length} oefeningen</p>` + list.map(k=>{ const t=targetFor(k,W,d.opts); return exRow(k, t.sets+" × "+t.reps+" · rust "+fmtSec(t.rest)); }).join("");
-      body += `<div class="tip">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</div><button class="btn go" data-log="${key}">▶ Start & log training</button>`;
+      body += `<details class="exlist"><summary><span class="s-main">🏋️ ${list.length} oefeningen<span class="s-sub">Uitleg en voorbeeld per oefening</span></span></summary>` + list.map(k=>{ const t=targetFor(k,W,d.opts); return exRow(k, t.sets+" × "+t.reps+" · rust "+fmtSec(t.rest)); }).join("") + `</details>`;
+      body += `<button class="btn go" data-log="${key}">▶ Start & log training</button><p class="small muted" style="margin:8px 2px 0">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</p>`;
     } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
       body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
     else if (d.type==="rust") body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
@@ -1026,14 +1039,13 @@ function renderWeek(){
   $("calBtn").innerHTML = ICSWEEKS.includes(W) ? `<a class="btn ghost" href="week-${W}.ics" style="text-decoration:none;color:var(--ink)">📅 Zet deze week in mijn agenda</a><p class="small muted" style="text-align:center;margin-top:6px">Met tijden en een seintje 30 min vooraf. Verschuif ze gerust in je agenda.</p>` : "";
   if (!$("todayDay").children.length) $("todayDay").innerHTML = `<p class="small muted" style="margin:0 0 4px">${W===curWeek()?"Vandaag staat er niets gepland. Wandelen en je stappen halen is genoeg 🌙":"Je bekijkt week "+W+". Tik op de kraal met • voor deze week."}</p>`;
   // habits
-  const h = $("habits"); h.innerHTML = "";
-  const ti = dates.findIndex(d=>iso(d)===TODAY);
-  if (ti >= 0){
-    h.innerHTML = `<div class="hab-today">${HABITS.map((hb,hi)=>{ const k="h"+hi+"-"+TODAY; return `<button data-hk="${k}" class="${S.habits[k]?'on':''}">${ic(hb[0])}${hb[1].replace(", niets overgeslagen","").replace("Eiwit bij elk eetmoment","Eiwit bij elk eetmoment")}</button>`; }).join("")}</div><p class="small muted" style="margin-top:8px">Tik aan wat je vandaag gedaan hebt. Gemist? Kijk bij Eten → Maaltijd vergeten.</p>`;
-    h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); renderDayDone(true); }));
-  } else {
-    h.innerHTML = `<div class="hab-week">${HABITS.map((hb,hi)=>{ const n=dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; return `<span>${hb[1]}</span><span>${n}/${dates.length}</span>`; }).join("")}</div>`;
+  renderTodayHabits();
+  const ti = dates.findIndex(d=>iso(d)===TODAY), hw = $("habWeek"); hw.innerHTML = "";
+  $("habWeekH").style.display = ti>=0 ? "none" : "";
+  if (ti < 0){
+    hw.innerHTML = `<div class="hab-week">${HABITS.map((hb,hi)=>{ const n=dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; return `<span>${hb[1]}</span><span>${n}/${dates.length}</span>`; }).join("")}</div>`;
   }
+
   { const wd=new Date().getDay(); $("ciDet").open = (W===curWeek() && (wd===6||wd===0)) || W<curWeek(); $("ciSub").textContent = $("ciDet").open ? "Op basis hiervan plannen we je volgende week" : "Vul je in op zaterdag of zondag"; }
   // checkin: vaste kern + vragen van deze week
   renderCore();
@@ -1067,8 +1079,8 @@ function weekDone(w){
 }
 function renderCountdown(){ const d=Math.ceil((new Date(2027,0,17)-new Date().setHours(0,0,0,0))/DAYMS); $("countdown").textContent = d>0 ? "🏁 nog "+d+" dagen tot je 10 km" : (d===0 ? "🏁 vandaag: de 10 km!" : "🏅 10 km gelopen"); }
 function renderRosary(target){ target = target || "rosary"; if (target==="rosary") renderCountdown();
-  const now = curWeek(), N = WEEKS.length, W0 = 14, W1 = 326;
-  const pos = i => { const t = i/(N-1); return [W0 + t*(W1-W0), 26 + 44*Math.sin(Math.PI*t)]; };
+  const now = curWeek(), N = WEEKS.length, W0 = 14, W1 = 326, CMP = target==="rosary", Y0 = CMP?26:26, AMP = CMP?14:44;
+  const pos = i => { const t = i/(N-1); return [W0 + t*(W1-W0), Y0 + AMP*Math.sin(Math.PI*t)]; };
   let chain = "", beads = "";
   for (let i=0;i<N-1;i++){ const [x1,y1]=pos(i),[x2,y2]=pos(i+1); chain += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#ece8e1" stroke-opacity=".35" stroke-width="1" stroke-dasharray="1 4" stroke-linecap="round"/>`; }
   for (let i=0;i<N;i++){
@@ -1080,7 +1092,7 @@ function renderRosary(target){ target = target || "rosary"; if (target==="rosary
   const [ex,ey]=pos(N-1);
   const pend = `<path d="M${ex} ${ey+7}V${ey+30}M${ex-6} ${ey+16}H${ex+6}M${ex} ${ey+30}l2 4-2 4-2-4z" stroke="#ece8e1" stroke-width="1" fill="none"/>`;
   const doneN = WEEKS.map((_,i)=>weekDone(i)).filter(Boolean).length;
-  $(target).innerHTML = `<svg viewBox="0 0 340 86" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
+  $(target).innerHTML = `<svg viewBox="0 0 340 ${CMP?70:86}" role="img" aria-label="12 weken als kralenketting">${chain}${pend}${beads}</svg><div class="ros-cap"><span>Week ${W}${W===now?' · nu':''}</span><span>${doneN} van ${N} kralen</span></div>`;
   $(target).querySelectorAll(".bead").forEach(g=>g.addEventListener("click",()=>{ W=+g.dataset.w; renderWeek(); renderFood(); }));
 }
 function updateProg(){
