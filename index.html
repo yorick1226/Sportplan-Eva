@@ -436,6 +436,10 @@ input[type=number],input[type=text],textarea{background:#0e0e0e;border-color:#2a
 .mvwarn{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:8px;line-height:1.45}
 button.vid{border:0;cursor:pointer;font-family:inherit}
 button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;padding:0;font:inherit;cursor:pointer}
+.cue{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 2px;padding:9px 11px;border-left:2px solid var(--ink);background:var(--soft);border-radius:0 8px 8px 0;font-size:.92rem;line-height:1.35}
+.cue-t{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-basis:100%}
+.cue-x{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 9px;font:inherit;font-size:.72rem;cursor:pointer}
+.mvcue{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-weight:600;text-align:center;line-height:1.2;margin:4px 6px 6px}
 </style>
 </head>
 <body>
@@ -1106,7 +1110,7 @@ function openLogger(w, di){
       const cs = cur && cur.sets[s] ? cur.sets[s] : {};
       rows += `<div class="setrow"><span class="sn">${s+1}</span>${x.nokg?'<span></span>':`<input type="number" inputmode="decimal" step="0.5" data-k="${k}" data-s="${s}" data-f="kg" value="${cs.kg||''}" placeholder="${pkg}">`}<input type="number" inputmode="numeric" data-k="${k}" data-s="${s}" data-f="r" value="${cs.r||''}" placeholder="${(t.reps.match(/\d+/)||[''])[0]}"><button class="sok${cs.ok?' on':''}" data-k="${k}" data-s="${s}">✓</button></div>`;
     }
-    return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>
+    return `<div class="lx${fl.skip?' skipped':''}" id="lx-${k}"><div class="lx-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>${cueHTML(k, LOGCTX&&LOGCTX.key)}
       <div class="exopts"><button data-opt="alt" data-k="${k}" class="${fl.alt?'on':''}">🔁 Bezet</button><button data-opt="skip" data-k="${k}" class="${fl.skip?'on':''}">⏭ Overslaan</button><button data-opt="pain" data-k="${k}" class="${fl.pain?'on warn':''}">⚠️ Niet goed</button></div>
       ${fl.alt&&ALT[k]?`<div class="altbox">🔁 Doe in plaats hiervan: <b>${ALT[k]}</b>. Log het gewoon hieronder; het telt niet mee voor je records.</div>`:""}
       ${fl.pain?`<input type="text" class="painnote" data-k="${k}" placeholder="Wat voelde niet goed? (bv. enkel rechts, onderrug)" value="${esc(fl.note||'')}"><div class="small muted painhelp">Pijn is een stopteken: doe deze oefening lichter of sla hem over. Yorick ziet dit zondag.</div>`:""}
@@ -1388,6 +1392,20 @@ function mvPlay(el, k, onPhase){
   raf=requestAnimationFrame(tick); return ()=>cancelAnimationFrame(raf);
 }
 
+const CUE = {
+  A1:"Duw de vloer weg om omhoog te komen", A2:"Duw je billen naar de muur achter je", A3:"Laat je achterste knie recht naar de vloer zakken",
+  A4:"Duw de handvatten ver van je af", A5:"Trek de stang naar je bovenste ribben", A6:"Houd het handvat precies voor je borstbeen",
+  A7:"Duw de trede weg met je grote teen", B1:"Duw het kussen recht omhoog naar het plafond", B2:"Duw het plateau weg met je hele voet",
+  B3:"Trek je ellebogen naar de muur achter je", B4:"Duw de halters naar het plafond", B5:"Trek het kussen onder de stoel door",
+  B6:"Duw de kussens naar de muren naast je", B7:"Duw je onderrug tegen de mat", B7b:"Duw de vloer weg met je onderarm",
+  C1:"Klop met je handen op een laag tafeltje", C2:"Reik met je gestrekte voet naar de muur", C3:"Duw de vloer van je weg",
+  C4:"Open als een schelp, voeten blijven tegen elkaar", C5:"Duw je hiel in de vloer, heup naar het plafond", C6:"Reik met handen en voeten naar de muren voor en achter je",
+  C7:"Trek de band uit elkaar naar de muren naast je", C8:"Reik met je hand naar voren en met je hiel naar achteren", C9:"Reik met je vingers voorbij je tenen"
+};
+const CUE_FADE = 3; // na 3 gelogde trainingen met deze oefening verdwijnt de hint (blijft bij ▶ Bekijk)
+function cueCount(k, skipKey){ return (S.logs[k]||[]).filter(e=>e.key!==skipKey && (e.sets||[]).some(st=>st&&(st.r||st.kg))).length; }
+function cueHTML(k, skipKey){ if(!CUE[k] || (S.cueOff||{})[k] || cueCount(k, skipKey)>=CUE_FADE) return ""; return `<div class="cue" data-cue="${k}"><span class="cue-t">Denk aan</span>${CUE[k]}<button class="cue-x" data-cuex="${k}" aria-label="Snap ik, verbergen">Snap ik</button></div>`; }
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-cuex]"); if(!b) return; e.preventDefault(); e.stopPropagation(); S.cueOff=S.cueOff||{}; S.cueOff[b.dataset.cuex]=1; save(); document.querySelectorAll(`[data-cue="${b.dataset.cuex}"]`).forEach(n=>n.remove()); toast("Hint verborgen. Staat nog bij ▶ Bekijk."); }, true);
 function cues(txt){ return (txt||"").split(/(?<=\.)\s+/).map(t=>t.trim()).filter(Boolean).slice(0,3); }
 function openMove(k){
   const base = k==="B7b" ? "B7" : k, x = EX[base]; if(!x) return;
@@ -1395,7 +1413,7 @@ function openMove(k){
   const ov=$("mvov"); ov.innerHTML=`<div class="mvcard" role="dialog" aria-label="${name}">
     <div class="mvtop"><b>${name}</b><button class="mvx" aria-label="Sluiten">✕</button></div>
     <div class="mvstage" id="mvstage"></div>
-    <div class="mvtempo">${m?m.tempo:""}</div>
+    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>
     ${k==="B7b"?`<ol class="mvcues"><li>Op je onderarm, elleboog onder je schouder.</li><li>Heup omhoog tot een rechte lijn van hoofd tot voet.</li><li>Vasthouden en rustig doorademen.</li></ol>`
       :`<ol class="mvcues">${cues(x.u).map(c=>`<li>${c}</li>`).join("")}</ol>${x.e?`<div class="mvwarn"><b>Let op:</b> ${x.e}</div>`:""}${EQ[base]?`<div class="mvwarn">🔧 ${EQ[base]}</div>`:""}`}
   </div>`;
@@ -1424,7 +1442,7 @@ function fig(kind){
 }
 function exCard(k){
   const x = EX[k];
-  return `<div class="exc"><div class="exc-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>
+  return `<div class="exc"><div class="exc-h"><span class="ex-n" style="background:var(--${x.t})">${k}</span><span class="ex-name"><b>${x.n}</b></span><button class="vid" data-mv="${k}" aria-label="Bekijk de beweging">▶ Bekijk</button></div>${cueHTML(k)}
   ${x.fig?fig(x.fig):""}<div class="dose"><div><b>Fase 1</b>${x.f[0]}</div><div><b>Fase 2</b>${x.f[1]}</div><div><b>Fase 3</b>${x.f[2]}</div></div>
   ${EQ[k]?`<div class="eqbox">🔧 <b>Zo pak je hem:</b> ${EQ[k]}</div>`:""}<div class="kv">🧺 <b>Nodig:</b> ${NEED[k]||"-"}${k==="B7"?` · <button class="lnk" data-mv="B7b">zijplank bekijken</button>`:""}</div><div class="kv">${x.m?`<b>Spieren:</b> ${x.m} · `:""}<b>Rust:</b> ${fmtSec(x.r)}</div><div class="kv"><b>Zo:</b> ${x.u}</div>
   ${x.e?`<div class="kv"><b>Let op:</b> ${x.e}</div>`:""}${x.mk?`<div class="kv"><b>Makkelijker:</b> ${x.mk} · <b>Moeilijker:</b> ${x.md}</div>`:""}</div>`;
