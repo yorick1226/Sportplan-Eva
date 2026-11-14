@@ -471,10 +471,11 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .idea-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .idea-next{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
 .srpe-dots{display:flex;flex-wrap:wrap;gap:5px}.srpe-dots .dot{width:30px;height:30px}
-.swapq{margin-top:12px}.swapq summary{list-style:none;cursor:pointer;font-size:.85rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.swapq{margin:2px 0 12px}.swaphead{display:inline-block;margin-top:6px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 10px;font:inherit;font-size:.74rem;cursor:pointer}
+.day.open .swaphead{display:none}.swapq summary{list-style:none;cursor:pointer;font-size:.85rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .swapq summary::-webkit-details-marker{display:none}.swapq summary::after{content:none!important}
 .swapopts{display:flex;flex-wrap:wrap;gap:6px}.swapopts button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:.85rem;cursor:pointer}
-.swapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding:9px 12px;border:1px dashed var(--line);border-radius:10px;font-size:.85rem;color:var(--muted)}
+.swapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 12px;padding:9px 12px;border:1px dashed var(--line);border-radius:10px;font-size:.85rem;color:var(--muted)}
 .swapbar b{color:var(--ink)}.swapbar button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 11px;font:inherit;font-size:.78rem;cursor:pointer}
 </style>
 </head>
@@ -1072,6 +1073,10 @@ function renderWeek(){
     } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
       body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
     else if (d.type==="rust" && (!d.swapped || d.swapped==="rust")) body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
+    const swapHtml = d.swapped
+      ? `<div class="swapbar"><span>↔ Aangepast: <b class="sw-n">${d.name}</b> in plaats van ${d.orig.name}</span><button data-swreset>Terug naar plan</button></div>`
+      : (d.type!=="rust" || isToday || dt < new Date() ? `<details class="swapq"><summary>↔ Toch iets anders gedaan?</summary><p class="small muted" style="margin:8px 0">Kies wat je echt gedaan hebt. Dan log je dat, en nemen we het mee in je volgende week.</p><div class="swapopts">${Object.entries(SWAPS).filter(([k,o])=>!(o.session && o.session===d.session) && !(o.type===d.type && !o.session && k!=="anders" && k!=="wandel" && k!=="fiets")).map(([k,o])=>`<button data-swap="${k}">${o.e} ${o.n}</button>`).join("")}</div></details>` : "");
+    body = swapHtml + body;
     const sw = (S.swap||{})[key];
     if (sw && !d.session && d.type!=="loop" && sw.t!=="rust"){
       body += `${sw.t==="anders"?`<div class="runf"><div style="flex:1"><label>Wat heb je gedaan?</label><input type="text" data-sw="label" value="${(sw.label||"").replace(/"/g,"&quot;")}" placeholder="Bijv. yoga, dansles, zwemmen"></div></div>`:""}
@@ -1080,10 +1085,8 @@ function renderWeek(){
         <div class="dots srpe-dots">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot ${((S.srpe||{})[key]==n)?"on":""}" role="button" data-swr="${n}">${n}</div>`).join("")}</div>`;
     }
     if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
-    body += d.swapped
-      ? `<div class="swapbar"><span>↔ Aangepast: <b class="sw-n">${d.name}</b> in plaats van ${d.orig.name}</span><button data-swreset>Terug naar plan</button></div>`
-      : (d.type!=="rust" || isToday || dt < new Date() ? `<details class="swapq"><summary>↔ Toch iets anders gedaan?</summary><p class="small muted" style="margin:8px 0">Kies wat je echt gedaan hebt. Dan log je dat, en nemen we het mee in je volgende week.</p><div class="swapopts">${Object.entries(SWAPS).filter(([k,o])=>!(o.session && o.session===d.session) && !(o.type===d.type && !o.session && k!=="anders" && k!=="wandel" && k!=="fiets")).map(([k,o])=>`<button data-swap="${k}">${o.e} ${o.n}</button>`).join("")}</div></details>` : "");
-    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
+
+    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div>${!d.swapped && (isToday || dt < new Date()) ? `<button class="swaphead" data-swopen>↔ Iets anders gedaan?</button>` : ""}</div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = (user)=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); if(isToday){ if(user) setTimeout(()=>div.classList.toggle("open",!S.days[key]), S.days[key]?1400:0); renderDayDone(user); } };
     chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, syncName(d,key), W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
@@ -1091,6 +1094,7 @@ function renderWeek(){
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
     div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, syncName(d,key)+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
     div.querySelectorAll("[data-swap]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const t=b.dataset.swap, o=SWAPS[t]; S.swap=S.swap||{}; S.swap[key]={t}; if(o.pm){ S.pmode=S.pmode||{}; S.pmode[key]=o.pm; } renderWeek._last=key; save(); syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); toast(o.e+" Aangepast naar "+o.n.toLowerCase()); renderWeek(); }));
+    const so = div.querySelector("[data-swopen]"); if(so) so.addEventListener("click", e=>{ e.stopPropagation(); div.classList.add("open"); const q=div.querySelector(".swapq"); if(q){ q.open=true; setTimeout(()=>q.scrollIntoView({behavior:"smooth",block:"center"}),50); } });
     div.querySelectorAll("[data-swreset]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const o=SWAPS[(S.swap[key]||{}).t]||{}; if(o.pm && S.pmode) delete S.pmode[key]; delete S.swap[key]; renderWeek._last=key; save(); syncDay(key, d0.name, W); syncBackup(); renderWeek(); }));
     div.querySelectorAll("[data-sw]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.swap[key][inp.dataset.sw]=inp.value; save(); clearTimeout(inp._t); inp._t=setTimeout(()=>{ syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); if(inp.dataset.sw==="label"){ const n=effDay(W,i).name; div.querySelector(".day-name").textContent=n; const sb=div.querySelector(".sw-n"); if(sb) sb.textContent=n; } },800); }); });
     div.querySelectorAll("[data-swr]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.srpe=S.srpe||{}; S.srpe[key]=+b.dataset.swr; save(); div.querySelectorAll("[data-swr]").forEach(x=>x.classList.toggle("on",x===b)); syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); }));
@@ -1107,7 +1111,7 @@ function renderWeek(){
     hw.innerHTML = `<div class="hab-week">${HABITS.map((hb,hi)=>{ const n=dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; return `<span>${hb[1]}</span><span>${n}/${dates.length}</span>`; }).join("")}</div>`;
   }
 
-  { const wd=new Date().getDay(); $("ciDet").open = (W===curWeek() && (wd===6||wd===0)) || W<curWeek(); $("ciSub").textContent = $("ciDet").open ? "Op basis hiervan plannen we je volgende week" : "Vul je in op zaterdag of zondag"; }
+  { const wd=new Date().getDay(); $("ciDet").open = W===curWeek() && wd===0; $("ciSub").textContent = $("ciDet").open ? "Op basis hiervan plannen we je volgende week" : "Vul je in op zondag"; }
   // checkin: vaste kern + vragen van deze week
   renderCore();
   $("checkin").innerHTML = `<h3 style="margin-top:18px">En deze week specifiek</h3>` + wk.checkin.map((q,qi)=>`<div class="q"><label>${qi+1}. ${q}</label><textarea data-ci="${W}-${qi}" placeholder="Jouw antwoord…">${esc(S.ci[W+"-"+qi]||"")}</textarea></div>`).join("");
@@ -1833,7 +1837,11 @@ $("restoreBtn").addEventListener("click",()=>{ try{ const d=JSON.parse($("restor
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
-<script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }</script>
+<script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
+/* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
+const APPV = "28"; let lastCheck = Date.now();
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
+  fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
 </body>
 </html>
