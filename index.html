@@ -445,7 +445,7 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .cuem summary::-webkit-details-marker{display:none}.cuem summary::before{content:"+";font-weight:700}.cuem[open] summary::before{content:"–"}
 .cuem span{display:block;margin-top:6px;padding:7px 10px;border-left:2px solid var(--ink);color:var(--ink);font-size:.9rem}
 .mvreal{display:block;text-align:center;margin:0 0 12px;padding:10px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
-.mvreal span{display:block;font-weight:400;font-size:.72rem;color:var(--muted);margin-top:2px}
+.mvreal em{display:block;font-style:normal;font-weight:400;font-size:.74rem;color:var(--muted);margin-top:4px}.mvreal span{display:block;font-weight:400;font-size:.72rem;color:var(--muted);margin-top:2px}
 .m-back{display:inline-flex;align-items:center;gap:4px;flex:none;background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px 8px 10px;min-height:40px;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
 .m-head{gap:12px}
 .bk{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center}
@@ -1148,9 +1148,12 @@ const RT_VID = {
   "Kindhouding": HH+"childs-pose/#childs-pose-exercise-and-modifications",
   "Diepe squat aan de deurpost": HH+"benefits-of-deep-squat/#how-to-do-a-deep-squat-tips-from-physical-therapists",
   "Kuitstretch tegen de muur": MWX+"calves-stretch-variation-two?model=f",
+  "Halve spagaat": MWX+"half-monkey-pose?model=f",
+  "Spagaat op blokken": MWX+"monkey-pose?model=f",
   "Liggende draai": MWX+"lower-back-stretch-variation-three?model=f"
 };
 const rtVid = n => RT_VID[n] || "";
+const RT_VNOTE = {"Spagaat op blokken":"De video toont de volledige spagaat (einddoel). Jij doet hem met blokken en zakt zo ver als prettig is."};
 function rtVidLink(n){ const u=rtVid(n); return u ? `<a class="rt-vid" href="${u}" target="_blank" rel="noopener" data-rtvid>🎥 Video</a>` : ""; }
 function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
 /* Wekelijkse opbouw van de houdtijd (vasthouden), plus aanpassing op haar eigen gevoel */
@@ -1276,7 +1279,7 @@ function rtUpdate(){
     $("rtStage").classList.toggle("mirror", st.side==="rechts");
     $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
     $("rtSide").textContent=(st.side?(st.side==="links"?"◐ Linkerkant":"◑ Rechterkant"):"")+(st.sets>1?` · ronde ${st.set}/${st.sets}`:"");
-    $("rtVid").innerHTML=rtVid(st.n)?`<a class="rt-vid rt-vid-big" href="${rtVid(st.n)}" target="_blank" rel="noopener" data-rtvid>🎥 Bekijk echte video <span>(timer pauzeert)</span></a>`:"";
+    $("rtVid").innerHTML=rtVid(st.n)?`<a class="rt-vid rt-vid-big" href="${rtVid(st.n)}" target="_blank" rel="noopener" data-rtvid>🎥 Bekijk echte video <span>(timer pauzeert)</span></a>${RT_VNOTE[st.n]?`<div class="small muted" style="margin-top:6px;text-align:center">${RT_VNOTE[st.n]}</div>`:""}`:"";
     $("rtActive").innerHTML=st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:"";
     $("rtNext").textContent=next?`Hierna: ${next.n}${next.side?" · "+next.side:""}`:"Laatste stap!";
     $("rtCount").textContent=`Stap ${RTS.i+1} van ${tl.length}`; $("rtBar").style.width=(RTS.i/tl.length*100).toFixed(1)+"%";
@@ -1858,7 +1861,10 @@ const MW = { A1:"dumbbell-goblet-squat", A2:"dumbbell-romanian-deadlift", A3:"du
   A6:"cable-pallof-press", A7:"bodyweight-single-leg-calf-raise", B1:"machine-hip-thrust", B2:"machine-leg-press", B3:"machine-seated-cable-row",
   B4:"dumbbell-seated-overhead-press", B5:"machine-seated-leg-curl", B6:"machine-hip-abduction", B7:"dead-bug", B7b:"elbow-side-plank",
   C1:"pilates-hundred", C3:"push-up", C5:"single-leg-glute-bridge", C7:"band-pull-apart", C8:"bird-dog" };
-const mwUrl = k => MW[k] ? `https://musclewiki.com/exercise/${MW[k]}?model=f` : "";
+const EXTV = { C4:{u:"https://www.hingehealth.com/resources/articles/clamshell/#clamshell-exercises-and-modifications", src:"Hinge Health · fysiotherapeut · Engels"},
+  C6:{u:"https://musclewiki.com/exercise/supermans?model=f", src:"MuscleWiki · Engels · zonder geluid", note:"Zelfde houding; bij swimming wissel je armen en benen snel af in plaats van alles tegelijk op te tillen."} };
+const mwUrl = k => EXTV[k] ? EXTV[k].u : (MW[k] ? `https://musclewiki.com/exercise/${MW[k]}?model=f` : "");
+const mwSrc = k => EXTV[k] ? EXTV[k].src : "MuscleWiki · Engels · zonder geluid";
 const CUE = {
   A1:"Duw de vloer weg om omhoog te komen", A2:"Duw je billen naar de muur achter je", A3:"Laat je achterste knie recht naar de vloer zakken",
   A4:"Duw de handvatten ver van je af", A5:"Trek de stang naar je bovenste ribben", A6:"Houd het handvat precies voor je borstbeen",
@@ -1881,7 +1887,7 @@ function openMove(k){
   const ov=$("mvov"); ov.innerHTML=`<div class="mvcard" role="dialog" aria-label="${name}">
     <div class="mvtop"><b>${name}</b><button class="mvx" aria-label="Sluiten">✕</button></div>
     <div class="mvstage" id="mvstage"></div>
-    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>${MW[k]?`<a class="mvreal" href="${mwUrl(k)}" target="_blank" rel="noopener">Echte beelden bekijken <span>MuscleWiki · Engels · zonder geluid ↗</span></a>`:""}
+    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>${mwUrl(k)?`<a class="mvreal" href="${mwUrl(k)}" target="_blank" rel="noopener">Echte beelden bekijken <span>${mwSrc(k)} ↗</span>${EXTV[k]&&EXTV[k].note?`<em>${EXTV[k].note}</em>`:""}</a>`:""}
     ${k==="B7b"?`<ol class="mvcues"><li>Op je onderarm, elleboog onder je schouder.</li><li>Heup omhoog tot een rechte lijn van hoofd tot voet.</li><li>Vasthouden en rustig doorademen.</li></ol>`
       :`<ol class="mvcues">${cues(x.u).map(c=>`<li>${c}</li>`).join("")}</ol>${x.e?`<div class="mvwarn"><b>Let op:</b> ${x.e}</div>`:""}${EQ[base]?`<div class="mvwarn">🔧 ${EQ[base]}</div>`:""}`}
   </div>`;
@@ -2149,7 +2155,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "32"; let lastCheck = Date.now();
+const APPV = "33"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
