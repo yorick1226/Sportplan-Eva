@@ -515,6 +515,22 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adju
 input,select,textarea{font-size:16px!important}
 .rt-vid{display:inline-block;flex:none;font-size:.75rem;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:3px 9px;text-decoration:none;white-space:nowrap}
 .rt-vid-big{display:block;text-align:center;margin-top:10px;padding:9px;font-size:.88rem;font-weight:600}.rt-vid-big span{color:var(--muted);font-weight:400}
+/* Opmaak-polish */
+.rt-name:after,.h-c:after{background-position:center center!important}
+.rt-in{padding-top:calc(env(safe-area-inset-top) + 14px)!important}
+.rt-main span{margin-left:6px}.rt-main svg,.rt-sec svg{display:block}
+.rt-stage{height:auto!important;aspect-ratio:1.75/1}
+.rec-h{flex-direction:column;align-items:flex-start!important;gap:6px!important}.rec-h b{line-height:1.25}
+.q .dots{display:grid!important;grid-template-columns:repeat(5,auto);justify-content:start;gap:8px}
+#tab-training table td:first-child,#tab-training table th:first-child{width:46%}
+.rtcard .rt-li,.rt-list .rt-li{align-items:flex-start}.rt-li .rt-th{margin-top:2px}
+.rt .runf select,.rt .runf>div{width:100%}
+.rt-side{display:flex;justify-content:center;align-items:center;gap:8px;min-height:24px}
+.rt-pill{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);border-radius:999px;padding:3px 10px;color:var(--ink)}
+.rt-round{font-size:.8rem;color:var(--muted)}
+#tab-training table{table-layout:fixed}#tab-training table td,#tab-training table th{white-space:normal!important;overflow-wrap:anywhere;vertical-align:top}
+.runf>div[style*="flex:1"]{grid-column:1/-1;flex:1 1 100%}
+.idea .rec{padding-left:12px!important}
 </style>
 </head>
 <body>
@@ -1228,6 +1244,13 @@ function rtSave(feel){
   if(m.splitL||m.splitR||m.squat) enqueue("Trainingen", key+"-meting", [key, wi, "Meting: spagaat L "+(m.splitL||"-")+" cm · R "+(m.splitR||"-")+" cm · squat "+(m.squat||"-"), "ja", ""]);
   syncBackup(); celebrate(); rtClose();
 }
+const RTI = {
+  prev:'<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M6 5h2v14H6zM19 6v12l-9-6z"/></svg>',
+  next:'<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M16 5h2v14h-2zM5 6v12l9-6z"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>',
+  play:'<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5v14l12-7z"/></svg>',
+  x:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+};
 const BACK_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>`;
 function rtRender(){
   const el=$("rt"); if(!RTS){ el.innerHTML=""; return; } const R0=ROUT[RTS.id], tl=RTS.tl, w=RTS.w;
@@ -1241,7 +1264,7 @@ function rtRender(){
       <p class="small muted" style="text-align:center;margin-top:10px">Rekken mag trekken, nooit pijn doen. Adem rustig door.</p></div>
       <div class="rt-dock"><button class="rt-sec" data-rtx>${BACK_SVG} Terug</button><button class="rt-main" data-rtgo>▶ Start</button></div>`;
   } else if(RTS.phase==="done"){
-    el.innerHTML=`<div class="rt-in"><div style="text-align:center;margin:18px 0 8px"><div style="font-size:2.4rem">✨</div><h2 style="margin:6px 0">${R0.n} klaar</h2><p class="muted small">Lekker gedaan. Hoe voelde het?</p></div>
+    el.innerHTML=`<div class="rt-in"><div style="text-align:center;margin:18px 0 8px"><div style="font-size:2.4rem">✨</div><h2 class="h-c" style="margin:6px 0">${R0.n} klaar</h2><p class="muted small">Lekker gedaan. Hoe voelde het?</p></div>
       ${RTS.id==="mob"?`<div class="card"><b>Meting (optioneel, 1× per week)</b><p class="small muted" style="margin:4px 0 10px">Spagaat op blokken: afstand van je heup/kruis tot de vloer, per kant. Hoe kleiner, hoe beter. Squat: hoe diep kom je met je hielen aan de grond?</p>
         <div class="runf"><div><label>Spagaat links (cm)</label><input type="number" inputmode="numeric" data-meas="splitL" placeholder="bijv. 30"></div><div><label>Spagaat rechts (cm)</label><input type="number" inputmode="numeric" data-meas="splitR" placeholder="bijv. 32"></div></div>
         <div class="runf"><div style="flex:1"><label>Diepe squat</label><select data-meas="squat"><option value="">–</option><option>hielen los</option><option>hielen net aan grond</option><option>diep, hielen plat</option></select></div></div>
@@ -1260,7 +1283,7 @@ function rtRender(){
       <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span><span id="rtCue"></span></div>
       <div id="rtActive"></div>
       <p class="small muted" style="text-align:center;margin-top:10px" id="rtNext"></p></div>
-      <div class="rt-dock"><button class="rt-sec rt-x" data-rtx aria-label="Stoppen">✕<span>Stop</span></button><button class="rt-sec" data-rtj="-1" aria-label="Vorige">⏮</button><button class="rt-main" data-rtp id="rtPP"></button><button class="rt-sec" data-rtj="1" aria-label="Volgende">⏭</button></div>`;
+      <div class="rt-dock"><button class="rt-sec rt-x" data-rtx aria-label="Stoppen">${RTI.x}<span>Stop</span></button><button class="rt-sec" data-rtj="-1" aria-label="Vorige oefening">${RTI.prev}</button><button class="rt-main" data-rtp id="rtPP"></button><button class="rt-sec" data-rtj="1" aria-label="Volgende oefening">${RTI.next}</button></div>`;
     rtUpdate();
   }
   el.querySelectorAll("[data-rtx]").forEach(b=>b.onclick=()=>{ if(RTS && RTS.phase!=="intro" && RTS.phase!=="done"){ confirmStop(); return; } history.state&&history.state.rt ? history.back() : rtClose(); });
@@ -1275,10 +1298,10 @@ function rtUpdate(){
   const tl=RTS.tl, st=tl[RTS.i], next=tl[RTS.i+1], prep=RTS.phase==="prep", total=prep?RT_PREP:st.sec, left=Math.max(0,Math.ceil(RTS.left)), frac=Math.max(0,Math.min(1,RTS.left/total)), C=2*Math.PI*86;
   if(RTS.shown!==RTS.i){ RTS.shown=RTS.i;
     if(RTS.stopMv) RTS.stopMv(); const k=RT_MV[st.n]; RTS.stopMv = k ? mvPlay($("rtStage"), k) : null;
-    if(k){ const sv=$("rtStage").querySelector("svg"); if(sv) sv.setAttribute("viewBox", mvBox(MOVES[k])); }
+    if(k){ const sv=$("rtStage").querySelector("svg"); if(sv) sv.setAttribute("viewBox", mvBox(MOVES[k], 1.75)); }
     $("rtStage").classList.toggle("mirror", st.side==="rechts");
     $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
-    $("rtSide").textContent=(st.side?(st.side==="links"?"◐ Linkerkant":"◑ Rechterkant"):"")+(st.sets>1?` · ronde ${st.set}/${st.sets}`:"");
+    $("rtSide").innerHTML=(st.side?`<span class="rt-pill">${st.side==="links"?"Linkerkant":"Rechterkant"}</span>`:"")+(st.sets>1?`<span class="rt-round">ronde ${st.set} van ${st.sets}</span>`:"");
     $("rtVid").innerHTML=rtVid(st.n)?`<a class="rt-vid rt-vid-big" href="${rtVid(st.n)}" target="_blank" rel="noopener" data-rtvid>🎥 Bekijk echte video <span>(timer pauzeert)</span></a>${RT_VNOTE[st.n]?`<div class="small muted" style="margin-top:6px;text-align:center">${RT_VNOTE[st.n]}</div>`:""}`:"";
     $("rtActive").innerHTML=st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:"";
     $("rtNext").textContent=next?`Hierna: ${next.n}${next.side?" · "+next.side:""}`:"Laatste stap!";
@@ -1286,7 +1309,7 @@ function rtUpdate(){
   }
   $("rtNum").textContent=left; $("rtLab").textContent=prep?(st.side&&st.set===1&&st.side==="rechts"?"wissel van kant":"klaar maken"):"sec";
   $("rtRing").classList.toggle("prep",prep); $("rtArc").setAttribute("stroke-dashoffset",(C*(1-frac)).toFixed(1));
-  $("rtPP").textContent = RTS.paused ? "▶ Verder" : "⏸ Pauze";
+  $("rtPP").innerHTML = RTS.paused ? RTI.play+"<span>Verder</span>" : RTI.pause+"<span>Pauze</span>";
 }
 function confirmStop(){ if(document.querySelector("#rt .rt-stop")) return; RTS.paused=true; rtUpdate();
   const bar=document.createElement("div"); bar.className="rt-stop"; bar.innerHTML=`<b>Stoppen?</b><span class="small muted">Wat je gedaan hebt telt ook. Je kunt later opnieuw beginnen.</span><button class="bk-go" data-s="1">Doorgaan</button><button class="bk-later" data-s="0">Stoppen</button>`;
@@ -1840,12 +1863,12 @@ Object.assign(MOVES, {
 /* Teken één moment (voor statische weergave) */
 function mvFrame(k, time){ const m=MOVES[k]; if(!m) return ""; const st=mvAt(m, time||0); const pt=mvSolve(st.p); return `<svg class="mv" viewBox="0 -14 300 150" role="img" aria-label="beweging">${mvSVG(pt,m)}</svg>`; }
 /* Start een lus in een element; geeft stopfunctie terug */
-function mvBox(m){
+function mvBox(m, R){ R = R || 1.35;
   let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; const tot=m.seq.reduce((s,f)=>s+(f.hold||0)+(f.go||1),0);
   for(let i=0;i<=40;i++){ const pt=mvSolve(mvAt(m, tot*i/40).p); for(const k in pt){ const v=pt[k]; if(!Array.isArray(v)) continue; x0=Math.min(x0,v[0]); y0=Math.min(y0,v[1]); x1=Math.max(x1,v[0]); y1=Math.max(y1,v[1]); } }
   (m.extra||[]).forEach(v=>{ x0=Math.min(x0,v[0]); y0=Math.min(y0,v[1]); x1=Math.max(x1,v[0]); y1=Math.max(y1,v[1]); });
   x0-=18; x1+=18; y0-=16; y1=Math.max(y1+6,132);
-  let w=x1-x0, h=y1-y0; if(w/h<1.35){ const nw=h*1.35; x0-=(nw-w)/2; w=nw; } else { const nh=w/1.35; y0-=(nh-h); h=nh; }
+  let w=x1-x0, h=y1-y0; if(w/h<R){ const nw=h*R; x0-=(nw-w)/2; w=nw; } else { const nh=w/R; y0-=(nh-h); h=nh; }
   return `${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`;
 }
 function mvPlay(el, k, onPhase){
@@ -1933,14 +1956,14 @@ $("stairs").innerHTML = (()=>{ const st=[["3×8","10 kg","#b8b1a7"],["3×10","10
 /* ======================= GIDS ======================= */
 const TL = [["11 nov · De start","5 km gelopen, het avontuur is begonnen","#b8b1a7"],["12 nov · Eerste keer sportschool","InBody-startmeting en de machines leren","#ece8e1"],["13 dec · Week 4 gehaald","Eerste meting + een nieuwe sportlegging","#ece8e1"],["Kerst · Rustiger aan","Genieten, en licht doortrainen","#d6cfc5"],["17 jan · De 10 km! ","Met Noa en Yorick, daarna brunch","#b8b1a7"],["Je eerste echte push-up","Een reformerles als cadeau","#c4bdb3"],["7 feb · Week 12! ","Eindmeting, en het volgende blok plannen","#e6e0d6"]];
 $("tl").innerHTML = TL.map(t=>`<div class="tl-i" style="--c:${t[2]}"><b>${t[0]}</b><span class="small muted">${t[1]}</span></div>`).join("");
-$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity="0" stroke="#8a8378" stroke-width="1" stroke-dasharray="2 3"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter">zelfde gewicht</text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity="0" stroke="#ece8e1" stroke-width="1"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
+$("fatmuscle").innerHTML = `<svg viewBox="0 0 320 170" class="fig" role="img" aria-label="1 kg vet naast 1 kg spier"><rect x="22" y="22" width="110" height="96" rx="28" fill="#8a8378" fill-opacity="0" stroke="#8a8378" stroke-width="1" stroke-dasharray="2 3"/><text x="77" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg vet</text><text x="77" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">zacht, meer ruimte</text><text x="160" y="80" text-anchor="middle" font-size="30" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">=</text><text x="160" y="98" text-anchor="middle" font-size="9.5" fill="#9d968c" font-family="Inter"><tspan x="160" dy="0">zelfde</tspan><tspan x="160" dy="11">gewicht</tspan></text><rect x="196" y="38" width="96" height="80" rx="10" fill="#ece8e1" fill-opacity="0" stroke="#ece8e1" stroke-width="1"/>${[0,1,2,3,4].map(i=>`<path d="M204 ${52+i*15}q40 -7 80 0" fill="none" stroke="#ece8e1" stroke-width="1.5" stroke-opacity=".8"/>`).join("")}<text x="244" y="142" text-anchor="middle" font-size="13" font-weight="600" fill="#ece8e1" font-family="Cormorant Garamond, Georgia, serif">1 kg spier</text><text x="244" y="158" text-anchor="middle" font-size="10.5" fill="#9d968c" font-family="Inter">compact, geeft vorm</text></svg>`;
 
 /* ======================= ETEN ======================= */
 const RATES = [["😋","Lekker!"],["😐","Gaat wel"],["👎","Niet voor mij"]];
 function recCard(id, withRate){
   const r = R[id], rt = S.rate[id] || {};
   return `<div class="rec"><div class="rec-h"><b>${r[0]}</b><span><span class="chip">⏱ ${r[1]}</span> <span class="chip">💪 ${r[2]}</span></span></div><p class="small"><b>Nodig:</b> ${r[3]}</p><p class="small"><b>Zo:</b> ${r[4]}</p>
-   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${x[0]}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan? (bv. minder pittig, extra kaas)" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
+   ${withRate?`<div class="rate" data-id="${id}">${RATES.map((x,i)=>`<button data-v="${i}" class="${rt.v===i?'on':''}"><span>${x[0]}</span>${x[1]}</button>`).join("")}</div><input type="text" data-note="${id}" placeholder="Wat vond je ervan?" value="${esc(rt.n||'')}" style="margin-top:8px">`:""}</div>`;
 }
 function bindRates(root){
   root.querySelectorAll(".rate").forEach(rw=>rw.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ const id=rw.dataset.id; S.rate[id]=Object.assign(S.rate[id]||{}, {v:+b.dataset.v, w:W}); save(); rw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b)); renderFavs(); toast(RATES[+b.dataset.v][0]+" Genoteerd!"); })));
@@ -2026,7 +2049,7 @@ $("plate").innerHTML = `<svg viewBox="0 0 320 210" class="fig" role="img" aria-l
 const PROT = [["Kipfilet 150 g",35],["Tonijn, 1 blikje",29],["Skyr 250 g",27],["Mager gehakt 125 g",26],["Zalm 125 g",25],["Tofu 200 g",24],["Eiwitshake, 1 schep",24],["Kwark 250 g",22],["Eiwitpudding",20],["Hüttenkäse 150 g",18],["Edamame 150 g",17],["Linzen/bonen 200 g",14],["2 eieren",13],["2 plakken kaas",10],["Glas melk",8]];
 $("protein").innerHTML = PROT.map(p=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0"><div style="width:44%;font-size:.84rem">${p[0]}</div><div style="flex:1;background:#222;border-radius:999px;height:8px;overflow:hidden;margin-top:4px"><div style="width:${p[1]/35*100}%;height:100%;background:linear-gradient(90deg,#8fcaa9,#e2c97c);border-radius:999px"></div></div><div style="width:40px;text-align:right;font-weight:700;font-size:.84rem">${p[1]} g</div></div>`).join("") + `<p class="small muted">Schattingen: check het etiket.</p>`;
 function renderAllRecipes(){
-  const seen = []; WEEKS.forEach(w=>w.food.rec.forEach(id=>{ if(!seen.includes(id) && id!=="eigen") seen.push(id); }));
+  const seen = []; WEEKS.forEach(w=>w.food.rec.forEach(id=>{ if(!seen.includes(id) && id!=="eigen") seen.push(id); })); Object.keys(R).forEach(id=>{ if(!seen.includes(id) && id!=="eigen" && id!=="raceontbijt") seen.push(id); });
   $("allRecipes").innerHTML = `<details><summary><span class="s-main">${seen.length} recepten<span class="s-sub">Elke week komen er nieuwe bij</span></span></summary><div class="dbody">${seen.map(id=>recCard(id,true)).join("")}</div></details>`;
   bindRates($("allRecipes"));
 }
@@ -2155,7 +2178,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "33"; let lastCheck = Date.now();
+const APPV = "34"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
