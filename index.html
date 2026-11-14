@@ -1119,9 +1119,9 @@ const ROUT = {
       {n:"Bovenrug draaien", sides:true, sets:1, base:30, flow:true, grp:"Losmaken",
         how:"Op handen en knieën: schuif één arm onder je andere arm door, schouder naar de mat. Draai daarna open en reik naar het plafond. Rustig heen en weer.",
         cue:"Reik met je vingers naar het plafond"},
-      {n:"Heupcirkels", sides:false, sets:1, base:45, flow:true, grp:"Losmaken",
-        how:"Op handen en knieën: draai grote, rustige cirkels met je heupen. Halverwege de andere kant op.",
-        cue:"Teken een grote cirkel met je staartbeen"},
+      {n:"Heupcirkels", sides:true, sets:1, base:30, flow:true, grp:"Losmaken",
+        how:"Op handen en knieën. Til één knie een stukje op en teken er grote, rustige cirkels mee: naar achteren, opzij, en naar voren richting je borst. Halverwege de andere kant op draaien.",
+        cue:"Romp blijft stil, alleen je heup draait"},
       {n:"90/90-heupen", sides:true, sets:1, base:45, grp:"Actief",
         how:"Zit met beide knieën in een hoek van 90 graden: één been voor je, het andere opzij. Rug lang en licht voorover over je voorste been.",
         cue:"Reik met je borst over je voorste knie"},
@@ -1166,12 +1166,13 @@ const RT_VID = {
   "Kuitstretch tegen de muur": MWX+"calves-stretch-variation-two?model=f",
   "Halve spagaat": MWX+"half-monkey-pose?model=f",
   "Spagaat op blokken": MWX+"monkey-pose?model=f",
-  "Liggende draai": MWX+"lower-back-stretch-variation-three?model=f"
+  "Liggende draai": MWX+"lower-back-stretch-variation-three?model=f",
+  "Heupcirkels": "https://ca.physitrack.com/home-exercise-video/hip-circles-on-all-fours"
 };
 const rtVid = n => RT_VID[n] || "";
-const RT_VNOTE = {"Spagaat op blokken":"De video toont de volledige spagaat (einddoel). Jij doet hem met blokken en zakt zo ver als prettig is."};
+const RT_VNOTE = {"Heupcirkels":"Video van Physitrack (platform voor fysiotherapeuten), zonder reclame. Let op: gratis tot 5 video's per maand.","Spagaat op blokken":"De video toont de volledige spagaat (einddoel). Jij doet hem met blokken en zakt zo ver als prettig is."};
 function rtVidLink(n){ const u=rtVid(n); return u ? `<a class="rt-vid" href="${u}" target="_blank" rel="noopener" data-rtvid>🎥 Video</a>` : ""; }
-function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
+function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, m.thumbT ?? (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
 /* Wekelijkse opbouw van de houdtijd (vasthouden), plus aanpassing op haar eigen gevoel */
 function rtPhase(w){ return Math.min(25, Math.floor(w/2)*5); }          // elke 2 weken +5 sec: week 0-1 +0 … week 10-12 +25
 function rtAdj(id){ return ((S.rtAdj||{})[id])||0; }                          // -10 … +15 op basis van haar feedback
@@ -1695,7 +1696,7 @@ function mvAt(m, time){
   const seq=m.seq, tot=seq.reduce((s,f)=>s+(f.hold||0)+(f.go||1),0); let t=time%tot;
   for(let i=0;i<seq.length;i++){ const f=seq[i], n=seq[(i+1)%seq.length];
     if(t < (f.hold||0)) return {p:f.p, i, phase:"hold"}; t-=(f.hold||0);
-    const g=f.go||1; if(t < g) return {p:mvLerp(f.p, n.p, mvEase(t/g)), i, phase:"go"}; t-=g; }
+    const g=f.go||1; if(t < g) return {p:mvLerp(f.p, n.p, f.lin ? t/g : mvEase(t/g)), i, phase:"go"}; t-=g; }
   return {p:seq[0].p, i:0};
 }
 function mvSVG(pt, m){
@@ -1714,6 +1715,7 @@ function mvSVG(pt, m){
   s+=seg(pt.hip,pt.kn)+seg(pt.kn,pt.an)+seg(pt.an,pt.to,2);
   s+=seg(pt.sh,pt.el)+seg(pt.el,pt.ha);
   s+=`<circle cx="${pt.hd[0].toFixed(1)}" cy="${pt.hd[1].toFixed(1)}" r="7" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1.6"/>`;
+  if(m.armTop) s+=seg(pt.sh,pt.el)+seg(pt.el,pt.ha);
   s+=dot(pt.kn)+dot(pt.el)+dot(pt.hip);
   return props+s;
 }
@@ -1838,9 +1840,24 @@ Object.assign(MOVES, {
   S_THREAD:{props:[PR.mat], seq:[
     {p:Object.assign({},QUAD,{arm:{a:[96,96]},arm2:{t:[166,126]},N:30}), hold:.5, go:2.2},
     {p:Object.assign({},QUAD,{hip:[128,92],T:-2,N:-30,arm:{t:[140,124],k:-1},arm2:{t:[166,126]}}), hold:.8, go:2.2}]},
-  S_HIPCIRC:{props:[PR.mat], seq:[
-    {p:Object.assign({},QUAD,{hip:[122,96],T:10}), go:.9},{p:Object.assign({},QUAD,{hip:[128,90],T:20}), go:.9},
-    {p:Object.assign({},QUAD,{hip:[134,96],T:18}), go:.9},{p:Object.assign({},QUAD,{hip:[128,101],T:8}), go:.9}]},
+  S_HIPCIRC:(()=>{
+    const hip=[128,96], sh=[164.9,86.8], hd=[180.8,82.8], ha=[166,126], ha2=[170,126];
+    const el=mvIK(sh,ha,21,19,1), el2=mvIK(sh,ha2,21,19,1);
+    /* kniepad (zijaanzicht): naar achter-boven, opzij (verkort), naar voren richting borst, terug */
+    const K=[[127,121],[104,104],[123,103],[146,109]], A=[[100,123],[95,78],[100,107],[123,119]];
+    const cr=(P,i,t)=>{ const n=P.length, p0=P[(i-1+n)%n], p1=P[i], p2=P[(i+1)%n], p3=P[(i+2)%n], t2=t*t, t3=t2*t;
+      return [0,1].map(j=>.5*(2*p1[j]+(-p0[j]+p2[j])*t+(2*p0[j]-5*p1[j]+4*p2[j]-p3[j])*t2+(-p0[j]+3*p1[j]-3*p2[j]+p3[j])*t3)); };
+    const pose=(kn,an)=>{ const dx=an[0]-kn[0], dy=an[1]-kn[1], d=Math.hypot(dx,dy)||1;
+      return {pts:{hip, sh, hd, el, ha, el2, ha2, kn, an, to:[an[0]+dx/d*9, an[1]+dy/d*9], kn2:[128,126], an2:[99,126], to2:[89,126], curv:0}}; };
+    const loop=[]; for(let i=0;i<4;i++) for(let s=0;s<4;s++) loop.push(pose(cr(K,i,s/4), cr(A,i,s/4)));
+    const path=loop.map(f=>f.pts.kn);
+    const seq=[{p:pose([128,126],[99,126]), hold:.8, go:.7}];
+    loop.forEach(p=>seq.push({p, go:.32, lin:true}));
+    seq.push({p:pose([128,126],[99,126]), hold:.6, go:.7});
+    [...loop].reverse().forEach(p=>seq.push({p, go:.32, lin:true}));
+    const guide=()=>`<path d="M${path.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")}Z" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 3"/>`;
+    return {props:[PR.mat, guide], seq, thumbT:2.75};
+  })(),
   S_9090:{front:[["hd","sh"],["sh","hip"],["hip","kn"],["kn","an"],["hip","kn2"],["kn2","an2"],["sh","el"],["el","ha"],["sh","el2"],["el2","ha2"]], props:[PR.mat], seq:[
     {p:{pts:{hip:[146,118],kn:[182,123],an:[156,127],kn2:[112,123],an2:[100,104],sh:[146,80],hd:[146,62],el:[160,100],ha:[170,116],el2:[132,100],ha2:[124,116]}}, hold:1.2, go:2.4},
     {p:{pts:{hip:[146,118],kn:[182,123],an:[156,127],kn2:[112,123],an2:[100,104],sh:[164,88],hd:[176,74],el:[178,104],ha:[186,120],el2:[158,106],ha2:[168,122]}}, hold:1.8, go:2.4}]},
@@ -1855,10 +1872,10 @@ Object.assign(MOVES, {
     {p:{hip:[140,109],T:88,N:86,leg:{t:[198,124],f:72},leg2:{t:[82,124],f:180},arm:{t:[150,110],k:-1}}, hold:1.8, go:2.6}]},
   S_TWIST:{props:[PR.mat], seq:[
     {p:{hip:[150,121],T:180,N:180,leg:{a:[78,-12],f:-12},leg2:{a:[74,-16],f:-16},arm:{a:[150,150]},arm2:{a:[160,170]}}, hold:.8, go:2.4},
-    {p:{hip:[150,121],T:180,N:200,leg:{a:[30,-30],f:-30},leg2:{a:[36,-22],f:-22},arm:{a:[150,150]},arm2:{a:[160,170]}}, hold:1.8, go:2.4}]},
-  S_CHILD:{props:[PR.mat], seq:[
-    {p:{hip:[122,107],T:-10,N:-22,leg:{a:[-30,180],f:180},arm:{a:[-2,-1]}}, hold:1.2, go:2.8},
-    {p:{hip:[121,108],T:-17,N:-28,leg:{a:[-32,180],f:180},arm:{a:[-4,-3]}}, hold:1.6, go:2.8}]}
+    {p:{hip:[150,121],T:180,N:180,leg:{a:[30,-30],f:-30},leg2:{a:[36,-22],f:-22},arm:{a:[150,150]},arm2:{a:[160,170]}}, hold:1.8, go:2.4}]},
+  S_CHILD:{armTop:true, props:[PR.mat], seq:[
+    {p:{hip:[121,110],T:-8,N:-8,leg:{a:[-30,180],f:180},arm:{a:[-16,-9]}}, hold:1.2, go:2.8},
+    {p:{hip:[118,111],T:-11,N:-5,leg:{a:[-38,180],f:180},arm:{a:[-15,-6]}}, hold:1.6, go:2.8}]}
 });
 /* Teken één moment (voor statische weergave) */
 function mvFrame(k, time){ const m=MOVES[k]; if(!m) return ""; const st=mvAt(m, time||0); const pt=mvSolve(st.p); return `<svg class="mv" viewBox="0 -14 300 150" role="img" aria-label="beweging">${mvSVG(pt,m)}</svg>`; }
@@ -2178,7 +2195,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "34"; let lastCheck = Date.now();
+const APPV = "35"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
