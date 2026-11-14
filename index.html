@@ -496,8 +496,20 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .rt-ctl{display:flex;gap:10px;justify-content:center;margin-top:16px}.rt-ctl button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;min-width:52px;height:48px;font-size:1.1rem;cursor:pointer}
 .rt-ctl .rt-pp{min-width:140px;font-weight:700;font-size:1rem;background:var(--ink);color:#000;border-color:var(--ink)}
 .rt-feel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.rt-feel button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:12px 6px;font:inherit;font-weight:700;cursor:pointer}.rt-feel span{display:block;font-size:1.5rem;margin-bottom:4px}
-.rt-stop{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px;display:flex;flex-direction:column;gap:8px;z-index:3}
+.rt-stop{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;z-index:6}
 .runf select{width:100%;background:#0f0f0f;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:12px;font:inherit}
+.rt-pad{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.rt-dock,.m-dock{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;gap:8px;align-items:center;justify-content:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 70%,transparent)}
+.m-dock{z-index:55}#mDone{display:none!important}.m-body{padding-bottom:170px!important}
+.rt-dock button,.m-dock button{height:52px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+.rt-sec{background:var(--card);border:1px solid var(--line);color:var(--ink);min-width:56px;padding:0 14px;font-size:1.05rem}
+.rt-main{flex:1;max-width:260px;background:var(--ink);color:#000;border:0;font-size:1.02rem}
+.rt-x{flex-direction:column;gap:0!important;font-size:1rem;line-height:1}.rt-x span{font-size:.62rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.rt-stage{--mvbg:var(--bg);color:var(--ink);background:#111;border:1px solid var(--line);border-radius:16px;margin:12px 0 10px;height:190px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.rt-stage svg{width:100%;height:100%}.rt-stage.mirror svg{transform:scaleX(-1)}
+.rt-ring{width:132px!important;height:132px!important;margin:8px auto 10px!important}.rt-num{font-size:2.6rem!important}
+.rt-li{display:flex;gap:12px;align-items:center}.rt-th{flex:none;width:64px;height:48px;background:#111;border:1px solid var(--line);border-radius:10px;color:var(--ink);--mvbg:#111}
+.rt-list .rt-li{padding:8px 0;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -751,6 +763,7 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 <div class="modal" id="modal">
   <div class="m-head"><button class="m-back" id="mClose" aria-label="Terug naar je week"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Terug</button><b id="mTitle"></b></div>
   <div class="m-body" id="mBody"></div>
+  <div class="m-dock"><button class="rt-sec" id="mDockBack"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg> Terug</button><button class="rt-main" id="mDockDone">✓ Training klaar</button></div>
 </div>
 <div class="timer" id="timer"><div class="timer-in"><div class="t" id="tT">0:00</div><div class="lab" id="tLab">Rust</div><button id="tPlus">+15s</button><button id="tStop">Stop</button></div><div class="tbar"><div id="tBar"></div></div></div>
 <div class="toast" id="toast"></div>
@@ -1117,6 +1130,8 @@ const ROUT = {
         cue:"Schuif je handen nog iets verder naar voren"}
     ]}
 };
+const RT_MV = {"Lage lunge":"S_LUNGE","Halve spagaat":"S_HALF","Duif":"S_PIGEON","Brede zit voorover":"S_STRADDLE","Kuitstretch tegen de muur":"S_CALF","Cat-cow":"S_CATCOW","Bovenrug draaien":"S_THREAD","Heupcirkels":"S_HIPCIRC","90/90-heupen":"S_9090","World's greatest stretch":"S_WGS","Diepe squat aan de deurpost":"S_SQUAT","Spagaat op blokken":"S_SPLIT","Liggende draai":"S_TWIST","Kindhouding":"S_CHILD"};
+function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
 /* Wekelijkse opbouw van de houdtijd (vasthouden), plus aanpassing op haar eigen gevoel */
 function rtPhase(w){ return Math.min(25, Math.floor(w/2)*5); }          // elke 2 weken +5 sec: week 0-1 +0 … week 10-12 +25
 function rtAdj(id){ return ((S.rtAdj||{})[id])||0; }                          // -10 … +15 op basis van haar feedback
@@ -1150,7 +1165,7 @@ function rtCard(id, key, w){
     <p class="small muted" style="margin:6px 0 10px">📈 Week ${w}: ${ph>0?"je houdt elke rek "+ph+" sec langer vast dan bij de start":"basistijden, rustig wennen"}${rtActive(w)&&id==="mob"?" · met actief rekken":""}. Stap voor stap met timer.</p>
     <button class="btn go" data-rt="${id}" data-rtkey="${key}">${done?"↻ Nog een keer":"▶ Start "+R0.n.toLowerCase()}</button>
     <details class="exlist"><summary><span class="s-main">📋 ${R0.steps.length} oefeningen<span class="s-sub">Bekijk wat je gaat doen</span></span></summary>
-      ${R0.steps.map(st=>`<div class="rt-li"><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span><div class="small muted">${st.how}</div></div>`).join("")}
+      ${R0.steps.map(st=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span><div class="small muted">${st.how}</div></div></div>`).join("")}
     </details></div>`;
 }
 const RT_FEEL = [["Makkelijk","😌"],["Goed","🙂"],["Te pittig","😮‍💨"]];
@@ -1163,8 +1178,8 @@ function openRoutine(id, key){
   RTS = {id, key:key||TODAY, w, tl:rtTimeline(id,w), i:0, phase:"intro", left:0, paused:false, t:null};
   $("rt").classList.add("on"); document.body.style.overflow="hidden"; history.pushState({rt:1},""); rtRender();
 }
-function rtClose(){ if(!RTS) return; clearInterval(RTS.t); rtWake(false); RTS=null; $("rt").classList.remove("on"); $("rt").innerHTML=""; document.body.style.overflow=""; renderWeek(); if(typeof renderTrainingRt==="function") renderTrainingRt(); }
-function rtStart(){ RTS.phase="prep"; RTS.left=RT_PREP; rtWake(true); rtTick(true); clearInterval(RTS.t); RTS.last=Date.now(); RTS.t=setInterval(()=>rtTick(false), 250); }
+function rtClose(){ if(!RTS) return; clearInterval(RTS.t); if(RTS.stopMv) RTS.stopMv(); rtWake(false); RTS=null; $("rt").classList.remove("on"); $("rt").innerHTML=""; document.body.style.overflow=""; renderWeek(); if(typeof renderTrainingRt==="function") renderTrainingRt(); }
+function rtStart(){ RTS.phase="prep"; RTS.left=RT_PREP; rtWake(true); rtRender(); rtTick(true); clearInterval(RTS.t); RTS.last=Date.now(); RTS.t=setInterval(()=>rtTick(false), 250); }
 function rtTick(first){
   if(!RTS || RTS.paused) { if(RTS) RTS.last=Date.now(); return; }
   if(!first){ const now=Date.now(); RTS.left -= (now-RTS.last)/1000; RTS.last=now; }
@@ -1172,10 +1187,10 @@ function rtTick(first){
     if(RTS.phase==="prep"){ RTS.phase="hold"; RTS.left=RTS.tl[RTS.i].sec; rtBeep(880); }
     else { RTS.i++; if(RTS.i>=RTS.tl.length){ rtFinish(); return; } RTS.phase="prep"; RTS.left=RT_PREP; rtBeep(660); }
   } else if(RTS.phase==="hold" && Math.ceil(RTS.left)===3 && RTS._b!==RTS.i){ RTS._b=RTS.i; rtBeep(520); }
-  rtRender();
+  rtUpdate();
 }
-function rtJump(d){ if(!RTS) return; RTS.i=Math.max(0, Math.min(RTS.tl.length-1, RTS.i+d)); RTS.phase="prep"; RTS.left=RT_PREP; rtRender(); }
-function rtFinish(){ clearInterval(RTS.t); rtWake(false); RTS.phase="done"; rtBeep(990); setTimeout(()=>rtBeep(1320),200); rtRender(); }
+function rtJump(d){ if(!RTS) return; RTS.i=Math.max(0, Math.min(RTS.tl.length-1, RTS.i+d)); RTS.phase="prep"; RTS.left=RT_PREP; rtUpdate(); }
+function rtFinish(){ clearInterval(RTS.t); rtWake(false); if(RTS.stopMv){ RTS.stopMv(); RTS.stopMv=null; } RTS.phase="done"; rtBeep(990); setTimeout(()=>rtBeep(1320),200); rtRender(); }
 function rtSave(feel){
   const id=RTS.id, key=RTS.key, k=key+"-"+id; S.rt=S.rt||{}; S.rt[k]={id, at:Date.now(), feel};
   // niveau: makkelijk → volgende keer +5 sec, te pittig → -5 sec
@@ -1189,16 +1204,17 @@ function rtSave(feel){
   if(m.splitL||m.splitR||m.squat) enqueue("Trainingen", key+"-meting", [key, wi, "Meting: spagaat L "+(m.splitL||"-")+" cm · R "+(m.splitR||"-")+" cm · squat "+(m.squat||"-"), "ja", ""]);
   syncBackup(); celebrate(); rtClose();
 }
+const BACK_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>`;
 function rtRender(){
   const el=$("rt"); if(!RTS){ el.innerHTML=""; return; } const R0=ROUT[RTS.id], tl=RTS.tl, w=RTS.w;
+  if(RTS.stopMv){ RTS.stopMv(); RTS.stopMv=null; } RTS.shown=null;
   if(RTS.phase==="intro"){
-    el.innerHTML=`<div class="rt-in"><div class="rt-top"><button class="m-back" data-rtx><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Terug</button></div>
-      <div class="kicker">${R0.e} ${R0.when}</div><h2 style="margin:4px 0 2px">${R0.n} · ${rtMinutes(RTS.id,w)} min</h2>
-      <p class="small muted">Nodig: ${R0.need}. Telefoon naast je op de mat; de app telt af en piept bij elke wissel.</p>
+    el.innerHTML=`<div class="rt-in rt-pad"><div class="kicker" style="margin-top:6px">${R0.e} ${R0.when}</div><h2 style="margin:4px 0 2px">${R0.n} · ${rtMinutes(RTS.id,w)} min</h2>
+      <p class="small muted">Nodig: ${R0.need}. Leg je telefoon naast je op de mat: de app telt af, piept bij elke wissel en het poppetje doet het voor.</p>
       <div class="tip">📈 <b>Week ${w}:</b> ${rtPhase(w)>0?"je houdt de rekken "+rtPhase(w)+" sec langer vast dan in week 0":"basistijden, rustig wennen"}${rtAdj(RTS.id)?` · ${rtAdj(RTS.id)>0?"+":""}${rtAdj(RTS.id)} sec op jouw niveau`:""}${rtActive(w)&&RTS.id==="mob"?" · met actief rekken bij de halve spagaat":""}.</div>
-      <ol class="rt-list">${R0.steps.map(st=>`<li><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,RTS.id)}</span></li>`).join("")}</ol>
-      <button class="btn go" data-rtgo>▶ Start · ${tl.length} stappen</button>
-      <p class="small muted" style="text-align:center;margin-top:8px">Rekken mag trekken, nooit pijn doen. Adem rustig door.</p></div>`;
+      <div class="rt-list">${R0.steps.map((st,i)=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${i+1}. ${st.n}</b><div class="small muted">${rtStepText(st,w,RTS.id)}</div></div></div>`).join("")}</div>
+      <p class="small muted" style="text-align:center;margin-top:10px">Rekken mag trekken, nooit pijn doen. Adem rustig door.</p></div>
+      <div class="rt-dock"><button class="rt-sec" data-rtx>${BACK_SVG} Terug</button><button class="rt-main" data-rtgo>▶ Start</button></div>`;
   } else if(RTS.phase==="done"){
     el.innerHTML=`<div class="rt-in"><div style="text-align:center;margin:18px 0 8px"><div style="font-size:2.4rem">✨</div><h2 style="margin:6px 0">${R0.n} klaar</h2><p class="muted small">Lekker gedaan. Hoe voelde het?</p></div>
       ${RTS.id==="mob"?`<div class="card"><b>Meting (optioneel, 1× per week)</b><p class="small muted" style="margin:4px 0 10px">Spagaat op blokken: afstand van je heup/kruis tot de vloer, per kant. Hoe kleiner, hoe beter. Squat: hoe diep kom je met je hielen aan de grond?</p>
@@ -1208,31 +1224,48 @@ function rtRender(){
       <div class="rt-feel">${RT_FEEL.map((f,i)=>`<button data-rtfeel="${i}"><span>${f[1]}</span>${f[0]}</button>`).join("")}</div>
       <p class="small muted" style="text-align:center;margin-top:8px">Makkelijk = volgende keer iets langer vasthouden. Te pittig = iets korter.</p></div>`;
   } else {
-    const st=tl[RTS.i], next=tl[RTS.i+1], prep=RTS.phase==="prep", total=prep?RT_PREP:st.sec, left=Math.max(0,Math.ceil(RTS.left)), frac=Math.max(0,Math.min(1,RTS.left/total));
-    const C=2*Math.PI*86;
-    el.innerHTML=`<div class="rt-in rt-run"><div class="rt-top"><button class="m-back" data-rtx><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Stoppen</button><span class="small muted">Stap ${RTS.i+1} van ${tl.length}</span></div>
-      <div class="rt-bar"><i style="width:${(RTS.i/tl.length*100).toFixed(1)}%"></i></div>
-      <div class="kicker" style="text-align:center;margin-top:14px">${prep?"Klaar maken":st.grp}</div>
-      <h2 class="rt-name">${st.n}</h2>
-      <div class="rt-side">${st.side?(st.side==="links"?"◐ Links":"◑ Rechts"):""}${st.sets>1?` · ronde ${st.set}/${st.sets}`:""}</div>
-      <div class="rt-ring${prep?" prep":""}"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="8"/><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${(C*(1-frac)).toFixed(1)}" transform="rotate(-90 100 100)"/></svg><div class="rt-num">${left}<small>${prep?"ga klaar zitten":"sec"}</small></div></div>
-      <div class="rt-how">${st.how}</div>
-      <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span>${st.cue}</div>
-      ${st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:""}
-      <div class="rt-ctl"><button data-rtj="-1" aria-label="Vorige">⏮</button><button class="rt-pp" data-rtp>${RTS.paused?"▶ Verder":"⏸ Pauze"}</button><button data-rtj="1" aria-label="Volgende">⏭</button></div>
-      ${next?`<p class="small muted" style="text-align:center;margin-top:10px">Hierna: ${next.n}${next.side?" · "+next.side:""}</p>`:""}</div>`;
+    el.innerHTML=`<div class="rt-in rt-run rt-pad"><div class="rt-top"><span class="small muted" id="rtCount"></span><span class="small muted">${R0.n}</span></div>
+      <div class="rt-bar"><i id="rtBar"></i></div>
+      <div class="rt-stage" id="rtStage"></div>
+      <div class="kicker" style="text-align:center" id="rtGrp"></div>
+      <h2 class="rt-name" id="rtName"></h2>
+      <div class="rt-side" id="rtSide"></div>
+      <div class="rt-ring" id="rtRing"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="9"/><circle id="rtArc" cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(2*Math.PI*86).toFixed(1)}" transform="rotate(-90 100 100)"/></svg><div class="rt-num"><span id="rtNum"></span><small id="rtLab"></small></div></div>
+      <div class="rt-how" id="rtHow"></div>
+      <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span><span id="rtCue"></span></div>
+      <div id="rtActive"></div>
+      <p class="small muted" style="text-align:center;margin-top:10px" id="rtNext"></p></div>
+      <div class="rt-dock"><button class="rt-sec rt-x" data-rtx aria-label="Stoppen">✕<span>Stop</span></button><button class="rt-sec" data-rtj="-1" aria-label="Vorige">⏮</button><button class="rt-main" data-rtp id="rtPP"></button><button class="rt-sec" data-rtj="1" aria-label="Volgende">⏭</button></div>`;
+    rtUpdate();
   }
-  el.querySelectorAll("[data-rtx]").forEach(b=>b.onclick=()=>{ if(RTS && RTS.phase!=="intro" && RTS.phase!=="done" && !confirmStop()) return; history.state&&history.state.rt ? history.back() : rtClose(); });
-  const go=el.querySelector("[data-rtgo]"); if(go) go.onclick=rtStart;
+  el.querySelectorAll("[data-rtx]").forEach(b=>b.onclick=()=>{ if(RTS && RTS.phase!=="intro" && RTS.phase!=="done"){ confirmStop(); return; } history.state&&history.state.rt ? history.back() : rtClose(); });
+  const go=el.querySelector("[data-rtgo]"); if(go) go.onclick=()=>{ rtStart(); };
   el.querySelectorAll("[data-rtj]").forEach(b=>b.onclick=()=>rtJump(+b.dataset.rtj));
-  const pp=el.querySelector("[data-rtp]"); if(pp) pp.onclick=()=>{ RTS.paused=!RTS.paused; RTS.last=Date.now(); rtRender(); };
+  const pp=el.querySelector("[data-rtp]"); if(pp) pp.onclick=()=>{ RTS.paused=!RTS.paused; RTS.last=Date.now(); rtUpdate(); };
   el.querySelectorAll("[data-rtfeel]").forEach(b=>b.onclick=()=>rtSave(+b.dataset.rtfeel));
 }
-function confirmStop(){ RTS.paused=true; rtRender(); const ok = window.__rtStopOk || false; window.__rtStopOk=false;
+/* Alleen de getallen bijwerken; het poppetje wisselt alleen bij een nieuwe stap */
+function rtUpdate(){
+  if(!RTS || (RTS.phase!=="prep" && RTS.phase!=="hold") || !$("rtNum")) return;
+  const tl=RTS.tl, st=tl[RTS.i], next=tl[RTS.i+1], prep=RTS.phase==="prep", total=prep?RT_PREP:st.sec, left=Math.max(0,Math.ceil(RTS.left)), frac=Math.max(0,Math.min(1,RTS.left/total)), C=2*Math.PI*86;
+  if(RTS.shown!==RTS.i){ RTS.shown=RTS.i;
+    if(RTS.stopMv) RTS.stopMv(); const k=RT_MV[st.n]; RTS.stopMv = k ? mvPlay($("rtStage"), k) : null;
+    if(k){ const sv=$("rtStage").querySelector("svg"); if(sv) sv.setAttribute("viewBox", mvBox(MOVES[k])); }
+    $("rtStage").classList.toggle("mirror", st.side==="rechts");
+    $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
+    $("rtSide").textContent=(st.side?(st.side==="links"?"◐ Linkerkant":"◑ Rechterkant"):"")+(st.sets>1?` · ronde ${st.set}/${st.sets}`:"");
+    $("rtActive").innerHTML=st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:"";
+    $("rtNext").textContent=next?`Hierna: ${next.n}${next.side?" · "+next.side:""}`:"Laatste stap!";
+    $("rtCount").textContent=`Stap ${RTS.i+1} van ${tl.length}`; $("rtBar").style.width=(RTS.i/tl.length*100).toFixed(1)+"%";
+  }
+  $("rtNum").textContent=left; $("rtLab").textContent=prep?(st.side&&st.set===1&&st.side==="rechts"?"wissel van kant":"klaar maken"):"sec";
+  $("rtRing").classList.toggle("prep",prep); $("rtArc").setAttribute("stroke-dashoffset",(C*(1-frac)).toFixed(1));
+  $("rtPP").textContent = RTS.paused ? "▶ Verder" : "⏸ Pauze";
+}
+function confirmStop(){ if(document.querySelector("#rt .rt-stop")) return; RTS.paused=true; rtUpdate();
   const bar=document.createElement("div"); bar.className="rt-stop"; bar.innerHTML=`<b>Stoppen?</b><span class="small muted">Wat je gedaan hebt telt ook. Je kunt later opnieuw beginnen.</span><button class="bk-go" data-s="1">Doorgaan</button><button class="bk-later" data-s="0">Stoppen</button>`;
-  $("rt").appendChild(bar); bar.querySelector('[data-s="1"]').onclick=()=>{ bar.remove(); RTS.paused=false; RTS.last=Date.now(); rtRender(); };
-  bar.querySelector('[data-s="0"]').onclick=()=>{ bar.remove(); history.state&&history.state.rt ? history.back() : rtClose(); };
-  return ok; }
+  $("rt").appendChild(bar); bar.querySelector('[data-s="1"]').onclick=()=>{ bar.remove(); RTS.paused=false; RTS.last=Date.now(); rtUpdate(); };
+  bar.querySelector('[data-s="0"]').onclick=()=>{ bar.remove(); history.state&&history.state.rt ? history.back() : rtClose(); }; }
 function rtMeasTrend(){ const ks=Object.keys(S.meas||{}).sort(); if(!ks.length) return ""; const f=S.meas[ks[0]], l=S.meas[ks[ks.length-1]];
   return `<p class="small muted" style="margin-top:8px">Eerste meting (${ks[0].slice(8)}-${ks[0].slice(5,7)}): L ${f.splitL||"-"} · R ${f.splitR||"-"} cm${ks.length>1?` · laatste: L ${l.splitL||"-"} · R ${l.splitR||"-"} cm`:""}</p>`; }
 window.addEventListener("popstate", ()=>{ if(RTS && !(history.state&&history.state.rt)) rtClose(); });
@@ -1515,6 +1548,8 @@ function loggerBack(fromPop){
   $("bk").classList.add("on"); $("bkGo").focus();
 }
 $("mClose").addEventListener("click", ()=>loggerBack(false));
+$("mDockBack").addEventListener("click", ()=>loggerBack(false));
+$("mDockDone").addEventListener("click", ()=>{ const d=$("mDone"); if(d) d.click(); });
 $("bkGo").addEventListener("click", ()=>$("bk").classList.remove("on"));
 $("bkLater").addEventListener("click", ()=>{ closeLogger(false); toast("Bewaard. Je kunt later verder."); });
 $("bk").addEventListener("click", e=>{ if(e.target.id==="bk") $("bk").classList.remove("on"); });
@@ -1596,7 +1631,7 @@ function mvSolve(p){
   const A=mvLimb(sh, arm, L.ua, L.fa, 1), A2=mvLimb(sh, arm2, L.ua, L.fa, 1);
   const G=mvLimb(hip, leg, L.th, L.sh, -1), G2=mvLimb(hip, leg2, L.th, L.sh, -1);
   const toe=(an,f)=>mvAdd(an, mvDir(f??-15, L.ft));
-  return {hip, sh, hd, el:A[0], ha:A[1], el2:A2[0], ha2:A2[1], kn:G[0], an:G[1], to:toe(G[1],leg.f), kn2:G2[0], an2:G2[1], to2:toe(G2[1],leg2.f)};
+  return {hip, sh, hd, el:A[0], ha:A[1], el2:A2[0], ha2:A2[1], kn:G[0], an:G[1], to:toe(G[1],leg.f), kn2:G2[0], an2:G2[1], to2:toe(G2[1],leg2.f), curv:p.curv||0};
 }
 function mvLerp(a, b, t){
   if(typeof a==="number") return a+(b-a)*t;
@@ -1625,7 +1660,7 @@ function mvSVG(pt, m){
   const far=.38;
   s+=seg(pt.hip,pt.kn2,2.2,far)+seg(pt.kn2,pt.an2,2.2,far)+seg(pt.an2,pt.to2,2,far);
   s+=seg(pt.sh,pt.el2,2.2,far)+seg(pt.el2,pt.ha2,2.2,far);
-  s+=seg(pt.hip,pt.sh,2.6)+seg(pt.sh,mvAdd(pt.sh,[(pt.hd[0]-pt.sh[0])*.45,(pt.hd[1]-pt.sh[1])*.45]),2.2);
+  s+=(pt.curv ? (()=>{ const mx=(pt.hip[0]+pt.sh[0])/2, my=(pt.hip[1]+pt.sh[1])/2, dx=pt.sh[0]-pt.hip[0], dy=pt.sh[1]-pt.hip[1], L=Math.hypot(dx,dy)||1, cx=mx+dy/L*pt.curv*2, cy=my-dx/L*pt.curv*2; return `<path d="M${pt.hip[0].toFixed(1)} ${pt.hip[1].toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${pt.sh[0].toFixed(1)} ${pt.sh[1].toFixed(1)}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>`; })() : seg(pt.hip,pt.sh,2.6))+seg(pt.sh,mvAdd(pt.sh,[(pt.hd[0]-pt.sh[0])*.45,(pt.hd[1]-pt.sh[1])*.45]),2.2);
   s+=seg(pt.hip,pt.kn)+seg(pt.kn,pt.an)+seg(pt.an,pt.to,2);
   s+=seg(pt.sh,pt.el)+seg(pt.el,pt.ha);
   s+=`<circle cx="${pt.hd[0].toFixed(1)}" cy="${pt.hd[1].toFixed(1)}" r="7" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1.6"/>`;
@@ -1728,6 +1763,53 @@ const MOVES = {
     seq:[{p:{hip:[150,121],T:180,N:180,leg:{a:[-2,-2],f:80},arm:{a:[178,178]}}, hold:.6, go:3},
          {p:{hip:[150,121],T:42,N:30,leg:{a:[-2,-2],f:80},arm:{a:[-6,-8]}}, hold:.8, go:3}]},
 };
+/* ---- Rek- en mobiliteitsfiguren ---- */
+const QUAD = {hip:[128,96],T:14,N:10,leg:{a:[-90,180],f:180},arm:{t:[166,126]}};
+const SEATED_FRONT = [["hd","sh"],["shL","shR"],["sh","hip"],["hpL","hpR"],["shL","elL"],["elL","haL"],["shR","elR"],["elR","haR"],["hpL","knL"],["knL","anL"],["anL","toL"],["hpR","knR"],["knR","anR"],["anR","toR"]];
+Object.assign(MOVES, {
+  S_LUNGE:{props:[PR.mat], seq:[
+    {p:{hip:[136,96],T:94,N:92,leg:{a:[0,-90],f:-10},leg2:{a:[-120,-176],f:180},arm:{t:[164,94]}}, hold:1.2, go:2.2},
+    {p:{hip:[144,99],T:100,N:96,leg:{a:[2,-95],f:-10},leg2:{a:[-130,-178],f:180},arm:{t:[172,96]}}, hold:1.6, go:2.2}]},
+  S_HALF:{props:[PR.mat], seq:[
+    {p:{hip:[126,100],T:62,N:50,leg:{a:[-27,-27],f:72},leg2:{a:[-92,180],f:180},arm:{t:[166,126]}}, hold:1.2, go:2.4},
+    {p:{hip:[122,100],T:38,N:28,leg:{a:[-27,-27],f:72},leg2:{a:[-98,180],f:180},arm:{t:[176,126]}}, hold:1.6, go:2.4}]},
+  S_PIGEON:{props:[PR.mat], seq:[
+    {p:{hip:[134,112],T:82,N:80,leg:{a:[-8,196],f:200},leg2:{a:[184,180],f:180},arm:{t:[150,126]}}, hold:1.2, go:2.6},
+    {p:{hip:[134,114],T:22,N:14,leg:{a:[-8,196],f:200},leg2:{a:[184,180],f:180},arm:{t:[182,126],k:-1}}, hold:1.8, go:2.6}]},
+  S_STRADDLE:{front:SEATED_FRONT, props:[PR.mat], seq:[
+    {p:{pts:{hip:[150,116],hpL:[143,118],hpR:[157,118],knL:[118,121],anL:[95,123],toL:[91,114],knR:[182,121],anR:[205,123],toR:[209,114],sh:[150,80],shL:[137,82],shR:[163,82],hd:[150,62],elL:[128,98],haL:[124,114],elR:[172,98],haR:[176,114]}}, hold:1.2, go:2.4},
+    {p:{pts:{hip:[150,116],hpL:[143,118],hpR:[157,118],knL:[118,121],anL:[95,123],toL:[91,114],knR:[182,121],anR:[205,123],toR:[209,114],sh:[150,98],shL:[136,100],shR:[164,100],hd:[150,86],elL:[124,110],haL:[110,124],elR:[176,110],haR:[190,124]}}, hold:1.8, go:2.4}]},
+  S_CALF:{extra:[[202,20]], props:[PR.floor, PR.line("M202 20V128",.5)], seq:[
+    {p:{hip:[150,68],T:74,N:76,leg:{t:[170,125]},leg2:{t:[116,125],f:-5},arm:{t:[200,50]}}, hold:1.2, go:2},
+    {p:{hip:[155,71],T:66,N:68,leg:{t:[170,125]},leg2:{t:[116,125],f:-5},arm:{t:[200,54]}}, hold:1.8, go:2}]},
+  S_CATCOW:{props:[PR.mat], seq:[
+    {p:Object.assign({},QUAD,{N:38,curv:-8}), hold:.6, go:2.2},
+    {p:Object.assign({},QUAD,{N:-60,curv:11}), hold:.6, go:2.2}]},
+  S_THREAD:{props:[PR.mat], seq:[
+    {p:Object.assign({},QUAD,{arm:{a:[96,96]},arm2:{t:[166,126]},N:30}), hold:.5, go:2.2},
+    {p:Object.assign({},QUAD,{hip:[128,92],T:-2,N:-30,arm:{t:[140,124],k:-1},arm2:{t:[166,126]}}), hold:.8, go:2.2}]},
+  S_HIPCIRC:{props:[PR.mat], seq:[
+    {p:Object.assign({},QUAD,{hip:[122,96],T:10}), go:.9},{p:Object.assign({},QUAD,{hip:[128,90],T:20}), go:.9},
+    {p:Object.assign({},QUAD,{hip:[134,96],T:18}), go:.9},{p:Object.assign({},QUAD,{hip:[128,101],T:8}), go:.9}]},
+  S_9090:{front:[["hd","sh"],["sh","hip"],["hip","kn"],["kn","an"],["hip","kn2"],["kn2","an2"],["sh","el"],["el","ha"],["sh","el2"],["el2","ha2"]], props:[PR.mat], seq:[
+    {p:{pts:{hip:[146,118],kn:[182,123],an:[156,127],kn2:[112,123],an2:[100,104],sh:[146,80],hd:[146,62],el:[160,100],ha:[170,116],el2:[132,100],ha2:[124,116]}}, hold:1.2, go:2.4},
+    {p:{pts:{hip:[146,118],kn:[182,123],an:[156,127],kn2:[112,123],an2:[100,104],sh:[164,88],hd:[176,74],el:[178,104],ha:[186,120],el2:[158,106],ha2:[168,122]}}, hold:1.8, go:2.4}]},
+  S_WGS:{props:[PR.mat], seq:[
+    {p:{hip:[140,102],T:32,N:26,leg:{t:[184,124]},leg2:{t:[83,121],f:-70},arm:{t:[172,126]},arm2:{t:[176,126]}}, hold:.4, go:1.6},
+    {p:{hip:[140,102],T:36,N:60,leg:{t:[184,124]},leg2:{t:[83,121],f:-70},arm:{t:[172,126]},arm2:{a:[84,84]}}, hold:1, go:1.6}]},
+  S_SQUAT:{extra:[[184,40]], props:[PR.floor, PR.line("M184 40V128",.55)], seq:[
+    {p:{hip:[134,108],T:72,N:78,leg:{t:[150,125]},arm:{t:[182,76]}}, hold:1.2, go:2.4},
+    {p:{hip:[134,116],T:80,N:84,leg:{t:[150,125]},arm:{t:[182,84]}}, hold:1.8, go:2.4}]},
+  S_SPLIT:{props:[PR.mat, PR.box(144,110,12,18,.6)], seq:[
+    {p:{hip:[140,100],T:88,N:86,leg:{t:[194,124],f:72},leg2:{t:[86,124],f:180},arm:{t:[150,110]}}, hold:1.2, go:2.6},
+    {p:{hip:[140,109],T:88,N:86,leg:{t:[198,124],f:72},leg2:{t:[82,124],f:180},arm:{t:[150,110],k:-1}}, hold:1.8, go:2.6}]},
+  S_TWIST:{props:[PR.mat], seq:[
+    {p:{hip:[150,121],T:180,N:180,leg:{a:[78,-12],f:-12},leg2:{a:[74,-16],f:-16},arm:{a:[150,150]},arm2:{a:[160,170]}}, hold:.8, go:2.4},
+    {p:{hip:[150,121],T:180,N:200,leg:{a:[30,-30],f:-30},leg2:{a:[36,-22],f:-22},arm:{a:[150,150]},arm2:{a:[160,170]}}, hold:1.8, go:2.4}]},
+  S_CHILD:{props:[PR.mat], seq:[
+    {p:{hip:[122,107],T:-10,N:-22,leg:{a:[-30,180],f:180},arm:{a:[-2,-1]}}, hold:1.2, go:2.8},
+    {p:{hip:[121,108],T:-17,N:-28,leg:{a:[-32,180],f:180},arm:{a:[-4,-3]}}, hold:1.6, go:2.8}]}
+});
 /* Teken één moment (voor statische weergave) */
 function mvFrame(k, time){ const m=MOVES[k]; if(!m) return ""; const st=mvAt(m, time||0); const pt=mvSolve(st.p); return `<svg class="mv" viewBox="0 -14 300 150" role="img" aria-label="beweging">${mvSVG(pt,m)}</svg>`; }
 /* Start een lus in een element; geeft stopfunctie terug */
@@ -2043,7 +2125,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "29"; let lastCheck = Date.now();
+const APPV = "30"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
