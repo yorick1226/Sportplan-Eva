@@ -477,6 +477,27 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .swapopts{display:flex;flex-wrap:wrap;gap:6px}.swapopts button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:.85rem;cursor:pointer}
 .swapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:2px 0 12px;padding:9px 12px;border:1px dashed var(--line);border-radius:10px;font-size:.85rem;color:var(--muted)}
 .swapbar b{color:var(--ink)}.swapbar button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 11px;font:inherit;font-size:.78rem;cursor:pointer}
+.rtcard{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#121212}
+.rtcard.done{border-color:var(--ink)}
+.rt-h{display:flex;gap:10px;align-items:center}.rt-e{font-size:1.5rem}.rt-h b{display:block}.rt-h span{display:block;font-size:.8rem;color:var(--muted)}
+.rt-li{padding:8px 2px;border-top:1px solid var(--line)}.rt-li:first-of-type{border-top:0}
+.rt-tag{display:inline-block;margin-top:5px;margin-right:6px;font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+.rt{position:fixed;inset:0;z-index:85;background:var(--bg,#0b0b0b);display:none;overflow-y:auto}
+.rt.on{display:block}.rt-in{max-width:520px;margin:0 auto;padding:16px 18px calc(28px + env(safe-area-inset-bottom))}
+.rt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.rt-list{padding-left:20px;line-height:1.6;margin:12px 0 16px}
+.rt-bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden}.rt-bar i{display:block;height:100%;background:var(--ink);transition:width .3s}
+.rt-name{text-align:center;margin:4px 0 2px;font-size:1.7rem}
+.rt-side{text-align:center;color:var(--muted);font-size:.9rem;min-height:1.2em}
+.rt-ring{position:relative;width:200px;height:200px;margin:14px auto 12px;color:var(--ink)}.rt-ring.prep{color:var(--muted)}
+.rt-ring svg{width:100%;height:100%}.rt-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:3.4rem;font-weight:700;line-height:1}
+.rt-num small{font-size:.75rem;font-weight:400;color:var(--muted);margin-top:6px}
+.rt-how{line-height:1.5;font-size:.95rem}
+.rt-ctl{display:flex;gap:10px;justify-content:center;margin-top:16px}.rt-ctl button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;min-width:52px;height:48px;font-size:1.1rem;cursor:pointer}
+.rt-ctl .rt-pp{min-width:140px;font-weight:700;font-size:1rem;background:var(--ink);color:#000;border-color:var(--ink)}
+.rt-feel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.rt-feel button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:12px 6px;font:inherit;font-weight:700;cursor:pointer}.rt-feel span{display:block;font-size:1.5rem;margin-bottom:4px}
+.rt-stop{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px;display:flex;flex-direction:column;gap:8px;z-index:3}
+.runf select{width:100%;background:#0f0f0f;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:12px;font:inherit}
 </style>
 </head>
 <body>
@@ -589,11 +610,7 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
     <div class="tip"> Vlakke ondergrond tot je de <b>enkeltest</b> haalt: 30 sec op je rechterbeen met je ogen dicht, en ongeveer even vaak kuitheffen op 1 been rechts als links (20+). Lukt het in week 8 nog niet? Ga naar een fysiotherapeut.</div>
   </div>
   <h2>Mobiliteit & spagaat</h2>
-  <details><summary><span class="s-main">Rekroutine · 10 min<span class="s-sub">Dinsdag en vrijdag · nodig: mat</span></span></summary><div class="dbody small"><p>Lage lunge 2 × 30 sec · halve spagaat 2 × 30 sec · duif 45 sec · brede zit voorover 2 × 30 sec · kuitstretch 30 sec (per kant)</p></div></details>
-  <details><summary><span class="s-main">Mobiliteit M · 20–25 min<span class="s-sub">Wo- en zo-avond · nodig: mat + 2 yogablokken</span></span></summary><div class="dbody small">
-    <p><b>Losmaken:</b> cat-cow, bovenrug draaien, heupcirkels.</p><p><b>Actief:</b> 90/90-heupen, world's greatest stretch, diepe squat aan een deurpost.</p>
-    <p><b>Spagaat:</b> lage lunge en halve spagaat 2 × 45 sec, spagaat op blokken 2 × 30–45 sec.</p><p><b>Afbouwen:</b> duif, liggende draai, kindhouding.</p>
-    <div class="tip">Vanaf week 5: <b>actief rekken</b>. 5 sec hamstring aanspannen, ontspannen, iets verder zakken. 3 rondes.</div></div></details>
+  <div id="trainRt"></div>
   <details><summary><span class="s-main">Plan B · thuis of weinig zin</span></summary><div class="dbody small">
     <p><b>Thuis-circuit (25 min, 3 rondes):</b> squat met band 12 · push-ups max − 1 · roeien met band 15 · glute bridge op 1 been 10 · zijwaarts lopen met band 10 · dead bug 8.</p>
     <p><b>10-minutenregel:</b> begin en doe 10 minuten. Daarna mag je stoppen.</p><p><b>Gemiste week:</b> niet inhalen. Begin met 1 set minder en ± 90% van je gewicht.</p></div></details>
@@ -966,7 +983,7 @@ function syncSession(key){
   Object.keys(fl).forEach(k=>{ const f=fl[k]; if(f.skip) enqueue("Sets", key+"|"+k+"|skip", [key, wk, k, EX[k].n, "-", "", "", "", f.pain?"ja":"", "overgeslagen"+(f.note?" · "+f.note:"")]); });
 }
 function syncDay(key, name, w){ enqueue("Trainingen", key, [key, w, name, S.days[key]?"ja":"nee", (S.srpe||{})[key]||""]); }
-function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}, swap:S.swap||{}})]), 8000); }
+function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}, swap:S.swap||{}, rt:S.rt||{}, rtAdj:S.rtAdj||{}, meas:S.meas||{}})]), 8000); }
 window.addEventListener("online", ()=>flush());
 const $ = id => document.getElementById(id);
 const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
@@ -1040,6 +1057,189 @@ function effDay(w, i){
   return {name, sub:"In plaats van: "+d.name, type:o.type, icon:o.icon||o.type, session:o.session||null, opts:{}, swapped:sw.t, orig:d};
 }
 function syncName(d, key){ if(!d.swapped) return d.name; const sw=(S.swap||{})[key]||{}; return d.name+" (i.p.v. "+d.orig.name+")"+(sw.min?" · "+sw.min+" min":""); }
+/* ===== REKKEN & MOBILITEIT: begeleide routines met timer, wekelijkse opbouw en metingen ===== */
+const ROUT = {
+  rek: { n:"Rekroutine", e:"🧘‍♀️", need:"Mat", when:"Op rustdagen",
+    steps:[
+      {n:"Lage lunge", sides:true, sets:2, base:30, grp:"Heupen",
+        how:"Eén knie op de mat, andere voet ver naar voren. Schuif je heup rustig naar voren tot je rek voelt aan de voorkant van je achterste heup. Romp rechtop.",
+        cue:"Laat je heup naar de vloer zakken"},
+      {n:"Halve spagaat", sides:true, sets:2, base:30, grp:"Achterkant been",
+        how:"Vanuit de lage lunge: heup naar achteren boven je knie, voorste been gestrekt, tenen omhoog. Rug lang, licht voorover.",
+        cue:"Reik met je borst naar je voorste voet"},
+      {n:"Duif", sides:true, sets:1, base:45, grp:"Bil & heup",
+        how:"Voorste knie gebogen voor je op de mat, achterste been lang naar achteren. Zak rustig op je onderarmen of een kussen.",
+        cue:"Laat je heup zwaar in de mat zakken"},
+      {n:"Brede zit voorover", sides:false, sets:2, base:30, grp:"Binnenkant been",
+        how:"Zit met je benen wijd, tenen omhoog. Loop met je handen naar voren met een lange rug. Stop als je rug rond wordt.",
+        cue:"Schuif je handen over de mat naar voren"},
+      {n:"Kuitstretch tegen de muur", sides:true, sets:1, base:30, grp:"Kuit & enkel",
+        how:"Handen tegen de muur, één been ver naar achteren, knie gestrekt, hiel in de vloer.",
+        cue:"Duw de muur weg, hiel blijft in de vloer"}
+    ]},
+  mob: { n:"Mobiliteit", e:"🌀", need:"Mat + 2 yogablokken (of 2 dikke boeken)", when:"Op de avonden met ‘mobiliteit’",
+    steps:[
+      {n:"Cat-cow", sides:false, sets:1, base:60, flow:true, grp:"Losmaken",
+        how:"Op handen en knieën. Inademen: buik zakt, blik omhoog. Uitademen: rug bol, kin naar je borst. Rustig mee met je adem.",
+        cue:"Duw de mat weg als je rug bol wordt"},
+      {n:"Bovenrug draaien", sides:true, sets:1, base:30, flow:true, grp:"Losmaken",
+        how:"Op handen en knieën: schuif één arm onder je andere arm door, schouder naar de mat. Draai daarna open en reik naar het plafond. Rustig heen en weer.",
+        cue:"Reik met je vingers naar het plafond"},
+      {n:"Heupcirkels", sides:false, sets:1, base:45, flow:true, grp:"Losmaken",
+        how:"Op handen en knieën: draai grote, rustige cirkels met je heupen. Halverwege de andere kant op.",
+        cue:"Teken een grote cirkel met je staartbeen"},
+      {n:"90/90-heupen", sides:true, sets:1, base:45, grp:"Actief",
+        how:"Zit met beide knieën in een hoek van 90 graden: één been voor je, het andere opzij. Rug lang en licht voorover over je voorste been.",
+        cue:"Reik met je borst over je voorste knie"},
+      {n:"World's greatest stretch", sides:true, sets:1, base:45, flow:true, grp:"Actief",
+        how:"Lange lunge, hand naast je voorste voet. Draai je andere arm open naar het plafond, terug, en herhaal rustig (± 5 keer).",
+        cue:"Reik met je hand naar het plafond"},
+      {n:"Diepe squat aan de deurpost", sides:false, sets:1, base:60, grp:"Actief",
+        how:"Houd een deurpost vast en zak in een diepe squat. Hielen blijven in de vloer, ellebogen duwen je knieën zacht naar buiten.",
+        cue:"Duw je knieën naar de muren naast je"},
+      {n:"Lage lunge", sides:true, sets:2, base:40, grp:"Spagaat",
+        how:"Eén knie op de mat, andere voet ver naar voren. Heup naar voren tot je rek voelt aan de voorkant van je achterste heup.",
+        cue:"Laat je heup naar de vloer zakken"},
+      {n:"Halve spagaat", sides:true, sets:2, base:40, pnf:true, grp:"Spagaat",
+        how:"Heup naar achteren boven je knie, voorste been gestrekt, tenen omhoog. Rug lang, licht voorover.",
+        cue:"Reik met je borst naar je voorste voet"},
+      {n:"Spagaat op blokken", sides:true, sets:2, base:35, grp:"Spagaat",
+        how:"Handen op de blokken naast je. Schuif je voorste voet naar voren en je achterste knie naar achteren tot je een stevige, maar prettige rek voelt. Jij bepaalt hoe diep, nooit forceren.",
+        cue:"Duw de blokken zacht weg en zak rustig"},
+      {n:"Duif", sides:true, sets:1, base:45, grp:"Afbouwen",
+        how:"Voorste knie gebogen voor je, achterste been lang naar achteren. Zak op je onderarmen.",
+        cue:"Laat je heup zwaar in de mat zakken"},
+      {n:"Liggende draai", sides:true, sets:1, base:45, flow:true, grp:"Afbouwen",
+        how:"Op je rug, knieën samen naar één kant laten vallen, armen wijd, blik de andere kant op.",
+        cue:"Laat je schouders zwaar op de mat liggen"},
+      {n:"Kindhouding", sides:false, sets:1, base:60, flow:true, grp:"Afbouwen",
+        how:"Knieën wijd, billen naar je hielen, armen lang voor je. Adem diep in naar je onderrug.",
+        cue:"Schuif je handen nog iets verder naar voren"}
+    ]}
+};
+/* Wekelijkse opbouw van de houdtijd (vasthouden), plus aanpassing op haar eigen gevoel */
+function rtPhase(w){ return Math.min(25, Math.floor(w/2)*5); }          // elke 2 weken +5 sec: week 0-1 +0 … week 10-12 +25
+function rtAdj(id){ return ((S.rtAdj||{})[id])||0; }                          // -10 … +15 op basis van haar feedback
+function rtHold(step, w, id){ if(step.flow) return step.base; return Math.max(20, Math.min(75, step.base + rtPhase(w) + rtAdj(id))); }
+function rtActive(w){ return w >= 5; }                                         // vanaf week 5 actief rekken
+function rtTimeline(id, w){
+  const R0 = ROUT[id], out = [];
+  R0.steps.forEach((st, si)=>{
+    const sec = rtHold(st, w, id), sides = st.sides ? ["links","rechts"] : [null];
+    for(let s=1; s<=st.sets; s++) sides.forEach(sd=>{
+      out.push({si, n:st.n, side:sd, set:s, sets:st.sets, sec, how:st.how, cue:st.cue, grp:st.grp,
+        active: st.pnf && rtActive(w) ? "Actief rekken: 5 sec je achterste been aanspannen, ontspannen en iets verder zakken. 3 keer." : ""});
+    });
+  });
+  return out;
+}
+const RT_PREP = 6; // seconden om te wisselen / klaar te gaan
+function rtMinutes(id, w){ const tl = rtTimeline(id, w); return Math.round((tl.reduce((a,x)=>a+x.sec,0) + tl.length*RT_PREP)/60); }
+function rtStepText(st, w, id){ const sec=rtHold(st,w,id); return `${st.sets>1?st.sets+" × ":""}${sec} sec${st.sides?" per kant":""}`; }
+/* Welke routine hoort bij deze dag? */
+function rtFor(d){
+  if(!d) return null; const txt=(d.name+" "+d.sub);
+  if(/mobiliteit/i.test(txt)) return "mob";
+  if(d.type==="rust" && (!d.swapped || d.swapped==="rust")) return "rek";
+  return null;
+}
+function rtCard(id, key, w){
+  const R0=ROUT[id], done=(S.rt||{})[key+"-"+id], min=rtMinutes(id,w), ph=rtPhase(w)+rtAdj(id);
+  return `<div class="rtcard${done?" done":""}">
+    <div class="rt-h"><span class="rt-e">${R0.e}</span><div><b>${R0.n} · ${min} min</b><span>${done?"✓ Gedaan"+(done.feel!==undefined?" · "+RT_FEEL[done.feel][0]:""):"Nodig: "+R0.need}</span></div></div>
+    <p class="small muted" style="margin:6px 0 10px">📈 Week ${w}: ${ph>0?"je houdt elke rek "+ph+" sec langer vast dan bij de start":"basistijden, rustig wennen"}${rtActive(w)&&id==="mob"?" · met actief rekken":""}. Stap voor stap met timer.</p>
+    <button class="btn go" data-rt="${id}" data-rtkey="${key}">${done?"↻ Nog een keer":"▶ Start "+R0.n.toLowerCase()}</button>
+    <details class="exlist"><summary><span class="s-main">📋 ${R0.steps.length} oefeningen<span class="s-sub">Bekijk wat je gaat doen</span></span></summary>
+      ${R0.steps.map(st=>`<div class="rt-li"><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span><div class="small muted">${st.how}</div></div>`).join("")}
+    </details></div>`;
+}
+const RT_FEEL = [["Makkelijk","😌"],["Goed","🙂"],["Te pittig","😮‍💨"]];
+/* ---- de speler ---- */
+let RTS = null;
+function rtBeep(f){ try{ const A=rtBeep.a||(rtBeep.a=new (window.AudioContext||window.webkitAudioContext)()); const o=A.createOscillator(), g=A.createGain(); o.frequency.value=f||880; g.gain.value=.08; o.connect(g); g.connect(A.destination); o.start(); o.stop(A.currentTime+.18); }catch(e){} try{ navigator.vibrate && navigator.vibrate(120); }catch(e){} }
+async function rtWake(on){ try{ if(on && "wakeLock" in navigator){ RTS.lock = await navigator.wakeLock.request("screen"); } else if(!on && RTS && RTS.lock){ RTS.lock.release(); RTS.lock=null; } }catch(e){} }
+function openRoutine(id, key){
+  const w = (()=>{ const ds=key? key : TODAY; for(let i=0;i<WEEKS.length;i++){ if(dayDates(i).some(d=>iso(d)===ds)) return i; } return curWeek(); })();
+  RTS = {id, key:key||TODAY, w, tl:rtTimeline(id,w), i:0, phase:"intro", left:0, paused:false, t:null};
+  $("rt").classList.add("on"); document.body.style.overflow="hidden"; history.pushState({rt:1},""); rtRender();
+}
+function rtClose(){ if(!RTS) return; clearInterval(RTS.t); rtWake(false); RTS=null; $("rt").classList.remove("on"); $("rt").innerHTML=""; document.body.style.overflow=""; renderWeek(); if(typeof renderTrainingRt==="function") renderTrainingRt(); }
+function rtStart(){ RTS.phase="prep"; RTS.left=RT_PREP; rtWake(true); rtTick(true); clearInterval(RTS.t); RTS.last=Date.now(); RTS.t=setInterval(()=>rtTick(false), 250); }
+function rtTick(first){
+  if(!RTS || RTS.paused) { if(RTS) RTS.last=Date.now(); return; }
+  if(!first){ const now=Date.now(); RTS.left -= (now-RTS.last)/1000; RTS.last=now; }
+  if(RTS.left <= 0){
+    if(RTS.phase==="prep"){ RTS.phase="hold"; RTS.left=RTS.tl[RTS.i].sec; rtBeep(880); }
+    else { RTS.i++; if(RTS.i>=RTS.tl.length){ rtFinish(); return; } RTS.phase="prep"; RTS.left=RT_PREP; rtBeep(660); }
+  } else if(RTS.phase==="hold" && Math.ceil(RTS.left)===3 && RTS._b!==RTS.i){ RTS._b=RTS.i; rtBeep(520); }
+  rtRender();
+}
+function rtJump(d){ if(!RTS) return; RTS.i=Math.max(0, Math.min(RTS.tl.length-1, RTS.i+d)); RTS.phase="prep"; RTS.left=RT_PREP; rtRender(); }
+function rtFinish(){ clearInterval(RTS.t); rtWake(false); RTS.phase="done"; rtBeep(990); setTimeout(()=>rtBeep(1320),200); rtRender(); }
+function rtSave(feel){
+  const id=RTS.id, key=RTS.key, k=key+"-"+id; S.rt=S.rt||{}; S.rt[k]={id, at:Date.now(), feel};
+  // niveau: makkelijk → volgende keer +5 sec, te pittig → -5 sec
+  S.rtAdj=S.rtAdj||{}; if(feel===0) S.rtAdj[id]=Math.min(15,(S.rtAdj[id]||0)+5); if(feel===2) S.rtAdj[id]=Math.max(-10,(S.rtAdj[id]||0)-5);
+  const m={}; ["splitL","splitR","squat"].forEach(f=>{ const el=document.querySelector(`#rt [data-meas="${f}"]`); if(el && el.value!=="") m[f]=el.value; });
+  if(Object.keys(m).length){ S.meas=S.meas||{}; S.meas[key]=Object.assign(S.meas[key]||{}, m); }
+  // rustdag met rekroutine = dag gedaan
+  const wi=RTS.w, di=dayDates(wi).findIndex(d=>iso(d)===key), d=di>=0?effDay(wi,di):null;
+  if(d && d.type==="rust" && !S.days[key]){ S.days[key]=true; syncDay(key, syncName(d,key), wi); }
+  save(); enqueue("Trainingen", k, [key, wi, ROUT[id].n+" ("+rtMinutes(id,wi)+" min)", "ja", ""]);
+  if(m.splitL||m.splitR||m.squat) enqueue("Trainingen", key+"-meting", [key, wi, "Meting: spagaat L "+(m.splitL||"-")+" cm · R "+(m.splitR||"-")+" cm · squat "+(m.squat||"-"), "ja", ""]);
+  syncBackup(); celebrate(); rtClose();
+}
+function rtRender(){
+  const el=$("rt"); if(!RTS){ el.innerHTML=""; return; } const R0=ROUT[RTS.id], tl=RTS.tl, w=RTS.w;
+  if(RTS.phase==="intro"){
+    el.innerHTML=`<div class="rt-in"><div class="rt-top"><button class="m-back" data-rtx><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Terug</button></div>
+      <div class="kicker">${R0.e} ${R0.when}</div><h2 style="margin:4px 0 2px">${R0.n} · ${rtMinutes(RTS.id,w)} min</h2>
+      <p class="small muted">Nodig: ${R0.need}. Telefoon naast je op de mat; de app telt af en piept bij elke wissel.</p>
+      <div class="tip">📈 <b>Week ${w}:</b> ${rtPhase(w)>0?"je houdt de rekken "+rtPhase(w)+" sec langer vast dan in week 0":"basistijden, rustig wennen"}${rtAdj(RTS.id)?` · ${rtAdj(RTS.id)>0?"+":""}${rtAdj(RTS.id)} sec op jouw niveau`:""}${rtActive(w)&&RTS.id==="mob"?" · met actief rekken bij de halve spagaat":""}.</div>
+      <ol class="rt-list">${R0.steps.map(st=>`<li><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,RTS.id)}</span></li>`).join("")}</ol>
+      <button class="btn go" data-rtgo>▶ Start · ${tl.length} stappen</button>
+      <p class="small muted" style="text-align:center;margin-top:8px">Rekken mag trekken, nooit pijn doen. Adem rustig door.</p></div>`;
+  } else if(RTS.phase==="done"){
+    el.innerHTML=`<div class="rt-in"><div style="text-align:center;margin:18px 0 8px"><div style="font-size:2.4rem">✨</div><h2 style="margin:6px 0">${R0.n} klaar</h2><p class="muted small">Lekker gedaan. Hoe voelde het?</p></div>
+      ${RTS.id==="mob"?`<div class="card"><b>Meting (optioneel, 1× per week)</b><p class="small muted" style="margin:4px 0 10px">Spagaat op blokken: afstand van je heup/kruis tot de vloer, per kant. Hoe kleiner, hoe beter. Squat: hoe diep kom je met je hielen aan de grond?</p>
+        <div class="runf"><div><label>Spagaat links (cm)</label><input type="number" inputmode="numeric" data-meas="splitL" placeholder="bijv. 30"></div><div><label>Spagaat rechts (cm)</label><input type="number" inputmode="numeric" data-meas="splitR" placeholder="bijv. 32"></div></div>
+        <div class="runf"><div style="flex:1"><label>Diepe squat</label><select data-meas="squat"><option value="">–</option><option>hielen los</option><option>hielen net aan grond</option><option>diep, hielen plat</option></select></div></div>
+        ${rtMeasTrend()}</div>`:""}
+      <div class="rt-feel">${RT_FEEL.map((f,i)=>`<button data-rtfeel="${i}"><span>${f[1]}</span>${f[0]}</button>`).join("")}</div>
+      <p class="small muted" style="text-align:center;margin-top:8px">Makkelijk = volgende keer iets langer vasthouden. Te pittig = iets korter.</p></div>`;
+  } else {
+    const st=tl[RTS.i], next=tl[RTS.i+1], prep=RTS.phase==="prep", total=prep?RT_PREP:st.sec, left=Math.max(0,Math.ceil(RTS.left)), frac=Math.max(0,Math.min(1,RTS.left/total));
+    const C=2*Math.PI*86;
+    el.innerHTML=`<div class="rt-in rt-run"><div class="rt-top"><button class="m-back" data-rtx><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>Stoppen</button><span class="small muted">Stap ${RTS.i+1} van ${tl.length}</span></div>
+      <div class="rt-bar"><i style="width:${(RTS.i/tl.length*100).toFixed(1)}%"></i></div>
+      <div class="kicker" style="text-align:center;margin-top:14px">${prep?"Klaar maken":st.grp}</div>
+      <h2 class="rt-name">${st.n}</h2>
+      <div class="rt-side">${st.side?(st.side==="links"?"◐ Links":"◑ Rechts"):""}${st.sets>1?` · ronde ${st.set}/${st.sets}`:""}</div>
+      <div class="rt-ring${prep?" prep":""}"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="8"/><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${(C*(1-frac)).toFixed(1)}" transform="rotate(-90 100 100)"/></svg><div class="rt-num">${left}<small>${prep?"ga klaar zitten":"sec"}</small></div></div>
+      <div class="rt-how">${st.how}</div>
+      <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span>${st.cue}</div>
+      ${st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:""}
+      <div class="rt-ctl"><button data-rtj="-1" aria-label="Vorige">⏮</button><button class="rt-pp" data-rtp>${RTS.paused?"▶ Verder":"⏸ Pauze"}</button><button data-rtj="1" aria-label="Volgende">⏭</button></div>
+      ${next?`<p class="small muted" style="text-align:center;margin-top:10px">Hierna: ${next.n}${next.side?" · "+next.side:""}</p>`:""}</div>`;
+  }
+  el.querySelectorAll("[data-rtx]").forEach(b=>b.onclick=()=>{ if(RTS && RTS.phase!=="intro" && RTS.phase!=="done" && !confirmStop()) return; history.state&&history.state.rt ? history.back() : rtClose(); });
+  const go=el.querySelector("[data-rtgo]"); if(go) go.onclick=rtStart;
+  el.querySelectorAll("[data-rtj]").forEach(b=>b.onclick=()=>rtJump(+b.dataset.rtj));
+  const pp=el.querySelector("[data-rtp]"); if(pp) pp.onclick=()=>{ RTS.paused=!RTS.paused; RTS.last=Date.now(); rtRender(); };
+  el.querySelectorAll("[data-rtfeel]").forEach(b=>b.onclick=()=>rtSave(+b.dataset.rtfeel));
+}
+function confirmStop(){ RTS.paused=true; rtRender(); const ok = window.__rtStopOk || false; window.__rtStopOk=false;
+  const bar=document.createElement("div"); bar.className="rt-stop"; bar.innerHTML=`<b>Stoppen?</b><span class="small muted">Wat je gedaan hebt telt ook. Je kunt later opnieuw beginnen.</span><button class="bk-go" data-s="1">Doorgaan</button><button class="bk-later" data-s="0">Stoppen</button>`;
+  $("rt").appendChild(bar); bar.querySelector('[data-s="1"]').onclick=()=>{ bar.remove(); RTS.paused=false; RTS.last=Date.now(); rtRender(); };
+  bar.querySelector('[data-s="0"]').onclick=()=>{ bar.remove(); history.state&&history.state.rt ? history.back() : rtClose(); };
+  return ok; }
+function rtMeasTrend(){ const ks=Object.keys(S.meas||{}).sort(); if(!ks.length) return ""; const f=S.meas[ks[0]], l=S.meas[ks[ks.length-1]];
+  return `<p class="small muted" style="margin-top:8px">Eerste meting (${ks[0].slice(8)}-${ks[0].slice(5,7)}): L ${f.splitL||"-"} · R ${f.splitR||"-"} cm${ks.length>1?` · laatste: L ${l.splitL||"-"} · R ${l.splitR||"-"} cm`:""}</p>`; }
+window.addEventListener("popstate", ()=>{ if(RTS && !(history.state&&history.state.rt)) rtClose(); });
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-rt]"); if(!b) return; e.preventDefault(); e.stopPropagation(); openRoutine(b.dataset.rt, b.dataset.rtkey||TODAY); }, true);
+
+function renderTrainingRt(){ const el=$("trainRt"); if(!el) return; const w=curWeek();
+  el.innerHTML = rtCard("rek", TODAY, w) + rtCard("mob", TODAY, w) + `<p class="small muted" style="margin-top:6px">Elke week ga je iets langer vasthouden. Na elke routine geef je aan hoe het voelde: dan past de app de tijden aan jouw niveau aan.</p>` + (Object.keys(S.meas||{}).length?`<div class="card small"><b>📏 Je spagaat-metingen</b>${Object.keys(S.meas).sort().map(k=>`<div>${k.slice(8)}-${k.slice(5,7)}: links ${S.meas[k].splitL||"-"} cm · rechts ${S.meas[k].splitR||"-"} cm${S.meas[k].squat?" · squat: "+S.meas[k].squat:""}</div>`).join("")}</div>`:""); }
 function renderWeek(){
   const wk = WEEKS[W], dates = dayDates(W), locked = isLocked(W);
   $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmtRange(dates[0], dates[dates.length-1]);
@@ -1072,7 +1272,8 @@ function renderWeek(){
       body += `<button class="btn go" data-log="${key}">▶ Start & log training</button><p class="small muted" style="margin:8px 2px 0">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</p>`;
     } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
       body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
-    else if (d.type==="rust" && (!d.swapped || d.swapped==="rust")) body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
+    const rid = rtFor(d);
+    if (rid) body += (d.type==="rust" ? `<p class="small" style="margin-bottom:10px">Rustdag: je ${ROUT[rid].n.toLowerCase()} en je stappen halen. Genieten!</p>` : "") + rtCard(rid, key, W);
     const swapHtml = d.swapped
       ? `<div class="swapbar"><span>↔ Aangepast: <b class="sw-n">${d.name}</b> in plaats van ${d.orig.name}</span><button data-swreset>Terug naar plan</button></div>`
       : (d.type!=="rust" || isToday || dt < new Date() ? `<details class="swapq"><summary>↔ Toch iets anders gedaan?</summary><p class="small muted" style="margin:8px 0">Kies wat je echt gedaan hebt. Dan log je dat, en nemen we het mee in je volgende week.</p><div class="swapopts">${Object.entries(SWAPS).filter(([k,o])=>!(o.session && o.session===d.session) && !(o.type===d.type && !o.session && k!=="anders" && k!=="wandel" && k!=="fiets")).map(([k,o])=>`<button data-swap="${k}">${o.e} ${o.n}</button>`).join("")}</div></details>` : "");
@@ -1086,7 +1287,7 @@ function renderWeek(){
     }
     if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
 
-    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div>${!d.swapped && (isToday || dt < new Date()) ? `<button class="swaphead" data-swopen>↔ Iets anders gedaan?</button>` : ""}</div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
+    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div>${rid?`<span class="rt-tag">${ROUT[rid].e} ${ROUT[rid].n} · ${rtMinutes(rid,W)} min${(S.rt||{})[key+"-"+rid]?" ✓":""}</span>`:""}${!d.swapped && (isToday || dt < new Date()) ? `<button class="swaphead" data-swopen>↔ Iets anders gedaan?</button>` : ""}</div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = (user)=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); if(isToday){ if(user) setTimeout(()=>div.classList.toggle("open",!S.days[key]), S.days[key]?1400:0); renderDayDone(user); } };
     chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, syncName(d,key), W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
@@ -1117,6 +1318,7 @@ function renderWeek(){
   $("checkin").innerHTML = `<h3 style="margin-top:18px">En deze week specifiek</h3>` + wk.checkin.map((q,qi)=>`<div class="q"><label>${qi+1}. ${q}</label><textarea data-ci="${W}-${qi}" placeholder="Jouw antwoord…">${esc(S.ci[W+"-"+qi]||"")}</textarea></div>`).join("");
   $("checkin").querySelectorAll("textarea").forEach(t=>t.addEventListener("input",()=>{ S.ci[t.dataset.ci]=t.value; save(); }));
   renderDayDone(false);
+  renderTrainingRt();
   save();
 }
 const DIR = [["down","Tandje terug"],["equal","Zo laten"],["up","Tandje erbij"]];
@@ -1726,10 +1928,12 @@ function buildExport(){
   if(!any) t += "(niets gelogd)\n";
   t += `\n⚠️ BIJZONDERHEDEN TRAINING\n`; let anyF=false; dates.forEach(d=>{ const f=(S.flags||{})[iso(d)]; if(!f) return; Object.keys(f).forEach(k=>{ const e=f[k]; const bits=[]; if(e.alt) bits.push("bezet → alternatief"); if(e.skip) bits.push("overgeslagen"); if(e.pain) bits.push("voelde niet goed"+(e.note?": "+e.note:"")); if(bits.length){ anyF=true; t += `${fmt(d)} ${k} ${EX[k].n}: ${bits.join(", ")}\n`; } }); }); if(!anyF) t += "(niets bijzonders)\n";
   t += `\n👟 LOPEN\n`; let anyR=false; dates.forEach(d=>{ const r=(S.runs||{})[iso(d)]; if(r&&r.km){ anyR=true; t += `${fmt(d)}: ${r.km} km${r.min?" in "+r.min+" min ("+pace(r).replace("Tempo: ","")+")":""}\n`; } }); if(!anyR) t += "(niets gelogd)\n";
+  t += `\n🧘 REKKEN & MOBILITEIT\n`; let anyM=false; dates.forEach(d=>{ const k=iso(d); ["rek","mob"].forEach(id=>{ const r=(S.rt||{})[k+"-"+id]; if(r){ anyM=true; t += `${fmt(d)}: ${ROUT[id].n} (${rtMinutes(id,W)} min)${r.feel!==undefined?" · "+RT_FEEL[r.feel][0]:""}\n`; } }); const m=(S.meas||{})[k]; if(m){ anyM=true; t += `${fmt(d)}: meting spagaat L ${m.splitL||"-"} cm · R ${m.splitR||"-"} cm${m.squat?" · squat: "+m.squat:""}\n`; } });
+  if(!anyM) t += "(niets gedaan)\n"; t += `Niveau-aanpassing: rek ${rtAdj("rek")>=0?"+":""}${rtAdj("rek")} sec · mobiliteit ${rtAdj("mob")>=0?"+":""}${rtAdj("mob")} sec\n`;
   t += `\n☀️ GEVOEL / OURA\n`; let anyD=false;
   dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
   if(!anyD) t += "(niet ingevuld)\n";
-  t += `\n✅ GEWOONTES\n`; HABITS.forEach((h,hi)=>{ const n = dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; t += `${h[0]} ${h[1]}: ${n}/${dates.length}\n`; });
+  t += `\n✅ GEWOONTES\n`; HABITS.forEach((h,hi)=>{ const n = dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; t += `${h[1]}: ${n}/${dates.length}\n`; });
   t += `\n🥗 ETEN · ${wk.food.t}\n`;
   wk.food.rec.forEach(id=>{ const r=S.rate[id]; t += `${R[id][0]}: ${r&&r.v!==undefined?RATES[r.v][1]:'nog niet geprobeerd'}${r&&r.n?' – '+r.n:''}\n`; });
   t += `Proefopdracht: ${S.food["try-"+W]?'gedaan ✅':'nog niet'}\n`;
@@ -1839,9 +2043,10 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "28"; let lastCheck = Date.now();
+const APPV = "29"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
+<div id="rt" class="rt"></div>
 </body>
 </html>
