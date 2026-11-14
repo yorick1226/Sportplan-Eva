@@ -470,6 +470,12 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .idea .rec{margin:0;border:0;background:none;padding:4px 0 0}
 .idea-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
 .idea-next{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.srpe-dots{display:flex;flex-wrap:wrap;gap:5px}.srpe-dots .dot{width:30px;height:30px}
+.swapq{margin-top:12px}.swapq summary{list-style:none;cursor:pointer;font-size:.85rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.swapq summary::-webkit-details-marker{display:none}.swapq summary::after{content:none!important}
+.swapopts{display:flex;flex-wrap:wrap;gap:6px}.swapopts button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.swapbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding:9px 12px;border:1px dashed var(--line);border-radius:10px;font-size:.85rem;color:var(--muted)}
+.swapbar b{color:var(--ink)}.swapbar button{background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 11px;font:inherit;font-size:.78rem;cursor:pointer}
 </style>
 </head>
 <body>
@@ -959,7 +965,7 @@ function syncSession(key){
   Object.keys(fl).forEach(k=>{ const f=fl[k]; if(f.skip) enqueue("Sets", key+"|"+k+"|skip", [key, wk, k, EX[k].n, "-", "", "", "", f.pain?"ja":"", "overgeslagen"+(f.note?" · "+f.note:"")]); });
 }
 function syncDay(key, name, w){ enqueue("Trainingen", key, [key, w, name, S.days[key]?"ja":"nee", (S.srpe||{})[key]||""]); }
-function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}})]), 8000); }
+function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}, swap:S.swap||{}})]), 8000); }
 window.addEventListener("online", ()=>flush());
 const $ = id => document.getElementById(id);
 const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
@@ -1019,6 +1025,20 @@ function renderTodayHabits(){
   h.innerHTML = `<div class="hab-today">${HABITS.map((hb,hi)=>{ const k="h"+hi+"-"+TODAY; return `<button data-hk="${k}" class="${S.habits[k]?'on':''}">${ic(hb[0])}${hb[1].replace(", niets overgeslagen","").replace("Eiwit bij elk eetmoment","Eiwit bij elk eetmoment")}</button>`; }).join("")}</div><p class="small muted" style="margin-top:8px">Gemist? Kijk bij Eten → Maaltijd vergeten.</p>`;
   h.querySelectorAll("[data-hk]").forEach(b=>b.addEventListener("click",()=>{ const k=b.dataset.hk; S.habits[k]=!S.habits[k]; save(); b.classList.toggle("on",!!S.habits[k]); renderDayDone(true); }));
 }
+/* ===== TOCH IETS ANDERS GEDAAN ===== */
+const SWAPS = {
+  loop:{n:"Hardlopen", type:"loop", e:"👟"}, A:{n:"Kracht A", type:"kracht", session:"A", e:"🏋️"}, B:{n:"Kracht B", type:"kracht", session:"B", e:"🏋️"},
+  pthuis:{n:"Pilates thuis", type:"pilates", session:"C", pm:"thuis", e:"🧘‍♀️"}, pstudio:{n:"Pilates-les", type:"pilates", session:"C", pm:"studio", e:"📍"},
+  tennis:{n:"Tennis", type:"tennis", e:"🎾"}, wandel:{n:"Wandelen", type:"rust", icon:"steps", e:"🚶‍♀️"}, fiets:{n:"Fietsen / spinning", type:"rust", icon:"dash", e:"🚲"},
+  rust:{n:"Rust genomen", type:"rust", e:"🌙"}, anders:{n:"Iets anders", type:"rust", icon:"star", e:"✨"}
+};
+function effDay(w, i){
+  const d = WEEKS[w].days[i]; if(!d) return d;
+  const key = iso(dayDates(w)[i]), sw = (S.swap||{})[key]; if(!sw || !SWAPS[sw.t]) return d;
+  const o = SWAPS[sw.t], name = sw.t==="anders" && sw.label ? sw.label : o.n;
+  return {name, sub:"In plaats van: "+d.name, type:o.type, icon:o.icon||o.type, session:o.session||null, opts:{}, swapped:sw.t, orig:d};
+}
+function syncName(d, key){ if(!d.swapped) return d.name; const sw=(S.swap||{})[key]||{}; return d.name+" (i.p.v. "+d.orig.name+")"+(sw.min?" · "+sw.min+" min":""); }
 function renderWeek(){
   const wk = WEEKS[W], dates = dayDates(W), locked = isLocked(W);
   $("kicker").textContent = (locked ? "Week "+W+" · nog in te vullen" : wk.kicker + (isConcept(W)?" · concept":"")) + " · " + fmtRange(dates[0], dates[dates.length-1]);
@@ -1028,10 +1048,11 @@ function renderWeek(){
   $("weekLocked").innerHTML = locked ? lockedHtml(W, "Je week") : (isConcept(W) ? `<div class="concept">${ic("lock")} <b>Conceptweek.</b> Deze week is nog niet samen afgestemd. Volg dit concept op gevoel en pas aan wat niet past. De check-in van zondag geldt nog steeds.</div>` : "");
   if (locked){ renderTodayHabits(); renderDayDone(false); return; }
   const el = $("days"); el.innerHTML = ""; $("todayDay").innerHTML = "";
-  wk.days.forEach((d,i)=>{
+  wk.days.forEach((d0,i)=>{
     const dt = dates[i], key = iso(dt), isToday = key===TODAY;
-    if (d.opts.done && S.days[key]===undefined) S.days[key]=true;
-    const div = document.createElement("div"); div.className = "day"+(isToday?" today"+(S.days[key]?"":" open"):"")+((S.pmode||{})[key]&&!isToday&&renderWeek._last===key?" open":"");
+    if (d0.opts.done && S.days[key]===undefined) S.days[key]=true;
+    const d = effDay(W, i);
+    const div = document.createElement("div"); div.className = "day"+(isToday?" today"+(S.days[key]?"":" open"):"")+(renderWeek._last===key && !(isToday && !S.days[key])?" open":"");
     let body = d.opts.note ? `<div class="tip">${d.opts.note}</div>` : "";
     const wType = d.session==="K" ? "kracht" : (d.session==="C" ? ((S.pmode||{})[key]==="thuis" ? "pilates" : null) : (WUCD[d.type] ? d.type : null));
     const isTennisDay = /tennis/i.test(d.name) && d.type!=="tennis";
@@ -1050,15 +1071,29 @@ function renderWeek(){
       body += `<button class="btn go" data-log="${key}">▶ Start & log training</button><p class="small muted" style="margin:8px 2px 0">🎒 In je tas: waterfles, handdoek, snack voor erna, koptelefoon.</p>`;
     } else if (d.type==="loop"){ const rr=(S.runs||{})[key]||{};
       body += `<p class="small">Rustig = je kunt hele zinnen praten. Vlakke ondergrond voor je enkel.</p><div class="runf"><div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-run="${key}" data-f="km" value="${rr.km||''}" placeholder="5"></div><div><label>Tijd (min)</label><input type="number" inputmode="numeric" data-run="${key}" data-f="min" value="${rr.min||''}" placeholder="32"></div></div><div class="small muted" style="margin-top:6px" data-pace="${key}">${pace(rr)}</div>`; }
-    else if (d.type==="rust") body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
+    else if (d.type==="rust" && (!d.swapped || d.swapped==="rust")) body += `<p class="small">Rekroutine van 10 min (zie Training) en je stappen halen. Genieten!</p>`;
+    const sw = (S.swap||{})[key];
+    if (sw && !d.session && d.type!=="loop" && sw.t!=="rust"){
+      body += `${sw.t==="anders"?`<div class="runf"><div style="flex:1"><label>Wat heb je gedaan?</label><input type="text" data-sw="label" value="${(sw.label||"").replace(/"/g,"&quot;")}" placeholder="Bijv. yoga, dansles, zwemmen"></div></div>`:""}
+        <div class="runf"><div><label>Hoe lang (min)</label><input type="number" inputmode="numeric" data-sw="min" value="${sw.min||""}" placeholder="45"></div></div>
+        <p class="small" style="margin:10px 0 6px">Hoe zwaar voelde het? <span class="muted">(1 = heel licht, 10 = alles gegeven)</span></p>
+        <div class="dots srpe-dots">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot ${((S.srpe||{})[key]==n)?"on":""}" role="button" data-swr="${n}">${n}</div>`).join("")}</div>`;
+    }
     if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
+    body += d.swapped
+      ? `<div class="swapbar"><span>↔ Aangepast: <b class="sw-n">${d.name}</b> in plaats van ${d.orig.name}</span><button data-swreset>Terug naar plan</button></div>`
+      : (d.type!=="rust" || isToday || dt < new Date() ? `<details class="swapq"><summary>↔ Toch iets anders gedaan?</summary><p class="small muted" style="margin:8px 0">Kies wat je echt gedaan hebt. Dan log je dat, en nemen we het mee in je volgende week.</p><div class="swapopts">${Object.entries(SWAPS).filter(([k,o])=>!(o.session && o.session===d.session) && !(o.type===d.type && !o.session && k!=="anders" && k!=="wandel" && k!=="fiets")).map(([k,o])=>`<button data-swap="${k}">${o.e} ${o.n}</button>`).join("")}</div></details>` : "");
     div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div></div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = (user)=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); if(isToday){ if(user) setTimeout(()=>div.classList.toggle("open",!S.days[key]), S.days[key]?1400:0); renderDayDone(user); } };
-    chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, d.name, W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
+    chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, syncName(d,key), W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
     div.querySelector(".day-head").addEventListener("click", ()=>div.classList.toggle("open"));
     div.querySelectorAll("[data-run]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.runs=S.runs||{}; S.runs[key]=S.runs[key]||{}; S.runs[key][inp.dataset.f]=inp.value; save(); const rr=S.runs[key]; if(rr.km){ enqueue("Lopen", key, [key, rr.km, rr.min||"", rr.min?pace(rr).replace("Tempo: ","").split(" ")[0]:""]); syncBackup(); } div.querySelector("[data-pace]").textContent=pace(S.runs[key]); }); });
-    div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, d.name+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
+    div.querySelectorAll("[data-pm]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.pmode=S.pmode||{}; S.pmode[key]=b.dataset.pm; renderWeek._last=key; save(); syncDay(key, syncName(d,key)+" ("+(b.dataset.pm==="studio"?"studio":"thuis")+")", W); renderWeek(); }));
+    div.querySelectorAll("[data-swap]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const t=b.dataset.swap, o=SWAPS[t]; S.swap=S.swap||{}; S.swap[key]={t}; if(o.pm){ S.pmode=S.pmode||{}; S.pmode[key]=o.pm; } renderWeek._last=key; save(); syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); toast(o.e+" Aangepast naar "+o.n.toLowerCase()); renderWeek(); }));
+    div.querySelectorAll("[data-swreset]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const o=SWAPS[(S.swap[key]||{}).t]||{}; if(o.pm && S.pmode) delete S.pmode[key]; delete S.swap[key]; renderWeek._last=key; save(); syncDay(key, d0.name, W); syncBackup(); renderWeek(); }));
+    div.querySelectorAll("[data-sw]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.swap[key][inp.dataset.sw]=inp.value; save(); clearTimeout(inp._t); inp._t=setTimeout(()=>{ syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); if(inp.dataset.sw==="label"){ const n=effDay(W,i).name; div.querySelector(".day-name").textContent=n; const sb=div.querySelector(".sw-n"); if(sb) sb.textContent=n; } },800); }); });
+    div.querySelectorAll("[data-swr]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.srpe=S.srpe||{}; S.srpe[key]=+b.dataset.swr; save(); div.querySelectorAll("[data-swr]").forEach(x=>x.classList.toggle("on",x===b)); syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); }));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     (isToday ? $("todayDay") : el).appendChild(div); paint();
   });
@@ -1144,7 +1179,7 @@ const MORNING = [
 function renderNudge(){
   const h = new Date().getHours(); let wkI = curWeek(), msg = null;
   const dayN = Math.floor(Date.now()/864e5);
-  if (!isLocked(wkI)){ const ds = dayDates(wkI), i = ds.findIndex(d=>iso(d)===TODAY), d = i>=0 ? WEEKS[wkI].days[i] : null;
+  if (!isLocked(wkI)){ const ds = dayDates(wkI), i = ds.findIndex(d=>iso(d)===TODAY), d = i>=0 ? effDay(wkI, i) : null;
     const trainToday = d && d.type!=="rust" && !S.days[TODAY];
     if (h >= 5 && h < 12){
       if (trainToday) msg = ["☀️","Ochtendtip","Train je vanochtend? Eet 30–60 min vooraf iets kleins: een banaan, krentenbol of glas chocomelk. Nooit nuchter trainen."];
@@ -1180,7 +1215,7 @@ function lastLog(k, beforeKey){
 function topReps(reps){ const m = String(reps).match(/(\d+)\D*$/); return m? +m[1] : null; }
 function openLogger(w, di){
   if(!$("modal").classList.contains("on") && !(history.state&&history.state.logger)) history.pushState({logger:1},"");
-  const d = WEEKS[w].days[di], key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
+  const d = effDay(w, di), key = iso(dayDates(w)[di]), list = d.opts.only || SESS[d.session];
   LOGCTX = {w, di, key};
   $("mTitle").textContent = SESSNAME[d.session] + " · " + fmt(dayDates(w)[di]);
   $("mBody").innerHTML = `<details style="margin-bottom:12px"><summary><span class="s-main">🔥 Warming-up · ${d.session==="C"?"3":"8"} min<span class="s-sub">Tik af wat je gedaan hebt</span></span></summary><div class="dbody" id="wu"></div></details><div class="tip"> Vul per set je gewicht en herhalingen in en tik ✓ als de set klaar is. Dan start de rusttimer vanzelf.</div>` + list.map(k=>{
@@ -1681,7 +1716,7 @@ function renderAllRecipes(){
 /* ======================= EXPORT ======================= */
 function buildExport(){
   const wk = WEEKS[W], dates = dayDates(W); let t = `📋 Eva · ${wk.kicker} (${fmt(dates[0])} – ${fmt(dates[dates.length-1])})\n\n🏋️ TRAININGEN\n`;
-  wk.days.forEach((d,i)=>{ t += `${S.days[iso(dates[i])]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}${(S.pmode||{})[iso(dates[i])]?' ('+S.pmode[iso(dates[i])]+')':''}\n`; });
+  wk.days.forEach((d0,i)=>{ const k=iso(dates[i]), d=effDay(W,i), sw=(S.swap||{})[k]; t += `${S.days[k]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}${d.swapped?' (i.p.v. '+d.orig.name+')':''}${(S.pmode||{})[k]&&d.session==='C'?' ('+S.pmode[k]+')':''}${sw&&sw.min?' · '+sw.min+' min':''}${(S.srpe||{})[k]?' · zwaarte '+S.srpe[k]+'/10':''}\n`; });
   t += `\n📒 LOGBOEK\n`; let any=false;
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";
@@ -1690,7 +1725,7 @@ function buildExport(){
   t += `\n☀️ GEVOEL / OURA\n`; let anyD=false;
   dates.forEach(d=>{ const s=S.daily[iso(d)]; if(s && (s.feel!==undefined || s.ready)){ anyD=true; t += `${fmt(d)}: ${s.feel!==undefined?FEELS[s.feel][1]:''}${s.ready?' · readiness '+s.ready:''}\n`; } });
   if(!anyD) t += "(niet ingevuld)\n";
-  t += `\n✅ GEWOONTES\n`; HABITS.forEach((h,hi)=>{ const n = dates.filter((_,li)=>S.habits[W+"-h"+hi+"-"+li]).length; t += `${h[0]} ${h[1]}: ${n}/${dates.length}\n`; });
+  t += `\n✅ GEWOONTES\n`; HABITS.forEach((h,hi)=>{ const n = dates.filter(d=>S.habits["h"+hi+"-"+iso(d)]).length; t += `${h[0]} ${h[1]}: ${n}/${dates.length}\n`; });
   t += `\n🥗 ETEN · ${wk.food.t}\n`;
   wk.food.rec.forEach(id=>{ const r=S.rate[id]; t += `${R[id][0]}: ${r&&r.v!==undefined?RATES[r.v][1]:'nog niet geprobeerd'}${r&&r.n?' – '+r.n:''}\n`; });
   t += `Proefopdracht: ${S.food["try-"+W]?'gedaan ✅':'nog niet'}\n`;
