@@ -1923,6 +1923,33 @@ Object.entries({
   S_TWIST:{spine:"laag", pts:["hip"], label:"onderrug en buitenkant heup"},
   S_CHILD:{spine:true, pts:["sh"], label:"onderrug, heupen en schouders"}
 }).forEach(([k,f])=>{ if(MOVES[k]) MOVES[k].feel=f; });
+/* Krachtoefeningen: welke spieren werken (zelfde roze gloed) */
+Object.entries({
+  A1:{segs:[["hip","kn"],["hip","kn2"]], pts:["hip"], label:"bovenbenen en billen"},
+  A2:{segs:[["hip","kn"]], pts:["hip"], spine:"laag", label:"achterkant bovenbenen, billen en onderrug"},
+  A3:{segs:[["hip","kn"]], pts:["hip"], label:"voorste bovenbeen en bil"},
+  A4:{segs:[["sh","el"]], pts:["sh"], label:"borst, voorkant schouders en achterkant armen"},
+  A5:{segs:[["sh","el"]], spine:"hoog", label:"brede rugspieren en armen"},
+  A6:{spine:true, label:"buik en zijkant romp (niet laten draaien)"},
+  A7:{segs:[["kn","an"]], label:"kuit"},
+  B1:{pts:["hip"], label:"billen"},
+  B2:{segs:[["hip","kn"]], pts:["hip"], label:"bovenbenen en billen"},
+  B3:{segs:[["sh","el"]], spine:"hoog", label:"bovenrug en armen"},
+  B4:{segs:[["sh","el"]], pts:["sh"], label:"schouders en achterkant armen"},
+  B5:{segs:[["hip","kn"]], label:"achterkant bovenbenen (hamstrings)"},
+  B6:{pts:["hpL","hpR"], label:"zijkant billen"},
+  B7:{spine:true, label:"diepe buikspieren"},
+  B7b:{spine:true, pts:["hip"], label:"zijkant romp en heup"},
+  C1:{spine:true, label:"buikspieren"},
+  C2:{spine:true, label:"buikspieren"},
+  C3:{segs:[["sh","el"]], pts:["sh"], label:"borst, schouders en achterkant armen"},
+  C4:{pts:["hip"], label:"zijkant bil"},
+  C5:{segs:[["hip","kn"]], pts:["hip"], label:"bil en achterkant bovenbeen van je steunbeen"},
+  C6:{spine:true, pts:["hip"], label:"rug en billen"},
+  C7:{segs:[["shL","elL"],["shR","elR"]], label:"bovenrug en achterkant schouders"},
+  C8:{spine:true, pts:["hip"], label:"rug, bil en buik (stabiel houden)"},
+  C9:{spine:true, label:"buikspieren, wervel voor wervel"}
+}).forEach(([k,f])=>{ if(MOVES[k] && !MOVES[k].feel) MOVES[k].feel=Object.assign({work:true},f); });
 /* Tweede camerahoek waar je de beweging van opzij niet goed ziet (loopt gelijk met het hoofdbeeld) */
 MOVES.S_TWIST.v2={label:"van boven", R:1.1, props:[], feel:{segs:[["hp","ls"]]},
   front:[["hp","sc"],["sc","hd"],["hpL","hpR"],["shL","shR"],["shL","elL"],["elL","haL"],["shR","elR"],["elR","haR"],["hpL","knL"],["knL","anL"],["hpR","knR"],["knR","anR"]],
@@ -1984,7 +2011,7 @@ function openMove(k){
   const ov=$("mvov"); ov.innerHTML=`<div class="mvcard" role="dialog" aria-label="${name}">
     <div class="mvtop"><b>${name}</b><button class="mvx" aria-label="Sluiten">✕</button></div>
     <div class="mvstage" id="mvstage"></div>
-    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>${mwUrl(k)?`<a class="mvreal" href="${mwUrl(k)}" target="_blank" rel="noopener">Echte beelden bekijken <span>${mwSrc(k)} ↗</span>${EXTV[k]&&EXTV[k].note?`<em>${EXTV[k].note}</em>`:""}</a>`:""}
+    ${CUE[k]?`<div class="mvcue">${CUE[k]}</div>`:""}${m&&m.feel?`<div class="rt-feelhere"><i></i><span>${m.feel.work?"Werkt":"Voel je"}: <b>${m.feel.label}</b></span></div>`:""}<div class="mvtempo">${m?m.tempo:""}</div>${mwUrl(k)?`<a class="mvreal" href="${mwUrl(k)}" target="_blank" rel="noopener">Echte beelden bekijken <span>${mwSrc(k)} ↗</span>${EXTV[k]&&EXTV[k].note?`<em>${EXTV[k].note}</em>`:""}</a>`:""}
     ${k==="B7b"?`<ol class="mvcues"><li>Op je onderarm, elleboog onder je schouder.</li><li>Heup omhoog tot een rechte lijn van hoofd tot voet.</li><li>Vasthouden en rustig doorademen.</li></ol>`
       :`<ol class="mvcues">${cues(x.u).map(c=>`<li>${c}</li>`).join("")}</ol>${x.e?`<div class="mvwarn"><b>Let op:</b> ${x.e}</div>`:""}${EQ[base]?`<div class="mvwarn">🔧 ${EQ[base]}</div>`:""}`}
   </div>`;
@@ -2252,7 +2279,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "36"; let lastCheck = Date.now();
+const APPV = "37"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
