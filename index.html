@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -510,6 +510,11 @@ button.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;p
 .rt-ring{width:132px!important;height:132px!important;margin:8px auto 10px!important}.rt-num{font-size:2.6rem!important}
 .rt-li{display:flex;gap:12px;align-items:center}.rt-th{flex:none;width:64px;height:48px;background:#111;border:1px solid var(--line);border-radius:10px;color:var(--ink);--mvbg:#111}
 .rt-list .rt-li{padding:8px 0;border-top:1px solid var(--line)}
+/* Geen in-/uitzoomen: geen dubbeltik-zoom, en invulvelden ≥16px zodat iPhone niet inzoomt bij typen */
+html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+input,select,textarea{font-size:16px!important}
+.rt-vid{display:inline-block;flex:none;font-size:.75rem;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:3px 9px;text-decoration:none;white-space:nowrap}
+.rt-vid-big{display:block;text-align:center;margin-top:10px;padding:9px;font-size:.88rem;font-weight:600}.rt-vid-big span{color:var(--muted);font-weight:400}
 </style>
 </head>
 <body>
@@ -1131,6 +1136,10 @@ const ROUT = {
     ]}
 };
 const RT_MV = {"Lage lunge":"S_LUNGE","Halve spagaat":"S_HALF","Duif":"S_PIGEON","Brede zit voorover":"S_STRADDLE","Kuitstretch tegen de muur":"S_CALF","Cat-cow":"S_CATCOW","Bovenrug draaien":"S_THREAD","Heupcirkels":"S_HIPCIRC","90/90-heupen":"S_9090","World's greatest stretch":"S_WGS","Diepe squat aan de deurpost":"S_SQUAT","Spagaat op blokken":"S_SPLIT","Liggende draai":"S_TWIST","Kindhouding":"S_CHILD"};
+/* Externe video's (Hinge Health: fysiotherapeuten, geen advertenties van derden op de pagina; gecontroleerd 14 nov 2026) */
+const RT_VID = {"Lage lunge":"kneeling-hip-flexor-stretch","Duif":"pigeon-pose","Cat-cow":"cat-cow","Bovenrug draaien":"thread-the-needle","Kindhouding":"childs-pose","Diepe squat aan de deurpost":"benefits-of-deep-squat"};
+const rtVid = n => RT_VID[n] ? "https://www.hingehealth.com/resources/articles/"+RT_VID[n]+"/" : "";
+function rtVidLink(n){ const u=rtVid(n); return u ? `<a class="rt-vid" href="${u}" target="_blank" rel="noopener" data-rtvid>🎥 Video</a>` : ""; }
 function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
 /* Wekelijkse opbouw van de houdtijd (vasthouden), plus aanpassing op haar eigen gevoel */
 function rtPhase(w){ return Math.min(25, Math.floor(w/2)*5); }          // elke 2 weken +5 sec: week 0-1 +0 … week 10-12 +25
@@ -1165,7 +1174,7 @@ function rtCard(id, key, w){
     <p class="small muted" style="margin:6px 0 10px">📈 Week ${w}: ${ph>0?"je houdt elke rek "+ph+" sec langer vast dan bij de start":"basistijden, rustig wennen"}${rtActive(w)&&id==="mob"?" · met actief rekken":""}. Stap voor stap met timer.</p>
     <button class="btn go" data-rt="${id}" data-rtkey="${key}">${done?"↻ Nog een keer":"▶ Start "+R0.n.toLowerCase()}</button>
     <details class="exlist"><summary><span class="s-main">📋 ${R0.steps.length} oefeningen<span class="s-sub">Bekijk wat je gaat doen</span></span></summary>
-      ${R0.steps.map(st=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span><div class="small muted">${st.how}</div></div></div>`).join("")}
+      ${R0.steps.map(st=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span> ${rtVidLink(st.n)}<div class="small muted">${st.how}</div></div></div>`).join("")}
     </details></div>`;
 }
 const RT_FEEL = [["Makkelijk","😌"],["Goed","🙂"],["Te pittig","😮‍💨"]];
@@ -1212,7 +1221,8 @@ function rtRender(){
     el.innerHTML=`<div class="rt-in rt-pad"><div class="kicker" style="margin-top:6px">${R0.e} ${R0.when}</div><h2 style="margin:4px 0 2px">${R0.n} · ${rtMinutes(RTS.id,w)} min</h2>
       <p class="small muted">Nodig: ${R0.need}. Leg je telefoon naast je op de mat: de app telt af, piept bij elke wissel en het poppetje doet het voor.</p>
       <div class="tip">📈 <b>Week ${w}:</b> ${rtPhase(w)>0?"je houdt de rekken "+rtPhase(w)+" sec langer vast dan in week 0":"basistijden, rustig wennen"}${rtAdj(RTS.id)?` · ${rtAdj(RTS.id)>0?"+":""}${rtAdj(RTS.id)} sec op jouw niveau`:""}${rtActive(w)&&RTS.id==="mob"?" · met actief rekken bij de halve spagaat":""}.</div>
-      <div class="rt-list">${R0.steps.map((st,i)=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${i+1}. ${st.n}</b><div class="small muted">${rtStepText(st,w,RTS.id)}</div></div></div>`).join("")}</div>
+      <div class="rt-list">${R0.steps.map((st,i)=>`<div class="rt-li">${rtThumb(st.n)}<div style="flex:1"><b>${i+1}. ${st.n}</b><div class="small muted">${rtStepText(st,w,RTS.id)}</div></div>${rtVidLink(st.n)}</div>`).join("")}</div>
+      <p class="small muted" style="margin-top:8px">🎥 = echte video van een fysiotherapeut (Hinge Health, Engels). Geen reclame van anderen; wel promotie van hun eigen programma, die kun je negeren.</p>
       <p class="small muted" style="text-align:center;margin-top:10px">Rekken mag trekken, nooit pijn doen. Adem rustig door.</p></div>
       <div class="rt-dock"><button class="rt-sec" data-rtx>${BACK_SVG} Terug</button><button class="rt-main" data-rtgo>▶ Start</button></div>`;
   } else if(RTS.phase==="done"){
@@ -1231,7 +1241,7 @@ function rtRender(){
       <h2 class="rt-name" id="rtName"></h2>
       <div class="rt-side" id="rtSide"></div>
       <div class="rt-ring" id="rtRing"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="9"/><circle id="rtArc" cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(2*Math.PI*86).toFixed(1)}" transform="rotate(-90 100 100)"/></svg><div class="rt-num"><span id="rtNum"></span><small id="rtLab"></small></div></div>
-      <div class="rt-how" id="rtHow"></div>
+      <div class="rt-how" id="rtHow"></div><div id="rtVid"></div>
       <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span><span id="rtCue"></span></div>
       <div id="rtActive"></div>
       <p class="small muted" style="text-align:center;margin-top:10px" id="rtNext"></p></div>
@@ -1254,6 +1264,7 @@ function rtUpdate(){
     $("rtStage").classList.toggle("mirror", st.side==="rechts");
     $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
     $("rtSide").textContent=(st.side?(st.side==="links"?"◐ Linkerkant":"◑ Rechterkant"):"")+(st.sets>1?` · ronde ${st.set}/${st.sets}`:"");
+    $("rtVid").innerHTML=rtVid(st.n)?`<a class="rt-vid rt-vid-big" href="${rtVid(st.n)}" target="_blank" rel="noopener" data-rtvid>🎥 Bekijk echte video <span>(timer pauzeert)</span></a>`:"";
     $("rtActive").innerHTML=st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:"";
     $("rtNext").textContent=next?`Hierna: ${next.n}${next.side?" · "+next.side:""}`:"Laatste stap!";
     $("rtCount").textContent=`Stap ${RTS.i+1} van ${tl.length}`; $("rtBar").style.width=(RTS.i/tl.length*100).toFixed(1)+"%";
@@ -1269,6 +1280,7 @@ function confirmStop(){ if(document.querySelector("#rt .rt-stop")) return; RTS.p
 function rtMeasTrend(){ const ks=Object.keys(S.meas||{}).sort(); if(!ks.length) return ""; const f=S.meas[ks[0]], l=S.meas[ks[ks.length-1]];
   return `<p class="small muted" style="margin-top:8px">Eerste meting (${ks[0].slice(8)}-${ks[0].slice(5,7)}): L ${f.splitL||"-"} · R ${f.splitR||"-"} cm${ks.length>1?` · laatste: L ${l.splitL||"-"} · R ${l.splitR||"-"} cm`:""}</p>`; }
 window.addEventListener("popstate", ()=>{ if(RTS && !(history.state&&history.state.rt)) rtClose(); });
+document.addEventListener("click", e=>{ const a=e.target.closest("[data-rtvid]"); if(!a) return; e.stopPropagation(); if(RTS && (RTS.phase==="hold"||RTS.phase==="prep")){ RTS.paused=true; rtUpdate(); } }, true);
 document.addEventListener("click", e=>{ const b=e.target.closest("[data-rt]"); if(!b) return; e.preventDefault(); e.stopPropagation(); openRoutine(b.dataset.rt, b.dataset.rtkey||TODAY); }, true);
 
 function renderTrainingRt(){ const el=$("trainRt"); if(!el) return; const w=curWeek();
@@ -2125,10 +2137,15 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "30"; let lastCheck = Date.now();
+const APPV = "31"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
 <div id="rt" class="rt"></div>
+<script>/* iPhone negeert user-scalable soms: knijp-zoom en ctrl+scroll-zoom tegenhouden */
+["gesturestart","gesturechange","gestureend"].forEach(ev=>document.addEventListener(ev, e=>e.preventDefault(), {passive:false}));
+document.addEventListener("touchmove", e=>{ if(e.touches && e.touches.length>1) e.preventDefault(); }, {passive:false});
+document.addEventListener("wheel", e=>{ if(e.ctrlKey) e.preventDefault(); }, {passive:false});
+document.addEventListener("keydown", e=>{ if((e.ctrlKey||e.metaKey) && ["+","-","=","0"].includes(e.key)) e.preventDefault(); });</script>
 </body>
 </html>
