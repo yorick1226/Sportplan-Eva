@@ -531,6 +531,16 @@ input,select,textarea{font-size:16px!important}
 #tab-training table{table-layout:fixed}#tab-training table td,#tab-training table th{white-space:normal!important;overflow-wrap:anywhere;vertical-align:top}
 .runf>div[style*="flex:1"]{grid-column:1/-1;flex:1 1 100%}
 .idea .rec{padding-left:12px!important}
+.rt-stage,.mvstage{position:relative}
+.rt-stage.two{aspect-ratio:auto!important;flex-direction:column;justify-content:flex-start}
+.rt-stage.two>svg{width:100%;height:auto;aspect-ratio:1.75/1;flex:none}
+.mv-v2{width:100%;border-top:1px dashed var(--line);padding:4px 0 2px;--mvbg:#111;color:var(--ink);display:flex;flex-direction:column;align-items:center}
+.mv-v2 svg{width:auto!important;height:140px!important;max-width:92%;display:block}
+.mv-v2 span{display:block;text-align:center;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 0 3px}
+.rt-feelhere{display:flex;justify-content:center;align-items:center;gap:7px;font-size:.85rem;color:var(--muted);margin:6px 0 2px;text-align:center}
+.rt-feelhere i{width:10px;height:10px;border-radius:50%;background:#ff9db4;opacity:.8;flex:none}
+.rt-feelhere b{color:var(--ink);font-weight:600}
+.rt-li .feel{color:#ffb8c8}
 </style>
 </head>
 <body>
@@ -1170,6 +1180,7 @@ const RT_VID = {
   "Heupcirkels": "https://ca.physitrack.com/home-exercise-video/hip-circles-on-all-fours"
 };
 const rtVid = n => RT_VID[n] || "";
+const rtFeelTxt = n => { const m=MOVES[RT_MV[n]]; return m&&m.feel ? ` <span class="feel">● Voel je: ${m.feel.label}.</span>` : ""; };
 const RT_VNOTE = {"Heupcirkels":"Video van Physitrack (platform voor fysiotherapeuten), zonder reclame. Let op: gratis tot 5 video's per maand.","Spagaat op blokken":"De video toont de volledige spagaat (einddoel). Jij doet hem met blokken en zakt zo ver als prettig is."};
 function rtVidLink(n){ const u=rtVid(n); return u ? `<a class="rt-vid" href="${u}" target="_blank" rel="noopener" data-rtvid>🎥 Video</a>` : ""; }
 function rtThumb(n, cls){ const k=RT_MV[n], m=MOVES[k]; if(!m) return ""; return `<svg class="${cls||"rt-th"}" viewBox="${mvBox(m)}" aria-hidden="true">${mvSVG(mvSolve(mvAt(m, m.thumbT ?? (m.seq[0].hold||0)+(m.seq[0].go||1)+.05).p), m)}</svg>`; }
@@ -1206,7 +1217,7 @@ function rtCard(id, key, w){
     <p class="small muted" style="margin:6px 0 10px">📈 Week ${w}: ${ph>0?"je houdt elke rek "+ph+" sec langer vast dan bij de start":"basistijden, rustig wennen"}${rtActive(w)&&id==="mob"?" · met actief rekken":""}. Stap voor stap met timer.</p>
     <button class="btn go" data-rt="${id}" data-rtkey="${key}">${done?"↻ Nog een keer":"▶ Start "+R0.n.toLowerCase()}</button>
     <details class="exlist"><summary><span class="s-main">📋 ${R0.steps.length} oefeningen<span class="s-sub">Bekijk wat je gaat doen</span></span></summary>
-      ${R0.steps.map(st=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span> ${rtVidLink(st.n)}<div class="small muted">${st.how}</div></div></div>`).join("")}
+      ${R0.steps.map(st=>`<div class="rt-li">${rtThumb(st.n)}<div><b>${st.n}</b> <span class="muted">· ${rtStepText(st,w,id)}</span> ${rtVidLink(st.n)}<div class="small muted">${st.how}${rtFeelTxt(st.n)}</div></div></div>`).join("")}
     </details></div>`;
 }
 const RT_FEEL = [["Makkelijk","😌"],["Goed","🙂"],["Te pittig","😮‍💨"]];
@@ -1278,7 +1289,7 @@ function rtRender(){
       <div class="rt-stage" id="rtStage"></div>
       <div class="kicker" style="text-align:center" id="rtGrp"></div>
       <h2 class="rt-name" id="rtName"></h2>
-      <div class="rt-side" id="rtSide"></div>
+      <div class="rt-side" id="rtSide"></div><div class="rt-feelhere" id="rtFeelHere"></div>
       <div class="rt-ring" id="rtRing"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="9"/><circle id="rtArc" cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(2*Math.PI*86).toFixed(1)}" transform="rotate(-90 100 100)"/></svg><div class="rt-num"><span id="rtNum"></span><small id="rtLab"></small></div></div>
       <div class="rt-how" id="rtHow"></div><div id="rtVid"></div>
       <div class="cue" style="margin-top:10px"><span class="cue-t">Denk aan</span><span id="rtCue"></span></div>
@@ -1301,7 +1312,7 @@ function rtUpdate(){
     if(RTS.stopMv) RTS.stopMv(); const k=RT_MV[st.n]; RTS.stopMv = k ? mvPlay($("rtStage"), k) : null;
     if(k){ const sv=$("rtStage").querySelector("svg"); if(sv) sv.setAttribute("viewBox", mvBox(MOVES[k], 1.75)); }
     $("rtStage").classList.toggle("mirror", st.side==="rechts");
-    $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
+    $("rtName").textContent=st.n; $("rtGrp").textContent=st.grp; { const mm=MOVES[RT_MV[st.n]]; $("rtFeelHere").innerHTML = mm&&mm.feel ? `<i></i><span>Voel je: <b>${mm.feel.label}</b></span>` : ""; } $("rtHow").textContent=st.how; $("rtCue").textContent=st.cue;
     $("rtSide").innerHTML=(st.side?`<span class="rt-pill">${st.side==="links"?"Linkerkant":"Rechterkant"}</span>`:"")+(st.sets>1?`<span class="rt-round">ronde ${st.set} van ${st.sets}</span>`:"");
     $("rtVid").innerHTML=rtVid(st.n)?`<a class="rt-vid rt-vid-big" href="${rtVid(st.n)}" target="_blank" rel="noopener" data-rtvid>🎥 Bekijk echte video <span>(timer pauzeert)</span></a>${RT_VNOTE[st.n]?`<div class="small muted" style="margin-top:6px;text-align:center">${RT_VNOTE[st.n]}</div>`:""}`:"";
     $("rtActive").innerHTML=st.active?`<div class="tip" style="margin-top:8px">💪 ${st.active}</div>`:"";
@@ -1699,12 +1710,25 @@ function mvAt(m, time){
     const g=f.go||1; if(t < g) return {p:mvLerp(f.p, n.p, f.lin ? t/g : mvEase(t/g)), i, phase:"go"}; t-=g; }
   return {p:seq[0].p, i:0};
 }
+/* Gloed op de plek waar je de rek voelt */
+const MV_GLOW="#ff9db4";
+function mvGlow(pt, f){
+  if(!f) return ""; let g="";
+  const line=(a,b)=>`<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="${MV_GLOW}" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/>`;
+  (f.segs||[]).forEach(([a,b])=>{ if(pt[a]&&pt[b]) g+=line(pt[a],pt[b]); });
+  if(f.spine && pt.hip && pt.sh){ const c=pt.curv||0, mx=(pt.hip[0]+pt.sh[0])/2, my=(pt.hip[1]+pt.sh[1])/2, dx=pt.sh[0]-pt.hip[0], dy=pt.sh[1]-pt.hip[1], L=Math.hypot(dx,dy)||1;
+    const a=f.spine==="hoog"?[pt.hip[0]+dx*.45,pt.hip[1]+dy*.45]:pt.hip, b=f.spine==="laag"?[pt.hip[0]+dx*.6,pt.hip[1]+dy*.6]:pt.sh;
+    g+= c ? `<path d="M${pt.hip[0].toFixed(1)} ${pt.hip[1].toFixed(1)}Q${(mx+dy/L*c*2).toFixed(1)} ${(my-dx/L*c*2).toFixed(1)} ${pt.sh[0].toFixed(1)} ${pt.sh[1].toFixed(1)}" fill="none" stroke="${MV_GLOW}" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/>` : line(a,b); }
+  (f.pts||[]).forEach(k=>{ if(pt[k]) g+=`<circle cx="${pt[k][0].toFixed(1)}" cy="${pt[k][1].toFixed(1)}" r="7" fill="${MV_GLOW}" fill-opacity=".45"/>`; });
+  return g;
+}
 function mvSVG(pt, m){
   const C="currentColor", seg=(a,b,w,o)=>`<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="${C}" stroke-width="${w||2.2}" stroke-linecap="round" ${o?`stroke-opacity="${o}"`:""}/>`;
   const dot=(p,o)=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1" ${o?`stroke-opacity="${o}"`:""}/>`;
   let s="", props=(m.props||[]).map(fn=>fn(pt)).join("");
+  props+=mvGlow(pt, m.feel);
   if(m.front){ const P=pt, o=.95;
-    const pairs=m.front; pairs.forEach(([a,b])=>{ s+=seg(P[a],P[b],2.2); });
+    const pairs=m.front; pairs.forEach(([a,b,op])=>{ if(P[a]&&P[b]) s+=seg(P[a],P[b],2.2,op); });
     s+=`<circle cx="${P.hd[0]}" cy="${P.hd[1]}" r="7" fill="var(--mvbg,#111)" stroke="${C}" stroke-width="1.6"/>`;
     return props+s;
   }
@@ -1849,14 +1873,19 @@ Object.assign(MOVES, {
       return [0,1].map(j=>.5*(2*p1[j]+(-p0[j]+p2[j])*t+(2*p0[j]-5*p1[j]+4*p2[j]-p3[j])*t2+(-p0[j]+3*p1[j]-3*p2[j]+p3[j])*t3)); };
     const pose=(kn,an)=>{ const dx=an[0]-kn[0], dy=an[1]-kn[1], d=Math.hypot(dx,dy)||1;
       return {pts:{hip, sh, hd, el, ha, el2, ha2, kn, an, to:[an[0]+dx/d*9, an[1]+dy/d*9], kn2:[128,126], an2:[99,126], to2:[89,126], curv:0}}; };
-    const loop=[]; for(let i=0;i<4;i++) for(let s=0;s<4;s++) loop.push(pose(cr(K,i,s/4), cr(A,i,s/4)));
-    const path=loop.map(f=>f.pts.kn);
-    const seq=[{p:pose([128,126],[99,126]), hold:.8, go:.7}];
-    loop.forEach(p=>seq.push({p, go:.32, lin:true}));
-    seq.push({p:pose([128,126],[99,126]), hold:.6, go:.7});
-    [...loop].reverse().forEach(p=>seq.push({p, go:.32, lin:true}));
-    const guide=()=>`<path d="M${path.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")}Z" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 3"/>`;
-    return {props:[PR.mat, guide], seq, thumbT:2.75};
+    /* achteraanzicht: linkerknie (kijker links) gaat omhoog, opzij en naar voren */
+    /* bovenaanzicht (hoofd rechts): de knie tekent een liggende cirkel naast het lichaam */
+    const KB=[[126,87],[104,85],[124,61],[147,83]], AB=[[99,87],[100,84],[102,64],[124,85]];
+    const poseB=(kn,an)=>({pts:{hp:[128,96],sc:[165,96],hpL:[128,89],hpR:[128,103],shL:[165,86],shR:[165,106],haL:[168,81],haR:[168,111],hd:[182,96],knR:[126,105],anR:[99,105],knL:kn,anL:an}});
+    const build=(pf,KK,AA,start)=>{ const loop=[]; for(let i=0;i<4;i++) for(let s=0;s<4;s++) loop.push(pf(cr(KK,i,s/4), cr(AA,i,s/4)));
+      const seq=[{p:start, hold:.8, go:.7}]; loop.forEach(p=>seq.push({p, go:.32, lin:true}));
+      seq.push({p:start, hold:.6, go:.7}); [...loop].reverse().forEach(p=>seq.push({p, go:.32, lin:true})); return {seq, loop}; };
+    const A1=build(pose,K,A,pose([128,126],[99,126])), B1=build(poseB,KB,AB,poseB([126,87],[99,87]));
+    const path=A1.loop.map(f=>f.pts.kn), pathB=B1.loop.map(f=>f.pts.knL);
+    const gd=P=>()=>`<path d="M${P.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join("L")}Z" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 3"/>`;
+    return {props:[PR.mat, gd(path)], seq:A1.seq, thumbT:2.75,
+      v2:{label:"van boven", R:1.9, props:[gd(pathB)], seq:B1.seq, feel:{pts:["hpL"]},
+        front:[["hp","sc"],["sc","hd"],["shL","shR"],["shL","haL"],["shR","haR"],["hpL","hpR"],["hpR","knR",.4],["knR","anR",.4],["hpL","knL"],["knL","anL"]]}};
   })(),
   S_9090:{front:[["hd","sh"],["sh","hip"],["hip","kn"],["kn","an"],["hip","kn2"],["kn2","an2"],["sh","el"],["el","ha"],["sh","el2"],["el2","ha2"]], props:[PR.mat], seq:[
     {p:{pts:{hip:[146,118],kn:[182,123],an:[156,127],kn2:[112,123],an2:[100,104],sh:[146,80],hd:[146,62],el:[160,100],ha:[170,116],el2:[132,100],ha2:[124,116]}}, hold:1.2, go:2.4},
@@ -1877,6 +1906,32 @@ Object.assign(MOVES, {
     {p:{hip:[121,110],T:-8,N:-8,leg:{a:[-30,180],f:180},arm:{a:[-16,-9]}}, hold:1.2, go:2.8},
     {p:{hip:[118,111],T:-11,N:-5,leg:{a:[-38,180],f:180},arm:{a:[-15,-6]}}, hold:1.6, go:2.8}]}
 });
+/* Waar voel je de rek? (roze gloed op het poppetje + tekst) */
+Object.entries({
+  S_LUNGE:{segs:[["hip","kn2"]], label:"voorkant van je heup, achterste been"},
+  S_HALF:{segs:[["hip","kn"],["kn","an"]], label:"achterkant van je gestrekte been"},
+  S_PIGEON:{segs:[["hip","kn"]], pts:["hip"], label:"bil en buitenkant heup van je voorste been"},
+  S_STRADDLE:{segs:[["hpL","knL"],["hpR","knR"]], label:"binnenkant van je bovenbenen"},
+  S_CALF:{segs:[["kn2","an2"]], label:"kuit van je achterste been"},
+  S_CATCOW:{spine:true, label:"hele rug, van stuit tot nek"},
+  S_THREAD:{spine:"hoog", pts:["sh"], label:"bovenrug en schouder"},
+  S_HIPCIRC:{pts:["hip"], label:"heupgewricht (losmaken, geen rek)"},
+  S_9090:{segs:[["hip","kn"],["hip","kn2"]], pts:["hip"], label:"bil van je voorste been en heup van je achterste been"},
+  S_WGS:{segs:[["hip","kn2"]], spine:"hoog", label:"voorkant heup achterste been en bovenrug"},
+  S_SQUAT:{segs:[["hip","kn"]], pts:["an"], label:"heupen, liezen en enkels"},
+  S_SPLIT:{segs:[["hip","kn"],["kn","an"],["hip","kn2"]], label:"achterkant voorste been, voorkant heup achterste been"},
+  S_TWIST:{spine:"laag", pts:["hip"], label:"onderrug en buitenkant heup"},
+  S_CHILD:{spine:true, pts:["sh"], label:"onderrug, heupen en schouders"}
+}).forEach(([k,f])=>{ if(MOVES[k]) MOVES[k].feel=f; });
+/* Tweede camerahoek waar je de beweging van opzij niet goed ziet (loopt gelijk met het hoofdbeeld) */
+MOVES.S_TWIST.v2={label:"van boven", R:1.1, props:[], feel:{segs:[["hp","ls"]]},
+  front:[["hp","sc"],["sc","hd"],["hpL","hpR"],["shL","shR"],["shL","elL"],["elL","haL"],["shR","elR"],["elR","haR"],["hpL","knL"],["knL","anL"],["hpR","knR"],["knR","anR"]],
+  seq:[{p:{pts:{hp:[150,96],ls:[132,96],sc:[112,96],hpL:[150,89],hpR:[150,103],shL:[112,84],shR:[112,108],elL:[104,66],haL:[96,50],elR:[104,126],haR:[96,142],hd:[94,96],knL:[158,91],anL:[184,91],knR:[158,101],anR:[184,101]}}, hold:.8, go:2.4},
+       {p:{pts:{hp:[150,96],ls:[132,96],sc:[112,96],hpL:[150,90],hpR:[150,102],shL:[112,84],shR:[112,108],elL:[104,66],haL:[96,50],elR:[104,126],haR:[96,142],hd:[94,96],knL:[170,113],anL:[186,100],knR:[168,124],anR:[186,110]}}, hold:1.8, go:2.4}]};
+MOVES.S_THREAD.v2={label:"van voren", R:1.1, props:[PR.mat], feel:{pts:["shR"]},
+  front:[["hpL","hpR",.35],["hpL","knL",.35],["hpR","knR",.35],["nk","hd"],["shL","shR"],["shL","elL"],["elL","haL"],["shR","elR"],["elR","haR"]],
+  seq:[{p:{pts:{hpL:[142,102],hpR:[158,102],knL:[141,125],knR:[159,125],shL:[137,92],shR:[163,84],nk:[150,87],hd:[150,74],elL:[136,109],haL:[136,126],elR:[166,64],haR:[168,44]}}, hold:.5, go:2.2},
+       {p:{pts:{hpL:[142,100],hpR:[158,100],knL:[141,125],knR:[159,125],shL:[139,95],shR:[157,113],nk:[150,109],hd:[150,117],elL:[137,110],haL:[136,126],elR:[132,122],haR:[106,125]}}, hold:.8, go:2.2}]};
 /* Teken één moment (voor statische weergave) */
 function mvFrame(k, time){ const m=MOVES[k]; if(!m) return ""; const st=mvAt(m, time||0); const pt=mvSolve(st.p); return `<svg class="mv" viewBox="0 -14 300 150" role="img" aria-label="beweging">${mvSVG(pt,m)}</svg>`; }
 /* Start een lus in een element; geeft stopfunctie terug */
@@ -1890,10 +1945,12 @@ function mvBox(m, R){ R = R || 1.35;
 }
 function mvPlay(el, k, onPhase){
   const m=MOVES[k]; if(!m){ el.innerHTML=""; return ()=>{}; }
-  el.innerHTML=`<svg class="mv" viewBox="${mvBox(m)}" role="img" aria-label="beweging"></svg>`;
-  const svg=el.firstChild, t0=performance.now(); let raf, last=-1;
+  const v2=m.v2;
+  el.innerHTML=`<svg class="mv" viewBox="${mvBox(m)}" role="img" aria-label="beweging"></svg>`+(v2?`<div class="mv-v2"><svg viewBox="${mvBox(v2,v2.R||1.2)}" style="aspect-ratio:${v2.R||1.2}/1" aria-hidden="true"></svg><span>${v2.label}</span></div>`:"");
+  el.classList.toggle("two", !!v2);
+  const svg=el.firstChild, svg2=v2?el.querySelector(".mv-v2 svg"):null, t0=performance.now(); let raf, last=-1;
   const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const tick=now=>{ const st=mvAt(m, reduce?0:(now-t0)/1000); svg.innerHTML=mvSVG(mvSolve(st.p),m); if(onPhase && st.i!==last){ last=st.i; onPhase(st.i); } if(!reduce) raf=requestAnimationFrame(tick); };
+  const tick=now=>{ const tt=reduce?(m.thumbT||0):(now-t0)/1000, st=mvAt(m, tt); svg.innerHTML=mvSVG(mvSolve(st.p),m); if(svg2) svg2.innerHTML=mvSVG(mvSolve(mvAt(v2, tt).p),v2); if(onPhase && st.i!==last){ last=st.i; onPhase(st.i); } if(!reduce) raf=requestAnimationFrame(tick); };
   raf=requestAnimationFrame(tick); return ()=>cancelAnimationFrame(raf);
 }
 
@@ -2195,7 +2252,7 @@ window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "35"; let lastCheck = Date.now();
+const APPV = "36"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
