@@ -541,6 +541,12 @@ input,select,textarea{font-size:16px!important}
 .rt-feelhere i{width:10px;height:10px;border-radius:50%;background:#ff9db4;opacity:.8;flex:none}
 .rt-feelhere b{color:var(--ink);font-weight:600}
 .rt-li .feel{color:#ffb8c8}
+.headbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.headbtns .swaphead{margin-top:0;padding:4px 8px;font-size:.7rem;white-space:nowrap}
+.xtag{border-style:dashed}
+.day .srpe-dots{display:grid!important;grid-template-columns:repeat(5,32px);gap:8px!important;justify-content:start}.day .srpe-dots .dot{margin:0!important}
+.xtra{margin:0 0 4px}.xcard{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:2px 0 12px}
+.xtop{display:flex;justify-content:space-between;align-items:center;gap:10px}.xtop b{font-size:.92rem}
+.xtop button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 10px;font:inherit;font-size:.74rem;cursor:pointer}
 </style>
 </head>
 <body>
@@ -1027,7 +1033,7 @@ function syncSession(key){
   Object.keys(fl).forEach(k=>{ const f=fl[k]; if(f.skip) enqueue("Sets", key+"|"+k+"|skip", [key, wk, k, EX[k].n, "-", "", "", "", f.pain?"ja":"", "overgeslagen"+(f.note?" · "+f.note:"")]); });
 }
 function syncDay(key, name, w){ enqueue("Trainingen", key, [key, w, name, S.days[key]?"ja":"nee", (S.srpe||{})[key]||""]); }
-function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}, swap:S.swap||{}, rt:S.rt||{}, rtAdj:S.rtAdj||{}, meas:S.meas||{}})]), 8000); }
+function syncBackup(){ clearTimeout(syncBackup._t); syncBackup._t=setTimeout(()=>enqueue("Backup","laatste",[JSON.stringify({days:S.days,logs:S.logs,runs:S.runs||{},flags:S.flags||{},mset:S.mset||{},newpr:S.newpr||{},srpe:S.srpe||{}, swap:S.swap||{}, extra:S.extra||{}, rt:S.rt||{}, rtAdj:S.rtAdj||{}, meas:S.meas||{}})]), 8000); }
 window.addEventListener("online", ()=>flush());
 const $ = id => document.getElementById(id);
 const CW=["Gedaan","Sterk","Prachtig","Weer een","Trots"];
@@ -1094,6 +1100,14 @@ const SWAPS = {
   tennis:{n:"Tennis", type:"tennis", e:"🎾"}, wandel:{n:"Wandelen", type:"rust", icon:"steps", e:"🚶‍♀️"}, fiets:{n:"Fietsen / spinning", type:"rust", icon:"dash", e:"🚲"},
   rust:{n:"Rust genomen", type:"rust", e:"🌙"}, anders:{n:"Iets anders", type:"rust", icon:"star", e:"✨"}
 };
+/* Extra training bovenop het plan (meerdere per dag mogelijk) */
+const XTRA = {loop:{n:"Hardlopen",e:"👟"}, kracht:{n:"Krachttraining",e:"🏋️"}, pilates:{n:"Pilates",e:"🧘‍♀️"}, tennis:{n:"Tennis",e:"🎾"},
+  wandel:{n:"Wandelen",e:"🚶‍♀️"}, fiets:{n:"Fietsen / spinning",e:"🚲"}, rek:{n:"Rekken / yoga",e:"🤸‍♀️"}, anders:{n:"Iets anders",e:"✨"}};
+const xName = x => (x.t==="anders" && x.label) ? x.label : (XTRA[x.t]||XTRA.anders).n;
+const xLine = x => xName(x)+(x.min?" · "+x.min+" min":"")+(x.km?" · "+x.km+" km":"")+(x.rpe?" · zwaarte "+x.rpe+"/10":"");
+function syncExtra(key, w, removedIdx){ const L=(S.extra||{})[key]||[];
+  L.forEach((x,j)=>enqueue("Trainingen", key+"-x"+j, [key, w, "Extra: "+xName(x)+(x.min?" · "+x.min+" min":"")+(x.km?" · "+x.km+" km":""), "ja", x.rpe||""]));
+  if(removedIdx!==undefined) enqueue("Trainingen", key+"-x"+L.length, [key, w, "Extra (verwijderd)", "nee", ""]); }
 function effDay(w, i){
   const d = WEEKS[w].days[i]; if(!d) return d;
   const key = iso(dayDates(w)[i]), sw = (S.swap||{})[key]; if(!sw || !SWAPS[sw.t]) return d;
@@ -1372,7 +1386,14 @@ function renderWeek(){
     const swapHtml = d.swapped
       ? `<div class="swapbar"><span>↔ Aangepast: <b class="sw-n">${d.name}</b> in plaats van ${d.orig.name}</span><button data-swreset>Terug naar plan</button></div>`
       : (d.type!=="rust" || isToday || dt < new Date() ? `<details class="swapq"><summary>↔ Toch iets anders gedaan?</summary><p class="small muted" style="margin:8px 0">Kies wat je echt gedaan hebt. Dan log je dat, en nemen we het mee in je volgende week.</p><div class="swapopts">${Object.entries(SWAPS).filter(([k,o])=>!(o.session && o.session===d.session) && !(o.type===d.type && !o.session && k!=="anders" && k!=="wandel" && k!=="fiets")).map(([k,o])=>`<button data-swap="${k}">${o.e} ${o.n}</button>`).join("")}</div></details>` : "");
-    body = swapHtml + body;
+    const canX = isToday || dt < new Date(), XL=(S.extra||{})[key]||[];
+    const xHtml = canX ? `<div class="xtra">${XL.map((x,j)=>`<div class="xcard"><div class="xtop"><b>➕ Extra: <span class="xn">${xName(x)}</span></b><button data-xdel="${j}">Verwijder</button></div>
+        ${x.t==="anders"?`<div class="runf"><div style="flex:1"><label>Wat heb je gedaan?</label><input type="text" data-xf="label" data-xi="${j}" value="${(x.label||"").replace(/"/g,"&quot;")}" placeholder="Bijv. yoga, dansles, zwemmen"></div></div>`:""}
+        <div class="runf"><div><label>Hoe lang (min)</label><input type="number" inputmode="numeric" data-xf="min" data-xi="${j}" value="${x.min||""}" placeholder="30"></div>${x.t==="loop"?`<div><label>Afstand (km)</label><input type="number" inputmode="decimal" step="0.1" data-xf="km" data-xi="${j}" value="${x.km||""}" placeholder="5"></div>`:""}</div>
+        <p class="small" style="margin:10px 0 6px">Hoe zwaar voelde het? <span class="muted">(1 = heel licht, 10 = alles gegeven)</span></p>
+        <div class="dots srpe-dots">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="dot ${x.rpe==n?"on":""}" role="button" data-xr="${n}" data-xi="${j}">${n}</div>`).join("")}</div></div>`).join("")}
+      <details class="swapq xadd"><summary>➕ ${XL.length?"Nog een extra training toevoegen":"Extra training gedaan?"}</summary><p class="small muted" style="margin:8px 0">Iets gedaan bovenop je plan? Voeg het toe. Je planning van vandaag blijft staan, en we tellen het mee voor volgende week.</p><div class="swapopts">${Object.entries(XTRA).map(([k,o])=>`<button data-xadd="${k}">${o.e} ${o.n}</button>`).join("")}</div></details></div>` : "";
+    body = swapHtml + xHtml + body;
     const sw = (S.swap||{})[key];
     if (sw && !d.session && d.type!=="loop" && sw.t!=="rust"){
       body += `${sw.t==="anders"?`<div class="runf"><div style="flex:1"><label>Wat heb je gedaan?</label><input type="text" data-sw="label" value="${(sw.label||"").replace(/"/g,"&quot;")}" placeholder="Bijv. yoga, dansles, zwemmen"></div></div>`:""}
@@ -1382,7 +1403,7 @@ function renderWeek(){
     }
     if (wType) body += wucd(wType,"cd", isTennisDay?"lopen":"") + (isTennisDay ? wucd("tennis","cd","tennis") : "");
 
-    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div>${rid?`<span class="rt-tag">${ROUT[rid].e} ${ROUT[rid].n} · ${rtMinutes(rid,W)} min${(S.rt||{})[key+"-"+rid]?" ✓":""}</span>`:""}${!d.swapped && (isToday || dt < new Date()) ? `<button class="swaphead" data-swopen>↔ Iets anders gedaan?</button>` : ""}</div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
+    div.innerHTML = `<div class="day-head"><div class="badge t-${d.type}">${ic(ICONS[d.icon]?d.icon:d.type)}</div><div class="day-title"><div class="day-date">${isToday?'Vandaag · ':''}${fmt(dt)}</div><div class="day-name">${d.name}</div><div class="day-sub">${d.sub}</div>${rid?`<span class="rt-tag">${ROUT[rid].e} ${ROUT[rid].n} · ${rtMinutes(rid,W)} min${(S.rt||{})[key+"-"+rid]?" ✓":""}</span>`:""}${((S.extra||{})[key]||[]).length?`<span class="rt-tag xtag">➕ ${((S.extra||{})[key]).map(xName).join(", ")}</span>`:""}${(isToday || dt < new Date()) ? `<div class="headbtns">${!d.swapped?`<button class="swaphead" data-swopen>↔ Iets anders</button>`:""}<button class="swaphead" data-xopen>➕ Extra</button></div>` : ""}</div><div class="check" role="button" aria-label="Afvinken">✓</div><div class="chev">▶</div></div><div class="day-body">${body}</div>`;
     const chk = div.querySelector(".check");
     const paint = (user)=>{ chk.classList.toggle("on",!!S.days[key]); div.classList.toggle("done",!!S.days[key]); updateProg(); if(isToday){ if(user) setTimeout(()=>div.classList.toggle("open",!S.days[key]), S.days[key]?1400:0); renderDayDone(user); } };
     chk.addEventListener("click", e=>{ e.stopPropagation(); const wasDone=weekDone(W); S.days[key]=!S.days[key]; save(); syncDay(key, syncName(d,key), W); syncBackup(); paint(true); renderRosary(); if(S.days[key]){ celebrate(); if(!wasDone && weekDone(W)) setTimeout(()=>showLove("Je kraal van deze week is vol 🐒"), 1900); if(d.type!=="rust" && key===TODAY) startFuel(); } });
@@ -1394,6 +1415,11 @@ function renderWeek(){
     div.querySelectorAll("[data-swreset]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const o=SWAPS[(S.swap[key]||{}).t]||{}; if(o.pm && S.pmode) delete S.pmode[key]; delete S.swap[key]; renderWeek._last=key; save(); syncDay(key, d0.name, W); syncBackup(); renderWeek(); }));
     div.querySelectorAll("[data-sw]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ S.swap[key][inp.dataset.sw]=inp.value; save(); clearTimeout(inp._t); inp._t=setTimeout(()=>{ syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); if(inp.dataset.sw==="label"){ const n=effDay(W,i).name; div.querySelector(".day-name").textContent=n; const sb=div.querySelector(".sw-n"); if(sb) sb.textContent=n; } },800); }); });
     div.querySelectorAll("[data-swr]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); S.srpe=S.srpe||{}; S.srpe[key]=+b.dataset.swr; save(); div.querySelectorAll("[data-swr]").forEach(x=>x.classList.toggle("on",x===b)); syncDay(key, syncName(effDay(W,i),key), W); syncBackup(); }));
+    const xo = div.querySelector("[data-xopen]"); if(xo) xo.addEventListener("click", e=>{ e.stopPropagation(); div.classList.add("open"); const q=div.querySelector(".xadd"); if(q){ q.open=true; setTimeout(()=>q.scrollIntoView({behavior:"smooth",block:"center"}),50); } });
+    div.querySelectorAll("[data-xadd]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const t=b.dataset.xadd; S.extra=S.extra||{}; (S.extra[key]=S.extra[key]||[]).push({t}); renderWeek._last=key; save(); syncExtra(key,W); syncBackup(); toast(XTRA[t].e+" Extra "+XTRA[t].n.toLowerCase()+" toegevoegd"); renderWeek(); setTimeout(()=>{ const c=[...document.querySelectorAll(".day.open .xcard")].pop(); if(c) c.scrollIntoView({behavior:"smooth",block:"center"}); },80); }));
+    div.querySelectorAll("[data-xdel]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const j=+b.dataset.xdel; S.extra[key].splice(j,1); if(!S.extra[key].length) delete S.extra[key]; renderWeek._last=key; save(); syncExtra(key,W,j); syncBackup(); renderWeek(); }));
+    div.querySelectorAll("[data-xf]").forEach(inp=>{ inp.addEventListener("click",e=>e.stopPropagation()); inp.addEventListener("input",()=>{ const x=S.extra[key][+inp.dataset.xi]; x[inp.dataset.xf]=inp.value; save(); clearTimeout(inp._t); inp._t=setTimeout(()=>{ syncExtra(key,W); syncBackup(); if(inp.dataset.xf==="label"){ const n=inp.closest(".xcard").querySelector(".xn"); if(n) n.textContent=xName(x); } },800); }); });
+    div.querySelectorAll("[data-xr]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); const x=S.extra[key][+b.dataset.xi]; x.rpe=+b.dataset.xr; save(); b.parentNode.querySelectorAll("[data-xr]").forEach(y=>y.classList.toggle("on",y===b)); syncExtra(key,W); syncBackup(); }));
     const lb = div.querySelector("[data-log]"); if (lb) lb.addEventListener("click", ()=>openLogger(W,i));
     (isToday ? $("todayDay") : el).appendChild(div); paint();
   });
@@ -2158,7 +2184,8 @@ function renderAllRecipes(){
 /* ======================= EXPORT ======================= */
 function buildExport(){
   const wk = WEEKS[W], dates = dayDates(W); let t = `📋 Eva · ${wk.kicker} (${fmt(dates[0])} – ${fmt(dates[dates.length-1])})\n\n🏋️ TRAININGEN\n`;
-  wk.days.forEach((d0,i)=>{ const k=iso(dates[i]), d=effDay(W,i), sw=(S.swap||{})[k]; t += `${S.days[k]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}${d.swapped?' (i.p.v. '+d.orig.name+')':''}${(S.pmode||{})[k]&&d.session==='C'?' ('+S.pmode[k]+')':''}${sw&&sw.min?' · '+sw.min+' min':''}${(S.srpe||{})[k]?' · zwaarte '+S.srpe[k]+'/10':''}\n`; });
+  wk.days.forEach((d0,i)=>{ const k=iso(dates[i]), d=effDay(W,i), sw=(S.swap||{})[k]; t += `${S.days[k]?'✅':'⬜️'} ${fmt(dates[i])}: ${d.name}${d.swapped?' (i.p.v. '+d.orig.name+')':''}${(S.pmode||{})[k]&&d.session==='C'?' ('+S.pmode[k]+')':''}${sw&&sw.min?' · '+sw.min+' min':''}${(S.srpe||{})[k]?' · zwaarte '+S.srpe[k]+'/10':''}\n`; ((S.extra||{})[k]||[]).forEach(x=>{ t += `   ➕ Extra: ${xLine(x)}\n`; }); });
+  { const XA=dates.flatMap(d=>(S.extra||{})[iso(d)]||[]); if(XA.length) t += `Extra trainingen deze week: ${XA.length}${XA.some(x=>x.min)?" · samen "+XA.reduce((a,x)=>a+(+x.min||0),0)+" min":""}\n`; }
   t += `\n📒 LOGBOEK\n`; let any=false;
   Object.keys(EX).forEach(k=>{ (S.logs[k]||[]).filter(e=>e.week===W && e.sets.some(s=>s&&s.r)).forEach(e=>{ any=true; t += `${k} ${EX[k].n} (${e.date}): ${e.sets.filter(s=>s&&s.r).map(s=>(EX[k].nokg?'':(s.kg||0)+'kg×')+s.r).join(', ')}\n`; }); });
   if(!any) t += "(niets gelogd)\n";
@@ -2273,13 +2300,13 @@ if (!S.onboarded) openTour();
 else { S.loveSeen=S.loveSeen||{}; const fri=new Date().getDay()===5; if ((fri||LOVE_DATES[TODAY]) && !S.loveSeen[TODAY]){ S.loveSeen[TODAY]=true; save(); setTimeout(()=>showLove(LOVE_DATES[TODAY]?"Speciaal voor vandaag":"Het is vrijdag 💌", LOVE_DATES[TODAY]||null), 1400); } }
 $("tourAgain").addEventListener("click", openTour);
 renderShare(); flush();
-$("restoreBtn").addEventListener("click",()=>{ try{ const d=JSON.parse($("restoreTa").value.trim()); ["days","logs","runs","flags","mset","newpr","srpe"].forEach(k=>{ if(d[k]) S[k]=Object.assign(S[k]||{}, d[k]); }); save(); renderWeek(); renderLogbook(); toast("Hersteld! Je gegevens zijn terug ✨"); $("restoreTa").value=""; }catch(e){ toast("Die code klopt niet. Kopieer de hele cel uit de sheet."); } }); renderFood(); renderAllRecipes();
+$("restoreBtn").addEventListener("click",()=>{ try{ const d=JSON.parse($("restoreTa").value.trim()); ["days","logs","runs","flags","mset","newpr","srpe","swap","extra","rt","meas"].forEach(k=>{ if(d[k]) S[k]=Object.assign(S[k]||{}, d[k]); }); save(); renderWeek(); renderLogbook(); toast("Hersteld! Je gegevens zijn terug ✨"); $("restoreTa").value=""; }catch(e){ toast("Die code klopt niet. Kopieer de hele cel uit de sheet."); } }); renderFood(); renderAllRecipes();
 show((location.hash||"").replace("#",""));
 window.addEventListener("hashchange",()=>show(location.hash.replace("#","")));
 </script>
 <script>if("serviceWorker" in navigator && location.protocol==="https:"){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 /* Staat de app nog open van eerder? Bij terugkomen even kijken of er een nieuwe versie is, en dan verversen (niet tijdens een training). */
-const APPV = "37"; let lastCheck = Date.now();
+const APPV = "38"; let lastCheck = Date.now();
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState!=="visible" || location.protocol!=="https:" || Date.now()-lastCheck < 60000) return; lastCheck = Date.now();
   fetch("./?v="+Date.now(), {cache:"no-store"}).then(r=>r.text()).then(t=>{ const m=t.match(/const APPV = "(\d+)"/); if(m && m[1]!==APPV && !document.getElementById("modal").classList.contains("on")) location.reload(); }).catch(()=>{}); });</script>
 <div id="mvov" class="mvov"></div>
