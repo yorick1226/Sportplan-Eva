@@ -1,0 +1,93 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Eva Sportplan//NL
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Amsterdam
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:w1-20261116T000000-0@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261116T073000
+DTEND;TZID=Europe/Amsterdam:20261116T083000
+SUMMARY:🏋️ Kracht A
+DESCRIPTION:07:30 · startgewichten zoeken · samen met Yorick\n\nRoemeense deadlift (A2): die vond je lastig\, dus deze week draait het om techniek\, niet om gewicht. Begin licht\, bijvoorbeeld 2 × 8 kg. Billen naar achteren alsof je met je kont een deur dichtduwt\, halters dicht langs je benen\, rug lang. Je hoort het achter in je bovenbenen te voelen. Voel je het in je onderrug? Dan lichter en minder diep. Laat Yorick even meekijken.\\nLat pulldown (A5): vorige keer stond er 0 kg. Vul het getal van de stapel in\, ook als het een plaatnummer is. Dan zie je volgende week je vooruitgang.\n\nKracht A:\n• A1 Goblet squat met 1 halter\n• A2 Roemeense deadlift met 2 halters\n• A3 Split squat met 2 halters\n• A4 Chest press-machine (zittend)\n• A5 Lat pulldown (kabel\, brede stang)\n• A6 Pallof press aan de kabel\n• A7 Kuitheffen op 1 been op een trede\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Kracht A. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w1-20261118T000000-2@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261118T071500
+DTEND;TZID=Europe/Amsterdam:20261118T080000
+SUMMARY:👟 Hardlopen
+DESCRIPTION:07:15 · 30 min rustig\n\nEcht rustig: je kunt hele zinnen praten. Dat is langzamer dan je loopjes van vorige week (rond 5:45–5:50 per km). Het tempo maakt niet uit\, zolang je kunt kletsen. Rustig lopen bouwt je conditie terwijl je benen herstellen van de krachttraining.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Hardlopen. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w1-20261119T000000-3@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261119T190000
+DTEND;TZID=Europe/Amsterdam:20261119T200000
+SUMMARY:🏋️ Kracht B
+DESCRIPTION:19:00 · startgewichten zoeken\n\nZittend roeien (B3): ook hier stond 0 kg. Vul het getal van de stapel in.\\nEet 1–2 uur vooraf iets\, zoals een boterham of een bakje skyr met fruit\, en na afloop je avondeten met eiwit.\n\nKracht B:\n• B1 Hip thrust-machine\n• B2 Leg press-machine\n• B3 Zittend roeien aan de kabel (V-handvat)\n• B4 Shoulder press met 2 halters\, zittend\n• B5 Leg curl-machine (zittend)\n• B6 Abductor-machine (zittend)\n• B7 Dead bug + zijplank op de mat\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Kracht B. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w1-20261121T000000-5@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261121T090000
+DTEND;TZID=Europe/Amsterdam:20261121T100000
+SUMMARY:🧘 Pilates C + startmeting
+DESCRIPTION:09:00 · fase 1 + 15 min meten\n\nVorige zaterdag liep je in plaats van pilates\, dus de startmeting doe je nu\, na de pilates: max. push-ups\, plank en zijplank\, spagaat in cm en de enkeltest. Schrijf alles op\, dit is je nulpunt voor week 4.\n\nPilates C:\n• C1 The Hundred\n• C2 Single-leg stretch\n• C3 Push-up-progressie\n• C4 Clamshell + beenlift\n• C5 Glute bridge op 1 been\n• C6 Swimming\n• C7 Band pull-apart\n• C8 Bird dog\n• C9 Roll-up\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Pilates C + startmeting. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w1-20261122T000000-6@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261122T093000
+DTEND;TZID=Europe/Amsterdam:20261122T101500
+SUMMARY:👟 Hardlopen samen (optioneel)
+DESCRIPTION:09:30 · 30–40 min rustig met Yorick en/of Noa · check-in\n\nAlleen als je je fit voelt: geen zware benen en een normale readiness. Anders wordt het een wandeling\, ook goed. Tempo: zo rustig dat jullie kunnen kletsen. 's Avonds de check-in.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Hardlopen samen (optioneel). Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
