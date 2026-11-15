@@ -40,7 +40,7 @@ DTSTAMP:20261115T000000Z
 DTSTART;TZID=Europe/Amsterdam:20261117T073000
 DTEND;TZID=Europe/Amsterdam:20261117T083000
 SUMMARY:🏋️ Kracht A
-DESCRIPTION:07:30 · startgewichten zoeken\n\nRustig aan: 2–3 sets en stop elke set met nog 3 herhalingen in de tank. Morgen loop je met Noa\, dus je benen hoeven niet leeg.\\nRoemeense deadlift (A2): die vond je lastig\, dus deze week draait het om techniek\, niet om gewicht. Begin licht\, bijvoorbeeld 2 × 8 kg. Billen naar achteren alsof je met je kont een deur dichtduwt\, halters dicht langs je benen\, rug lang. Je hoort het achter in je bovenbenen te voelen. Voel je het in je onderrug? Dan lichter en minder diep.\\nLat pulldown (A5): vorige keer stond er 0 kg. Vul het getal van de stapel in\, ook als het een plaatnummer is.\n\nKracht A:\n• A1 Goblet squat met 1 halter\n• A2 Roemeense deadlift met 2 halters\n• A3 Split squat met 2 halters\n• A4 Chest press-machine (zittend)\n• A5 Lat pulldown (kabel\, brede stang)\n• A6 Pallof press aan de kabel\n• A7 Kuitheffen op 1 been op een trede\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+DESCRIPTION:07:30 · eerst InBody-scan · dan startgewichten zoeken\n\n⚠️ Eerst de InBody-scan\, vóór je training. Dit is je nulpunt: in week 4\, 8 en 12 vergelijk je hiermee. Zo meet je goed:\\n• ’s ochtends\, nog niet ontbeten en weinig gedronken\\n• eerst naar de wc\\n• vóór de training\, niet erna\\n• sokken en schoenen uit\, sieraden af\\nVraag om een print of maak een foto van de uitslag en stuur die naar Yorick. Kijk vooral naar je spiermassa. Wil je je gewicht liever niet zien? Vraag dan alleen naar je spiermassa. Na de scan een banaan\, dan trainen. Lukt het vandaag echt niet? Dan vrijdag vóór kracht B.\\n\\nRustig aan: 2–3 sets en stop elke set met nog 3 herhalingen in de tank. Morgen loop je met Noa\, dus je benen hoeven niet leeg.\\nRoemeense deadlift (A2): die vond je lastig\, dus deze week draait het om techniek\, niet om gewicht. Begin licht\, bijvoorbeeld 2 × 8 kg. Billen naar achteren alsof je met je kont een deur dichtduwt\, halters dicht langs je benen\, rug lang. Je hoort het achter in je bovenbenen te voelen. Voel je het in je onderrug? Dan lichter en minder diep.\\nLat pulldown (A5): vorige keer stond er 0 kg. Vul het getal van de stapel in\, ook als het een plaatnummer is.\n\nKracht A:\n• A1 Goblet squat met 1 halter\n• A2 Roemeense deadlift met 2 halters\n• A3 Split squat met 2 halters\n• A4 Chest press-machine (zittend)\n• A5 Lat pulldown (kabel\, brede stang)\n• A6 Pallof press aan de kabel\n• A7 Kuitheffen op 1 been op een trede\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
 URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -54,7 +54,7 @@ DTSTAMP:20261115T000000Z
 DTSTART;TZID=Europe/Amsterdam:20261118T071500
 DTEND;TZID=Europe/Amsterdam:20261118T080000
 SUMMARY:👟 Hardlopen met Noa
-DESCRIPTION:07:15 · ± 5 km rustig\n\nOp praattempo: je kunt hele zinnen zeggen. Dat is langzamer dan je loopjes van vorige week (5:45–6:00 per km)\, en dat is de bedoeling. Voelen je benen zwaar van gisteren? Dan houd je het op 4 km.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+DESCRIPTION:07:15 · ± 5 km rustig\n\nSpierpijn van gisteren is normaal: die is na 1–3 dagen weg en rustig lopen helpt juist. Maak eerst 2 minuten je enkels los: cirkels draaien en een paar keer op je tenen.\\nOp praattempo: je kunt hele zinnen zeggen. Dat is langzamer dan je loopjes van vorige week (5:45–6:00 per km)\, en dat is de bedoeling. Voelen je benen zwaar van gisteren? Dan houd je het op 4 km.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
 URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,7 +68,7 @@ DTSTAMP:20261115T000000Z
 DTSTART;TZID=Europe/Amsterdam:20261120T073000
 DTEND;TZID=Europe/Amsterdam:20261120T083000
 SUMMARY:🏋️ Kracht B
-DESCRIPTION:07:30 · startgewichten zoeken\n\nZittend roeien (B3): vorige keer stond er 0 kg. Vul het getal van de stapel in.\\nVrijdagavond ben je vrij\, dus vanochtend trainen. Eet vooraf iets kleins en binnen een uur erna ontbijt met eiwit.\n\nKracht B:\n• B1 Hip thrust-machine\n• B2 Leg press-machine\n• B3 Zittend roeien aan de kabel (V-handvat)\n• B4 Shoulder press met 2 halters\, zittend\n• B5 Leg curl-machine (zittend)\n• B6 Abductor-machine (zittend)\n• B7 Dead bug + zijplank op de mat\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+DESCRIPTION:07:30 · startgewichten zoeken\n\nInBody dinsdag niet gelukt? Doe hem nu\, vóór de training en vóór je ontbijt.\\nZittend roeien (B3): vorige keer stond er 0 kg. Vul het getal van de stapel in.\\nVrijdagavond ben je vrij\, dus vanochtend trainen. Eet vooraf iets kleins en binnen een uur erna ontbijt met eiwit.\n\nKracht B:\n• B1 Hip thrust-machine\n• B2 Leg press-machine\n• B3 Zittend roeien aan de kabel (V-handvat)\n• B4 Shoulder press met 2 halters\, zittend\n• B5 Leg curl-machine (zittend)\n• B6 Abductor-machine (zittend)\n• B7 Dead bug + zijplank op de mat\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
 URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -87,6 +87,20 @@ URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Over 30 min: Pilates C. Eet iets kleins 🍌
+TRIGGER:-PT30M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:w1-20261122T000000-6@sportplan-eva
+DTSTAMP:20261115T000000Z
+DTSTART;TZID=Europe/Amsterdam:20261122T093000
+DTEND;TZID=Europe/Amsterdam:20261122T101500
+SUMMARY:👟 Rustige loop (optioneel)
+DESCRIPTION:Za of zo · 25–35 min praattempo · check-in\n\nAlleen als je je goed voelt: geen zware benen en een readiness die niet veel lager is dan normaal. Anders wordt het een wandeling\, net zo goed.\\nLiever zaterdag? Loop dan zaterdag na de pilates of later op de dag. Zet hem bij zaterdag met ➕ Extra\, en tik hier op ↔ Iets anders → Rust.\\nEerst 2 minuten enkels losmaken. ’s Avonds de check-in\, met eventuele extra trainingen via ➕ Extra.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+URL:https://yorick1226.github.io/Sportplan-Eva/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Over 30 min: Rustige loop (optioneel). Eet iets kleins 🍌
 TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
