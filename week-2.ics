@@ -81,12 +81,12 @@ UID:w2-20261129T000000-6@sportplan-eva
 DTSTAMP:20261122T000000Z
 DTSTART;TZID=Europe/Amsterdam:20261129T093000
 DTEND;TZID=Europe/Amsterdam:20261129T101500
-SUMMARY:👟 Rustige loop of wandeling
-DESCRIPTION:09:30 · optioneel · max. 30 min · check-in\n\nAlleen als je je echt fit voelt en je benen niet zwaar zijn. Twijfel je? Dan een wandeling. Dezelfde regel als woensdag: maximaal 30 minuten op praattempo.\\n’s Avonds de check-in\, met eventuele extra trainingen via ➕ Extra.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
+SUMMARY:👟 Rustige loop
+DESCRIPTION:09:30 · max. 30 min, praattempo · check-in\n\nZelfde regel als maandag: maximaal 30 minuten\, en je moet de hele tijd kunnen kletsen. Stop na 30 minuten\, ook als je nog energie hebt.\\nZware benen of weinig energie? Dan wordt het een wandeling. Dat is ook goed.\\nEerst 2 minuten enkels losmaken. ’s Avonds de check-in\, met eventuele extra trainingen via ➕ Extra.\n\nEet 30–60 min vooraf iets kleins en binnen een uur erna iets met eiwit.\n\nOpen je app: https://yorick1226.github.io/Sportplan-Eva/
 URL:https://yorick1226.github.io/Sportplan-Eva/
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Over 30 min: Rustige loop of wandeling. Eet iets kleins 🍌
+DESCRIPTION:Over 30 min: Rustige loop. Eet iets kleins 🍌
 TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
